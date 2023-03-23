@@ -1,0 +1,6 @@
+{% set messages = get_active_messages() %}
+{% for message in messages %}
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/MarketingMessage/Type:' ~ message.getMarketingMessageType.getCode ~ '.html.twig', 'data': {
+        'message': message,
+    }}, {})) }}
+{% endfor %}

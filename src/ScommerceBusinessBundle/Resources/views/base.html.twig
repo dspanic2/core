@@ -1,0 +1,118 @@
+{% set body %}{% block body %}{% endblock %}{% endset %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ current_language }}" xml:lang="{{ current_language }}">
+<head>
+    {% include 'translation.html.twig' %}
+    {{ include('ScommerceBusinessBundle:Components:cookie_consent_configuration.html.twig') }}
+    {% set cconsent = app.request.cookies.get('cconsent')|json_decode %}
+    {% if cconsent and cconsent.categories.marketing.wanted is defined and cconsent.categories.marketing.wanted %}
+        <!-- Facebook Pixel Code -->
+        <!-- End Facebook Pixel Code -->
+    {% endif %}
+    <!-- Google Tag Manager -->
+    <!-- End Google Tag Manager -->
+
+    {% if is_pagespeed is not defined or not is_pagespeed %}
+        {% set cconsent = app.request.cookies.get('cconsent')|json_decode %}
+        {% if cconsent and cconsent is not empty %}
+            {% if get_env("IS_PRODUCTION") == 1 %}
+                <!-- Google Tag Manager -->
+                <!-- End Google Tag Manager -->
+
+                <!-- Facebook Pixel Code -->
+                <!-- End Facebook Pixel Code -->
+            {% endif %}
+        {% else %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components:cookie_consent_configuration.html.twig', 'data': {}}, {})) }}
+        {% endif %}
+    {% endif %}
+
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="web_author" content="Shipshape solutions d.o.o.">
+    <title>{% block title %}{{ site_base_name }}{% endblock %}</title>
+    <meta http-equiv="content-language" content="{{ current_language }}">
+    {% set x_default = false %}
+    {% if languages is not empty %}
+        {% for key,language_id in languages %}
+            {% set alt_url = get_entity_store_attribute(language_id,data.page,"url") %}
+            {% if alt_url == "/" %}
+                <link rel="alternate" href="{{ data.site_base_data.site_base_url }}{{ key }}/" hreflang="{{ key }}"/>
+            {% elseif alt_url is not empty %}
+                <link rel="alternate" href="{{ data.site_base_data.site_base_url }}{{ key }}/{{ alt_url }}"
+                      hreflang="{{ key }}"/>
+                {% if x_default == false %}
+                    <link rel="alternate" href="{{ data.site_base_data.site_base_url }}{{ key }}/{{ alt_url }}"
+                          hreflang="x-default"/>
+                    {% set x_default = true %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <meta name="description" content="{% block meta_description %}{{ site_base_name }}{% endblock %}">
+    <meta name="title" content="{% block meta_title %}{{ site_base_name }}{% endblock %}">
+
+    {% if data.page.doNotIndex is defined and data.page.doNotIndex == 1 %}
+        <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+
+    {% block og_data %}{% endblock %}
+    {% block tw_data %}{% endblock %}
+    {% block canonical %}{% endblock %}
+
+    {% set csses = [
+        '/frontend/js/growler/jquery.growl.css',
+        '/frontend/js/form-daterangepicker/daterangepicker.css',
+        '/frontend/js/fancybox/jquery.fancybox.css',
+        '/frontend/js/jquery_confirm/css/jquery-confirm.css',
+        '/frontend/js/leaflet/leaflet.css',
+        '/frontend/js/leaflet-fullscreen/leaflet.fullscreen.css',
+        '/frontend/js/air-datepicker/css/datepicker.min.css',
+        '/frontend/js/slick/slick.css',
+        '/frontend/js/slick/slick-theme.css',
+        '/frontend/js/slick-lightbox/dist/slick-lightbox.css',
+        '/frontend/js/jquery-responsive-tabs/css/responsive-tabs.css',
+        '/frontend/js/price-range/price_range_style.css',
+        '/frontend/js/jquery/jquery-ui.min.css'
+    ] %}
+    {% for css in csses %}
+        <link rel="preload" type="text/css" href="{{ css }}?{{ assets_version }}" as="style">
+        <link rel="stylesheet" type="text/css" href="{{ css }}?{{ assets_version }}">
+    {% endfor %}
+</head>
+<body class="ecshape page-{{ data.page.templateType.code|default("unknown") }} {% block body_class %}{% endblock %}" {% if get_env('IS_PRODUCTION') == 1 %}data-recaptcha-site-key="{{ recaptcha_key }}"{% endif %} data-search-length="{{ get_env('MIN_SEARCH_LENGTH')|default(2) }}">
+{% if is_pagespeed is not defined or not is_pagespeed %}
+    {% if cconsent and cconsent is not empty %}
+        {% if get_env("IS_PRODUCTION") == 1 %}
+            <!-- Google Tag Manager (noscript) -->
+            <!-- End Google Tag Manager (noscript) -->
+        {% endif %}
+    {% endif %}
+{% endif %}
+<script type="application/ld+json">
+		{
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "url": "{{ data.site_base_data.site_base_url }}",
+            "logo": "{{ data.site_base_data.site_base_url }}{{ data.site_base_data.site_base_logo }}",
+            "email": "{{ data.site_base_data.site_base_contact }}",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry" : "{{ data.site_base_data.site_base_addressCountry }}",
+                "addressLocality": "{{ data.site_base_data.site_base_addressLocality }}",
+                "postalCode":"{{ data.site_base_data.site_base_postalCode }}",
+                "streetAddress": "{{ data.site_base_data.site_base_streetAddress }}"
+            },
+            "description": "{{ data.site_base_data.site_base_description }}",
+            "name": "{{ data.site_base_data.site_base_companyName }}",
+            "telephone": "{{ data.site_base_data.site_base_telephone }}",
+            "openingHours":["{{ data.site_base_data.site_base_openingHours }}"],
+            "priceRange": "{{ data.site_base_data.site_base_priceRange }}"
+        }
+
+
+</script>
+{{ body|raw }}
+</body>
+</html>

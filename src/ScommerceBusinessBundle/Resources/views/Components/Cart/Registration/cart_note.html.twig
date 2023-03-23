@@ -1,0 +1,8 @@
+<div class="form-section account">
+    <div class="row form-row full-width">
+        <div class="form-group note col-xs-12">
+{#            <label><span class="label-text">{% trans into current_language %}Note{% endtrans %}</span></label>#}
+            <textarea name="message" rows="5">{% if data.model.quote.message is not empty %}{{ data.model.quote.message|trim }}{% endif %}</textarea>
+        </div>
+    </div>
+</div>

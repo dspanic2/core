@@ -1,0 +1,22 @@
+<div class="sp-block-outer {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="panel-heading sp-frontend-edit-block-wrapper">
+                <h5>{% trans %}Edit{% endtrans %} container {% trans %}block{% endtrans %}
+                    <div class="options">
+                        <span class="sp-options-text sp-options-text-attribute-group sp-options-text-attribute-group-top sp-admin-button" data-action="add-block-modal-front" data-url="{{ path('page_block_update_form', {'form_type':'modal','parent_id': data.block.id, 'parent_type':'page_block'}) }}"><i class="sp-icon sp-icon-add sp-hover"></i></span>
+                        {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        <a class="sp-options-text sp-options-text-attribute-group sp-admin-button" href="{{ path('page_block_update_form', {'id': data.block.id}) }}"><i class="sp-icon sp-icon-edit sp-hover"></i></a>
+                    </div>
+                </h5>
+        </div>
+    {% endif %}
+    {% for row in data.block.preparedContent %}
+        <div class="row">
+            {% for block in row.blocks %}
+                <div class="col-xs-12 col-sm-{{ block.width }} col-md-{{ block.width }} sp-block-wrapper" data-block-id="{{ block.id }}">
+                    {{ render(controller('AppBundle:Block:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'}))}}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

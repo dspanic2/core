@@ -1,0 +1,328 @@
+<style>
+    #quotepreview {
+        padding: 50px 0;
+    }
+
+    #quotepreview p {
+        margin: 0;
+    }
+
+    #quotepreview #quotepreview-user-actions {
+        margin: 15px 0;
+    }
+
+    #quotepreview table {
+        width: 100%;
+    }
+
+    #quotepreview h1:not(.main-title),
+    #quotepreview h2.as-h1 {
+        font-size: 20px !important;
+        text-align: left;
+        margin: 15px 0 !important;
+    }
+
+    #quotepreview .item {
+        clear: both;
+        float: right;
+    }
+
+    #quotepreview .item.item > * {
+        display: inline-block;
+        float: left;
+        width: 250px;
+    }
+
+    #quotepreview .item.item > label {
+        text-align: right;
+        margin-right: 15px;
+    }
+
+    #quotepreview .cart-totals {
+        text-align: right;
+    }
+
+    #quotepreview .cart-totals .cart-total {
+        margin: 2px 0;
+    }
+
+    #quotepreview .cart-totals .cart-total .value {
+        display: inline-block;
+        width: 200px;
+        background: #F8F8F8;
+        border: 1px solid #D0D0D0;
+        padding: 2px;
+    }
+
+    #quotepreview th {
+        text-align: left;
+    }
+
+    #quotepreview td {
+        padding: 10px 0;
+    }
+
+</style>
+{% if data.model.quote is defined %}
+    <div id="quotepreview" data-quote-id="{{ data.model.quote.id }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>{% trans into current_language %}Offer{% endtrans %} - {{ data.model.quote.getName }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" id="quote-preview-content">
+                    {% if data.model.error is defined %}
+                        <h1 class="main-title">{{ data.model.error }}</h1>
+                    {% else %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="alert alert-info">
+                                <strong>{% trans into current_language %}Quote status{% endtrans %}: {{ data.model.quote.getQuoteStatus.name }}</strong>
+                            </div>
+                        {% endif %}
+                        {% if data.model.quote_status.id is defined and data.model.quote_status.id == 2 %}
+                            <div class="alert alert-warning">
+                                <strong>{% trans into current_language %}Quote is canceled{% endtrans %}</strong>
+                            </div>
+                        {% endif %}
+                        {% if data.model.message is defined and data.model.message is not empty %}
+                            {% for message in data.model.message %}
+                                <div class="alert alert-{{ message.type }}">
+                                    <strong>{{ message.content }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <div id="quote-html">
+                            <h1><strong>{% trans into current_language %}Price per items{% endtrans %}</strong></h1>
+                            <div class="table-responsive">
+                                <table class="table" id="calculation">
+                                    <thead>
+                                    <tr class="border_bottom">
+                                        <th class="th-first">{% trans into current_language %}Name{% endtrans %}</th>
+                                        <th>{% trans into current_language %}Code{% endtrans %}</th>
+                                        <th>{% trans into current_language %}Price{% endtrans %}</th>
+                                        <th>{% trans into current_language %}Quantity{% endtrans %}</th>
+                                        {# <th>{% trans into current_language %}Fixed discount{% endtrans %}</th>
+                                    <th>{% trans into current_language %}Percent discount(%){% endtrans %}</th> #}
+                                        <th>{% trans into current_language %}Total{% endtrans %}</th>
+                                        <th class="remove-in-pdf">{% trans into current_language %}VAT(%){% endtrans %}</th>
+                                        <th class="remove-in-pdf">{% trans into current_language %}VAT{% endtrans %}</th>
+                                        <th>{% trans into current_language %}Total with VAT{% endtrans %}</th>
+                                        <th>{% trans into current_language %}Currency{% endtrans %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% set total_price_no_tax = 0 %}
+                                    {% set total_tax_price = 0 %}
+                                    {% set total_price = 0 %}
+                                    {% set total_quantity = 0 %}
+                                    {% for item in data.model.quote.getQuoteItems %}
+                                        <tr class="border_bottom">
+                                            <td class="td-first" data-attr-code="name">{{ item.name }}</td>
+                                            <td data-attr-code="code">{{ item.code }}</td>
+                                            <td data-code="price">{{ item.getPriceItemWithoutTax|number_format(2, ',', '.') }}</td>
+                                            {% if item.getQty %}
+                                                {% set quantity = item.getQty|number_format(0, ',', '.') %}
+                                            {% else %}
+                                                {% set quantity = 1 %}
+                                            {% endif %}
+                                            <td data-attr-code="qty">{{ quantity|number_format(0, ',', '.') }}</td>
+                                            {# <td data-attr-code="fixed_discount">{% if item.getPriceFixedDiscount != 0 %}{{ item.getPriceFixedDiscount|number_format(2, ',', '.') }}{% endif %}</td>
+                                        <td data-attr-code="percent_discount">{% if item.getPercentDiscount != 0 %}{{ item.getPercentDiscount|number_format(2, ',', '.') }}{% endif %}</td> #}
+                                            <td data-total="">{{ item.getPriceWithoutTax|number_format(2, ',', '.') }}</td>
+                                            <td class="remove-in-pdf"
+                                                data-tax-type="">{{ item.taxType.getPercent|number_format(0, ',', '.') }}
+                                                %
+                                            </td>
+                                            <td class="remove-in-pdf"
+                                                data-tax-amount="">{{ item.getPriceTax|number_format(2, ',', '.') }}</td>
+                                            <td data-total-width-tax="">{{ item.getPriceTotal|number_format(2, ',', '.') }}</td>
+                                            <td data-currency-name="currency_name">{{ data.model.quote.getCurrency.sign }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="details">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-4">
+                                        {% if data.model.quote.account.isLegalEntity %}
+                                            <h2 class="as-h1">{% trans into current_language %}Company details{% endtrans %}</h2>
+                                            <div class="row">
+                                                <div class="first-name col-xs-12 col-sm-12">
+                                                    <p><label>{% trans into current_language %}Company name{% endtrans %}
+                                                            : </label><strong>{{ data.model.quote.account.name }}</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <h2 class="as-h1">{% trans into current_language %}Personal details{% endtrans %}</h2>
+                                            <div class="row">
+                                                <div class="first-name col-xs-12 col-sm-12">
+                                                    <p><label>{% trans into current_language %}First and last name{% endtrans %}
+                                                            : </label><strong>{{ data.model.quote.accountName }}</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        {% if data.model.quote.account.isLegalEntity %}
+                                            <br>
+                                            <h2 class="as-h1">{% trans into current_language %}Personal details{% endtrans %}</h2>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12">
+                                                    <p>
+                                                        <label>{% trans into current_language %}User{% endtrans %}: </label><strong>{{ data.model.quote.accountName }}</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12">
+                                                <p><label>{% trans into current_language %}Email{% endtrans %}
+                                                        : </label><strong>{{ data.model.quote.accountEmail }}</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12">
+                                                <p><label>{% trans into current_language %}Phone{% endtrans %}
+                                                        : </label><strong>{{ data.model.quote.accountPhone }}</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        {% if data.model.quote.account.isLegalEntity == 0 %}
+                                            {% set r1_data = data.model.quote.additionalData|json_decode %}
+                                            {% if r1_data is not empty %}
+                                                <p><strong>{% trans into current_language %}R1 invoice data{% endtrans %}</strong></p>
+                                                <p>
+                                                    {% trans into current_language %}Company name{% endtrans %}: {{ r1_data.company_name }}
+                                                    <br>
+                                                    {% trans into current_language %}Identification number{% endtrans %}: {{ r1_data.oib }}
+                                                    <br>
+                                                    {% trans into current_language %}City{% endtrans %}
+                                                    : {{ r1_data.city_name }} {{ r1_data.city_pbr }}<br>
+                                                    {% trans into current_language %}Address{% endtrans %}: {{ r1_data.street }}<br>
+                                                </p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-4">
+                                        <h2 class="as-h1">{% trans into current_language %}Addresses{% endtrans %}</h2>
+                                        <div class="payment-addresses">
+                                            <div class="row">
+                                                <div class="payment-type col-xs-12 col-sm-12">
+                                                    {# <div class="label"><strong>{% trans into current_language %}Payment address{% endtrans %}:</strong></div> #}
+                                                    {% if data.model.quote.accountBillingAddress is not empty %}
+                                                        {% set country = get_entity_store_attribute(current_store_id,data.model.quote.accountBillingAddress.city.country ,"name") %}
+                                                        <div class="value">
+                                                            <label>{% trans into current_language %}Payment address{% endtrans %}
+                                                                : </label><strong>{{ data.model.quote.accountBillingAddress.street }}
+                                                                , {{ data.model.quote.accountBillingAddress.city.name }} {{ data.model.quote.accountBillingAddress.city.postalCode }}
+                                                                , {{ country }}</strong></div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if data.model.quote.deliveryType is empty or data.model.quote.deliveryType.id != 1 %}
+                                            <br>
+                                            <div class="delivery-addresses">
+                                                <div class="row">
+                                                    <div class="payment-type col-xs-12 col-sm-12">
+                                                        {# <div class="label"><strong>{% trans into current_language %}Delivery address{% endtrans %}:</strong></div> #}
+                                                        {% if data.model.quote.accountShippingAddress is not empty %}
+                                                            {% set country = get_entity_store_attribute(current_store_id,data.model.quote.accountBillingAddress.city.country ,"name") %}
+                                                            <div class="value">
+                                                                <label>{% trans into current_language %}Delivery address{% endtrans %}
+                                                                    : </label><strong>{{ data.model.quote.accountShippingAddress.street }}
+                                                                    , {{ data.model.quote.accountShippingAddress.city.name }} {{ data.model.quote.accountShippingAddress.city.postalCode }}
+                                                                    , {{ country }}</strong></div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-4">
+                                        <h2 class="as-h1">{% trans into current_language %}Payment type and delivery{% endtrans %}</h2>
+                                        <div class="payment-type">
+                                            <div class="account">
+                                                <div class="row">
+                                                    <div class="delivery-type col-xs-12 col-sm-12">
+                                                        {% if data.model.quote.deliveryType is not empty %}
+                                                            {% set deliveryType = get_entity_store_attribute(current_store_id,data.model.quote.deliveryType ,"name") %}
+                                                            <div class="value">
+                                                                <label>{% trans into current_language %}Delivery type{% endtrans %}
+                                                                    : </label><strong>{{ deliveryType }}</strong></div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="payment-type col-xs-12 col-sm-12">
+                                                        {% if data.model.quote.paymentType is not empty %}
+                                                            {% set paymentType = get_entity_store_attribute(current_store_id,data.model.quote.paymentType ,"name") %}
+                                                            <div class="value">
+                                                                <label>{% trans into current_language %}Payment type{% endtrans %}
+                                                                    : </label><strong>{{ paymentType }}</strong></div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="quote-product-calculate-table">
+                                <div class="float-right">
+                                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_totals.html.twig', 'data': {'data': data,"hide_free_delivery_info":true}}, {})) }}
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        {#{% if app.session.get('account') is defined and app.session.get('account') is not empty %}#}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="sp-user-actions" class="text-right">
+                                        {% if data.model.payment_data is defined and data.model.payment_data.buttons is defined and data.model.payment_data.buttons is not empty %}
+                                            {% for button in data.model.payment_data.buttons %}
+                                                {{ button|raw }}
+                                            {% endfor %}
+                                            {% for form in data.model.payment_data.forms %}
+                                                {{ form|raw }}
+                                            {% endfor %}
+                                        {% endif %}
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            {% if data.model.quote.id %}
+                                                <a href="/page/quote/form/{{ data.model.quote.id }}"
+                                                   class="sp-btn btn btn-primary btn-red">{% trans into current_language %}Edit
+                                                        quote{% endtrans %}</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {#{% else %}
+                            <div class="login-section row">
+                                <div class="col-xs-12 cart-login text-right">
+                                    <span class="button btn-type-1 open-login local-overlay">{% trans into current_language %}Login{% endtrans %}</span>
+                                </div>
+                            </div>
+                        {% endif %}#}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div id="quotepreview" class="container text-center">
+        <div class="row">
+            <div class="col-sm-12" id="quote-preview-content">
+                {% trans into current_language %}Quote not found{% endtrans %}
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="CrmBusinessBundle\Entity\AccountEntity" table="account_entity">
+        ###CLASS_START
+        <one-to-many field="contacts" target-entity="CrmBusinessBundle\Entity\ContactEntity"  mapped-by="account">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="addresses" target-entity="CrmBusinessBundle\Entity\AddressEntity"  mapped-by="account">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="bankAccounts" target-entity="CrmBusinessBundle\Entity\AccountBankEntity"  mapped-by="account">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="accountProducts" target-entity="CrmBusinessBundle\Entity\ProductAccountPriceEntity"  mapped-by="account">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

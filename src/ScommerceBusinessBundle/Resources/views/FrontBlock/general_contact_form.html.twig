@@ -1,0 +1,10 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row contact-form-wrapper">
+        <div class="col-xs-12">
+            <h2>{% trans into current_language %}Contact us{% endtrans %}</h2>
+        </div>
+        <div class="col-xs-12">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form:contact_form.html.twig', 'data': {    }}, {})) }}
+        </div>
+    </div>
+</div>

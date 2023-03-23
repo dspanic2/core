@@ -1,0 +1,41 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    <label class="col-sm-4 col-xs-4 control-label">{% if is_granted('ROLE_ADMIN') %}<a
+            href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+        {% if attribute.note is not empty %}
+            <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                  rel="popover" data-html="true" data-placement="bottom"></span>
+        {% endif %}
+    </label>
+    <div class="col-sm-8 col-xs-8">
+        {% if formType=='form' and attribute.readOnly == false %}
+            <input data-type="link" {% if  attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                   class="form-control"
+                   type="text"
+                   placeholder={{ "URL"|trans }}
+                   name="{{ attribute.attributeCode }}"
+                    {% if value is not empty %}
+                {% apply spaceless %}
+                    value="{{ value.url }}"
+                {% endapply %}
+                    {% endif %}/>
+
+            <input data-type="link" {% if attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                   class="form-control"
+                   type="text"
+                   placeholder={{ "Title"|trans }}
+                   name="{{ attribute.attributeCode }}_title"
+                    {% if value is not empty %}
+                {% apply spaceless %}
+                    value="{{ value.title }}"
+                {% endapply %}
+                    {% endif %}/>
+        {% else %}
+            {% if value is not empty %}
+                <span class="form-control">
+                    <a class="sp-link-field" href='{{ value.url }}'><i {% if value.class is defined %}class="{{ value.class }}" {% endif %} aria-hidden="true"></i>{{ value.title }}</a>
+                </span>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

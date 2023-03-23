@@ -1,0 +1,123 @@
+@keyframes expand {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes slide-left {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+}
+
+@keyframes slide-right {
+    to {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+}
+
+.form-note {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    line-height: 19px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    color: #444;
+    background-color: #ffffff;
+    background-image: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.cke_contents {
+    -webkit-transition: height ease-in-out .15s !important;
+    -moz-transition: height ease-in-out .15s !important;
+    -o-transition: height ease-in-out .15s !important;
+    transition: height ease-in-out .15s !important;
+}
+
+.form-note textarea {
+    resize: vertical !important;
+}
+
+.note, .note-info {
+    padding: 10px;
+}
+
+.recent-note {
+    padding: 10px 0;
+}
+
+.recent-note .note-body {
+    position: relative;
+}
+
+.note-body {
+    vertical-align: middle;
+    margin: 5px 0;
+}
+
+.recent-note .note {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.recent-note .note:last-child {
+    border-bottom: none;
+}
+
+.note-footer {
+    color: #999;
+}
+
+.note-like-active {
+    color: #444;
+}
+
+.recent-note .note-left img {
+    border-radius: 100px;
+    width: 40px;
+}
+
+.note-float-right {
+    float: right;
+    margin-left: 5px;
+    visibility: hidden;
+}
+
+.sp-notes-link {
+    color: #4f8edc;
+}
+
+.note:hover .note-float-right {
+    visibility: visible;
+}
+
+.sp-notes-link:hover,
+.sp-notes-thumbs-up:hover {
+    cursor: pointer;
+}
+
+.note-body img {
+    max-width: 100%;
+    height: auto;
+}
+
+.note-info {
+    display: inline-block;
+}
+
+.slide-left {
+    animation: slide-left .35s ease-in-out;
+}
+
+.slide-right {
+    animation: slide-right .35s ease-in-out;
+}

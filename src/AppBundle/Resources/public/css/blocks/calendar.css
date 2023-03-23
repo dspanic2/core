@@ -1,0 +1,97 @@
+.sp-calendar-day-hover .fc-day-number:hover{
+    font-weight: 700;
+    cursor: pointer;
+}
+.fc-dayGridMonth-view .fc-widget-header{
+    margin-right: 0!important;
+}
+.sp .fc-dayGridMonth-view .fc-day-grid-container{
+    overflow: hidden!important;
+    height: 100%!important;
+}
+
+@media (max-width: 768px) {
+    .sp .fc-view-agendaDay thead tr.fc-first{
+        display: none!important;
+    }
+    .sp .fc-view-agendaDay .fc-agenda-axis{
+        display: none!important;
+    }
+    .sp .fc-view-agendaDay .fc-agenda-divider{
+        display: none!important;
+    }
+    .sp .fc-view-agendaDay .fc-agenda-slots{
+        display: none!important;
+    }
+    .sp .fc-view-agendaDay .fc-agenda-allday{
+        min-height: 400px;
+    }
+    .sp .fc-view-agendaDay .fc-content{
+        height: 400px;
+        overflow-y: auto;
+    }
+    .sp .fc-view-agendaDay .fc-event{
+        min-height: 30px;
+    }
+    .sp .fc-content{
+        margin-top: 40px;
+    }
+    .sp .fc-header-title{
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%)
+    }
+    .sp .fc-button-agendaWeek{
+        display: none!important;
+    }
+}
+@media (min-width: 769px) {
+    .sp .fc-button-agendaWeek{
+        display: none!important;
+    }
+    .sp .fc-button-agendaDay{
+        display: none!important;
+    }
+}
+
+.sp-calendar-print .fc-row .fc-content-skeleton td, .sp-calendar-print .fc-row .fc-mirror-skeleton td{
+    width: 150px!important;
+    min-width: 150px!important;
+    border: 1px solid #333;
+}
+.sp-calendar-print .fc-dayGridMonth-view .fc-body{
+    border: 1px solid #333;
+}
+.sp-calendar-print .fc-row .fc-content-skeleton .fc-day-top, .sp-calendar-print .fc-row .fc-mirror-skeleton .fc-day-top{
+    border-bottom: 0!important;
+    font-weight: 700;
+}
+.sp-calendar-print .fc-event-container{
+
+}
+.sp-calendar-print .fc-event-container > span{
+    padding: 5px 10px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+}
+.sp-calendar-print .fc-dayGridMonth-view .fc-widget-header{
+    width: 150px!important;
+    min-width: 150px;
+}
+.sp-calendar-print .fc-dayGridMonth-view .fc-day-grid-container{
+    overflow: hidden!important;
+    height: auto!important;
+}
+body.sp-print-body{
+    padding-top: 0!important;
+}
+.sp-calendar-print .fc-dayGrid-view .fc-body .fc-row{
+    height: auto!important;
+    min-height: 103px!important;
+}
+.sp-calendar-print .fc-row table{
+    min-height: 103px;
+}

@@ -1,0 +1,24 @@
+{% if submission|default(null) is null or group.getExcludeFromSubmission|default(0) != 1 %}
+    <div class="form-section webform-group">
+        {% set groupTitle = get_entity_store_attribute(current_store_id,group,"name") %}
+        {% if groupTitle is not empty %}
+            <h3 class="webform-group-title">{{ groupTitle }}</h3>
+        {% endif %}
+
+        {% set groupBody = get_entity_store_attribute(current_store_id,group,"body") %}
+        {% if groupBody is not empty %}
+            <div class="webform-group-body">{{ groupBody|raw }}</div>
+        {% endif %}
+
+        <div class="fields columns-{{ group.getColumns|default(1) }}">
+            {% for field in group.getFields() %}
+                {% if submission|default(null) is null or field.getExcludeFromSubmission|default(0) != 1 %}
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Webform:webform_field.html.twig', 'data': {
+                        'field': field,
+                        'submission': submission|default(null)
+                    }}, {})) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

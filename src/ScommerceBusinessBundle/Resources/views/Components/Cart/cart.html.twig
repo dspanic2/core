@@ -1,0 +1,50 @@
+<div id="cart">
+    {% if app.session.get('quote_error') is not empty %}
+        <div class="system-message error-message"><span
+                    class="system-message-close">×</span>{{ app.session.get('quote_error') }}</div>
+        {{ app.session.set('quote_error',"") }}
+    {% endif %}
+    {% if data.model.quote is empty or data.model.quote.quoteItems is empty %}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:no_cart.html.twig', 'data': {}}, {})) }}
+    {% else %}
+        <div class="row step-links">
+            <div class="col-xs-12">
+                <div class="section cart-steps">
+                    <ul class="links">
+                        <li id="cart-step-1-title" class="cart-step-title cart-overview active current">
+                            <div class="item">
+                                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:checkout_basket.html.twig', 'data': {}}, {})) }}
+                                <h3>
+                                    <p class="colored">{% trans into current_language %}Step 1{% endtrans %}</p>
+                                    <p>{% trans into current_language %}Your cart{% endtrans %}</p>
+                                </h3>
+                            </div>
+                        </li>
+                        <li id="cart-step-2-title" class="cart-step-title cart-buyer-info">
+                            <div class="item">
+                                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:checkout_globe.html.twig', 'data': {}}, {})) }}
+                                <h3>
+                                    <p class="colored">{% trans into current_language %}Step 2{% endtrans %}</p>
+                                    <p>{% trans into current_language %}Login and payment{% endtrans %}</p>
+                                </h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {# STEP 1 #}
+        <div class="row step-content">
+            <div class="col-xs-12">
+                <div id="cart-step-1" class="cart-step active current" data-step="1">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_step_1.html.twig', 'data': {'data': data}}, {})) }}
+                </div>
+                {% if data.model.additional_data is not defined or data.model.additional_data.min_order.disable_cart is not defined or data.model.additional_data.min_order.disable_cart == false %}
+                    <div id="cart-step-2" class="cart-step" data-step="2">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_step_2.html.twig', 'data': {'data': data}}, {})) }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>

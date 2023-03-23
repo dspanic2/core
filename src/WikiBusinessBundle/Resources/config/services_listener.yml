@@ -1,0 +1,19 @@
+services:
+
+ wiki_page_listener:
+    class: WikiBusinessBundle\EventListener\WikiPageListener
+    calls:
+       - [ setContainer,[ "@service_container" ] ]
+    tags:
+     - { name: kernel.event_listener, event: entity.created, method: onWikiPageCreated }
+     - { name: kernel.event_listener, event: entity.updated, method: onWikiPageUpdated }
+     - { name: kernel.event_listener, event: entity.deleted, method: onWikiPageDeleted }
+
+ wiki_topic_listener:
+   class: WikiBusinessBundle\EventListener\WikiTopicListener
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+   tags:
+     - { name: kernel.event_listener, event: entity.created, method: onWikiTopicCreated }
+     - { name: kernel.event_listener, event: entity.updated, method: onWikiTopicUpdated }
+     - { name: kernel.event_listener, event: entity.deleted, method: onWikiTopicDeleted }

@@ -1,0 +1,128 @@
+{% if child is not defined %}
+    {% set child = get_real_product(product, get_query_parameters()) %}
+{% endif %}
+<div class="product-cart-wrapper">
+    {% set isSaleable = get_product_is_saleable(product) %}
+    {% if child is defined %}
+        {% set isSaleable = get_product_is_saleable(child) %}
+    {% endif %}
+    {% if isSaleable %}
+        {% set priceInquiry = product.getPriceInquiry() %}
+        {% if child is defined %}
+            {% set priceInquiry = child.getPriceInquiry() %}
+        {% endif %}
+        {% if priceInquiry %}
+            <button class="send-inquiry local-overlay-toggle button btn-type-1" data-pid="{{ product.id }}">{% trans into current_language %}Send inquiry{% endtrans %}</button>
+        {% else %}
+            {% set queryParams = get_query_parameters() %}
+
+            {% set action = "/cart/add_to_cart" %}
+            {% set label = "Add to cart"|trans %}
+
+            {% if queryParams["qi"] is defined %}
+                {% set action = "/cart/update_cart" %}
+                {% set label = "Update in cart"|trans %}
+            {% endif %}
+
+            {% set unit = "pcs"|trans %}
+            {% set units = get_product_attribute_value_by_key(product,get_env("PRODUCT_UNIT_ATTRIBUTE_CODE")) %}
+            {% if units is not empty %}
+                {% set unit = unit.values[0].value %}
+            {% endif %}
+
+            {% set weights = product.getPreparedWeights %}
+
+            {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':data.configurable_bundle|default({})}, {}))|json_decode %}
+
+            <form class="item-cart main-cart item {% if weights is not empty %}by-unit{% endif %} {% if prices.bulk_prices is defined and prices.bulk_prices is not empty %}bulked-prices{% endif %}" action="{{ action }}">
+                <input type="text" name="im_not_a_human" style="display: none!important;">
+                <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+                <input type="hidden" value="{{ product.id }}" name="product_id">
+
+                {% if prices.bulk_prices is defined and prices.bulk_prices is not empty %}
+                    <input type="hidden" value="" name="qty">
+                    <div class="product-bulk-prices">
+                        {% for key,bulk in prices.bulk_prices|sort((a, b) => a.min_qty < b.min_qty) %}
+                            {% if loop.index < 3 %}
+                                <div class="local-overlay-toggle bulk-price bulk-price-{{ key}}" data-qty="{{ bulk.min_qty|number_format(0) }}"><span class="bulk-amount">{{ bulk.min_qty|number_format(0) }}×</span>{{ bulk.bulk_price_item|number_format(2,",",".") }}{{ prices.currency_code }}/kom</div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="local-overlay-toggle bulk-price bulk-price-{{ (prices.bulk_prices)|length + 1 }}" data-qty="1"><span class="bulk-amount">1×</span>{{ prices.price|number_format(2,",",".") }}{{ prices.currency_code }}/kom</div>
+                    </div>
+                {% else %}
+                    <div class="cart-amount left">
+                        {% if weights is not empty %}
+                            <input type="hidden" value="" name="weight_id">
+                            <input type="hidden" value="" name="qty">
+                            <div class="weights">
+                                {% for weight in weights %}
+                                    {% if loop.index == 4 and not loop.last %}
+                                        <div class="custom-dropdown">
+                                        <div class="dropdown-open">
+                                            <strong>{% trans into current_language %}More{% endtrans %}</strong>
+                                        </div>
+                                        <div class="dropdown-options">
+                                    {% endif %}
+
+                                    {% if weight.value < 1 %}
+                                        {% set value = (weight.value*1000)|number_format(0)~unit %}
+                                    {% else %}
+                                        {% set value = weight.value|number_format(0)~unit %}
+                                    {% endif %}
+
+                                    <div class="weight" data-id="{{ weight.id }}" data-qty="{{ weight.value }}">{{ value }}</div>
+
+                                    {% if loop.index > 4 and loop.last %}
+                                        </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <span class="qty-minus"></span>
+                            {% set quoteItem = null %}
+                            {% if queryParams["qi"] is defined %}
+                                {% set quoteItem = get_quote_item_by_id(queryParams["qi"]) %}
+                            {% endif %}
+                            {% if queryParams["qi"] is defined and quoteItem is not empty %}
+                                <input type="hidden" value="quote_item_id" name="data[0][0][name]">
+                                <input type="hidden" value="{{ queryParams["qi"] }}" name="data[0][0][value]">
+                                <input type="hidden" value="qty" name="data[0][1][name]">
+                                <input readonly
+                                       type="number"
+                                       value="{{ prepare_qty(quoteItem.qty,quoteItem.product.getQtyStep) }}"
+                                       data-step="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                       name="data[0][1][value]"
+                                       class="qty"
+                                       min="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                       max="{{ prepare_qty(product.getQty,product.getQtyStep) }}">
+                            {% else %}
+                                <input readonly
+                                       type="number"
+                                       value="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                       data-step="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                       name="qty"
+                                       class="qty"
+                                       min="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                       max="{{ prepare_qty(product.getQty,product.getQtyStep) }}">
+                            {% endif %}
+                            <span class="qty-plus"></span>
+                        {% endif %}
+                    </div>
+                    <div class="cart-submit right">
+                        <button type="submit" class="button btn-type-1">{{ label|raw }}{% if weights is not empty %} <span class="add-amount"></span>{% endif %}</button>
+                    </div>
+                {% endif %}
+            </form>
+        {% endif %}
+    {% else %}
+        <div class="not-available-actions">
+            <button class="send-inquiry local-overlay-toggle button btn-type-1"
+                    data-pid="{% if child is defined %}{{ child.id }}{% else %}{{ product.id }}{% endif %}">{% trans into current_language %}Send inquiry{% endtrans %}</button>
+            {% if get_env("SHOW_AVAILABILITY_REMINDER")|default(0) %}
+                <button class="remind-me-available local-overlay-toggle button btn-type-1"
+                        data-pid="{% if child is defined %}{{ child.id }}{% else %}{{ product.id }}{% endif %}">{% trans into current_language %}Remind me when available{% endtrans %}</button>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

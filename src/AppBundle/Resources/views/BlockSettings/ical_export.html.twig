@@ -1,0 +1,140 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper calendar-settings">
+            <div class="form-group row hidden">
+                <div class="col-sm-6">
+                    <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="title" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %} name="type" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        <option  selected="selected"  value="calendar">calendar</option>
+                    </select>
+                </div>
+            </div>
+            {% if entity is not empty and entity.content is not null %}
+                {% set object = entity.content|json_decode %}
+                {% if object.list_view is defined and object.list_view is not empty %}
+                    {% set entity_content = object %}
+                {% endif %}
+                {% if object is defined and object is not empty %}
+                    {% set entity_content = object %}
+                {% endif %}
+            {% endif %}
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}List view{% endtrans %}</label>
+                <div class="col-sm-6 sp-multiselect cursor-normal">
+                    <ul class="ul-no-style ul-no-padding dependant-select">
+                        {% for list_view in list_views %}
+                            <li>
+                                <input id="list-view-{{ loop.index }}"
+                                       type="checkbox"
+                                       name="listView[]"
+                                       value="{{ list_view.id }}"
+                                       {% if entity_content is defined and entity_content.list_view is defined and list_view.id in entity_content.list_view %}checked{% endif %}>
+                                <label for="list-view-{{ loop.index }}">{{ list_view.name }}</label>
+                                <div class="options">
+                                    <div class="form-group">
+                                        {% trans %}Use as title{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.id }}-attribute" name="titleListView{{ list_view.id }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.id }}"
+                                                        {% if entity_content is defined and attribute(entity_content.list_view_attributes, "titleListView"~list_view.id~"Attribute") is defined and attribute(entity_content.list_view_attributes, "titleListView"~list_view.id~"Attribute") == attribute.id %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as title 2{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.id }}-attribute" name="title2ListView{{ list_view.id }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.id }}"
+                                                        {% if entity_content is defined and attribute(entity_content.list_view_attributes, "title2ListView"~list_view.id~"Attribute") is defined and attribute(entity_content.list_view_attributes, "title2ListView"~list_view.id~"Attribute") == attribute.id %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as title 3{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.id }}-attribute" name="title3ListView{{ list_view.id }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.id }}"
+                                                        {% if entity_content is defined and attribute(entity_content.list_view_attributes, "title3ListView"~list_view.id~"Attribute") is defined and attribute(entity_content.list_view_attributes, "title3ListView"~list_view.id~"Attribute") == attribute.id %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as tooltip{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.id }}-attribute" name="descriptionListView{{ list_view.id }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.id }}"
+                                                        {% if entity_content is defined and attribute(entity_content.list_view_attributes, "descriptionListView"~list_view.id~"Attribute") is defined and attribute(entity_content.list_view_attributes, "descriptionListView"~list_view.id~"Attribute") == attribute.id %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as start datetime{% endtrans %}
+                                        <select id="start-list-view-{{ list_view.id }}-attribute" name="startListView{{ list_view.id }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.id }}"
+                                                        {% if entity_content is defined and attribute(entity_content.list_view_attributes, "startListView"~list_view.id~"Attribute") is defined and attribute(entity_content.list_view_attributes, "startListView"~list_view.id~"Attribute") == attribute.id %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as end datetime{% endtrans %}
+                                        <select id="end-list-view-{{ list_view.id }}-attribute" name="endListView{{ list_view.id }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.id }}"
+                                                        {% if entity_content is defined and attribute(entity_content.list_view_attributes, "endListView"~list_view.id~"Attribute") is defined and attribute(entity_content.list_view_attributes, "endListView"~list_view.id~"Attribute") == attribute.id %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as color{% endtrans %}
+                                        <select id="color-list-view-{{ list_view.id }}-attribute" name="colorListView{{ list_view.id }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.id }}"
+                                                        {% if entity_content is defined and attribute(entity_content.list_view_attributes, "colorListView"~list_view.id~"Attribute") is defined and attribute(entity_content.list_view_attributes, "colorListView"~list_view.id~"Attribute") == attribute.id %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="class" class="form-control" {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="dataAttributes" class="form-control" {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

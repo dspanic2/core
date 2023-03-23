@@ -1,0 +1,31 @@
+services:
+    email_manager:
+        class: SharedInboxBusinessBundle\Managers\EmailManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    pop3_provider:
+        class: SharedInboxBusinessBundle\Providers\POP3Provider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    imap_provider:
+        class: SharedInboxBusinessBundle\Providers\IMAPProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    o365_provider:
+        class: SharedInboxBusinessBundle\Providers\O365Provider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    shared_inbox_helper_extension:
+        class: SharedInboxBusinessBundle\Extensions\SharedInboxHelperExtension
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: twig.extension }

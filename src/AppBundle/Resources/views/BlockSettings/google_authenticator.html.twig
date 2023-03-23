@@ -1,0 +1,68 @@
+<div class="col-sm-12 col-xs-12">
+    <div class="panel panel-midnightblue">
+        <div class="panel-heading master-panel-heading">
+            <h5>{% trans %}General information{% endtrans %}</h5>
+        </div>
+        <div class="panel-body collapse in">
+            <fieldset class="form-group-wrapper">
+                <div class="form-group hidden">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="id" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="title" class="form-control"
+                               data-fv-notempty="true"
+                               data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                               {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select {% if entity is not empty %}disabled="disabled"{% endif %}
+                                name="type" data-fv-notempty="true"
+                                data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                class="form-control">
+                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                            {% for key,block_type in block_types %}
+                                <option {% if entity is not empty and entity.type == key %}selected="selected"{% endif %}
+                                        value="{{ key }}" {% apply spaceless %}
+                                    {% for data_value_key,data_value in block_type %}
+                                        data-{{ data_value_key }}="{{ data_value }}"
+                                    {% endfor %}
+                                        {% endapply %}>{{ key|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Attribute set{% endtrans %}</label>
+                    <div class="col-sm-6">
+
+                        <select data-url="{{ path('remote_get_related_id') }}"
+                                name="attributeSet" class="form-control"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}">
+                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                            {% for attribute_set in attribute_sets %}
+                                <option {% if entity is not empty and entity.attributeSet is not empty %} {% if entity.attributeSet.id == attribute_set.id %}selected="selected"{% endif %}{% endif %}
+                                        value="{{ attribute_set.id }}">{{ attribute_set.attributeSetName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="class" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

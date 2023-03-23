@@ -1,0 +1,82 @@
+<table class="mWidth100" style="width:600px" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+    <tr>
+        <td class="stretch block" valign="middle" width="600">
+            <table class="mWidth100" width="800" cellpadding="0" cellspacing="0" align="center">
+                <tbody>
+                <tr>
+                    <td align="center" bgcolor="{{ baseColor }}"
+                        style="padding:50px 30px 50px 30px;background-color:{{ baseColor }}">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                            <tr>
+                                <td class="block stretch paddBotFooterLinks" width="300" align="center" valign="top">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center"
+                                                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;padding-bottom:15px">
+                                                {{ data.site_base_data.site_base_companyName|upper }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"
+                                                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;padding-bottom:10px">
+                                                {{ data.site_base_data.site_base_streetAddress }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"
+                                                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;padding-bottom:10px">
+                                                {{ data.site_base_data.site_base_postalCode }} {{ data.site_base_data.site_base_addressLocality }}
+                                                , {{ data.site_base_data.site_base_addressCountry }}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="block stretch" width="300" align="center" valign="top">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center"
+                                                style="font-family:'Roboto Slab',sans-serif;font-size:24px;color:#fffffe;font-weight:400;line-height:normal;padding-bottom:15px">
+                                                <a href="{{ data.site_base_data.site_base_url_language }}"
+                                                   style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;text-decoration:none"
+                                                   target="_blank">{{ data.site_base_data.site_base_name }}</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"
+                                                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;padding-bottom:10px">
+                                                <a href="mailto:{{ data.site_base_data.site_base_contact }}"
+                                                   title="{% trans into data.current_language %}Contact{% endtrans %}"
+                                                   style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;text-decoration:none"
+                                                   target="_blank">{{ data.site_base_data.site_base_contact }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"
+                                                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;padding-bottom:10px">
+                                                <a href="tel:{{ data.site_base_data.site_base_telephone }}"
+                                                   style="font-family:'Open Sans',sans-serif;font-size:14px;color:#fffffe;font-weight:600;line-height:normal;text-decoration:none"
+                                                   target="_blank">{% trans into data.current_language %}Tel{% endtrans %}
+                                                    : {{ data.site_base_data.site_base_telephone }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>

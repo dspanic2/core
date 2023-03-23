@@ -1,0 +1,89 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper">
+            <div class="form-group row hidden">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="id" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="text" name="title" class="form-control"
+                           data-fv-notempty="true"
+                           data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                           {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %}
+                            name="type" data-fv-notempty="true"
+                            data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                            class="form-control">
+                        <option selected="selected" value="attribute_group">attribute_group</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Attribute group{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <select name="relatedId" data-type="base_lookup" class="form-control" data-fv-notempty="true"
+                            data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}">
+                        {% if attribute_groups is defined %}
+                            {% for attribute_group in attribute_groups %}
+                                <option {% if entity is not empty and entity.relatedId is not empty %} {% if entity.relatedId == attribute_group.id %}selected="selected"{% endif %}{% endif %}
+                                        value="{{ attribute_group.id }}">{{ attribute_group.attributeSet.attributeSetName }}
+                                    - {{ attribute_group.attributeGroupName }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="text" name="class" class="form-control"
+                           {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="text" name="dataAttributes" class="form-control"
+                           {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Filter{% endtrans %}</label>
+                <div class="col-sm-12">
+                    <textarea name="filter" class="form-control form-control-textarea" data-size="autosize" rows="4">{% if entity is not empty %}{{ filter }}{% endif %}</textarea>
+                </div>
+                <div class="col-sm-12 sp-validator-help-wrapper">
+                    <p>{% trans %}Example{% endtrans %}: <span class="sp-validator-help">[{"connector":"and", "filters":[{"field":"assignedTo.id","operation":"in","value":"{user_id}"},{"field":"dueDate","operation":"ge","value":"{now}"}]}]</span></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Related attribute uid{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="text" name="related_attribute_uid" class="form-control" value="{% if entity is not empty %}{{ related_attribute_uid }}{% endif %}"/>
+                    <div class="sp-validator-help-wrapper">
+                        <p>{% trans %}Example{% endtrans %}: <span class="sp-validator-help">UID attributa na parent entitetu koji ga povezuje sa child entitetom čija attribute grupa se želi prikazati</span></p>
+                    </div>
+                </div>
+            </div>
+            {#<div class="form-group">
+                <label class="col-sm-4 control-label">{% trans %}Disable edit{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" name="disableEdit" id="disableEdit"   data-type="bchackbox"
+                           {% if disable_edit %}checked="checked"{% endif %}/>
+                </div>
+            </div>#}
+        </fieldset>
+    </div>
+</div>

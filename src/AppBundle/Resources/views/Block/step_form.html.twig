@@ -1,0 +1,66 @@
+<div class="sp-block-outer {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="panel-heading sp-frontend-edit-block-wrapper">
+                <h5>{% trans %}Edit{% endtrans %} step_form {% trans %}block{% endtrans %}
+                    <div class="options">
+                        <span class="sp-options-text sp-options-text-attribute-group sp-options-text-attribute-group-top sp-admin-button"
+                              data-action="add-block-modal-front"
+                              data-url="{{ path('page_block_update_form', {'form_type':'modal','parent_id': data.block.id, 'parent_type':'page_block'}) }}"><i
+                                    class="sp-icon sp-icon-add sp-hover"></i></span>
+                        {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        <a class="sp-options-text sp-options-text-attribute-group sp-admin-button"
+                           href="{{ path('page_block_update_form', {'id': data.block.id}) }}"><i
+                                    class="sp-icon sp-icon-edit sp-hover"></i></a>
+                    </div>
+                </h5>
+        </div>
+    {% endif %}
+    <form data-validate="true" method="post"
+          action="{{ path('save_form', {'type': data.block.attributeSet.attributeSetCode}) }}" accept-charset="UTF-8"
+          data-callback=''
+          data-type="{{ data.block.attributeSet.entityType.entityTypeCode }}"
+          class="form-horizontal row-border">
+
+        <div class="sp-block-group-wrapper">
+            {% for row in data.block.preparedContent %}
+                <div class="sp-step" data-step-number="{{ loop.index -1 }}">
+                    <div class="row">
+                        {% for block in row.blocks %}
+                            <div class="col-xs-12 col-sm-{{ block.width }} col-md-{{ block.width }} sp-block-wrapper"
+                                 data-block-id="{{ block.id }}">
+                                {{ render(controller('AppBundle:Block:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="sp-step-footer">
+            <div class="sp-step-progress">
+                {% for i in 0..data.block.preparedContent|length-1 %}
+                    <span class="sp-step-dot"></span>
+                {% endfor %}
+            </div>
+            <div class="sp-step-btns">
+                <button type="button" class="btn" id="prevBtn"
+                        onclick="nextPrev(-1)">{% trans %}Previous{% endtrans %}</button>
+                <button type="button" class="btn btn-primary" id="nextBtn"
+                        onclick="nextPrev(1)">{% trans %}Next{% endtrans %}
+                </button>
+            </div>
+        </div>
+        <!-- Circles which indicates the steps of the form: -->
+
+        <input type="hidden" name="pid" value=""/>
+        <input type="hidden" name="ptype" value=""/>
+        <div class="panel-footer {% if data.is_modal is not defined or data.is_modal == false %}hidden{% endif %}">
+            <div class="row">
+                <div class="col-sm-7 col-sm-offset-2">
+                    <div class="btn-toolbar">
+                        {{ get_page_buttons(data)|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

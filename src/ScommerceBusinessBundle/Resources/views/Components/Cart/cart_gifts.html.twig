@@ -1,0 +1,51 @@
+{% if data.model.show is defined and data.model.show == true %}
+    <div id="cart-gifts">
+        <div class="row align-bottom">
+            <div class="col-md-12 col-lg-8">
+                <div class="gift-title-section">
+                    <div class="gift-title"><span class="color">{% trans into current_language %}Free{% endtrans %}</span> {% trans into current_language %}gifts{% endtrans %}</div>
+                    {% if data.model.total_available_gifts == 0 %}
+                        <div class="gift-note">Ako u košaricu dodate proizvode u vrijednosti <strong>još {{ data.model.price_for_next_step|number_format(2,",",".") }} {{ data.model.currency }}</strong>, možete izabrati jedan <span class="color">besplatan</span> poklon!</div>
+{#                    {% elseif data.model.price_for_next_step > 0 %}#}
+{#                        <div class="gift-note">Ako u košaricu dodate proizvode u vrijednosti <strong>još {{ data.model.price_for_next_step|number_format(2,",",".") }} {{ data.model.currency }}</strong>, možete izabrati <span class="color">još jedan besplatan</span> poklon!</div>#}
+                    {% else %}
+                        <div class="gift-note">Ostvarili ste pravo na odabir poklona!</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4 text-right">
+                <div class="gift-calculation-wrapper">
+                    <div class="gift-calculation-info">
+                        {% if data.model.total_available_gifts < data.model.max %}
+                            još {{ data.model.price_for_next_step|number_format(2,",",".") }} {{ data.model.currency }} do besplatnog poklona
+                        {% endif %}
+                    </div>
+                    <div class="gift-calculation"><span style="width: {% if data.model.total_available_gifts == data.model.max %}100{% else %}{{ 100 - (100 * data.model.price_for_next_step / data.model.limit) }}{% endif %}%"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+            </div>
+            <div class="col-md-12 col-lg-4 text-right">
+                <div class="gift-count">{% trans %}Odabrani pokloni{% endtrans %}: <span
+                            class="used-gift-amount">{{ data.model.total_used_gifts }}</span> {% trans %}od{% endtrans %} {{ data.model.total_available_gifts }}</div>
+            </div>
+        </div>
+        {% if data.model.gift_products.entities is defined and data.model.gift_products.entities is not empty %}
+            <div class="row">
+                {% apply spaceless %}
+                    <div class="col-xs-12 columns-5">
+                        <div class="items-grid grid-view {% if data.model.total_available_gifts == data.model.total_used_gifts %}disabled{% endif %}"
+                             data-available-gifts="{{ data.model.total_available_gifts }}">
+                            {% for product in data.model.gift_products.entities %}
+                                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_gift_item.html.twig', 'data': {'product': product,'gift': data.model}}, {})) }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endapply %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

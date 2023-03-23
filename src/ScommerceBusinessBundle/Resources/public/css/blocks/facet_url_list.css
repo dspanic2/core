@@ -1,0 +1,28 @@
+.sp-facet-url-list{
+    list-style: none;
+    column-count: 2;
+    padding: 0;
+}
+.sp-facet-url-list li{
+    border-bottom: 1px dashed rgba(58, 54, 51, 0.2);
+    padding: 10px 0;
+    overflow: overlay;
+}
+.sp-facet-not-available{
+    color: #ff2222;
+}
+.sp-facet-url-list li span{
+    margin: 5px 0;
+    display: inline-block;
+    font-size: 12px;
+}
+.sp-facet-url{
+    font-size: 12px;
+    display: inline;
+    margin: 0 0 0 10px;
+}
+.
+.sp-facet-url .sp-facet-short-url{
+    font-size: 10px!important;
+    padding: 10px 0;
+}

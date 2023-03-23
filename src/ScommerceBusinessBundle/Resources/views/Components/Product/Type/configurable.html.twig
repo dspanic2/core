@@ -1,0 +1,74 @@
+{% set queryParams = get_query_parameters() %}
+{% set selectedOptions = null %}
+
+{% if queryParams["qi"] is defined %}
+    {% set selectedOptions = get_selected_configurable_options(queryParams["qi"]) %}
+{% elseif queryParams["configurable"] is defined %}
+    {% set selectedOptions = queryParams["configurable"] %}
+{% endif %}
+
+<div class="configuration">
+    <div class="configurable-options" data-pid="{{ product.id }}">
+        {% set product_details = get_product_details(product) %}
+        {% if product_details.attributes is defined %}
+            {% for key,attribute in product_details.attributes %}
+                {% set is_first_attribute = loop.first %}
+                {% set attributeDefaultText = "Select"|trans ~ " " ~ attribute.attribute_name %}
+                {% set attributeSelectedText = attributeDefaultText %}
+                {% set attributeSelectedOption = null %}
+                <div class="row configurable-attribute" data-attribute-id="{{ attribute.attribute_id }}" data-null-text="{{ attributeDefaultText }}">
+                    <div class="col-xs-12 text-right no-padding">
+                        <div class="custom-dropdown">
+                            <div class="attribute-name text-left">{{ attribute.attribute_name }}</div>
+                            {% set options %}
+                                {% for attribute_option in attribute.values %}
+                                    {% set preselected = false %}
+                                    {% set optionText %}
+                                        {% if attribute_option.prefix is defined and attribute_option.prefix is not empty %}
+                                            {{ attribute_option.prefix|trans }}
+                                        {% endif %}
+                                        {{ attribute_option.value|trans }}
+                                        {% if attribute_option.sufix is defined and attribute_option.sufix is not empty %}
+                                            {{ attribute_option.sufix|trans }}
+                                        {% endif %}
+                                    {% endset %}
+
+                                    {# Set preselected option and change selected label #}
+                                    {% if selectedOptions is not empty %}
+                                        {% if attribute_option.option_id in selectedOptions %}
+                                            {% set preselected = true %}
+                                            {% set attributeDefaultText = optionText %}
+                                            {% set attributeSelectedOption = attribute_option.option_id %}
+                                        {% endif %}
+                                    {% elseif attribute_option.selected is defined and attribute_option.selected == 1 %}
+                                        {% set preselected = true %}
+                                        {% set attributeDefaultText = optionText %}
+                                        {% set attributeSelectedOption = attribute_option.option_id %}
+                                    {% endif %}
+
+                                    {% apply spaceless %}
+                                        <div data-action="configurable-product-set"
+                                             class="dropdown-option option {% if preselected %}active{% endif %}"
+                                             data-option-id="{{ attribute_option.option_id }}"
+                                             data-pid="{{ attribute_option.id }}"
+                                                {% if attribute_option.dependencies is defined %}
+                                            {% for key,value in attribute_option.dependencies %}
+                                                data-depends-{{ key }}="{{ value|json_encode }}"
+                                            {% endfor %}
+                                                {% endif %}>
+                                            {{ optionText }}
+                                        </div>
+                                    {% endapply %}
+                                {% endfor %}
+                            {% endset %}
+                            <div class="dropdown-open">
+                                <strong>{{ attributeDefaultText }}</strong>
+                            </div>
+                            <div class="dropdown-options options" data-selected="{{ attributeSelectedOption }}">{{ options }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

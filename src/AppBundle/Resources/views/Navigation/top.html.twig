@@ -1,0 +1,9 @@
+<div class="navbar-collapse navbar-ex1-collapse" id="horizontal-navbar">
+    <ul class="nav navbar-nav">
+{#        {{ dump(links) }}#}
+{#        {{ dump(reorder_admin_menu(links)) }}#}
+        {% for link in reorder_admin_menu(links) %}
+            {% include 'AppBundle:Navigation:navigation_link.html.twig' with {'level': 1 } %}
+        {% endfor %}
+    </ul>
+</div>

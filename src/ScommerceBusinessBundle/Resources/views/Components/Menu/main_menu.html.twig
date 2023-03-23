@@ -1,0 +1,62 @@
+{% macro renderMenu(menuItems, level = 1, class = "", offset = 0, limit = 0) %}
+    <ul class="{{ class }} level-{{ level }}">
+        {% if level > 1 %}
+            <li class="menu-back"><span>{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:chevron_right.html.twig', 'data': {}}, {})) }}</span></li>
+        {% endif %}
+
+        {% if limit == 0 %}
+            {% set limit = menuItems|length %}
+        {% endif %}
+        {% for i in offset..limit %}
+            {% if menuItems[i] is defined %}
+                {% set menu_item = menuItems[i] %}
+                {% if menu_item.show == 1 %}
+                    <li {% if menu_item.css_class is not empty %}class="{{ menu_item.css_class }}"{% endif %}>
+                        {% set url = current_language_url~"/"~menu_item.url %}
+                        <a href="{{ url|replace({ '//': '/' }) }}" title="{{ menu_item.text }}" class="{% if menu_item.children is defined and menu_item.children is not empty %}has-children{% endif %}">
+                            {{ menu_item.text }}
+                            {% if menu_item.children is defined and menu_item.children is not empty %}<span class="submenu-toggle-icon">+</span>{% endif %}
+                            {% if menu_item.children is defined and menu_item.children is not empty %}<span class="submenu-mark">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:chevron_right.html.twig', 'data': {}}, {})) }}</span>{% endif %}
+                        </a>
+
+                        {% if menu_item.children is defined and menu_item.children is not empty %}
+                            {{ _self.renderMenu(menu_item.children,level+1,"submenu",0,0) }}
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if level == 1 %}
+            <li class="separator"></li>
+            <li>
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,158,"s_page") }}" title="{{ get_page_title(current_store_id,158,"s_page") }}">{% trans into current_language %}Quick order{% endtrans %}</a>
+            </li>
+            <li>
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,53,"s_page") }}" title="{{ get_page_title(current_store_id,53,"s_page") }}">{{ render(controller('ScommerceBusinessBundle:Api:getCompareCount', {}, {})) }}{% trans into current_language %}Comparison{% endtrans %}</a>
+            </li>
+            <li>
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,59,"s_page") }}" title="{{ get_page_title(current_store_id,59,"s_page") }}">{{ render(controller('ScommerceBusinessBundle:Api:getFavoritesCount', {}, {})) }}{% trans into current_language %}Favorites{% endtrans %}</a>
+            </li>
+
+            <li class="separator"></li>
+            <li>
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,60,"s_page") }}"
+                   class="user-link user-account-link">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:user.html.twig', 'data': {}}, {})) }}{% trans into current_language %}My account{% endtrans %}</a>
+            </li>
+            <li>
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,64,"s_page") }}"
+                   class="user-link user-profile-link">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:settings.html.twig', 'data': {}}, {})) }}{% trans into current_language %}My profile{% endtrans %}</a>
+            </li>
+            <li>
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,61,"s_page") }}"
+                   class="user-link user-orders-link">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:list.html.twig', 'data': {}}, {})) }}{% trans into current_language %}Orders{% endtrans %}</a>
+            </li>
+            <li>
+                <a href="#" data-action="logout-customer"
+                   data-url="/logout_customer"
+                   class="user-link user-logout-link link-logout-customer">{% trans into current_language %}Logout{% endtrans %}</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endmacro %}
+<nav>{{ _self.renderMenu(menu,1,"main-menu",0,0) }}</nav>

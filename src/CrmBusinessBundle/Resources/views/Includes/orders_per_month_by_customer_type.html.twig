@@ -1,0 +1,80 @@
+{% set orderArray = [] %}
+{% set startValues = null %}
+{% for item in data.items %}
+    {% set values = item.items|json_decode %}
+    {% if values|length > orderArray|length %}
+        {% set orderArray = [] %}
+        {% set startValues = values %}
+        {% for value in values %}
+            {% set orderArray = orderArray|merge([value.month_id]) %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+<fieldset class="form-group-wrapper sp-table-mark sp-remove-zero sp-move-arrows">
+    <table class="sp_report_view_table table">
+        <thead>
+        <tr>
+            <th>{% trans %}No.{% endtrans %}</th>
+            <th>{% trans %}Customer type{% endtrans %}</th>
+            {% for value in startValues %}
+                <th>{{ value.month_name|trans }} {{ value.year }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data.items %}
+            <tr>
+                <td class="sp_bold">{{ loop.index }}</td>
+                <td class="sp_bold">{{ item.customer_type|trans }}</td>
+                {% set values = item.items|json_decode %}
+                {% for o in orderArray %}
+                    {% set found = 0 %}
+                    {% for value in values %}
+                        {% if o == value.month_id %}
+                            {% set found = 1 %}
+                            {% set class = 'neutral' %}
+                            {% set icon = '' %}
+                            {% if value.diff < 0 %}
+                                {% set class = 'negative' %}
+                                {% set icon = 'fa fa-arrow-down' %}
+                            {% elseif value.diff > 0 %}
+                                {% set class = 'positive' %}
+                                {% set icon = 'fa fa-arrow-up' %}
+                            {% endif %}
+                            <td>{{ value.total|number_format(2, ',', '.') }} {{ get_env("CURRENT_CURRENCY_CODE") }} <span class="pull-right statistics-small statistics-{{ class }}"><i class="{{ icon }}"></i> {{ value.diff|number_format(2, ',', '.') }}%</span></td>
+                        {% endif %}
+                    {% endfor %}
+                    {% if found == 0 %}
+                        <td></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        {#{% for item in data.items %}
+            <tr>
+                <td class="sp_bold">{{ loop.index }}</td>
+                {% for key, i in item %}
+                    {% if loop.index0 > 0 %}
+                        {% set values = i|split('#') %}
+                        {% set diff = 0 %}
+                        {% set html = '' %}
+                        {% set class = '' %}
+                        {% if values[0] > 0 %}
+                            {% set diff = (values[1] / values[0]) * 100 %}
+                            {% if values[0] > values[1] %}
+                                {% set class = 'negative' %}
+                            {% elseif values[1] > values[0] %}
+                                {% set class = 'positive' %}
+                            {% endif %}
+                        {% endif %}
+                        {% set html = '<span class="' ~ class ~ '"> (' ~ diff ~ '%)</span>' %}
+                        <td>{{ values[1]|number_format(0, ',', '.') }}{{ html|raw }}</td>
+                    {% else %}
+                        <td>{{ i }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}#}
+        </tbody>
+    </table>
+</fieldset>

@@ -1,0 +1,24 @@
+{% if product is defined %}
+    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':data.configurable_bundle|default({})}, {}))|json_decode %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'fb_view_product',
+                    'facebook': {
+                        'view': {
+                            'products': [{
+                                'content_ids': '{{ product.getId }}',
+                                'content_type': 'product',
+                                'currency': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                                'value': {{ prices.final_tracking_price|number_format(2,".","") }}
+                            }]
+                        }
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

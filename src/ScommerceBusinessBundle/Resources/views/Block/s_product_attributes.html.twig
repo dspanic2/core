@@ -1,0 +1,52 @@
+{% if data.model is defined and data.model is not empty %}
+    <div class="sp-block {{ data.block.class }}">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="panel-heading">
+                    <h5>{{ data.block.title|trans }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="options">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="s-product-attributes-form-group-wrapper">
+                    <fieldset class="form-group-wrapper">
+                        {% if data.model.product_attributes is defined and data.model.product_attributes is not empty %}
+                            {% for product_attribute in data.model.product_attributes %}
+                                {{ include('ScommerceBusinessBundle:Includes:s_product_attributes_group.html.twig') }}
+                            {% endfor %}
+                        {% endif %}
+                    </fieldset>
+                </div>
+                <div class="margin-top-20 row form-group">
+                    <div class="col-sm-5">
+                        {% if data.model.configurations is defined and data.model.configurations is not empty %}
+                            <div class="col-sm-8">
+                                <select class="form-control" name="s_product_attribute_configuration">
+                                    <option value="0" selected>{% trans %}Please select...{% endtrans %}</option>
+                                    {% for c in data.model.configurations %}
+                                        <option value="{{ c.id }}">{{ c.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="button"
+                                        class="btn btn-xs btn-success"
+                                        data-url="{{ path('add_s_product_attribute_link') }}"
+                                        data-add="s_product_attributes_link"><i
+                                        class="glyphicon glyphicon-plus"></i> {% trans %}Add{% endtrans %}
+                                </button>
+                            </div>
+                        {% else %}
+                            <p>{% trans %}No configurations found.{% endtrans %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

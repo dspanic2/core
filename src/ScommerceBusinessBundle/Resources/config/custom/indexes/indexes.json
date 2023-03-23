@@ -1,0 +1,25 @@
+{
+  "index": {
+    "blog_category_entity": "canonical_id,template_type_id,menu_id,parent_blog_category_id",
+    "blog_post_entity": "canonical_id,blog_category_id,template_type_id,entity_state_id,show_on_homepage",
+    "blog_post_image_entity": "blog_post_id",
+    "brand_image_entity": "brand_id",
+    "facet_attribute_configuration_link_entity": "facets_id",
+    "facets_entity": "product_group_id,attribute_config",
+    "faq_spage_link_entity": "s_page_id,faq_id",
+    "product_group_sort_option_link_entity": "product_group_id,sort_option_id",
+    "related_links_entity": "product_group_id,related_product_group_id,related_link_type_id",
+    "s_front_block_entity": "slider_id",
+    "s_front_block_images_entity": "s_front_block_id",
+    "slider_entity": "store_id",
+    "slider_image_entity": "slider_id",
+    "s_menu_entity": "store_id",
+    "s_menu_item_entity": "menu_id,page_id,product_group_id,menu_item_type_id,menu_item_id,blog_category_id",
+    "s_page_entity": "template_type_id,canonical_id,menu_id",
+    "s_product_attributes_link_entity": "product_id,s_product_attribute_configuration_id,attribute_value",
+    "s_product_menu_link_entity": "product_id,menu_item_id",
+    "s_route_entity": "redirect_type_id,store_id,request_url,destination_type,destination_id",
+    "s_store_entity": "core_language_id,website_id,display_currency_id",
+    "s_product_configuration_product_group_link_entity": "product_group_id,s_product_attribute_configuration_id"
+  }
+}

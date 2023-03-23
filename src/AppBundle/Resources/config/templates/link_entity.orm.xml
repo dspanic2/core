@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="%2$s\Entity\%3$s" table="%1$s">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <id name="%4$s" type="integer" column="%5$s" association-key="true"/>
+        <id name="%6$s" type="integer" column="%7$s" association-key="true"/>
+        <many-to-one field="%10$s" target-entity="%8$s">
+            <join-columns>
+                <join-column name="%5$s" referenced-column-name="id"/>
+            </join-columns>
+        </many-to-one>
+        <many-to-one field="%11$s" target-entity="%9$s">
+            <join-columns>
+                <join-column name="%7$s" referenced-column-name="id"/>
+            </join-columns>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
+

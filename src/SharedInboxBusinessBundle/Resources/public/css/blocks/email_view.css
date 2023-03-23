@@ -1,0 +1,4 @@
+.email-body {
+    white-space: pre;
+    overflow-x: scroll;
+}

@@ -1,0 +1,23 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-loyalty {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="col-xs-6">
+            <h2>{% trans into current_language %}My loyalty{% endtrans %}</h2>
+        </div>
+    </div>
+    {% if data.model.loyalty_card is defined and data.model.loyalty_card is not empty %}
+        <div class="row">
+            <div class="col-xs-2 inline-item">
+                <div class="loyalty-label">{% trans into current_language %}Loyalty card number{% endtrans %}</div>
+                <div class="loyalty-value">{{ data.model.loyalty_card.getCardNumber }}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 inline-item">
+                <div class="loyalty-label">{% trans into current_language %}Loyalty percentage{% endtrans %}</div>
+                <div class="loyalty-value">{{ data.model.loyalty_card.getPercentDiscount|number_format(0) }}%</div>
+            </div>
+        </div>
+    {% else %}
+        <p>{% trans into current_language %}Loyalty card not found{% endtrans %}.</p>
+    {% endif %}
+</div>

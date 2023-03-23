@@ -1,0 +1,225 @@
+services:
+
+  contact_listener:
+    class: CrmBusinessBundle\EventListener\ContactListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onContactPreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onContactPreCreated }
+      - { name: kernel.event_listener, event: entity.updated, method: onContactUpdated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onContactDeleted }
+
+  address_listener:
+    class: CrmBusinessBundle\EventListener\AddressListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onAddressPreCreated }
+      - { name: kernel.event_listener, event: entity.updated, method: onAddressUpdated }
+      - { name: kernel.event_listener, event: entity.created, method: onAddressCreated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onAddressDeleted }
+
+  account_listener:
+    class: CrmBusinessBundle\EventListener\AccountListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onAccountPreCreated }
+      - { name: kernel.event_listener, event: entity.created, method: onAccountCreated }
+      - { name: kernel.event_listener, event: quote.sent, method: onQuoteSent }
+
+  quote_item_listener:
+    class: CrmBusinessBundle\EventListener\QuoteItemListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.updated, method: onQuoteItemUpdated }
+      - { name: kernel.event_listener, event: entity.created, method: onQuoteItemCreated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onQuoteItemPreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onQuoteItemPreCreated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onQuoteItemDeleted }
+
+  quote_listener:
+    class: CrmBusinessBundle\EventListener\QuoteListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: quote.viewed, method: onQuoteViewed }
+      - { name: kernel.event_listener, event: entity.created, method: onQuoteCreated }
+      - { name: kernel.event_listener, event: quote.accepted, method: onQuoteAccepted }
+      - { name: kernel.event_listener, event: quote.canceled, method: onQuoteCanceled }
+      - { name: kernel.event_listener, event: quote.sent, method: onQuoteSent }
+      - { name: kernel.event_listener, event: entity.updated, method: onQuoteUpdated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onQuotePreUpdated }
+
+  order_listener:
+    class: CrmBusinessBundle\EventListener\OrderListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: order.created, method: onOrderCreated }
+      - { name: kernel.event_listener, event: entity.updated, method: onOrderUpdated }
+
+  order_return_listener:
+    class: CrmBusinessBundle\EventListener\OrderReturnListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.created, method: onOrderReturnCreated }
+      - { name: kernel.event_listener, event: entity.updated, method: onOrderReturnUpdated }
+
+  order_item_listener:
+    class: CrmBusinessBundle\EventListener\OrderItemListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.created, method: onOrderItemCreated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onOrderItemPreCreated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onOrderItemPreUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onOrderItemUpdated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onOrderItemDeleted }
+
+  product_listener:
+    class: CrmBusinessBundle\EventListener\ProductListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onProductPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onProductPreUpdated }
+      #- { name: kernel.event_listener, event: entity.updated, method: onProductUpdated}
+      - { name: kernel.event_listener, event: entity.precreated, method: onProductPreCreated }
+      #- { name: kernel.event_listener, event: entity.created, method: onProductCreated}
+      - { name: kernel.event_listener, event: entity.deleted, method: onProductDeleted }
+
+  product_export_listener:
+    class: CrmBusinessBundle\EventListener\ProductExportListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onProductExportPreCreated }
+
+  discount_catalog_listener:
+    class: CrmBusinessBundle\EventListener\DiscountCatalogListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onDiscountCatalogPreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onDiscountCatalogPreCreated }
+      - { name: kernel.event_listener, event: entity.predeleted, method: onDiscountCatalogPreDeleted }
+
+  product_label_listener:
+    class: CrmBusinessBundle\EventListener\ProductLabelListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onProductLabelPreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onProductLabelPreCreated }
+      - { name: kernel.event_listener, event: entity.predeleted, method: onProductLabelPreDeleted }
+
+  product_label_position_listener:
+    class: CrmBusinessBundle\EventListener\ProductLabelPositionListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onProductLabelPositionPreCreated }
+
+  bulk_price_listener:
+    class: CrmBusinessBundle\EventListener\BulkPriceListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onBulkPricePreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onBulkPricePreCreated }
+      - { name: kernel.event_listener, event: entity.predeleted, method: onBulkPricePreDeleted }
+
+  bulk_price_option_listener:
+    class: CrmBusinessBundle\EventListener\BulkPriceOptionListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onBulkPriceOptionPreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onBulkPriceOptionPreCreated }
+
+  margin_rule_listener:
+    class: CrmBusinessBundle\EventListener\MarginRuleListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onMarginRulePreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onMarginRulePreCreated }
+      - { name: kernel.event_listener, event: entity.predeleted, method: onMarginRulePreDeleted }
+
+  loyalty_listener:
+    class: CrmBusinessBundle\EventListener\LoyaltyListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onLoyaltyEarningConfigurationPreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onLoyaltyEarningConfigurationPreCreated }
+      - { name: kernel.event_listener, event: entity.predeleted, method: onLoyaltyEarningConfigurationPreDeleted }
+      - { name: kernel.event_listener, event: entity.created, method: onLoyaltyEarningsCreated }
+
+  discount_coupon_listener:
+    class: CrmBusinessBundle\EventListener\DiscountCouponListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onDiscountCouponPreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onDiscountCouponPreCreated }
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onDiscountCouponPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onDiscountCouponUpdated }
+
+  email_template_listener:
+    class: CrmBusinessBundle\EventListener\EmailTemplateListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onEmailTemplateEntityPreCreated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onEmailTemplateEntityPreUpdated }
+
+  product_configuration_product_link_listener:
+    class: CrmBusinessBundle\EventListener\ProductConfigurationProductLinkListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.deleted, method: onProductConfigurationProductLinkDeleted }
+
+  product_configurable_attribute_listener:
+    class: CrmBusinessBundle\EventListener\ProductConfigurableAttributeListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.created, method: onProductConfigurableAttributeCreated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onProductConfigurableAttributeDeleted }
+
+  payment_type_rule_listener:
+    class: CrmBusinessBundle\EventListener\PaymentTypeRuleListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onPaymentTypeRulePreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onPaymentTypeRulePreCreated }
+
+  product_export_rule_listener:
+    class: CrmBusinessBundle\EventListener\ProductExportRuleListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onProductExportRulePreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onProductExportRulePreCreated }
+
+  discount_cart_rule_listener:
+    class: CrmBusinessBundle\EventListener\DiscountCartRuleListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onDiscountCartRulePreUpdated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onDiscountCartRulePreCreated }
+
+  product_price_history_listener:
+    class: CrmBusinessBundle\EventListener\ProductPriceHistoryListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.deleted, method: onProductPriceHistoryDeleted }

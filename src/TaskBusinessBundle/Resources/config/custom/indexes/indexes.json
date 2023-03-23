@@ -1,0 +1,8 @@
+{
+  "index": {
+    "activity_entity": "task_id",
+    "task_core_user_link_entity": "task_id",
+    "task_document_entity": "task_id",
+    "task_entity": "status_id,priority_id,task_group_id,notifiers,project_id,project_stage_id,campaign_id,account_id"
+  }
+}

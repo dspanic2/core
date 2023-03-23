@@ -1,0 +1,74 @@
+<div class="sp-block">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="panel-heading">
+                    <h5>{{ data.block.title|trans }}
+                        <div class="options">
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        </div>
+                    </h5>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    {% if data.refresh_token is empty %}
+                        <h3>You are not connected to Google Search Console API.</h3>
+                        <p>Please follow the instrucions listed on this <a href="/page/google_api_integration/dashboard" target="_blank">{% trans %}page{% endtrans %}</a></p>
+                    {% else %}
+                        {% if data.sitemaps is empty %}
+                            <h3>Current sitemap data from Google search console</h3>
+                            <p>Cannot fetch sitemap data.</p>
+                            <p>Please contact your administrator.</p>
+                        {% else %}
+                            <div class="row">
+                                {% for sitemap in data.sitemaps %}
+                                    <div class="col-sm-6">
+                                        <h3>List of sitemaps for domain {{ get_env("SSL") }}://{{ sitemap.website.baseUrl }}/ on {{ sitemap.sitemap_data.dateRefreshed|date("d.m.Y. H:i:s") }}</h3>
+                                        {% if sitemap.sitemap_data is empty or sitemap.sitemap_data.data is empty %}
+                                            <p>No sitemaps submitted for this url</p>
+                                        {% else %}
+                                            {% set google_sitemap_data = sitemap.sitemap_data.data|json_decode %}
+                                                {% for s in google_sitemap_data %}
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Path</th>
+                                                            <td>{{ s.path }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Number of errors</th>
+                                                            <td>{{ s.errors }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Number of warnings</th>
+                                                            <td>{{ s.warnings }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Is pending</th>
+                                                            <td>{{ s.isPending }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Is sitemaps index</th>
+                                                            <td>{{ s.isSitemapsIndex }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Last submitted</th>
+                                                            <td>{{ s.lastSubmitted }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Last downloaded</th>
+                                                            <td>{{ s.lastDownloaded }}</td>
+                                                        </tr>
+                                                    </table>
+                                                {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

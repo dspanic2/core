@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="CrmBusinessBundle\Entity\BulkPriceEntity" table="bulk_price">
+    ###CLASS_START
+
+        <one-to-many field="bulkPriceOptions" target-entity="CrmBusinessBundle\Entity\BulkPriceOptionEntity"  mapped-by="bulkPrice">   <cascade>
+                <cascade-all/>
+            </cascade>
+            <order-by>
+                <order-by-field name="minQty" direction="ASC" />
+            </order-by>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

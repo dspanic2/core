@@ -1,0 +1,169 @@
+<script src="/frontend/js/cookieconsent/cookieconsent.min.js"></script>
+<script>
+    var consent = {
+        'cookie_consent_text': "{% trans into current_language %}This website uses cookies to ensure you get the best experience on our website.{% endtrans %}",
+        'cookie_consent_settings_title': "{% trans into current_language %}Cookie Settings{% endtrans %}",
+        'cookie_consent_accept_all': "{% trans into current_language %}Accept all cookies{% endtrans %}",
+        'cookie_consent_modal_main_text': "{% trans into current_language %}Cookies are small piece of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user's browsing activity.{% endtrans %}",
+        'cookie_consent_modal_save_setting': "{% trans into current_language %}Save current settings{% endtrans %}",
+        'cookie_consent_accept_all_close': "{% trans into current_language %}Accept all cookies and close{% endtrans %}",
+        'cookie_consent_affected_solutions': "{% trans into current_language %}Affected solutions{% endtrans %}:",
+        'cookie_consent_more': "{% trans into current_language %}Learn More{% endtrans %}",
+        'cookie_consent_on': "{% trans into current_language %}On{% endtrans %}",
+        'cookie_consent_off': "{% trans into current_language %}Off{% endtrans %}",
+        'cookie_consent_necessary_title': "{% trans into current_language %}Strictly Necessary Cookies{% endtrans %}",
+        'cookie_consent_necessary_description': "{% trans into current_language %}Cookies that provide basic functionality of the website and basic analysis of the use of the website in order to improve the operation and efficiency of the website.{% endtrans %}",
+        'cookie_consent_tracking_title': "{% trans into current_language %}Functional Cookies{% endtrans %}",
+        'cookie_consent_tracking_description': "{% trans into current_language %}Cookies that allow us to perform more advanced analysis of the operation of the website and the behavior of the users of the website with anonymous information.{% endtrans %}",
+        'cookie_consent_marketing_title': "{% trans into current_language %}Marketing Cookies{% endtrans %}",
+        'cookie_consent_marketing_description': "{% trans into current_language %}Cookies used to target advertising to a user (behavioural targeting). They are often served by third party companies, and track a user across websites.{% endtrans %}",
+        'cookie_consent_service_chat_title': "{% trans into current_language %}Customer support{% endtrans %}",
+        'cookie_consent_functional_general_service': "{% trans into current_language %}Smart actions{% endtrans %}",
+    };
+    //https://github.com/brainsum/cookieconsent
+    window.CookieConsent.init({
+        modalMainTextMoreLink: null,
+        barTimeout: 1000,
+        theme: {
+            barColor: '#FDC42E',
+            barTextColor: '#141827',
+            barMainButtonColor: '#141827',
+            barMainButtonTextColor: '#FDC42E',
+            modalMainButtonColor: '#FDC42E',
+            modalMainButtonTextColor: '#141827',
+        },
+        language: {
+            current: 'hr',
+            locale: {
+                hr: {
+                    barMainText: consent.cookie_consent_text,
+                    barLinkSetting: consent.cookie_consent_settings_title,
+                    barBtnAcceptAll: consent.cookie_consent_accept_all,
+                    modalMainTitle: consent.cookie_consent_settings_title,
+                    modalMainText: consent.cookie_consent_modal_main_text,
+                    modalBtnSave: consent.cookie_consent_modal_save_setting,
+                    modalBtnAcceptAll: consent.cookie_consent_accept_all_close,
+                    modalAffectedSolutions: consent.cookie_consent_affected_solutions,
+                    learnMore: consent.cookie_consent_more,
+                    on: consent.cookie_consent_on,
+                    off: consent.cookie_consent_off,
+                },
+            }
+        },
+        // List all the categories you want to display
+        categories: {
+            necessary: {
+                needed: true,
+                wanted: true,
+                checked: true,
+                language: {
+                    locale: {
+                        hr: {
+                            name: consent.cookie_consent_necessary_title,
+                            description: consent.cookie_consent_necessary_description,
+                        },
+                    }
+                }
+            },
+            functional: {
+                needed: false,
+                wanted: false,
+                checked: false,
+                language: {
+                    locale: {
+                        hr: {
+                            name: consent.cookie_consent_tracking_title,
+                            description: consent.cookie_consent_tracking_description,
+                        },
+                    }
+                }
+            },
+            marketing: {
+                needed: false,
+                wanted: false,
+                checked: false,
+                language: {
+                    locale: {
+                        hr: {
+                            name: consent.cookie_consent_marketing_title,
+                            description: consent.cookie_consent_marketing_description,
+                        },
+                    }
+                }
+            },
+        },
+        // List actual services here
+        services: {
+            chat: {
+                category: 'functional', // Must be unique
+                type: 'dynamic-script',
+                search: 'zopim',
+                cookies: [
+                    {
+                        name: '__zlcmid',
+                        domain: `.${window.location.hostname}`
+                    },
+                    {
+                        name: '__zlcstore',
+                        domain: `.${window.location.hostname}`
+                    }
+                ],
+                language: {
+                    locale: {
+                        hr: {
+                            name: consent.cookie_consent_functional_general_service
+                        },
+                    }
+                }
+            },
+            googletagmanager: {
+                category: 'necessary', // Must be unique
+                type: 'dynamic-script',
+                search: 'googletagmanager',
+                cookies: [
+                    {
+                        name: '_gid',
+                        domain: `.${window.location.hostname}`
+                    },
+                    {
+                        name: /^_ga/,
+                        domain: `.${window.location.hostname}`
+                    },
+                    {
+                        name: /^_gat/,
+                        domain: `.${window.location.hostname}`
+                    },
+                    {
+                        name: 'gtm_util_session',
+                        domain: `.${window.location.hostname}`
+                    }
+                ],
+                language: {
+                    locale: {
+                        hr: {
+                            name: 'Google Analytics'
+                        },
+                    }
+                }
+            },
+            facebook_pixel: {
+                category: 'marketing', // Must be unique
+                type: 'dynamic-script',
+                search: 'facebook',
+                cookies: [
+                    {
+                        name: 'fbq',
+                        domain: `.${window.location.hostname}`
+                    }
+                ],
+                language: {
+                    locale: {
+                        hr: {
+                            name: 'Facebook Pixel'
+                        },
+                    }
+                }
+            }
+        }
+    });
+</script>

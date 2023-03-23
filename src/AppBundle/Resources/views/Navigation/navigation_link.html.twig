@@ -1,0 +1,52 @@
+{# Check if user can see dropdown #}
+{% if not is_granted('ROLE_ADMIN') %}
+    {% set userHasPrivilegeOnChildren = 0 %}
+    {% if link.show == 1 and link.url == "#" and link.children is defined and link.children is not empty %}
+        {% for child in link.children %}
+            {% if child.uid is defined and app.user.hasPrivilege(5,child.uid) %}
+                {% set userHasPrivilegeOnChildren = 1 %}
+            {% endif %}
+            {% if userHasPrivilegeOnChildren == 0 and child.children is defined and child.children is not empty %}
+                {% for child2 in child.children %}
+                    {% if child2.page is defined and app.user.hasPrivilege(5,child2.uid) %}
+                        {% set userHasPrivilegeOnChildren = 1 %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+{% if link.show == 1 and (is_granted('ROLE_ADMIN') or (link.url == "#" and userHasPrivilegeOnChildren) or (link.uid is defined and app.user.hasPrivilege(5,link.uid))) or ("http" in link.url) %}
+    {# {% if(link.isParent==1) %} #}
+    {% if(link.children is not defined or link.children is empty) %}
+        <li data-id="{{ link.id }}">
+            <a title="{{ link.displayName|trans }}" href="{{ app.request.getBaseURL() }}{{ link.url }}" {% if link.uid is defined %}data-link="{{ link.uid }}"{% endif %}>
+                {% if level == 1 %}
+                    {% if link.cssClass is not empty %}<i class="{{ link.cssClass }}"></i>{% elseif link.icon is not empty %}<i class="{{ link.icon }}"></i>{% else %}<i
+                            class="far fa-file"></i>{% endif %}
+                {% endif %}
+                <span>{{ link.displayName|trans }}</span>
+            </a>
+        </li>
+    {% else %}
+        <li class="dropdown-submenu-wrapper" data-id="{{ link.id }}">
+            <a title="{{ link.displayName|trans }}" href="javascript:void(0);" class="dropdown-toggle" data-toggle='dropdown'>
+                {% if level == 1 %}
+                    {% if link.cssClass is not empty %}<i class="{{ link.cssClass }}"></i>{% elseif link.icon is not empty %}<i class="{{ link.icon }}"></i>{% else %}<i
+                            class="fa fa-folder"></i>{% endif %}
+                {% endif %}
+                <span>{{ link.displayName|trans }} <i class="submenu-toggler fa fa-angle-{% if level > 1 %}right{% else %}down{% endif %}"></i></span>
+            </a>
+            <ul class="dropdown-level-{{ level }}" role="menu">
+                {% set level = level + 1 %}
+                {% for child in link.children %}
+                    {% include 'AppBundle:Navigation:navigation_link.html.twig' with {'link': child, 'level': level } %}
+                    {# {% if child.show == 1 and (child.url == "#" or is_granted('ROLE_ADMIN') or (child.page is defined and app.user.hasPrivilege(5,child.page.uid))) or ("http" in link.url) %}
+                            <li><a href="{{ app.request.getBaseURL() }}{{ child.url }}" {% if child.page is defined %}data-link="{{ child.page }}"{% endif %}>{{ child.displayName|trans }}</a></li>
+                        {% endif %} #}
+                {% endfor %}
+            </ul>
+        </li>
+    {% endif %}
+    {# {% endif %} #}
+{% endif %}

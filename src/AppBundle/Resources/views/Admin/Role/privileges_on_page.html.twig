@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    {% block main_actions %}
+        {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <form data-validate="true" method="post" action="{{ path('page_privilege_save') }}"
+                      accept-charset="UTF-8"
+                      data-callback=''
+                      data-type="{{ managed_entity_type }}"
+                      class="form-horizontal row-border">
+                    <ul class="nav nav-tabs">
+                        {% for key,privileges in privileges_list %}
+                            <li {% if key == "attribute_set" %}class="active"{% endif %}><a data-toggle="tab" href="#w{{ key }}">{{ privileges.name|trans }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <div class="tab-content">
+                        <input type="hidden" name="entity_type" value="{{ managed_entity_type }}"/>
+                        <input type="hidden" name="id" value="{{ entity.id }}"/>
+                        {% for key,privileges in privileges_list %}
+                            <div id="w{{ key }}" class="tab-pane fade in {% if key == "attribute_set" %}active{% endif %}">
+                                {% for role in roles %}
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <h3>{{ role.roleCode }}</h3>
+                                            <div class="panel panel-midnightblue">
+                                                <div class="panel-heading master-panel-heading">
+                                                    <h4>{{ privileges.name|trans }}</h4>
+                                                </div>
+                                                <div class="panel-body collapse in">
+                                                    <fieldset class="form-group-wrapper">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 control-label"></label>
+                                                            {% for privilege_type in privileges.privileges|first %}
+                                                                <div class="col-sm-2">{{ action_types[privilege_type.action_type] }}</div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="form-group row">
+                                                                 <label class="col-sm-3 control-label">{% trans %}Toggle column{% endtrans %}</label>
+                                                                {% for privilege_type in privileges.privileges|first %}
+                                                                    <div class="col-sm-2">
+                                                                        <label>
+                                                                        <input data-off-text="{% trans %}No{% endtrans %}"
+                                                                               data-on-text="{% trans %}Yes{% endtrans %}"
+                                                                               type="checkbox"
+                                                                               data-action="togglePrivilegesColumn"
+                                                                               data-holder-type="{{ privilege_type.action_type }}"
+                                                                               name="toggleAll{{ privilege_type.action_type }}"
+                                                                               data-type="bchackbox" {% apply spaceless %}
+                                                                            value="1"
+                                                                        {% endapply %}/></label>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% for name,privilege_group in privileges.privileges %}
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-3 control-label">{{ privilege_group[0].entity_code }}</label>
+                                                                {% for action in privilege_group %}
+                                                                    <div class="col-sm-2">
+                                                                        <label>
+                                                                            <input data-off-text="{% trans %}No{% endtrans %}"
+                                                                                   data-on-text="{% trans %}Yes{% endtrans %}"
+                                                                                   type="checkbox"
+                                                                                   data-action="toggleHiddenValue"
+                                                                                   data-action-type="{{ action.action_type }}"
+                                                                                   name="privilege[{{ action.action_code }}][{{ action.action_type }}][{{ role.id }}]"
+                                                                                   data-type="bchackbox" {% apply spaceless %}
+                                                                                {% if entity_privileges[role.roleCode][action.action_code][action.action_type] is defined %}checked="checked"{% endif %}
+                                                                                value="1" {% endapply %}/>
+                                                                            <input type="hidden" data-type="hidden_value" name="privilege_set[{{ action.action_code }}][{{ action.action_type }}][{{ role.id }}]" value="{% if entity_privileges[role.roleCode][action.action_code][action.action_type] is defined %}1{% else %}0{% endif %}">
+                                                                        </label>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endfor %}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

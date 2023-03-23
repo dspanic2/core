@@ -1,0 +1,4 @@
+{% if quote is defined and quote is not empty and quote.accountEmail is not empty %}
+    {% set disabled = false %}
+{% endif %}
+<span class="button btn-type-1 checkout cart-finish toggleable {% if disabled is defined and disabled %}disabled{% endif %}">{% trans into current_language %}Proceed to checkout{% endtrans %} <span class="forward"></span></span>

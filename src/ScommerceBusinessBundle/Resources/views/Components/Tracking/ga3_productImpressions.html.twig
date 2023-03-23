@@ -1,0 +1,38 @@
+{% if products|default([]) is not empty %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script type="text/javascript">
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'ga3_productImpressions',
+                    'ecommerce': {
+                        'currencyCode': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                        'impressions': [
+                            {% for product in products %}
+                                {% set productName = get_entity_store_attribute(current_store_id,product,"name")|striptags %}
+
+                                {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+
+                                {% set brand = product.getBrand %}
+                                {% set brandName = "" %}
+                                {% if brand is not empty %}
+                                    {% set brandName = get_entity_store_attribute(current_store_id,brand,"name")|striptags %}
+                                {% endif %}
+                                {
+                                    'id': '{{ product.getId }}',
+                                    'name': '{{ productName }}',
+                                    'price': {{ prices.final_tracking_price|number_format(2,".","") }},
+                                    'brand': '{{ brandName }}',
+                                    'category': '{{ get_menu_tree_for_product(product)|default([])|last|default("")|striptags }}',
+                                    'list': '{{ item_list_name|default("") }}',
+                                    'position': {{ loop.index+1 }}
+                                }{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        ]
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

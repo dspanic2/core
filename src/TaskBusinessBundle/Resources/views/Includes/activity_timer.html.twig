@@ -1,0 +1,34 @@
+<div class="timer-wrapper">
+    {% if data.model.timer.id is not empty %}
+        <input type="hidden" data-name="time_start" class="form-control" value="{{ data.model.timer.time_start }}"/>
+        <input type="hidden" data-name="time_end" class="form-control" value="{{ data.model.timer.time_end }}"/>
+        <input type="hidden" data-name="time_elapsed" class="form-control" value="{{ data.model.timer.time_elapsed }}"/>
+        <div class="sp-activity-tracking-message hidden">
+            <div style="text-align: center;">
+                <p><i class="fas fa-info-circle"></i>&nbsp;{% trans %}Activity tracking is completed.{% endtrans %}</p>
+            </div>
+        </div>
+        <div class="sp-activity-tracking-start hidden">
+            {# <p>{% trans %}Click the button to start tracking your activity{% endtrans %}</p> #}
+            <span class="sp-btn btn btn-success"
+                  data-action="activity_tracking_start"
+                  data-id="{{ data.model.timer.id }}"
+                  data-url="{{ path('activity_tracking_start', { 'id': data.model.timer.id }) }}">
+                <i class="fas fa-play"></i>&nbsp;{% trans %}Start{% endtrans %}
+            </span>
+        </div>
+        <div class="sp-activity-tracking-stop hidden">
+            <p>{{ data.model.timer.name }}</p>
+            <h2 class="sp-activity-tracking-timer">00:00:00</h2>
+            <span class="sp-btn btn sp-activity-tracking-btn-danger"
+                  data-action="activity_tracking_stop"
+                  data-id="{{ data.model.timer.id }}"
+                  data-url="{{ path('activity_tracking_stop', { 'id': data.model.timer.id }) }}"><i
+                        class="fas fa-stop"></i>&nbsp;{% trans %}Stop{% endtrans %}</span>
+        </div>
+    {% else %}
+        <div style="text-align: center;">
+            <p><i class="fas fa-info-circle"></i>&nbsp;{% trans %}Activity tracking is not available.{% endtrans %}</p>
+        </div>
+    {% endif %}
+</div>

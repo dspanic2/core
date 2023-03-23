@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="AppBundle\Entity\CoreUserEntity" table="user_entity">
+        ###CLASS_START
+        <one-to-many field="contacts" target-entity="CrmBusinessBundle\Entity\ContactEntity" mapped-by="coreUser">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+        <!--<one-to-many field="userRoles" target-entity="AppBundle\Entity\CoreUserRoleLinkEntity" mapped-by="coreUser">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>-->
+        <many-to-many field="userRoles" target-entity="AppBundle\Entity\RoleEntity" fetch="LAZY">
+            <join-table name="user_role_entity">
+                <join-columns>
+                    <join-column name="core_user_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="role_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <field name="websites" type="json" column="websites" nullable="true"/>
+        <field name="usernameCanonical" type="string" column="username_canonical" nullable="true"/>
+        <field name="emailCanonical" type="string" column="email_canonical" nullable="true"/>
+        <field name="enabled" type="integer" column="enabled" nullable="true"/>
+        <field name="salt" type="string" column="salt" nullable="true"/>
+        <field name="roles" type="string" column="roles" nullable="true"/>
+        <field name="expired" type="integer" column="expired" nullable="true"/>
+        <field name="credentialsExpired" type="integer" column="credentials_expired" nullable="true"/>
+        <field name="lastLogin" type="string" column="last_login" nullable="true"/>
+        <one-to-many field="userEmployee" target-entity="HrBusinessBundle\Entity\EmployeeEntity"  mapped-by="coreUser">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+        <field name="offerPasswordReset" type="integer" column="offer_password_reset" nullable="true"/>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

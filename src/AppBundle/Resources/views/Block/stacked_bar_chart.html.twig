@@ -1,0 +1,39 @@
+<div class="sp-block sp-bar_chart-wrapper {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        <h5>{{ data.block.title|trans }}{% if data.tooltip is defined and data.tooltip is not empty %}<span class="fa fa-question-circle sp-question-circle" data-content="{{ data.tooltip|trans }}" rel="popover" data-html="true" data-placement="bottom" data-original-title="" title=""></span>{% endif %}
+                            <div class="options">
+                                {#<i class="fa fa-filter fa-lg sp-chart-filter" data-action="filter_chart"
+                                   data-filter-chart="{{ data.block.id }}" data-page-id="{% if data.id  is defined %}{{ data.id }}{% endif %}"></i>#}
+                                {#<i class="fa fa-undo fa-lg" id="revert_chart_{{ data.block.id }}"></i>#}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }} {% endif %}
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <div class="sp-bar_chart sp-chart-container"
+                             data-type="stacked_bar_chart"
+                             data-format="{{ data.format }}"
+                             data-currency_code="{{ data.currency_code }}"
+                             data-url="{{ path('get_chart_data', {'block_id': data.block.id }) }}"
+                             data-filter=""
+                             id="chart_{{ data.block.id }}"
+                             data-page-id="{% if data.id  is defined %} {{ data.id }} {% endif %} "
+                             data-chart="{{ data.block.id }}" height="400"
+                             data-categories="{% if data.categories is defined %}{{ data.categories }}{% endif %}"
+                             data-columns="{% if data.columns is defined %}{{ data.columns }}{% endif %}"
+                             data-groups="{% if data.groups is defined %}{{ data.groups }}{% endif %}"
+                             data-level="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

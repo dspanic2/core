@@ -1,0 +1,28 @@
+{% if data.model.testimonials is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="container">
+            <div class="row items-grid">
+                <div class="col-xs-12 text-center">
+                    <div class="slider">
+                        {% for slider_item in data.model.testimonials %}
+                            <div class="slider-item">
+                                <div class="inner">
+                                    <span class="line"></span>
+                                    {% if slider_item.name is defined and slider_item.name is not empty %}
+                                        <h3>{{ get_entity_store_attribute(current_store_id,slider_item,"name") }}</h3>
+                                    {% endif %}
+                                    {% if slider_item.content is defined and slider_item.content is not empty %}
+                                        <div class="text"><p>{{ get_entity_store_attribute(current_store_id,slider_item,"content") }}</p></div>
+                                    {% endif %}
+                                    {% if slider_item.person is defined and slider_item.person is not empty %}
+                                        <span class="author">{{ slider_item.person }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

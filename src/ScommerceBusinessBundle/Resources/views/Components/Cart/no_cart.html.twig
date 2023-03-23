@@ -1,0 +1,13 @@
+<div id="no-results">
+    <div class="no-result-message">
+        {% trans into current_language %}We are sorry! We couldn't find your cart.{% endtrans %}
+    </div>
+
+    <div class="suggestion">
+        <ul>
+            <li>{% trans into current_language %}Try to log in if you have an account{% endtrans %}</li>
+            <li>{% trans into current_language %}Make sure your cart is not empty{% endtrans %}</li>
+            <li><a href="{{ get_page_url(current_store_id,35,"s_page") }}">{% trans into current_language %}Contact us{% endtrans %}</a> {% trans into current_language %}for help{% endtrans %}</li>
+        </ul>
+    </div>
+</div>

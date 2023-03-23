@@ -1,0 +1,134 @@
+{# <div class="row text-center uppercase"> #}
+{#    <h1>Još ovaj korak i vaša narudžba je spremna</h1> #}
+{# </div> #}
+<form class="label-hidden">
+    <div class="cart-registration-forms">
+        {% if data.model.account is empty %}
+            <div class="login-section row">
+                <div class="col-xs-12 text-center cart-login">
+                    <p>{% trans into current_language %}Already have an account?{% endtrans %} <span
+                                class="button btn-type-1 open-login local-overlay">{% trans into current_language %}Login{% endtrans %}</span></p>
+                </div>
+            </div>
+        {% endif %}
+        <div class="register-section row {% if not is_user_logged_in() %}send-data{% endif %}">
+            <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+            <div class="col-xs-12 col-sm-6">
+                <div class="checkout-section register-form">
+                    <h2 class="styled-title">{% trans into current_language %}Personal data{% endtrans %}</h2>
+                    {% if is_user_logged_in() %}
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_account_information.html.twig', 'data': {'data': data}}, {})) }}
+                    {% else %}
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_register_form.html.twig', 'data': {'data': data}}, {})) }}
+                    {% endif %}
+                </div>
+
+                <div class="checkout-section r1-information ">
+                    <h2 class="styled-title">{% trans into current_language %}Need R1?{% endtrans %}</h2>
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_r1_form.html.twig', 'data': {'data': data}}, {})) }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {% if get_env("ORDER_REQUEST_OFFER") == 1 %}
+                    <div class="delivery-type">
+                        <h2 class="styled-title">{% trans into current_language %}Delivery type{% endtrans %}</h2>
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_delivery_type.html.twig', 'data': {'data': data}}, {})) }}
+                    </div>
+
+                    <div class="form-section delivery-address">
+                        <h2 class="styled-title">{% trans into current_language %}Delivery address{% endtrans %}</h2>
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_delivery_address.html.twig', 'data': {'data': data}}, {})) }}
+                    </div>
+                {% else %}
+                    <div class="delivery-type">
+                        <h2 class="styled-title">{% trans into current_language %}Delivery type{% endtrans %}</h2>
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_delivery_type.html.twig', 'data': {'data': data}}, {})) }}
+                    </div>
+
+                    <div class="form-section delivery-address">
+                        <h2 class="styled-title">{% trans into current_language %}Delivery address{% endtrans %}</h2>
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_delivery_address.html.twig', 'data': {'data': data}}, {})) }}
+                    </div>
+
+                    <div class="payment-type">
+                        <h2 class="styled-title">{% trans into current_language %}Payment type{% endtrans %}</h2>
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_payment_type.html.twig', 'data': {'data': data}}, {})) }}
+                    </div>
+                {% endif %}
+
+                <div class="checkout-section note">
+                    <h2 class="styled-title">{% trans into current_language %}Note{% endtrans %}</h2>
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_note.html.twig', 'data': {'data': data}}, {})) }}
+                </div>
+
+                <div class="checkout-section accept-terms form-row">
+                    <label class="plain smaller-responsive force-visible label-checkbox">
+                        <input type="checkbox"
+                               data-submit-enable="true"
+                               data-id="accept_terms"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                               {% if is_user_logged_in() %}checked="checked"{% endif %}
+                               required> {% trans into current_language %}I accept{% endtrans %} <a target="_blank" class="terms_of_use" href="{{ current_language_url }}/{{ get_page_url(current_store_id,38,"s_page") }}">{% trans into current_language %}terms of use{% endtrans %}*</a>
+                    </label>
+                    <span class="form-note">{% trans into current_language %}We process personal data in accordance with{% endtrans %} <a target="_blank" href="{{ current_language_url }}/{{ get_page_url(current_store_id,94,"s_page") }}" class="link-default">{{ get_page_title(current_store_id,94,"s_page") }}</a></span>
+                </div>
+            </div>
+        </div>
+
+        {# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_send_multiple.html.twig', 'data': {'data': data}}, {})) }} #}
+
+        <div class="overview-section">
+            <div class="row form-row newsletter">
+                <div class="col-xs-12 col-sm-6">
+                    <label class="plain smaller-responsive force-visible label-checkbox">
+                        <input type="checkbox"
+                               {% if data.model.contact is defined and data.model.contact is not empty and data.model.contact.newsletterSignup %}checked="checked"{% endif %}
+                               id="newsletter"
+                               name="newsletter_signup"> {% trans into current_language %}Apply for newsletter{% endtrans %}
+                    </label>
+                </div>
+            </div>
+            <div class="cart-action">
+                <div class="row">
+                    <div class="col-xs-6 text-left">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_back.html.twig', 'data': {}}, {})) }}
+                    </div>
+                    <div class="col-xs-6">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_proceed_ajax.html.twig', 'data': {'disabled': true, 'quote': data.model.quote}}, {})) }}
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+            <div class="cart-items">
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_product_list.html.twig', 'data': {'quoteItems': data.model.quote.quoteItems, 'editable': 0, 'data': data}}, {})) }}
+                <span class="clearfix"></span>
+            </div>
+            <div class="cart-action">
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_totals.html.twig', 'data': {'data': data, 'show_delivery': true}}, {})) }}
+                <div class="row">
+                    <div class="col-xs-6 text-left">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_back.html.twig', 'data': {}}, {})) }}
+                    </div>
+                    <div class="col-xs-6">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_proceed_ajax.html.twig', 'data': {'disabled': true, 'quote': data.model.quote}}, {})) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% if is_granted('ROLE_USER') and app.user.username != "anonymous" %}
+    <div class="add-new-address-form overlay optional">
+        <div class="inner">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:address_form.html.twig', 'data': {
+                'data': data,
+                'address': null,
+                'triggerAction': 'global:page-reload',
+                'classes': 'no-remove label-hidden',
+                'show_first_last_input': 1,
+                'horizontal': 1
+            }}, {})) }}
+        </div>
+    </div>
+{% endif %}

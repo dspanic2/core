@@ -1,0 +1,27 @@
+{% if slider is defined %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script type="text/javascript">
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'ga3_viewPromotion',
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {% for slide in slider.getImages() %}
+                                {
+                                    'id': '{{ slide.getId }}',
+                                    'name': '{{ slide.getName|striptags }}',
+                                    'creative': 'slide_{{ slide.getId }}',
+                                    'position': {{ loop.index+1 }}
+                                }{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            ]
+                        }
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

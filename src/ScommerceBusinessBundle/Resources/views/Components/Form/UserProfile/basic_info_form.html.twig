@@ -1,0 +1,47 @@
+<form class="ajax-submit"
+      action="/dashboard/update_password"
+      method="post">
+    <input type="text" name="im_not_a_human" style="display: none!important;">
+
+    <div class="row form-row full-width margin-bottom-0">
+        <div class="form-group code col-xs-12">
+            <label>{% trans into current_language %}Email{% endtrans %}*
+                <div>{{ contact.email }}</div>
+            </label>
+        </div>
+    </div>
+
+    <div class="row form-row full-width">
+        <div class="form-group name col-xs-12 col-sm-4">
+            <label for="password">{% trans into current_language %}Postojeća lozinka{% endtrans %}*
+                <input type="password" name="password"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       required class="no-validate"
+                       autocomplete="on">
+            </label>
+        </div>
+        <div class="form-group new-password col-xs-12 col-sm-4">
+            <label for="new_password">{% trans into current_language %}Nova lozinka{% endtrans %}*
+                <input type="password" name="new_password"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       required
+                       autocomplete="on">
+            </label>
+        </div>
+        <div class="form-group new-password-2 col-xs-12 col-sm-4">
+            <label for="new_password_2">{% trans into current_language %}Ponovljena nova lozinka{% endtrans %}*
+                <input type="password" name="new_password_2"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       required
+                       autocomplete="on">
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group submit text-left">
+        <input type="submit" value="{% trans into current_language %}Save{% endtrans %}" class="button btn-type-1">
+    </div>
+</form>

@@ -1,0 +1,17 @@
+<td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %} style="text-align: center;font-size: 20px">
+    {% if value != 1 %}
+        <i class="fa fa-stop-circle sp-false sp-hover-pointer"
+           aria-hidden="true"
+           title="{{ 'Stop'|trans }}"
+           data-activity-id="{{ entity.id }}"
+           data-url="/{{ entity.entityType.entityTypeCode }}/stop/{{ entity.id }}"
+           data-action="list_activity_tracking_stop"></i>
+    {% else %}
+        <i class="fa fa-play-circle sp-true sp-hover-pointer"
+           aria-hidden="true"
+           title="{{ 'Start'|trans }}"
+           data-activity-id="{{ entity.id }}"
+           data-url="/{{ entity.entityType.entityTypeCode }}/start/{{ entity.id }}"
+           data-action="list_activity_tracking_start"></i>
+    {% endif %}
+</td>

@@ -1,0 +1,48 @@
+{% if value is iterable %}
+    {% set value = value|first %}
+{% endif %}
+{% if field is defined and field.listMode == "edit" and not attribute.readOnly and field.listViewAttribute.enableInlineEditing == 1 %}
+    <td class="{% if fieldClass is not empty %}{{ fieldClass }}{% endif %}" tabindex="-1">
+        <select data-id="{{ attribute.id }}"
+                data-template="{{ attribute.frontendModel }}"
+                data-type="{{ attribute.frontendInput }}"
+                data-search-url="{{ path('get_autocomplete') }}"
+                data-search-create-url="{{ path('create_autocomplete') }}"
+                class="form-control inline-edit-field"
+                data-min-len="0"
+                data-single="true"
+                name="{{ attribute.attributeCode }}"
+                data-allow-clear="true" data-placeholder="{% trans %}Search...{% endtrans %}"
+                {% if(attribute.validator is not empty) %}
+                    {% set validators = attribute.validator | json_decode %}
+                    {% for validator in validators %}
+                        {{ include('AppBundle:Form/Validators:' ~ validator.type ~ '.html.twig') }}
+                    {% endfor %}
+                {% endif %}>
+            {% if valueId is defined %}
+                <option value="{{ valueId }}"
+                        selected="selected"
+                        title="{{ value|striptags }}">{% apply spaceless %}{{ value }}{% endapply %}</option>
+            {% endif %}
+        </select>
+    </td>
+{% else %}
+    <td title="{{ value }}" {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+        {% if entity is defined and entity is not empty %}
+            <span data-value-id="{{ entity.id }}" class="sp-list-lookup"
+                  style="{% if entity.color is defined %}background: {{ entity.color }}; color: white;{% endif %}{% if width is not empty %}width: {{ width }}px;{% endif %}">
+        {% if showLink == 1 %}
+            {% if app.user.hasPrivilege(3,entity.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+                <a href="{{ path("page_view", {'id': entity.id, 'url': entity.attributeSet.attributeSetCode, 'type': 'form'}) }}">{{ value }}</a>
+            {% elseif app.user.hasPrivilege(2,entity.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+                <a href="{{ path("page_view", {'id': entity.id, 'url': entity.attributeSet.attributeSetCode, 'type': 'view'}) }}">{{ value }}</a>
+            {% else %}
+                {{ value }}
+            {% endif %}
+        {% else %}
+            {{ value }}
+        {% endif %}
+        </span>
+        {% endif %}
+    </td>
+{% endif %}

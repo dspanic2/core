@@ -1,0 +1,29 @@
+<div data-url="{{ data.create_new_url }}" data-locale="{{ app.session.get('_locale') }}" data-first-day="{% if data.first_day is defined %}{{ data.first_day }}{% endif %}" {% if data.drag_and_drop is defined and data.drag_and_drop %}data-drop="true"{% endif %} data-drop-url="{{ path('calendar_drop_data') }}" class="sp-block sp-calendar-wrapper {{ data.block.class }} {% if data.block.content.open_modal is defined and data.block.content.open_modal == 1 %}sp-calendar-day-hover{% endif %}" data-open-modal="{% if data.block.content.open_modal is defined and data.block.content.open_modal == 1 %}1{% else %}0{% endif %}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="panel-heading main-panel-heading">
+                    <h5>{% trans %}Calendar{% endtrans %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                            {% if data.enable_print is defined and data.enable_print == 1 %}
+                                <span class="sp-options-text sp-hover pull-right" title="{% trans %}Print{% endtrans %}" data-action="print_calendar"><i class="sp-icon sp-icon-print"></i><span class="sp-icon-text">{% trans %}Print{% endtrans %}</span></span>
+                            {% endif %}
+                        </div>
+                    </h5>
+                </div>
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <div data-type="calendar">
+                            <div class="calendar-placeholder">
+                                <div id="cal{{ data.block.id }}" class="calendar-init" data-id="{{ data.block.id }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

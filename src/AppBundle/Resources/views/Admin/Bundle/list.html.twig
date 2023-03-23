@@ -1,0 +1,37 @@
+{% for key in entities|keys %}
+    <tr data-id="{{ key }}" class="{{ cycle(['odd', 'even'], loop.index0) }} sp-row-clickable">
+        <td>{{ key }}</td>
+        <td class="sp-actions-td">
+            <span class="sp-actions-td-inner">
+                 <a class="btn dropdown-toggle btn-xs pull-left sp-datatable-right-button btn-default"
+                    data-toggle="dropdown" href="javascript:void(0);" data-container="body" data-placement="bottom"
+                    data-tooltip="true" role="button" tabindex="0" aria-label="{% trans %}Actions{% endtrans %}"
+                    aria-haspopup="true" aria-expanded="false" title="{% trans %}Actions{% endtrans %}"
+                    data-original-title="{% trans %}Actions{% endtrans %}"><i class="fa fa-caret-down"></i></a>
+                <ul data-menu="dropdown" class="dropdown-menu" role="menu">
+                    <li><span>
+                            <span class="menu-item" data-action="standard_grid_action" data-id="{{ key }}"
+                                  data-url="{{ path(managed_entity_type ~ '_delete') }}" data-custom-callback=""
+                                  role="button"
+                                  tabindex="0">{% trans %}Delete entity types{% endtrans %}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <a target="_blank"
+                               href="{{ path(managed_entity_type ~ '_export', {'bundle': key}) }}"
+                               role="button" tabindex="0">{% trans %}Export bundle{% endtrans %}</a>
+                        </span>
+                    </li>
+                    {#<li>
+                          <span class="menu-item" data-action="standard_grid_action" data-id="{{ key }}"
+                                data-url="{{ path(managed_entity_type ~ '_export') }}" data-custom-callback=""
+                                role="button"
+                                tabindex="0">{% trans %}Export bundle{% endtrans %}</span>
+                    </li>#}
+                </ul>
+
+            </span>
+        </td>
+    </tr>
+{% endfor %}

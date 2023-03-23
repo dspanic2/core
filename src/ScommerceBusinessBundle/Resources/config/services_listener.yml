@@ -1,0 +1,183 @@
+services:
+
+  webform_listener:
+    class: ScommerceBusinessBundle\EventListener\WebformListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onWebformEntityPreCreated }
+      - { name: kernel.event_listener, event: entity.prepdated, method: onWebformEntityPreUpdated }
+
+  static_content_listener:
+    class: ScommerceBusinessBundle\EventListener\StaticContentListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onStaticContentEntityPreCreated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onStaticContentEntityPreUpdated }
+
+  s_maintenance_listener:
+    class: ScommerceBusinessBundle\EventListener\MaintenanceListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+  s_page_listener:
+    class: ScommerceBusinessBundle\EventListener\SpageListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      #- { name: kernel.event_listener, event: entity.created, method: onSpageCreated}
+      #- { name: kernel.event_listener, event: entity.updated, method: onSpageUpdated}
+      - { name: kernel.event_listener, event: entity.deleted, method: onSpageDeleted }
+
+  s_locale_listener:
+    class: ScommerceBusinessBundle\EventListener\SLocaleListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+  s_front_block_listener:
+    class: ScommerceBusinessBundle\EventListener\SfrontBlockListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onSfrontBlockPreCreated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onSfrontBlockPreUpdated }
+
+  product_group_listener:
+    class: ScommerceBusinessBundle\EventListener\ProductGroupListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onProductGroupPreCreated }
+      - { name: kernel.event_listener, event: entity.created, method: onProductGroupCreated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onProductGroupPreUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onProductGroupUpdated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onProductGroupDeleted }
+
+  s_product_attribute_configuration_listener:
+    class: ScommerceBusinessBundle\EventListener\SproductAttributeConfigurationListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.presetcreated, method: onSproductAttributeConfigurationPreSetCreated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onSproductAttributeConfigurationPreCreated }
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onSproductAttributeConfigurationPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onSproductAttributeConfigurationPreUpdated }
+      - { name: kernel.event_listener, event: entity.predeleted, method: onSproductAttributeConfigurationPreDeleted }
+
+  s_product_attribute_configuration_options_listener:
+    class: ScommerceBusinessBundle\EventListener\SproductAttributeConfigurationOptionsListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.created, method: onSproductAttributeConfigurationOptionsCreated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onSproductAttributeConfigurationOptionsPreCreated }
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onSproductAttributeConfigurationOptionsPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onSproductAttributeConfigurationOptionsUpdated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onSproductAttributeConfigurationOptionsPreUpdated }
+      - { name: kernel.event_listener, event: entity.predeleted, method: onSproductAttributeConfigurationOptionsPreDeleted }
+      - { name: kernel.event_listener, event: entity.deleted, method: onSproductAttributeConfigurationOptionsDeleted }
+
+  s_menu_listener:
+    class: ScommerceBusinessBundle\EventListener\SmenuListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onSmenuPreCreated }
+
+  s_menu_item_listener:
+    class: ScommerceBusinessBundle\EventListener\SmenuItemListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.deleted, method: onSmenuItemDeleted }
+
+  s_product_search_results_listener:
+    class: ScommerceBusinessBundle\EventListener\SproductSearchResultsListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.deleted, method: onSproductSearchResultsDeleted }
+
+  s_search_synonyms_listener:
+    class: ScommerceBusinessBundle\EventListener\SsearchSynonymsListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.deleted, method: onSsearchSynonymsDeleted }
+
+  blog_categry_listener:
+    class: ScommerceBusinessBundle\EventListener\BlogCategoryListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.presetcreated, method: onBlogCategoryPreSetCreated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onBlogCategoryPreCreated }
+      - { name: kernel.event_listener, event: entity.created, method: onBlogCategoryCreated }
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onBlogCategoryPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onBlogCategoryUpdated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onBlogCategoryDeleted }
+
+
+  blog_post_listener:
+    class: ScommerceBusinessBundle\EventListener\BlogPostListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.presetcreated, method: onBlogPostPreSetCreated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onBlogPostPreCreated }
+      - { name: kernel.event_listener, event: entity.created, method: onBlogPostCreated }
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onBlogPostPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onBlogPostUpdated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onBlogPostDeleted }
+
+  landing_listener:
+    class: ScommerceBusinessBundle\EventListener\LandingListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.presetcreated, method: onLandingPreSetCreated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onLandingPreCreated }
+      - { name: kernel.event_listener, event: entity.created, method: onLandingCreated }
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onLandingPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onLandingUpdated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onLandingDeleted }
+
+  blocked_ips_listener:
+    class: ScommerceBusinessBundle\EventListener\BlockedIpsListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.created, method: onBlockedIpCreated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onBlockedIpDeleted }
+
+  brand_listener:
+    class: ScommerceBusinessBundle\EventListener\BrandListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.presetcreated, method: onBrandPreSetCreated }
+      - { name: kernel.event_listener, event: entity.precreated, method: onBrandPreCreated }
+      - { name: kernel.event_listener, event: entity.created, method: onBrandCreated }
+      - { name: kernel.event_listener, event: entity.presetupdated, method: onBrandPreSetUpdated }
+      - { name: kernel.event_listener, event: entity.updated, method: onBrandUpdated }
+      - { name: kernel.event_listener, event: entity.deleted, method: onBrandDeleted }
+
+  product_description_rule_listener:
+    class: ScommerceBusinessBundle\EventListener\ProductDescriptionRuleListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onProductDescriptionRulePreCreated }
+      - { name: kernel.event_listener, event: entity.preupdated, method: onProductDescriptionRulePreUpdated }
+
+  s_route_not_found_listener:
+    class: ScommerceBusinessBundle\EventListener\SRouteNotFoundListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onSRouteNotFoundPreUpdated }

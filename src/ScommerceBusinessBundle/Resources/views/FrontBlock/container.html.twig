@@ -1,0 +1,21 @@
+{% set class = data.block.class %}
+{% set container = "" %}
+{% if 'container' in class %}
+    {% set container = "container" %}
+    {% set class = class|replace({'container': ''}) %}
+{% endif %}
+{% set settings = page_builder_get_block_settings(data.block) %}
+<div class="{% if get_is_admin(app.user) %}is-admin{% endif %} sp-block-outer sp-block-outer-{{ data.block.type }} {{ class }} {% if page_builder_is_active(current_entity) %}page-builder-on{% endif %} {% if not data.block.getActiveIncludingDates %}inactive{% endif %} {% if settings.in_container is defined and settings.in_container == 1 %}container{% endif %}">
+    <div class="{{ container }} {% if settings.number_columns is defined %}columns columns-{{ settings.number_columns|default(1) }}{% endif %}">
+        {% for row in data.block.preparedContent %}
+            <div class="row">
+                {% for block in row.blocks %}
+                    <div class="col-xs-12 col-md-{{ block.width }} sp-block-wrapper"
+                         data-block-id="{{ block.id }}">
+                        {{ render(controller('AppBundle:FrontTemplate:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

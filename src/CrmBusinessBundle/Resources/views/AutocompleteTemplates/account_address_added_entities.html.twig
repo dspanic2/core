@@ -1,0 +1,13 @@
+{% if attribute is defined %}{% apply spaceless %}
+    {% if showLink == 1 %}
+        {% if app.user.hasPrivilege(3,field_data.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'form'}) }}">{{ field_data.name }} {{ field_data.postalCode }}</a>
+        {% elseif app.user.hasPrivilege(2,field_data.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'view'}) }}">{{ field_data.name }} {{ field_data.postalCode }}</a>
+        {% else %}
+            {% if field_data.city is not empty %}{{ field_data.city.postalCode }} {{ field_data.city.name }}{% else %}{% trans %}Missing city{% endtrans %}{% endif %}, {{ field_data.street }}{% if field_data.firstName is defined and field_data.firstName is not empty %}, {{ field_data.firstName }} {{ field_data.lastName }}{% endif %}
+        {% endif %}
+    {% else %}
+        {% if field_data.city is not empty %}{{ field_data.city.postalCode }} {{ field_data.city.name }}{% else %}{% trans %}Missing city{% endtrans %}{% endif %}, {{ field_data.street }}{% if field_data.firstName is defined and field_data.firstName is not empty %}, {{ field_data.firstName }} {{ field_data.lastName }}{% endif %}
+    {% endif %}
+{% endapply %}{% endif %}

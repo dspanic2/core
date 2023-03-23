@@ -1,0 +1,237 @@
+services:
+    #    core_business.example:
+    #        class: AppBundle\Example
+    #        arguments: ["@service_id", "plain_value", %parameter%]
+    file_store_field:
+        class: AppBundle\Fields\FileStoreField
+        calls:
+          - [ setContainer, [ "@service_container" ] ]
+          - [ initialize ]
+
+    text_field:
+        class: AppBundle\Fields\TextField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    autocomplete_field:
+        class: AppBundle\Fields\AutocompleteField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    multiselect_field:
+        class: AppBundle\Fields\MultiselectField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    select_field:
+        class: AppBundle\Fields\SelectField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    datesingle_field:
+        class: AppBundle\Fields\DatesingleField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    datetimesingle_field:
+        class: AppBundle\Fields\DatetimesingleField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    daterange_field:
+        class: AppBundle\Fields\DaterangeField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    email_link_field:
+        class: AppBundle\Fields\EmailLinkField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    link_field:
+        class: AppBundle\Fields\LinkField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    file_field:
+        class: AppBundle\Fields\FileField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    decimal_field:
+        class: AppBundle\Fields\DecimalField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    checkbox_field:
+        class: AppBundle\Fields\CheckboxField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    textarea_field:
+        class: AppBundle\Fields\TextareaField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    ckeditor_field:
+        class: AppBundle\Fields\CkeditorField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    lookup_image_field:
+        class: AppBundle\Fields\LookupImageField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    integer_field:
+        class: AppBundle\Fields\IntegerField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    timepicker_field:
+        class: AppBundle\Fields\TimepickerField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    rating_field:
+        class: AppBundle\Fields\RatingField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    repeat_event_field:
+        class: AppBundle\Fields\RepeatEventField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    color_picker_field:
+        class: AppBundle\Fields\ColorPickerField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    progress_field:
+        class: AppBundle\Fields\ProgressField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    duration_field:
+        class: AppBundle\Fields\DurationField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    text_store_field:
+        class: AppBundle\Fields\TextStoreField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    textarea_store_field:
+        class: AppBundle\Fields\TextareaStoreField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    checkbox_store_field:
+        class: AppBundle\Fields\CheckboxStoreField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    checkbox_website_field:
+        class: AppBundle\Fields\CheckboxWebsiteField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    ckeditor_store_field:
+        class: AppBundle\Fields\CkeditorStoreField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    entity_type_picker_field:
+        class: AppBundle\Fields\EntityTypePickerField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    text_core_language_field:
+        class: AppBundle\Fields\TextCoreLanguageField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    textarea_core_language_field:
+        class: AppBundle\Fields\TextareaCoreLanguageField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    checkbox_core_language_field:
+        class: AppBundle\Fields\CheckboxCoreLanguageField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    ckeditor_core_language_field:
+        class: AppBundle\Fields\CkeditorCoreLanguageField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    multivalue_textarea_store_field:
+        class: AppBundle\Fields\MultivalueTextareaStoreField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    multivalue_textarea_field:
+        class: AppBundle\Fields\MultivalueTextareaField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    json_preview_field:
+        class: AppBundle\Fields\JsonPreviewField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    related_entity_link_field:
+        class: AppBundle\Fields\RelatedEntityLinkField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    decimal_store_field:
+        class: AppBundle\Fields\DecimalStoreField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    decimal_website_field:
+        class: AppBundle\Fields\DecimalWebsiteField
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]

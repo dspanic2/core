@@ -1,0 +1,52 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-body collapse in">
+        <form data-validate="true" method="post" action="{{ path('front_block_add_existing_block') }}"
+              accept-charset="UTF-8"
+              data-callback='["custom"]'
+              data-custom-callback='{% if entity is not empty %}{% if is_front is defined and is_front == true %}["reloadPage"]{% endif %}{% else %}["addFrontBlock"]{% endif %}'
+              data-type="s_front_block"
+              class="form-horizontal row-border">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <fieldset class="form-group-wrapper">
+                        <div class="form-group row hidden">
+                            <div class="col-sm-6">
+                                <input type="hidden" name="parent_id" class="form-control"
+                                       {% if parent_id is defined and parent_id is not empty %}value="{{ parent_id }}"{% endif %}/>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="hidden" name="parent_type" class="form-control"
+                                       {% if parent_type is defined and  parent_type is not empty %}value="{{ parent_type }}"{% endif %}/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{% trans %}Existing block{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <select name="id" data-fv-notempty="true"
+                                        data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                        class="form-control">
+                                    <option value="">{% trans %}Please select{% endtrans %}</option>
+                                    {% for block in blocks %}
+                                        <option value="{{ block.id }}">{{ block.type }} - {{ block.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-7 col-sm-offset-2">
+                        <div class="btn-toolbar">
+                            <button type="submit" class="btn-primary btn btn-blue"
+                                    data-action="close-modal">{% if entity is not empty %}{% trans %}Save{% endtrans %}{% else %}{% trans %}Save and continue{% endtrans %}{% endif %}</button>
+                            <button type="button" class="btn-default btn pull-right btn-red" data-dismiss="modal"><span
+                                    aria-hidden="true">{% trans %}Close{% endtrans %}</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

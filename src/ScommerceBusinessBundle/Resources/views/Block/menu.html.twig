@@ -1,0 +1,150 @@
+    <div class="sp-block {{ data.block.class }}" data-type="menu_block">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-6">
+                    <textarea class="hidden" name="navigation_json">{% if data["model"]["navigation_json"] is defined %}{{ data["model"]["navigation_json"]|raw }}{% endif %}</textarea>
+                    <ul id="menuEditor" class="sortableLists list-group"></ul>
+                    <div class="form-group hidden">
+                        <button id="btnOut" type="button" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Output before save</button>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <form id="frmEdit" class="form-horizontal row-border">
+                        <fieldset class="form-group-wrapper">
+                            <input type="hidden" class="form-control item-menu" id="id" name="id"/>
+                            <div class="form-group row">
+                                <label for="text" class="col-sm-3 control-label">{% trans %}Item title{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control item-menu" id="text" name="text" placeholder="{% trans %}Item title{% endtrans %}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="menu_item_type" class="col-sm-3 control-label">{% trans %}Menu item type{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="menu_item_type" id="menu_item_type" class="form-control item-menu">
+                                        {% if data["model"]["menu_item_types"] is defined and data["model"]["menu_item_types"] is not empty %}
+                                            {% for menu_item_type in data["model"]["menu_item_types"] %}
+                                                <option value="{{ menu_item_type.id }}">{{ menu_item_type.name }}</option>
+                                            {% endfor %}
+                                         {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="page" class="col-sm-3 control-label">{% trans %}Page{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="page" id="page" class="form-control item-menu">
+                                        <option value="">{% trans %}Please select page{% endtrans %}</option>
+                                        {% if data["model"]["pages"] is defined and data["model"]["pages"] is not empty %}
+                                            {% for page in data["model"]["pages"] %}
+                                                <option value="{{ page.id }}">{{ get_entity_store_attribute(data["model"]["store_id"],page,"name") }} - {{ page.id }}</option>
+                                            {% endfor %}
+                                         {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="product_group" class="col-sm-3 control-label">{% trans %}Product group{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="product_group" id="product_group" class="form-control item-menu">
+                                        <option value="">{% trans %}Please select product group{% endtrans %}</option>
+                                        {% if data["model"]["product_groups"] is defined and data["model"]["product_groups"] is not empty %}
+                                            {% for product_group in data["model"]["product_groups"] %}
+                                                <option value="{{ product_group.id }}">{{ get_entity_store_attribute(data["model"]["store_id"],product_group,"name") }} - {{ product_group.id }}</option>
+                                            {% endfor %}
+                                         {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="blog_category" class="col-sm-3 control-label">{% trans %}Blog category{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="blog_category" id="blog_category" class="form-control item-menu">
+                                        <option value="">{% trans %}Please select blog category{% endtrans %}</option>
+                                        {% if data["model"]["blog_categories"] is defined and data["model"]["blog_categories"] is not empty %}
+                                            {% for blog_category in data["model"]["blog_categories"] %}
+                                                <option value="{{ blog_category.id }}">{{ get_entity_store_attribute(data["model"]["store_id"],blog_category,"name") }} - {{ blog_category.id }}</option>
+                                            {% endfor %}
+                                         {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="brand" class="col-sm-3 control-label">{% trans %}Brand{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="brand" id="brand" class="form-control item-menu">
+                                        <option value="">{% trans %}Please select brand{% endtrans %}</option>
+                                        {% if data["model"]["brands"] is defined and data["model"]["brands"] is not empty %}
+                                            {% for brand in data["model"]["brands"] %}
+                                                <option value="{{ brand.id }}">{{ get_entity_store_attribute(data["model"]["store_id"],brand,"name") }} - {{ brand.id }}</option>
+                                            {% endfor %}
+                                         {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="warehouse" class="col-sm-3 control-label">{% trans %}Warehouse{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="warehouse" id="warehouse" class="form-control item-menu">
+                                        <option value="">{% trans %}Please select warehouse{% endtrans %}</option>
+                                        {% if data["model"]["warehouses"] is defined and data["model"]["warehouses"] is not empty %}
+                                            {% for warehouse in data["model"]["warehouses"] %}
+                                                <option value="{{ warehouse.id }}">{{ get_entity_store_attribute(data["model"]["store_id"],warehouse,"name") }} - {{ warehouse.id }}</option>
+                                            {% endfor %}
+                                         {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-3 control-label">{% trans %}Url{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control item-menu" id="url" name="url" placeholder="{% trans %}e.g. https://www.google.com/{% endtrans %}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="target" class="col-sm-3 control-label">{% trans %}Target{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="target" id="target" class="form-control item-menu">
+                                        <option value="_self">Self</option>
+                                        <option value="_blank">Blank</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="css_class" class="col-sm-3 control-label">Css class</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control item-menu" id="css_class" name="css_class" placeholder="Css class">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cssClass" class="col-sm-3 control-label">{% trans %}Show{% endtrans %}</label>
+                                <div class="col-sm-9">
+                                    <select name="show" id="show" class="form-control item-menu">
+                                        <option value="1">{% trans %}Yes{% endtrans %}</option>
+                                        <option value="0">{% trans %}No{% endtrans %}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="form-group sp-margin-top-20">
+                        <button type="button" id="btnAdd" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {% trans %}Add{% endtrans %}</button>
+                        <button type="button" id="btnUpdate" class="btn btn-primary pull-right" disabled><i class="fa fa-refresh"></i> {% trans %}Update{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

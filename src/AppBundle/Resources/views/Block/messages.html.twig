@@ -1,0 +1,33 @@
+{% if data.messages is defined and data.messages is not empty %}
+    <div class="sp-block">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="panel-heading">
+                        <h5>{{ data.block.title|trans }}
+                            <div class="options">
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            </div>
+                        </h5>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        {% if data.messages is not empty %}
+                            {% for message in data.messages %}
+                                <div class="col-sm-12">
+                                    <div class="system-message {{ message.class }}">
+                                        {% if file_exists("backend/AppBundle/img/info.svg") %}
+                                            {{ source(get_env("WEB_PATH") ~ "backend/AppBundle/img/info.svg") }}
+                                        {% endif %}
+                                        {{ message.content|raw }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

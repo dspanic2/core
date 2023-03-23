@@ -1,0 +1,32 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h4>{% trans %}Privileges{% endtrans %}</h4>
+    </div>
+    <div class="panel-body collapse in sp-privileges-wrapper">
+        <fieldset class="form-group-wrapper">
+            <div class="form-group row">
+                <label class="col-sm-3 control-label"></label>
+
+                {% for key,action_type in privilege.action_types %}
+                    <div class="col-sm-2">{{ action_types[key-1].actionType }}</div>
+                {% endfor %}
+            </div>
+            {% for role in roles %}
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{{ role.roleCode }}</label>
+                    {% for key,action_type in privilege.action_types %}
+                        <div class="col-sm-2">
+                            <label>
+                                <input data-off-text="{% trans %}No{% endtrans %}"
+                                       data-on-text="{% trans %}Yes{% endtrans %}"
+                                       type="checkbox"
+                                       name="privilege[{{ role.id }}][{{ key }}]"
+                                       data-type="bchackbox" {% apply spaceless %}
+                                    {% if privilege.usedPrivileges[role.id][key] is defined or role.id == 1 %}checked="checked"{% endif %}value="1"{% endapply %}/></label>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </fieldset>
+    </div>
+</div>

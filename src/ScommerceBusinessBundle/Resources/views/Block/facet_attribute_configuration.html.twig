@@ -1,0 +1,74 @@
+<div class="sp-block sp-facet-configuration-block {{ data.block.class }}" data-type="facet_attribute_configuration">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                {% if data.model.prepared_s_attributes is defined and data.model.prepared_s_attributes is not empty %}
+                    <div class="form-group sp-margin-top-20">
+                        <button type="button"
+                                class="btn btn-success pull-right facet-attribute-configuration-save">
+                            {% trans %}Save{% endtrans %}
+                        </button>
+                    </div>
+                    <form id="facet-attribute-configuration-form"
+                          class="form-horizontal row-border"
+                          action="/core/facet_attribute_configuration/save_items">
+                        {% for id,s_attribute_name in data.model.prepared_s_attributes %}
+                            {% if data.model.prepared_s_attribute_configuration[id] is defined %}
+                                <div class="col-sm-12 col-xs-12 sp-block">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <div class="col-xs-12">
+                                                <h3>{{ s_attribute_name }} <pre style="display: inline">%{{ data.model.prepared_s_attribute_configuration[id]["attr_conf_key"] }}_name%</pre></h3>
+                                                <input type="text" class="form-control item-menu"
+                                                       name="sacid-{{ id }}" {# s attribute configuration id #}
+                                                       placeholder="{% trans %}New name...{% endtrans %}"
+                                                        {% if data.model.prepared_s_attribute_configuration[id]["attr_conf_value"] is not empty %}value="{{ data.model.prepared_s_attribute_configuration[id]["attr_conf_value"] }}"{% endif %}>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <br/>
+                                                <h4>{% trans %}Attribute values{% endtrans %} <pre style="display: inline">%{{ data.model.prepared_s_attribute_configuration[id]["attr_conf_key"] }}_value%</pre></h4>
+                                                {% for val_id,attribute_value in data.model.prepared_s_attribute_configuration[id]["attr_values"] %}
+                                                    <div class="form-group row">
+                                                        <label for="item-{{ data.model.prepared_s_attribute_configuration[id]["attr_conf_key"] }}-{{ val_id }}"
+                                                               class="col-sm-3 control-label">
+                                                            {{ attribute_value["name"] }}
+                                                        </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text"
+                                                                   class="form-control item-menu"
+                                                                   id="item-{{ data.model.prepared_s_attribute_configuration[id]["attr_conf_key"] }}-{{ val_id }}"
+                                                                   name="savk-{{ data.model.prepared_s_attribute_configuration[id]["attr_conf_key"] }}-{{ val_id }}" {# s attribute value wand id #}
+                                                                   placeholder="{% trans %}New value...{% endtrans %}"
+                                                                    {% if attribute_value["value"] is not empty %}value="{{ attribute_value["value"] }}"{% endif %}>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </form>
+                    <div class="form-group sp-margin-top-20">
+                        <button type="button"
+                                class="btn btn-success pull-right facet-attribute-configuration-save">
+                            {% trans %}Save{% endtrans %}
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

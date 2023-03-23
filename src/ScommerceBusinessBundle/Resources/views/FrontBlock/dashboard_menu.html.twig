@@ -1,0 +1,8 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-menu {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div id="dashboard-menu-toggle">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:chevron_bottom.html.twig', 'data': {}}, {})) }}</div>
+    <div class="row dashboard-account-menu-row">
+        <div class="col-xs-12">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Account:account_menu.html.twig', 'data': {}}, {})) }}
+        </div>
+    </div>
+</div>

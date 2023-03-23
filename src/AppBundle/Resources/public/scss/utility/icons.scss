@@ -1,0 +1,134 @@
+.sp-options-text .sp-icon-text {
+  display: none;
+}
+
+.sp-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 3px;
+  -webkit-mask-size: 100%;
+  background-color: $primary_color;
+}
+
+.options .fa {
+  font-size: calculateRem(20px);
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 3px;
+  -webkit-mask-size: 100%;
+  color: $primary_color;
+}
+
+.sp-icon-edit-inline {
+  -webkit-mask-image: url('/backend/AppBundle/img/edit-inline.svg');
+  mask-image: url('/backend/AppBundle/img/edit-inline.svg');
+}
+
+.sp-icon-link {
+  -webkit-mask-image: url('/backend/AppBundle/img/link.svg');
+  mask-image: url('/backend/AppBundle/img/link.svg');
+}
+
+.sp-icon-settings {
+  -webkit-mask-image: url('/backend/AppBundle/img/setting.svg');
+  mask-image: url('/backend/AppBundle/img/setting.svg');
+}
+
+.sp-icon-disable {
+  -webkit-mask-image: url('/backend/AppBundle/img/remove.svg');
+  mask-image: url('/backend/AppBundle/img/remove.svg');
+}
+
+.sp-icon-enable {
+  -webkit-mask-image: url('/backend/AppBundle/img/check.svg');
+  mask-image: url('/backend/AppBundle/img/check.svg');
+}
+
+.sp-icon-rotate-left {
+  -webkit-mask-image: url('/backend/AppBundle/img/rotate_left.svg');
+  mask-image: url('/backend/AppBundle/img/rotate_left.svg');
+}
+
+.sp-icon-rotate-right {
+  -webkit-mask-image: url('/backend/AppBundle/img/rotate_right.svg');
+  mask-image: url('/backend/AppBundle/img/rotate_right.svg');
+}
+
+.sp-icon-folder {
+  -webkit-mask-image: url('/backend/AppBundle/img/folder.svg');
+  mask-image: url('/backend/AppBundle/img/folder.svg');
+}
+
+.sp-icon-refresh {
+  -webkit-mask-image: url('/backend/AppBundle/img/refresh.svg');
+  mask-image: url('/backend/AppBundle/img/refresh.svg');
+}
+
+.sp-icon-print {
+  -webkit-mask-image: url('/backend/AppBundle/img/print.svg');
+  mask-image: url('/backend/AppBundle/img/print.svg');
+}
+
+.sp-icon-add {
+  -webkit-mask-image: url('/backend/AppBundle/img/add.svg');
+  mask-image: url('/backend/AppBundle/img/add.svg');
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+}
+
+.sp-icon-excel {
+  -webkit-mask-image: url('/backend/AppBundle/img/excel-file.svg');
+  mask-image: url('/backend/AppBundle/img/excel-file.svg');
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+}
+
+.sp-icon-edit {
+  -webkit-mask-image: url('/backend/AppBundle/img/edit.svg');
+  mask-image: url('/backend/AppBundle/img/edit.svg');
+}
+
+.sp-icon-upload {
+  -webkit-mask-image: url('/backend/AppBundle/img/upload.svg');
+  mask-image: url('/backend/AppBundle/img/upload.svg');
+}
+
+.sp-icon-move {
+  -webkit-mask-image: url('/backend/AppBundle/img/move.svg');
+  mask-image: url('/backend/AppBundle/img/move.svg');
+}
+
+.sp-icon-anchor {
+  -webkit-mask-image: url('/backend/AppBundle/img/anchor.svg');
+  mask-image: url('/backend/AppBundle/img/anchor.svg');
+}
+
+.sp-icon-add-disabled {
+  -webkit-mask-image: url('/backend/AppBundle/img/add.svg');
+  mask-image: url('/backend/AppBundle/img/add.svg');
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  background-color: lightgrey !important;
+}
+
+.sp-icon-list {
+  -webkit-mask-image: url('/backend/AppBundle/img/list.svg');
+  mask-image: url('/backend/AppBundle/img/list.svg');
+}
+
+.sp-icon-search {
+  -webkit-mask-image: url('/backend/AppBundle/img/search.svg');
+  mask-image: url('/backend/AppBundle/img/search.svg');
+  margin-top: 4px !important;
+}
+
+.sp-icon-more {
+  -webkit-mask-image: url('/backend/AppBundle/img/more.svg');
+  mask-image: url('/backend/AppBundle/img/more.svg');
+  margin-top: -1px !important;
+}

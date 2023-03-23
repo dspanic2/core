@@ -1,0 +1,46 @@
+{% if data.model.account is defined and data.model.account is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-mini-profile {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>{% trans into current_language %}My profile{% endtrans %}</h2>
+                <div class="info">
+                    {% set account = data.model.account %}
+                    {% if account.name is defined and account.name is not empty %}
+                        <p><strong>{{ account.name }}</strong></p>
+                    {% endif %}
+                    {% if account.isLegalEntity %}
+                        <p>{% trans into current_language %}Identification number{% endtrans %}: {{ account.oib }}</p>
+                    {% endif %}
+                    {% set address = account.getBillingAddress() %}
+                    {% if address %}
+                        {% apply spaceless %}
+                            <p>
+                                {{ address.street }}
+                                {% if address.city is defined and address.city is not empty %}
+                                    , {{ address.city.postalCode }} {{ address.city.name }}
+                                {% endif %}
+                            </p>
+                            {% if address.city.country is defined and address.city.country is not empty %}
+                                {% set country = get_entity_store_attribute(current_store_id,address.city.country,"name") %}
+                                <p>{{ country }}</p>
+                            {% endif %}
+                        {% endapply %}
+                    {% endif %}
+                    {% if account.phone is defined and account.phone is not empty %}
+                        <p>{% trans into current_language %}Phone{% endtrans %}: {{ account.phone }}</p>
+                    {% endif %}
+                    {% if account.email is defined and account.email is not empty %}
+                        <p>{% trans into current_language %}email{% endtrans %}: {{ account.email }}</p>
+                    {% endif %}
+                    <br>
+                    {#{% if account.isLegalEntity %}
+                        <br>
+                        <p>{% trans into current_language %}User{% endtrans %}: {{ app.user.fullName }}</p>
+                        <br>
+                    {% endif %}#}
+                </div>
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,64,"s_page") }}" class="show-all">{% trans into current_language %}Edit profile{% endtrans %}</a>
+            </div>
+        </div>
+    </div>
+{% endif %}

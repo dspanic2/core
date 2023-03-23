@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="WikiBusinessBundle\Entity\WikiPageEntity" table="wiki_page_entity">
+        ###CLASS_START
+        <one-to-many field="childPages" target-entity="WikiBusinessBundle\Entity\WikiPageEntity" mapped-by="parentPage">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

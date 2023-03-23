@@ -1,0 +1,10 @@
+<fieldset class="form-group-wrapper">
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">{% trans %}Folder{% endtrans %}</label>
+        <div class="col-sm-6">
+            <input type="text"
+                   name="folder" class="form-control" data-fv-notempty="false"
+                   data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.folder }}"{% endif %}/>
+        </div>
+    </div>
+</fieldset>

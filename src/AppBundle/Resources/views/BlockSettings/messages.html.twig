@@ -1,0 +1,41 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper quote-descriptions-preview-settings">
+            <div class="form-group row hidden">
+                <div class="col-sm-6">
+                    <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="title" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %} name="type" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        <option selected="selected" value="messages">messages</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="class" class="form-control" {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="dataAttributes" class="form-control" {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

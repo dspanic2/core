@@ -1,0 +1,225 @@
+<script src="/frontend/js/cookieconsent/cookieconsent.min.js"></script>
+<script>
+    var consent = {
+        'cookie_consent_settings_title': "{% trans into current_language %}Cookie Settings{% endtrans %}",
+        'cookie_consent_accept_all': "{% trans into current_language %}Accept all cookies{% endtrans %}",
+        'cookie_consent_modal_main_text': "{% trans into current_language %}Cookies are small piece of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user's browsing activity.{% endtrans %}",
+        'cookie_consent_modal_save_setting': "{% trans into current_language %}Save current settings{% endtrans %}",
+        'cookie_consent_accept_all_close': "{% trans into current_language %}Accept all cookies and close{% endtrans %}",
+        'cookie_consent_affected_solutions': "{% trans into current_language %}Affected solutions{% endtrans %}:",
+        'cookie_consent_more': "{% trans into current_language %}Learn More{% endtrans %}",
+        'cookie_consent_on': "{% trans into current_language %}On{% endtrans %}",
+        'cookie_consent_off': "{% trans into current_language %}Off{% endtrans %}",
+        'cookie_consent_necessary_title': "{% trans into current_language %}Strictly Necessary Cookies{% endtrans %}",
+        'cookie_consent_necessary_description': "{% trans into current_language %}Cookies that provide basic functionality of the website and basic analysis of the use of the website in order to improve the operation and efficiency of the website.{% endtrans %}",
+        'cookie_consent_tracking_title': "{% trans into current_language %}Functional Cookies{% endtrans %}",
+        'cookie_consent_tracking_description': "{% trans into current_language %}Cookies that allow us to perform more advanced analysis of the operation of the website and the behavior of the users of the website with anonymous information.{% endtrans %}",
+        'cookie_consent_marketing_title': "{% trans into current_language %}Marketing Cookies{% endtrans %}",
+        'cookie_consent_marketing_description': "{% trans into current_language %}Cookies used to target advertising to a user (behavioural targeting). They are often served by third party companies, and track a user across websites.{% endtrans %}",
+        'cookie_consent_service_chat_title': "{% trans into current_language %}Customer support{% endtrans %}",
+        'cookie_consent_functional_general_service': "{% trans into current_language %}Smart actions{% endtrans %}",
+    };
+    //https://github.com/brainsum/cookieconsent
+    window.CookieConsent.init({
+        modalMainTextMoreLink: null,
+        barTimeout: 1000,
+        language: {
+            current: 'hr',
+            locale: {
+                hr: {
+                    barMainText: '{{ get_static_content("cookie_consent_bar")|raw|replace({"\n": "", "\r": "", "\t": ""})|raw }}',
+                    barLinkSetting: consent.cookie_consent_settings_title,
+                    barBtnAcceptAll: consent.cookie_consent_accept_all,
+                    modalMainTitle: consent.cookie_consent_settings_title,
+                    modalMainText: '{{ get_static_content("cookie_consent_modal")|raw|replace({"\n": "", "\r": "", "\t": ""})|raw }}',
+                    modalBtnSave: consent.cookie_consent_modal_save_setting,
+                    modalBtnAcceptAll: consent.cookie_consent_accept_all_close,
+                    modalAffectedSolutions: consent.cookie_consent_affected_solutions,
+                    learnMore: consent.cookie_consent_more,
+                    on: consent.cookie_consent_on,
+                    off: consent.cookie_consent_off,
+                },
+            }
+        },
+        // List all the categories you want to display
+        categories: {
+            necessary: {
+                needed: true,
+                wanted: true,
+                checked: true,
+                language: {
+                    locale: {
+                        hr: {
+                            name: '{{ get_static_content("cookie_necessary_name")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',
+                            description: '{{ get_static_content("cookie_necessary_description")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',
+                        },
+                    }
+                }
+            },
+            {#functional: {#}
+            {#    needed: false,#}
+            {#    wanted: true,#}
+            {#    checked: true,#}
+            {#    language: {#}
+            {#        locale: {#}
+            {#            hr: {#}
+            {#                name: '{{ get_static_content("cookie_functional_name")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',#}
+            {#                description: '{{ get_static_content("cookie_functional_description")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',#}
+            {#            },#}
+            {#        }#}
+            {#    }#}
+            {#},#}
+            statistical: {
+                needed: false,
+                wanted: true,
+                checked: false,
+                language: {
+                    locale: {
+                        hr: {
+                            name: '{{ get_static_content("cookie_statistical_name")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',
+                            description: '{{ get_static_content("cookie_statistical_description")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',
+                        },
+                    }
+                }
+            },
+            {#marketing: {#}
+            {#    needed: false,#}
+            {#    wanted: true,#}
+            {#    checked: false,#}
+            {#    language: {#}
+            {#        locale: {#}
+            {#            hr: {#}
+            {#                name: '{{ get_static_content("cookie_marketing_name")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',#}
+            {#                description: '{{ get_static_content("cookie_marketing_description")|striptags|replace({"\n": "", "\r": "", "\t": ""}) }}',#}
+            {#            },#}
+            {#        }#}
+            {#    }#}
+            {#},#}
+        },
+        // List actual services here
+        services: {
+            app: {
+                category: 'necessary', // Must be unique
+                type: 'dynamic-script',
+                cookies: [
+                    {
+                        name: 'PHPSESSID',
+                        domain: `.${window.location.hostname}`
+                    },
+                ],
+                language: {
+                    locale: {
+                        hr: {
+                            name: 'php'
+                        },
+                    }
+                }
+            },
+            recaptcha: {
+                category: 'necessary', // Must be unique
+                type: 'dynamic-script',
+                search: 'vto',
+                cookies: [
+                    {
+                        name: '_grecaptcha',
+                        domain: `.${window.location.hostname}`
+                    },
+                    {
+                        name: '_GRECAPTCHA',
+                        domain: 'google.com'
+                    },
+                    {
+                        name: 'rc::a',
+                        domain: 'google.com'
+                    },
+                    {
+                        name: 'rc::b',
+                        domain: 'google.com'
+                    },
+                    {
+                        name: 'rc::c',
+                        domain: 'google.com'
+                    }
+                ],
+                language: {
+                    locale: {
+                        hr: {
+                            name: 'reCaptcha'
+                        },
+                    }
+                }
+            },
+            analytics: {
+                category: 'statistical', // Must be unique
+                type: 'dynamic-script',
+                cookies: [
+                    {
+                        name: '_ga',
+                        domain: `.${window.location.hostname}`
+                    },
+                    {
+                        name: '_gat',
+                        domain: `.${window.location.hostname}`
+                    },
+                    {
+                        name: '_gid',
+                        domain: `.${window.location.hostname}`
+                    },
+                ],
+                language: {
+                    locale: {
+                        hr: {
+                            name: 'Google Analytics'
+                        },
+                    }
+                }
+            },
+            // googleads: {
+            //     category: 'marketing', // Must be unique
+            //     type: 'dynamic-script',
+            //     cookies: [
+            //         {
+            //             name: 'ads/ga-audiences',
+            //             domain: `.${window.location.hostname}`
+            //         },
+            //         {
+            //             name: '_gat',
+            //             domain: `.${window.location.hostname}`
+            //         },
+            //         {
+            //             name: '_gid',
+            //             domain: `.${window.location.hostname}`
+            //         },
+            //     ],
+            //     language: {
+            //         locale: {
+            //             hr: {
+            //                 name: 'Google Ads'
+            //             },
+            //         }
+            //     }
+            // },
+            // facebook_pixel: {
+            //     category: 'marketing', // Must be unique
+            //     type: 'dynamic-script',
+            //     cookies: [
+            //         {
+            //             name: '_fbp',
+            //             domain: `.${window.location.hostname}`
+            //         },
+            //         {
+            //             name: 'tr',
+            //             domain: `.${window.location.hostname}`
+            //         }
+            //     ],
+            //     language: {
+            //         locale: {
+            //             hr: {
+            //                 name: 'Facebook Pixel'
+            //             },
+            //         }
+            //     }
+            // }
+        }
+    });
+</script>

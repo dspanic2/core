@@ -1,0 +1,33 @@
+{% if data.model.articles is defined and data.model.articles is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+        {% if data.model.subtitle is not empty %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="section-title">{{ data.model.subtitle|raw }}</div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="related-articles">
+            {% for article in data.model.articles %}
+                <a href="{{ article.getUrlPath(current_store_id) }}" class="blog-item">
+                    {% set title = get_entity_store_attribute(current_store_id,article,"name") %}
+                    <div class="image">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                            'image': article.getSelectedImage(),
+                            'directory':'blog_post_image',
+                            'image_style': 'blog_item',
+                            'alt_default': title
+                        }}, {})) }}
+                    </div>
+                    <div class="info">
+                        <h2>{{ title }}</h2>
+
+                        {% set content = get_entity_store_attribute(current_store_id,article,"content")|striptags %}
+                        <div class="content">{{ (content|length > 230 ? content|slice(0, 230) ~ '...' : content)|raw }}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

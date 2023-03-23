@@ -1,0 +1,15 @@
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ meta_title }} | {{ site_base_data.site_base_name }}" />
+<meta name="twitter:description" content="{{ meta_description }}"/>
+<meta name="twitter:url" content="{{ site_base_data.site_base_url_language }}{{ url }}" />
+{% if page.getImages() is not empty %}
+    {% for key,image in page.getImages() %}
+        <meta property="twitter:image" content="{{ site_base_data.site_base_url }}Documents/product_group_images/{{ image.file }}" />
+        <meta name="twitter:image:alt" content="{{ get_entity_store_attribute(current_store_id,page,"name") }}-{{ key }}" />
+    {% endfor %}
+{% else %}
+    <meta property="twitter:image" content="{{ site_base_data.site_base_url }}{{ site_base_data.site_base_image }}" />
+    <meta name="twitter:image:alt" content="{{ meta_title }}" />
+{% endif %}
+{#<meta name="twitter:image:height" content="767" />
+<meta name="twitter:image:width" content="1024" />#}

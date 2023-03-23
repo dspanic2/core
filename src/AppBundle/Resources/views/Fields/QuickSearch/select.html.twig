@@ -1,0 +1,8 @@
+<div class="col-sm-4">
+    <div class="form-group sp-search-group">
+        <label class="col-sm-4 control-label">{{ attribute.frontendLabel|trans }}</label>
+        <div class="col-sm-8 sp-search-item" data-search_type="bw">
+            <input data-id="{{ attribute.id }}" type="text" name="{{ attribute.lookupEntityType.entityTypeCode|camelize }}.{{ attribute.lookupAttribute.attributeCode|camelize }}" class="form-control" {% if value is defined and value is not empty %}value="{{ value }}"{% endif %}/>
+        </div>
+    </div>
+</div>

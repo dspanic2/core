@@ -1,0 +1,19 @@
+{
+  "name": "shipshapesolutions/imageoptimizationbusinessbundle",
+  "type": "shipshape-core-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ShipShape",
+      "email": "info@shipshape-solutions.com",
+      "homepage": "https://shipshape-solutions.com/"
+    }
+  ],
+  "require": {
+    "rosell-dk/webp-convert": "1.2.0",
+    "shipshapesolutions/composer-bundle-installer": "1.x-dev"
+  },
+  "extra": {
+    "install-directory": "./src/ImageOptimizationBusinessBundle"
+  }
+}

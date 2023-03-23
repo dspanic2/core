@@ -1,0 +1,83 @@
+<div class="sp-block wiki-block">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            {% if data.model.entity.content %}
+                <div class="row-fluid">
+                    <div class="col-sm-12">
+                        <div class="wiki-header">
+                            <p>
+                                {% if data.model.path %}
+                                    {% for p in data.model.path %}
+                                        {% if data.subtype == "view" %}
+                                            <a href="/wiki/{{ p.getUrl }}">{{ p.getName }}</a> /
+                                        {% else %}
+                                            <a href="/page/{{ p.entityType.entityTypeCode }}/{{ data.subtype }}/{{ p.id }}">{{ p.getName }}</a> /
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <h3>{{ data.model.entity.name }}</h3>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row-fluid">
+                <div class="col-sm-12">
+                    {% if data.model.entity.content is empty %}
+                        <div class="sp-empty-list-content">
+                            <i class="fa fa-comment-o fa-3x" aria-hidden="true"></i><br/>
+                            <label>{% trans %}This page has no content{% endtrans %}</label>
+                        </div>
+                    {% else %}
+                        <div class="wiki-content">
+                            {{ data.model.entity.content|raw }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if data.model.entity.childPages is defined and data.model.entity.childPages is not empty %}
+                <div class="row-fluid">
+                    <div class="col-sm-12">
+                        <div class="wiki-content">
+                            <ul>
+                                {% for c in data.model.entity.childPages %}
+                                    <li>
+                                        {% if data.subtype == "view" %}
+                                            <a href="/wiki/{{ p.getUrl }}">{{ p.getName }}</a> /
+                                        {% else %}
+                                            <a href="/page/{{ c.entityType.entityTypeCode }}/{{ data.subtype }}/{{ c.id }}">{{ c.getName }}</a>{% if c.description is not empty %}: {{ c.description }}{% endif %}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% elseif data.model.entity.tags is defined and data.model.entity.tags is not empty %}
+                <div class="row-fluid">
+                    <div class="col-sm-12">
+                        <div class="wiki-tags">
+                            <p>
+                                {% for t in data.model.entity.tags %}
+                                    {# TODO: tagovi vode do stranica na kojima se koriste #}
+                                    <a href="#">#{{ t.name }}</a>&nbsp;
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row-fluid">
+                <div class="col-sm-12">
+                    <div class="wiki-footer">
+                        {% if data.model.entity.content %}
+                            <p>{{ data.model.entity.createdBy }}, {{ data.model.entity.created|date('d.m.Y. H:i:s') }}{% if data.model.entity.created != data.model.entity.modified %} <span title="edited by {{ data.model.entity.modifiedBy }} at {{ data.model.entity.modified|date('d.m.Y. H:i:s') }}">*</span>{% endif %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

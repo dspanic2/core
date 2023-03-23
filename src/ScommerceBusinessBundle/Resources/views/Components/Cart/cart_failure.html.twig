@@ -1,0 +1,7 @@
+<div class="order-information">
+    <h2>{% trans into current_language %}An error occurred with your order{% endtrans %}!</h2>
+
+    <p>{% trans into current_language %}Unfortunately, there was an error with your order. Please try again or contact us on{% endtrans %} <a href="mailto:{{ get_env("GENERAL_CONTACT_EMAIL_RECIPIENT") }}">{{ get_env("GENERAL_CONTACT_EMAIL_RECIPIENT") }}</a></p>
+
+    <a href="/" class="button green bordered">{% trans into current_language %}Back to store{% endtrans %}</a>
+</div>

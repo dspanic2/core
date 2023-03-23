@@ -1,0 +1,19 @@
+{% set label = get_entity_store_attribute(current_store_id,field,"name") %}
+{% apply spaceless %}
+    <label>{{ label }}{% if field.getRequired %}*{% endif %}
+        {% if submission is not empty %}
+            {% set submissionValues = submission.getValues %}
+            {% for submissionValue in submissionValues %}
+                {% if submissionValue.getField.getId == field.id %}
+                    <div class="submission-value"><a href="/Documents/webform_submission_files/{{ submission.getWebformId }}/{{ submission.getId }}/{{ submissionValue.getSubmissionValue }}" target="_blank">{{ submissionValue.getSubmissionValue }}</a><br><br></div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <input type="file"
+                    {{ render_nested_twig(field.getDataAttributes|default("")) }}
+                    name="field-{{ field.id }}"
+                    {% if field.getAllowedExtensions %}accept="{{ field.getAllowedExtensions }}"{% endif %}
+                    {% if field.getRequired %}required{% endif %}>
+        {% endif %}
+    </label>
+{% endapply %}

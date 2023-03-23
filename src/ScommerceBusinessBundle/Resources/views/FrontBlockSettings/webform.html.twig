@@ -1,0 +1,135 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-body collapse in">
+        <form data-validate="true" method="post" action="{{ path('front_block_save') }}" accept-charset="UTF-8"
+              data-callback='["custom"]'
+              data-custom-callback='{% if entity is not empty %}{% if is_front is defined and is_front == true %}["reloadPage"]{% endif %}{% else %}["addFrontBlock"]{% endif %}'
+              data-type="s_front_block"
+              class="form-horizontal row-border">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <fieldset class="form-group-wrapper">
+                        <div class="form-group row hidden">
+                            <div class="col-sm-6">
+                                <input type="hidden" name="id" class="form-control"
+                                       {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="hidden" name="parent_id" class="form-control"
+                                       {% if parent_id is defined and parent_id is not empty %}value="{{ parent_id }}"{% endif %}/>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="hidden" name="parent_type" class="form-control"
+                                       {% if parent_type is defined and  parent_type is not empty %}value="{{ parent_type }}"{% endif %}/>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="hidden" name="content" class="form-control"
+                                       {% if entity is not empty and entity.content is defined %}value="{{ entity.content }}"{% endif %}/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{% trans %}Name{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="name" class="form-control" data-fv-notempty="true"
+                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                       {% if entity is not empty %}value="{{ entity.name }}"{% endif %}/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <select name="type" data-fv-notempty="true"
+                                        data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                        class="form-control" data-action="block_type">
+                                    <option value="">{% trans %}Please select{% endtrans %}</option>
+                                    {% for key,block_type in block_types %}
+                                        <option
+                                                {% if entity is not empty and entity.type == key %}selected="selected"{% endif %}
+                                                value="{{ key }}" {% apply spaceless %}
+                                            {% for data_value_key,data_value in block_type %}
+                                                data-{{ data_value_key }}="{{ data_value }}"
+                                            {% endfor %}
+                                                {% endapply %}>{{ key }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{% trans %}Use context entity{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <input data-off-text="{% trans %}No{% endtrans %}"
+                                       data-on-text="{% trans %}Yes{% endtrans %}"
+                                       type="checkbox"
+                                       data-action="useContextEntity"
+                                       name="useContextEntity"
+                                       data-type="bchackbox"
+                                       {% if entity.enableEdit %}checked{% endif %}
+                                       value="1"/>
+                                <div>
+                                    <small>Uses current entity and looks for webform attribute!</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row webform-select" {% if entity.enableEdit %}style="display: none" {% endif %}>
+                            <label class="col-sm-3 control-label">{% trans %}Webform{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <select name="webform"
+                                        required
+                                        data-fv-notempty="true"
+                                        data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                        class="form-control">
+                                    <option value="">{% trans %}Please select{% endtrans %}</option>
+                                    {% for webform in webforms %}
+                                        <option {% if entity is not empty and entity.entityId == webform.id %}selected="selected"{% endif %}
+                                                value="{{ webform.id }}">
+                                            {{ get_entity_store_attribute(current_store_id,webform,"name") }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="class" class="form-control"
+                                       {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="data_attributes" class="form-control"
+                                       {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{% trans %}Active{% endtrans %}</label>
+                            <div class="col-sm-6">
+                                <input type="hidden" data-action="checkbox-value" name="active"
+                                       value="{% if entity is empty or entity.active != 0 %}1{% else %}0{% endif %}"/>
+                                <input data-off-text="{% trans %}No{% endtrans %}"
+                                       data-on-text="{% trans %}Yes{% endtrans %}"
+                                       type="checkbox"
+                                       name="active"
+                                       data-type="bchackbox"
+                                       {% if entity is empty or entity.active != 0 %}checked="checked"{% endif %}
+                                       value="1"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-7 col-sm-offset-2">
+                        <div class="btn-toolbar">
+                            <button type="submit" class="btn-primary btn btn-blue"
+                                    data-action="close-modal">{% if entity is not empty %}{% trans %}Save{% endtrans %}{% else %}{% trans %}Save and continue{% endtrans %}{% endif %}</button>
+                            <button type="button" class="btn-default btn pull-right btn-red" data-dismiss="modal"><span
+                                        aria-hidden="true">{% trans %}Close{% endtrans %}</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

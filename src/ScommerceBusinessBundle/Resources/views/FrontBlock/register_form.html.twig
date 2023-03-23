@@ -1,0 +1,12 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section register-form {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>{% trans into current_language %}Create account{% endtrans %}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form:register_form.html.twig', 'data': {'data': data}}, {})) }}
+        </div>
+    </div>
+</div>

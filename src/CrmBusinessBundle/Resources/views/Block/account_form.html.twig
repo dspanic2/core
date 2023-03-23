@@ -1,0 +1,28 @@
+<div class="sp-block {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.model.attributesGroup.attributeGroupName|trans }}
+                    {% if data.subtype == "view" or is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if data.subtype == "view" %}
+                                <span class="sp-options-text sp-options-text-attribute-group" data-action="toggle-edit">
+                                    <i class="sp-icon sp-icon-edit sp-hover"></i>
+                                </span>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="sp-options-text sp-options-text-attribute-group sp-admin-button" href="{{ path('attribute_group_update_form', {'id': data.block.relatedId}) }}"><i class="sp-icon sp-icon-edit sp-hover"></i></a>
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <fieldset class="form-group-wrapper">
+                {% for entityAttribute in data.model.attributesGroup.entityAttributes %}
+                    {{ render(controller('AppBundle:Forms:field', {'entityAttribute': entityAttribute, 'entity': data.model.entity, 'formType': data.subtype, 'parent': data.parent }))}}
+                {% endfor %}
+            </fieldset>
+        </div>
+    </div>
+</div>

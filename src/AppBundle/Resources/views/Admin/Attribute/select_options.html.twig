@@ -1,0 +1,19 @@
+{% for entity in entites %}
+    <div class="col-md-12 col-sm-12 col-xs-12 sp-sortable-group">
+        <div class="sp-sortable-group-inner sp-show-border {% if class is defined %}{{ class }}{% endif %}">
+            <span class="sp-column-name">{% if entity.id is defined %}{{ entity.value }}{% endif %}
+                <div class="options">
+                    <span class="sp-hover" data-confirm="{% trans %}Are you sure?{% endtrans %}" data-action="remove_option"><i class="fa fa-minus"></i></span>
+                    <span class="sp-hover margin-left-10" data-action="toggle-column"><i class="fa {% if class is defined and class == 'open' %}fa fa-arrow-up{% else %}fa-arrow-down{% endif %}"></i></span>
+                </div>
+            </span>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Value{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="hidden" name="option[id][]" class="hidden form-control" {% if entity.id is defined %}value="{{ entity.id }}"{% endif %}/>
+                    <input type="text" name="option[value][]" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" value="{% if entity.value is defined %}{{ entity.value }}{% endif %}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

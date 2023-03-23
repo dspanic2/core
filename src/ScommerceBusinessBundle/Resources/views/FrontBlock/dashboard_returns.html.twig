@@ -1,0 +1,83 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-recent-orders {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{% trans into current_language %}Returns{% endtrans %}</h2>
+        </div>
+    </div>
+    {% if data.model.return_orders is defined and data.model.return_orders is not empty %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="orders-table returns">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>{% trans into current_language %}Return order number{% endtrans %}</th>
+                            <th>{% trans into current_language %}Order number{% endtrans %}</th>
+                            <th>{% trans %}Return created date{% endtrans %}</th>
+                            <th>{% trans into current_language %}State{% endtrans %}</th>
+                            <th>{% trans into current_language %}Reference number{% endtrans %}</th>
+                            <th>{% trans into current_language %}Bank account{% endtrans %}</th>
+                            <th>{% trans into current_language %}Pickup address{% endtrans %}</th>
+                            <th>{% trans into current_language %}Return reason{% endtrans %}</th>
+                            <th>{% trans into current_language %}Delivery message{% endtrans %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for orderReturn in data.model.return_orders %}
+                            <tr>
+                                <td class="order-images">
+                                    {% set items = orderReturn.getOrderReturnItems %}
+                                    {% if items[0] is defined and items[0] is not empty %}
+                                        <span class="product-image">
+                                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                                'image': items[0].product.getSelectedImage,
+                                                'directory':'Products',
+                                                'image_style': 'product_list_item',
+                                                'alt_default': ""
+                                            }}, {})) }}
+                                        </span>
+                                    {% endif %}
+                                    {% if items[1] is defined and items[1] is not empty %}
+                                        <span class="product-image">
+                                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                                'image': items[1].product.getSelectedImage,
+                                                'directory':'Products',
+                                                'image_style': 'product_list_item',
+                                                'alt_default': ""
+                                            }}, {})) }}
+                                        </span>
+                                    {% endif %}
+                                    {% if items|length > 2 %}
+                                        <span class="product-image">
+                                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                                'image': items[2].product.getSelectedImage,
+                                                'directory':'Products',
+                                                'image_style': 'product_list_item',
+                                                'alt_default': ""
+                                            }}, {})) }}
+                                            {% set left = items|length-2 %}
+                                            <span class="product-image-total">+{{ left }}</span>
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="order-number" title="#{{ orderReturn.incrementId }}">#{{ orderReturn.incrementId }}</td>
+                                <td class="order-number" title="#{{ orderReturn.getOrder.incrementId }}">#{{ orderReturn.getOrder.incrementId }}</td>
+                                <td class="order-date" title="{{ orderReturn.created|date("d.m.Y.") }}">{{ orderReturn.created|date("d.m.Y.") }}</td>
+                                <td class="order-status status-1" title="{{ orderReturn.getOrderReturnState.name|trans }}">{{ orderReturn.getOrderReturnState.name|trans }}</td>
+                                <td class="reference-number" title="{{ orderReturn.getReferenceNumber }}">{{ orderReturn.getReferenceNumber }}</td>
+                                <td class="bank-account" title="{{ orderReturn.getBankAccount.getIban }}">{{ orderReturn.getBankAccount.getIban }}</td>
+                                <td class="pickup-address" title="{{ orderReturn.getAccountPickupAddress.getStreet }}, {{ get_entity_store_attribute(current_store_id,orderReturn.getAccountPickupCity,"name") }}">{{ orderReturn.getAccountPickupAddress.getStreet }}, {{ get_entity_store_attribute(current_store_id,orderReturn.getAccountPickupCity,"name") }}</td>
+                                <td class="return-reason" title="{{ orderReturn.getReturnReason }}">{{ orderReturn.getReturnReason }}</td>
+                                <td class="delivery-message" title="{{ orderReturn.getDeliveryMessage }}">{{ orderReturn.getDeliveryMessage }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>{% trans into current_language %}You have no returns at this time{% endtrans %}</p>
+    {% endif %}
+</div>

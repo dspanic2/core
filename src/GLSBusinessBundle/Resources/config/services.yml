@@ -1,0 +1,13 @@
+services:
+
+  gls_manager:
+    class: GLSBusinessBundle\Managers\GLSManager
+    calls:
+      - [setContainer, ["@service_container"]]
+      - [initialize]
+
+  gls_parcel_buttons:
+    class: GLSBusinessBundle\Buttons\GlsParcelButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

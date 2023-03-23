@@ -1,0 +1,95 @@
+{% set money_transfer_payment_slip = get_env("MONEY_TRANSFER_PAYMENT_SLIP")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set site_base_data = get_env("SITE_BASE_DATA")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set quoteStoreId = data.quote.storeId %}
+{% set quoteWebsiteId = data.quoteWebsiteId %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ get_env('WEB_PATH') ~ asset('backend/AppBundle/css/pdf.css') }}">
+    {% endblock %}
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="row">
+    <div style="float:right;">
+        <p>
+            <strong>{% trans into data.current_language %}Ponuda/Predračun{% endtrans %}:</strong> {{ data.quote.name }}<br/>
+            <strong>{% trans into data.current_language %}Mjesto i datum izdavanja{% endtrans %}:</strong> {{ site_base_data[quoteWebsiteId].site_base_addressLocality }}, {{ data.quote.quoteDate|date('d.m.Y.') }}<br/>
+            {% if data.quote.paymentType is not empty %}
+                <strong>{% trans into data.current_language %}Način plaćanja{% endtrans %}:</strong> {{ get_entity_store_attribute(current_store_id,data.quote.paymentType,"name") }}<br/>
+            {% endif %}
+            {% if data.quote.currency is not empty %}
+                <strong>{% trans into data.current_language %}Valuta plaćanja{% endtrans %}:</strong> {{ data.quote.currency.name }}<br/>
+            {% endif %}
+            {% if data.quote.validToDate is defined and data.quote.validToDate is not empty %}
+                <strong>{% trans into data.current_language %}Valjanost ponude{% endtrans %}:</strong> {{ data.quote.validToDate|date('d.m.Y.') }}
+            {% endif %}
+        </p>
+    </div>
+    <div>
+        <p>
+            <h1>{{ data.quote.accountName }}</h1>
+            <strong>{% trans into data.current_language %}Adresa{% endtrans %}:</strong> {{ data.quote.accountBillingAddress.street }}<br/>
+            <strong>{% trans into data.current_language %}Mjesto{% endtrans %}:</strong> {{ data.quote.accountBillingAddress.city.postalCode }}, {{ data.quote.accountBillingAddress.city.name }}<br/>
+            <strong>{% trans into data.current_language %}OIB{% endtrans %}:</strong> {{ data.quote.accountOib }}<br/>
+            <strong>{% trans into data.current_language %}Telefon{% endtrans %}:</strong> {{ data.quote.accountPhone }}<br/>
+            <strong>{% trans into data.current_language %}Vrijeme izdavanja{% endtrans %}:</strong> {{ 'now'|date('d.m.Y. H:i:s') }}
+        </p>
+    </div>
+</div>
+<div class="row">
+    <table cellspacing="0" cellpadding="1">
+        <tr>
+            <th><strong>{% trans into data.current_language %}Rb{% endtrans %}.</strong></th>
+            <th><strong>{% trans into data.current_language %}Šifra{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Opis proizvoda{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Količina{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}JM{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Cijena{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}PDV{% endtrans %} %</strong></th>
+            <th><strong>{% trans into data.current_language %}Iznos{% endtrans %}</strong></th>
+        </tr>
+        {% for item in data.quote.quoteItems %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.product.code }}</td>
+                <td>{{ item.name }}</td>
+                <td style="text-align: right;">{{ item.qty|number_format(2, ',', '.') }}</td>
+                <td>kom</td>
+                <td style="text-align: right;">{{ item.basePriceItemWithoutTax|number_format(2, ',', '.') }}</td>
+                <td>{{ item.taxType.percent|number_format(2, ',', '.') }}</td>
+                <td style="text-align: right;">{{ item.basePriceWithoutTax|number_format(2, ',', '.') }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}Ukupno{% endtrans %}:</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.quote.priceWithoutTax|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}Osnovica{% endtrans %}:</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.quote.basePriceWithoutTax|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}PDV{% endtrans %}:</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.quote.priceTax|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}Sveukupno{% endtrans %} ({{ data.quote.currency.name }}):</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.quote.priceTotal|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+    </table>
+</div>
+<div class="row">
+    {% if data.quote.message is defined and data.quote.message is not empty %}
+        <strong>{% trans into data.current_language %}Napomena{% endtrans %}:</strong>
+        <p>{{ data.quote.message }}</p>
+    {% endif %}
+</div>
+</body>
+</html>

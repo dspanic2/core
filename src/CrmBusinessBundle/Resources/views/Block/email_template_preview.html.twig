@@ -1,0 +1,24 @@
+{% if data.model.content is not empty %}
+    <div class="sp-block sp-quote-descriptions-wrapper">
+        <div class="panel panel-midnightblue">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+        </div>
+        <div class="sp-block-inner">
+            <div class="panel panel-midnightblue">
+                <div class="panel-body">
+                    <iframe srcdoc="{{ (data.model.content) }}" width="100%" style="height: 1000px; overflow: auto;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

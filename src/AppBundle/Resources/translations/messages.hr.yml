@@ -1,0 +1,726 @@
+Send request: Pošaljite zahtjev
+Username: Korisničko ime
+Password: Lozinka
+Remember Me: Zapamti me
+Log In: Prijavite se
+Save: Spremi
+Create new: Izradite novi
+Calendar: Kalendar
+Create: Izradi novi
+Yes: Da
+No: Ne
+Save and continue: Spremi i nastavi
+Close: Zatvori
+Show: Prikaži
+Edit: Uredi
+Delete: Obriši
+Actions: Akcije
+Search...: Pretraživanje...
+Search: Pretraži
+Reset: Očisti filter
+Deselect all: Odznači sve
+Select all: Označi sve
+Reset filter: Očisti filter
+Please select: Molimo odaberite
+Upload documents: Prenesi dokumente
+Please enter coordinates and save: Molimo unesite koordinate i spremite
+Your username: Vaše korisničko ime
+Your password: Vaša lozinka
+Back to login: Natrag na prijavu
+Please enter valid e-mail address: Molimo unesite važeću adresu e-pošte
+Error occured: Greška!
+There has been an error: Dogodila se greška, molimo pokušajte ponovo
+Success: Uspješno!
+Form has been submitted: Forma je uspješno spremljena
+Please select at least one value: Molimo odaberite barem jednu vrijednost
+Employee: Zaposlenik/ca
+Date: Datum
+Last login: Zadnja prijava
+Roles: Uloge
+Reset password: Resetirajte lozinku
+Disable: Onemogući
+Role: Uloga
+to: do
+from: od
+Sun: Ned
+Mon: Pon
+Tue: Uto
+Thu: Čet
+Fri: Pet
+Sat: Sub
+Monday: Ponedjeljak
+Tuesday: Utorak
+Wednesday: Srijeda
+Thursday: Četvrtak
+Friday: Petak
+Saturday: Subota
+Sunday: Nedjelja
+Error opening modal: Pogreška prilikom otvaranja modala
+Block id is not defined: ID bloka nije definiran
+Entity id is not defined: ID entiteta nije definiran
+Start date is not defined: Datum početka nije definiran
+Entity type is not defined: Vrsta entiteta nije definirana
+Start attribute is not defined: Početni atribut nije definiran
+End attribute is not defined: Krajnji atribut nije definiran
+Block is missing: Blok nedostaje
+Block content is missing: Nedostaje sadržaj bloka
+Entity is missing: Entitet nedostaje
+Dates cannot be changed: Termini se ne mogu mijenjati
+Dates have been changed: Datumi su promijenjeni
+Filter updated: Filter je ažuriran
+Template is empty: Predložak je prazan
+Test email: Probna e-pošta
+Send test email: Pošaljite testnu e-poštu
+Email template sent: Predložak e-pošte poslan
+There was an error sending email, please try again.: Došlo je do pogreške prilikom slanja e-pošte, pokušajte ponovo.
+There already exists a file with the same name!: Već postoji datoteka s istim imenom!
+There has been an error please try again!: Došlo je do pogreške. Pokušajte ponovo!
+Upload success!: Uspješno učitavanje!
+Import file must be xlsx!: Datoteka za uvoz mora biti u xlsx formatu!
+Uploaded file ready for import: Prenesena datoteka spremna je za uvoz
+List of entities is empty: Popis entiteta je prazan
+File attribute is not defined: Atribut datoteke nije definiran
+Delete files: Obriši datoteke
+All files deleted: Sve su datoteke izbrisane
+Image id is empty: ID slike je prazan
+Rotate direction is empty: Smjer okretanja je prazan
+Image does not exist: Slika ne postoji
+This file is not an image: Ova datoteka nije slika
+Image file does not exist: Datoteka slike ne postoji
+Rotate image: Zakrenite sliku
+Image rotated: Slika rotirana
+Failed: Neuspješno
+Failed saving file: Spremanje datoteke nije uspjelo
+Delete item: Izbriši stavku
+Item successfully deleted: Stavka je uspješno izbrisana
+mfa_google_authenticator_enabled is not defined: Google autentifikator nije definiran
+Two factor auth has been changed: Dvostruka autentifikacija je promijenjena
+List is empty: Popis je prazan
+Delete items: Izbriši stavke
+Selected items were deleted: Odabrani predmeti su izbrisani
+Some items were deleted: Neki predmeti su izbrisani
+No items were deleted: Predmeti nisu izbrisani
+Please select at leas one attribute to export: Odaberite najmanje jedan atribut za izvoz
+Import file is missing: Nedostaje datoteka za uvoz
+Header is missing: Nedostaje zaglavlje
+Primary key is not defined: Primarni ključ nije definiran
+List of matched attributes is empty: Popis podudarnih atributa je prazan
+Import finished: Uvoz je završen
+Detailed results displayed above: Detaljni rezultati prikazani su gore
+User cannot be created.: Korisnik se ne može stvoriti.
+Unauthorized access: Neovlašten pristup
+edit: Uredi
+General information: Opće informacije
+Action type: Vrsta radnje
+Please fill in: Molimo vas ispunite
+Context: Kontekst
+Name field: Naziv polja
+list: Popis
+Id: ID
+Frontend information: Informacije sučelja
+Label: Labela
+Model: Model
+Type: Tip
+Related: Povezan
+Display format: Format prikaza
+Use in quick search: Koristite u brzoj potrazi
+Use in advanced search: Koristite u naprednom pretraživanju
+Readonly: Samo za čitanje
+Hidden: Skriveno
+Display on new: Prikaži na novom
+Display on update: Prikaži na ažuriranju
+Display on view: Prikaži na prikazu
+Display on preview: Prikaži na pregledu
+Class: Klasa
+Validator: Validator
+Not empty: Nije prazno
+Decimal: Decimal
+Integer: Integer
+Email: E-mail
+Phone: Telefon
+Default value: Zadana vrijednost
+Code: Kod
+Entity type: Vrsta entiteta
+Folder: Folder
+Lookup entity type: Vrsta entiteta za pretraživanje
+Select lookup entity type: Odaberite vrstu entiteta za pretraživanje
+Lookup attribute set: Skup atributa pretraživanja
+Select lookup attribute set: Odaberite set atributa pretraživanja
+Lookup attribute: Atribut pretraživanja
+Select lookup attribute: Odaberite atribut pretraživanja
+Enable modal create: Omogući modalno stvaranje
+Modal create page block id: Modal kreiranja id bloka stranice
+Select page block id or leave empty for default: Odaberite ID bloka stranice ili ostavite prazno za zadani
+Default attribute set: Zadani skup atributa
+Select attribute set: Odaberite skup atributa
+Default attribute group: Zadana grupa atributa
+Select attribute group: Odaberite grupu atributa
+Select options: Odaberite opcije
+Unused fields: Neiskorištena polja
+Source model: Model izvora
+Is required: Obavezno
+Is user defined: Korisnik definiran
+Is unique: Jedinstven
+Bundle: Paket
+Backend Type: Backend vrsta
+Frontend input: Frontend input
+Are you sure?: Jeste li sigurni?
+Value: Vrijednost
+Name: Naziv
+Attribute set: Skup atributa
+Generate block: Stvori blok
+Available attributes: Dostupni atributi
+Used attributes: Korišteni atributi
+Attribute set code: Kôd skupa atributa
+Generate pages: Generiraj stranice
+Add new block: Dodajte novi blok
+Title: Naslov
+Related id: Povezani id
+Entity type code: Vrsta koda entiteta
+Download documentation: Preuzmite dokumentaciju
+Technical and functional specification: Tehnička i funkcionalna specifikacija
+module: modul
+contains the following entities: Sadrži sljedeće entitete
+entity: Entitet
+This entity has user permissions by row: Ovaj entitet ima korisnička dopuštenja po retcima
+Table: Tablica
+Lists: Popisi
+Sort: Sortiranje
+Direction: Smjer
+Limit: Limit
+Size: Veličina
+Show group name: Prikaži naziv grupe
+Master: Master
+Has unique permissions: Ima jedinstvena dopuštenja
+Custom doctrine data: Podaci prilagođene doktrine
+Custom entity data: Podaci prilagođenih entiteta
+Custom use class: Prilagođena klasa upotrebe
+Extend class: Produžite klasu
+Is document: Je dokument
+Is relation: Je odnos
+Generate list view: Generiraj prikaz popisa
+Layout: Raspored
+Unused attribute groups: Neiskorištene grupe atributa
+General attributes: Opći atributi
+1column: 1column
+2column_right: 2 stupca desno
+2column_left: 2 stupca lijevo
+Show save and continue: Prikaži spremite i nastavite
+Regenerate files: Regeneriraj datoteke
+Export entity type: Izvoz entiteta
+Create pages: Stvori stranice
+Make document: Napravi dokument
+Default sort: Zadano sortiranje
+Default sort direction: Zadani smjer sortiranja
+asc: uzlazno
+desc: silazno
+Filter: Filter
+Export: Izvoz
+Import: Uvoz
+Advanced search: Napredna pretraga
+Use modal add: Koristite modalni dodaj
+Example: Primjer
+Above list actions: Radnje iznad popisa
+Example link: Primjer linka
+Example button: Primjer gumba
+Sp icon: Sp ikona
+Last part of shaoe icon class, ONLY FOR ABOVE LIST ACTIONS: Posljednji dio klase ikona shaoe-a, SAMO ZA AKCIJE IZNAD POPISA
+Show on new: Prikaži na novom
+Show add button if the list is on parent entity form, ONLY FOR ABOVE LIST ACTIONS: Pokaži gumb za dodavanje ako je popis na obrascu nadređenog entiteta, SAMO ZA AKCIJE IZNAD POPISA
+Modal return action: Modalna povratna akcija
+reload|close-modal, ONLY FOR ABOVE LIST BUTTON: ponovno učitavanje | close-modal, SAMO ZA AKCIJE IZNAD POPISA
+Main button: Glavni gumb
+Dropdown buttons: Gumbi za padajući izbornik
+Row action: Akcija retka
+Example custom link: Primjer prilagođene veze
+Specific: Specifično
+standard_row_action by default reacts on double click: standardna radnja retka prema zadanim postavkama reagira dvostrukim klikom
+Mass actions: Masovne akcije
+Name that will be displayed: Ime koje će se prikazati
+css class: CSS klasa
+Url: URL
+Url name from controller: Naziv URL-a od kontrolera
+Action: Radnja
+Javascript action triggered on click, ONLY FOR TYPE BUTTON: Akcija JavaScripta pokrenuta je klikom, SAMO ZA TIPKU
+Privileges action (1 => CREATE, 2 => READ, 3 => UPDATE, 4 => DELETE): Akcija privilegiranja (1 => CREATE, 2 => PROČITAJ, 3 => UPDATE, 4 => DELETE)
+Callback: Callback
+List of Javascript actions triggered as callback, ONLY FOR TYPE BUTTON: Popis akcija Javascript pokrenute kao povratni poziv, SAMO ZA TIPKU
+Confirm: Potvrdi
+Should click ask for confirmation, ONLY FOR TYPE BUTTON: Ako kliknete, zatražite potvrdu, SAMO ZA TIPKU
+Fa icon: Fa ikona
+Last part of fa icon class, ONLY FOR TYPE BUTTON ON MAIN: Posljednji dio klase fa ikona, SAMO ZA TIP BROJ NA GLAVU
+From type: Od tipa
+view|form, defines if form should be opened in view or edit mode, ONLY FOR TYPE LINK: view | form, definira treba li obrazac otvoriti u načinu pregleda ili uređivanja, SAMO ZA TIP LINK
+List attributes: Popis atributa
+Display: Prikaz
+Field: Polje
+Naziv: Naziv
+e-mail: e-mail
+System role: Sistemska uloga
+Entitiy id: Id entiteta
+view: Pogled
+User: Korisnik
+Entity id: ID entiteta
+Restore: Vratiti
+Menu: Izbornik
+Display name: Prikazano ime
+Page title: Naslov stranice
+Is parent: Roditelj je
+Parent: Roditelj
+Data attributes: Atributi podataka
+Toggle all: Uključite sve
+Toggle column: Uključite kolonu
+Regenerate: Regeneriraj
+Privileges: Privilegije
+View: Pogled
+Settings list: Popis postavki
+Key: Ključ
+Difference: Razlika
+View differences: Pogledajte razlike
+Select file: Odaberite datoteku
+Please select the export JSON file: Odaberite izvoznu JSON datoteku
+Export content: Izvoz sadržaja
+Compare type: Vrsta usporedbe
+Remote URL: Udaljeni URL
+Show changes only: Prikaži samo promjene
+Compare: Usporedite
+Username name must have at least 6 characters: Korisničko ime mora imati najmanje 6 znakova
+Please fill in the username: Molimo upišite korisničko ime
+Plesae enter a correct e-mail: Molimo unesite ispravan e-mail
+Please fill in the e-mail: Molimo vas popunite e-mail
+Please select user roles: Odaberite uloge korisnika
+Please select the system role: Odaberite sistemsku ulogu
+ROLE_USER: ULOGA KORISNIK
+ROLE_ADMIN: ULOGA ADMIN
+Password needs to have at least 6 characters: Lozinka mora imati najmanje 6 znakova
+Please fill in the password: Molimo upišite lozinku
+Repeat password: Ponovi lozinku
+Passwords are not the same: Lozinke nisu iste
+Please fill in the confirm password: Unesite lozinku za potvrdu
+Multi-Factor Authentication: Višefaktorska provjera autentičnosti
+Enabled: Omogućeno
+Not enabled.: Nije omogućeno
+Disabled: Onemogućeno
+Status: Status
+Enable: Omogući
+Select existing account: Odaberite postojeći račun
+OIB: OIB
+edit_form: Urediti obrazac
+block: Blok
+Edit Title: Uredi naslov
+Cancel: Otkaži
+Edit Image: Uredi sliku
+URL: URL
+Edit Link: Uredi vezu
+Edit Text: Uredi tekst
+Text: Tekst
+Add: Dodaj
+Enter cc email here: Ovdje unesite CC e-poštu
+Remove all: Ukloni sve
+Use Multi-Factor Authentication: Koristite višefaktornu provjeru autentičnosti
+Select filter: Odaberite filtar
+Insert search query here: Ovdje umetnite upit za pretraživanje
+Export to ical: Izvezi na ical
+Instructions for iCal import: Upute za iCal uvoz
+Import to: Uvoz u
+Your personal export url: Vaš osobni url izvoza
+Add column: Dodajte stupac
+More: Više
+Download import template: Preuzmite predložak uvoza
+No items found: Nije pronađen nijedan predmet
+Attribute group: Grupa atributa
+List view: Popisni prikaz
+Use as title: Koristi kao naslov
+Use as title 2: Koristite kao naslov 2
+Use as title 3: Koristite kao naslov 3
+Use as tooltip: Koristite kao opis
+Use as start datetime: Koristite kao početno vrijeme
+Use as end datetime: Koristite kao datum završetka
+Use as color: Koristite kao boju
+Open in modal: Otvoreno u modalu
+Enable drag and drop: Omogući povlačenje i ispuštanje
+First day: Prvi dan
+Data Source: Izvor podataka
+Please fill inData source: Unesite izvor podataka
+X Axis: X os
+Please fill in values on x axis: Unesite vrijednosti na osi x
+Y Axis: Y Osovina
+Please fill in values on y axis: Unesite vrijednosti na osi y
+Filters: Filteri
+Please fill in filters: Molimo ispunite filtre
+Link Entity Type: Vrsta entiteta veze
+Parent Entity Type: Vrsta roditeljskog entiteta
+Child Entity Type: Vrsta dječjeg entiteta
+Custom HTML: Prilagođeni HTML
+Place custom HTML. Use twig syntax to render entity attribute. All attributes have to be prefixed with entity.: Postavite prilagođeni HTML. Koristite twig sintaksu za renderiranje atributa entiteta. Svi atributi moraju biti prefiksirani s entitetom.
+Configuration: Konfiguracija
+gallery: Galerija
+Gallery: Galerija
+google_doc_preview: Pregled usluge Google doc
+google_maps: Google karte
+Latitude attribute: Atribut geografske širine
+Longitude attribute: Atribut geografske dužine
+Pointer title attribute: Atribut naslova pokazivača
+Category filter: Filtar kategorije
+Please select attribute: Odaberite atribut
+Use selected attribute as category filter: Koristite odabrani atribut kao filtar kategorije
+Attribute set definition: Definicija skupa atributa
+Height: Visina
+Callback function: Funkcija povratnog poziva
+Default filter: Zadani filtar
+Kanban data: Kanban podaci
+Select list view: Odaberite prikaz popisa
+List to pull data from: Popis za povlačenje podataka
+Select column attribute: Odaberite atribut stupca
+Use selected value as columns: Koristite odabranu vrijednost kao stupce
+Select title attribute: Odaberite atribut naslova
+Use selected value as kanban item title: Koristite odabranu vrijednost kao naslov predmeta kanban
+Select description attribute: Odaberite atribut opisa
+Use selected value as kanban item description: Koristite odabranu vrijednost kao opis predmeta kanbana
+Custom: Prilagođen
+Is mandatory: Je obavezno
+Not mandatory: Nije obavezno
+Mandatory: Obavezno
+Please fill in Data source: Molimo vas da popunite izvor podataka
+Definition: Definicija
+Please fill in definition: Molimo vas da ispunite definiciju
+role_form: Oblik uloge
+text: Tekst
+Content: Sadržaj
+Set content: Postavljanje sadržaja
+Timeline data: Podaci o vremenskoj traci
+Select date attribute: Odaberite atribut datuma
+Use selected value as date and/or time to place on timeline: Za postavljanje na vremensku traku koristite odabranu vrijednost kao datum i / ili vrijeme
+Date format: Oblik datuma
+PHP date format: PHP format datuma
+Use selected value as description on timeline: Koristite odabranu vrijednost kao opis na vremenskoj traci
+Show link to entity on timeline: Pokaži vezu na entitet na vremenskoj traci
+user_form: Korisnički obrazac
+Please enter a correct email address: Unesite ispravnu adresu e-pošte
+Repeats: Ponavlja
+Weekly: Tjedno
+Monthly: Mjesečno
+Yearly: Godišnje
+Every: Svaki
+By: Po
+On: Na
+Wen: Sri
+Make primary: Napravi primarnim
+List of matched attributes: Popis podudarnih atributa
+Please select matching attribute: Odaberite atribut koji odgovara
+Matched with: Odgovara s
+Not matched: Nije podudarno
+Select primary identified: Odaberite primarno identificirano
+Import results: Uvezi rezultate
+Total created: Ukupno stvoreno
+Line: Linija
+Submit: Podnesi
+Password again: Lozinka ponovo
+Save new password: Spremi novu lozinku
+Forgot your username or password?: Zaboravili ste korisničko ime ili lozinku?
+Language: Jezik
+email: e-mail
+First name: Ime
+Full name: Puno ime
+Last name: Prezime
+Users: Korisnici
+User details: Pojedinosti o korisniku
+Default for attribute set: Zadano za skup atributa
+Default for list view: Zadano za prikaz popisa
+Default for page: Zadano za stranicu
+Default for page block: Zadano za blok stranica
+role details: Detalji uloge
+core_user_role_link details: Pojedinosti o temeljnoj ulozi korisnika
+Core_language: Osnovni jezik
+core_language details: Pojedinosti osnovnog jezika
+Please enter the value in format x.xxx,xx: Unesite vrijednost u formatu x.xxx, xx
+Please enter only whole numbers: Unesite samo cijele brojeve
+Edit form missing for attribute set: Uredi oblik koji nedostaje za skup atributa
+Update: Ažuriranje
+Firstname: Ime
+Lastname: Prezime
+E-mail: E-mail
+City: Grad
+Country: Zemlja
+Error in block: Pogreška u bloku
+Open Google Authenticator app and scan the QR code.: Otvorite aplikaciju Google Authenticator i skenirajte QR kôd.
+Alternatively, you can use the following code to activate: Inače, možete koristiti sljedeći kôd za aktiviranje
+Filter by: Filtrirati po
+Default actions: Zadane radnje
+Leave empty for default: Ostavite prazno za zadano
+For example: Na primjer
+JSON filter: JSON filter
+Every Weekday (Monday to Friday): Svaki radni dan (od ponedjeljka do petka)
+Day of the Month: Dan u mjesecu
+Day of the Week: Dan u tjednu
+Logged in as: Prijavljeni kao
+Sign Out: Odjavi se
+Data export: Izvoz podataka
+Quick search: Brza pretraga
+Records per page: Zapisa po stranici
+Please fill in the field correctly: Ispravno ispunite polje
+There has been an error please try again: Došlo je do pogreške. Pokušajte ponovo
+Error: Greška
+No items selected: Nije odabran nijedan predmet
+Too many items selected: Previše je odabranih stavki
+models: Modeli
+Percentage: Postotak
+Price: Cijena
+Today: Danas
+Yesterday: Jučer
+Last 7 Days: Zadnjih 7 dana
+Last 30 days: Zadnjih 30 dana
+This month: Ovaj mjesec
+Last month: Prošli mjesec
+Last quarter: Zadnja četvrtina
+Last year: Prošle godine
+Apply: Primijeni
+Yes, I am sure!: Da, sigurno!
+From: Iz
+To: Do
+Week: Tjedan
+Web price: Web cijena
+Regular price: Standardna cijena
+Too many products selected: Odabrano previše proizvoda
+Compare products: Usporedite proizvode
+Please fill in the required fields: Molimo popunite obavezna polja
+Please wait: Molimo pričekajte
+Drag and drop files here to upload, or click to select one: Ovdje povucite i ispustite datoteke za prijenos ili kliknite da biste ih odabrali
+Choose a location: Odaberite lokaciju
+Query string not set: Query string nije postavljen
+Please recheck entered fields: Ponovno označite unesena polja
+invalid fields: Nevaljana polja
+Please confirm!: Molimo potvrdite!
+Price is not defined: Cijena nije definirana
+Select value: Odaberite vrijednost
+Select values: Odaberite vrijednosti
+Type to filter: Upišite za filtriranje
+Select a date: Odaberite datum
+Showing: Pokazivanje
+results: Rezultati
+First: Prvi
+Previous: Prijašnji
+Next: Sljedeći
+Last: Posljednji
+Filtered from: Filtrirano iz
+total: Ukupno
+No results found: Nema rezultata
+Searching...: Tražim ...
+Searching in progress...: Pretraživanje je u tijeku ...
+January: Siječanj
+February: Veljača
+March: Ožujak
+April: Travanj
+May: Svibanj
+June: Lipanj
+July: Srpanj
+August: Kolovoz
+September: Rujan
+October: Listopad
+November: Studeni
+December: Prosinac
+Jan: Sij
+Feb: Velj
+Mar: Ožu
+Apr: Tra
+Mays: Svib
+Jun: Lip
+Jul: Srp
+Aug: Kol
+Sep: Ruj
+Oct: Lis
+Nov: Stu
+Dec: Pro
+Wed: Sri
+Clear: Odustani
+Month: Mjesec
+Day: Dan
+firstDayNumber: 1
+Value cannot be found: Vrijednost nije moguće pronaći
+Product id is not defined: ID proizvoda nije definiran
+Product does not exist: Proizvod ne postoji
+Select simple product: Odaberite jednostavan proizvod
+entityType is not correct: EntitetType nije točan
+entityType does not exist: entitetType ne postoji
+export: Izvoz
+import template: Predložak uvoza
+User Form: Korisnički obrazac
+Role Form: Obrazac uloge
+Core_language Form: Obrazac temeljnog jezika
+Administracija: Administracija
+Entity types: Vrste entiteta
+Attribute sets: Skupovi atributa
+Attributes: Atributi
+Attribute groups: Grupe atributa
+Log: Log
+ListView: ListView
+Blocks: Blokovi
+Pages: Stranice
+Navigation: Navigacija
+Default: Zadano
+Settings: Postavke
+Activities: Aktivnosti
+Codebook: Šifrarnik
+Deals: Prilike
+HR: HR
+Calls: Pozivi
+Meetings: Sastanci
+Synchronization tool: Alat za sinkronizaciju
+Parent id is empty:
+Parent attribute id is empty:
+Images missing:
+This image is allready selected:
+Image set as primary:
+List of images is empty:
+Images reordered:
+Error cloning entity:
+Entity does not exist:
+Entity has been cloned:
+Is front is empty:
+Parent entity type is empty:
+Id is empty:
+Does not exist:
+Block is not empty.:
+Remove front block:
+Front block has been removed:
+Id is not correct:
+Front block does not exist:
+Block parent is not defined:
+Block parent type is not defined:
+Parent cannot be found:
+Add existing block:
+Block has been added:
+Name is empty:
+Type is empty:
+Insert new block group:
+Page block does not exist:
+Update block:
+Block has been updated:
+Create new block:
+Id is not defined:
+Core language does not exist:
+Translate language:
+All bundles translated:
+entityTypeCode is not correct:
+Entity type with this code already exists:
+There has been an error creating document attributes:
+Basic information:
+Validation:
+Bundles:
+Delete entity types:
+Use lookup link:
+Print:
+(full address including http\://):
+step_form:
+Disable edit:
+Form type:
+Form:
+Enable print:
+checkbox_list:
+Attribute on parent lookup to child:
+multiselect:
+qr_code:
+Attribute to generate code from:
+Reupload document:
+No Items Found:
+Total updated/created:
+Please select page:
+Please select product group:
+Please enter url:
+Calendar export:
+Create clone:
+Clone will be created after save:
+Authenticator Code:
+Comment:
+Related Entity ID:
+Related Entity Type:
+user:
+File:
+Ckeditor:
+ckeditor details:
+Please fill in this field:
+Last access:
+Date valid:
+Refresh token:
+Token:
+Api access:
+api access details:
+Dashboard:
+Customers:
+Ckeditor Form:
+Documentation:
+My profile:
+Moji zadaci:
+Projects:
+Api access form:
+CMS:
+eCommerce:
+Products:
+Printers:
+Core language:
+Wiki:
+
+# default
+Error occurred: Došlo je do greške
+
+# note_entity
+Note: Bilješka
+Notes: Bilješke
+note: bilješka
+notes: bilješke
+Note id cannot be empty: Note id ne smije biti prazan
+Successfully toggled like: Uspješno izmijenjen like
+Successfully deleted note: Uspješno pobrisana bilješka
+No notes found: Bilješke nisu pronađene
+Currently editing note by: Trenutno uređujete bilješku od
+edited: uređeno
+Show more: Prikaži više
+Source: Izvor
+File type: Vrsta datoteke
+
+You do not have the permission to open this ListView, please contact the administrator. Block: Nemate prava za otvaranje ovog pregleda, molimo kontaktirajte administratora. Blok
+
+search_type_in: je jedan od
+search_type_ni: nije jedan od
+search_type_bw: sadrži
+search_type_eq: je jednako
+search_type_bs: počinje sa
+search_type_ew: završava sa
+search_type_nc: ne sadrži
+search_type_bn: ne počinje sa
+search_type_en: ne završava sa
+
+Display as admin: Prikaži kao administrator
+Every day: Svaki dan
+
+Ord: Redoslijed
+
+Run import: Pokreni import
+
+Failed to send user to Gath: Korisnik nije poslan u Gath
+Failed to send loyalty card to Gath: Članska kartica se nije poslala u Gath
+Failed to send order: Narudžba se nije poslala
+to GATH: u Gath
+
+Text added to clipboard: Text je dodan u međuspremnik
+
+resetting.check_email: Link za reset lozinke je poslan na %email%
+resetting.password_already_requested: Link za reset lozink je već zatražen
+resetting.request.invalid_username: Korisničko ime %username% nije pronađeno
+Password should: Lozinka treba
+be at least 8 characters in length: biti minimalne dužine od 8 znakova
+include at least one upper case letter: uključivati barem jedno veliko slovo
+include at least one lower case letter: uključivati barem jedno malo slovo
+include at least one number: uključivati barem jedan broj
+include at least one special character: uključivati barem jedan specijalni znak
+be without spaces: ne sadržavati razmake
+Date imported: Datum i vrijeme
+Error messages: Poruke upozorenja
+
+critical_error_messages_0: Broj jedinstvenih nerješenih grešaka
+critical_error_messages_1: Broj ponavljanja nerješenih grešaka
+critical_error_messages_2: Broj 404 url-ova sa ponavljanjem većim od 3
+Number of 404 requests: Broj 404 url-ova
+Number of unresolved exceptions: Broj nerješenih grešaka
+Number of distinct exceptions: Broj jedinstvenih grešaka
+Transaction email sent order: Poslani transakcijski e-mailovi

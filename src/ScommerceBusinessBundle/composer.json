@@ -1,0 +1,21 @@
+{
+  "name": "shipshapesolutions/scommercebusinessbundle",
+  "type": "shipshape-core-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ShipShape",
+      "email": "info@shipshape-solutions.com",
+      "homepage": "https://shipshape-solutions.com/"
+    }
+  ],
+  "require": {
+    "shipshapesolutions/composer-bundle-installer": "1.x-dev",
+    "mobiledetect/mobiledetectlib": "^2",
+    "facebook/graph-sdk": " ~5.0",
+    "google/apiclient": "^2.0"
+  },
+  "extra": {
+    "install-directory": "./src/ScommerceBusinessBundle"
+  }
+}

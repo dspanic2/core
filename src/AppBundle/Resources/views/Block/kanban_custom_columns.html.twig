@@ -1,0 +1,58 @@
+<div class="sp-block {{ data.block.class }} sp-kanban-wrapper kanban-custom-columns" data-url="/kanban/update" data-entity-type="{% if data.entity_type is defined %}{{ data.entity_type }}{% endif %}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        <h5>{{ data.block.title|trans }}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="options">
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                </div>
+                            {% endif %}
+                        </h5>
+                    </div>
+                </div>
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <span class="sp-btn btn-primary btn-blue btn pull-right sp-margin-right-0" data-url="/kanban/add-column" data-kanban="add-column">{% trans %}Add column{% endtrans %}</span>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="main-panel-heading new-column-form" style="width: 50%;display:none;" data-block-id="{% if data.block_id is defined %}{{ data.block_id }}{% endif %}">
+                        <h5>{{ "Add new column"|trans }}</h5>
+                        <input type="hidden" name="column-id">
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{{ "Column name"|trans }}</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="column-name" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">{{ "Column color"|trans }}</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="column-color" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button name="add-column-submit" class="btn-primary btn" data-action="save-column" data-url="/kanban_column/save" data-url-update="/kanban/update-column">{{ "Save"|trans }}</button>
+                                <button name="add-column-cancel" class="btn-default btn" data-action="save-column">{{ "Cancel"|trans }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <div data-type="kanban">
+                            <div class="kanban-placeholder">
+                                <div class="kanban-init" data-type="custom" data-settings="{% if data.columns is defined %}{{ data.columns }}{% endif %}" {% if data.unassigned is defined %}data-unassigned="{{ data.unassigned }}"{% endif %}></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

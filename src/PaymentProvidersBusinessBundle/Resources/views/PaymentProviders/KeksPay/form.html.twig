@@ -1,0 +1,12 @@
+{% if not is_mobile() %}
+    <div class="payment-form keks-pay text-center" data-keks-hash="{{ hash }}">
+        <div class="title">{% trans into current_language %}Pay with KEKS pay{% endtrans %}</div>
+        <ol>
+            <li>{% trans into current_language %}Open KEKS pay{% endtrans %}</li>
+            <li>{% trans into current_language %}Press{% endtrans %} <span class="keks-pay-icon"></span> {% trans into current_language %}icon{% endtrans %}</li>
+            <li>{% trans into current_language %}Press scan QR code{% endtrans %}</li>
+            <li>{% trans into current_language %}Scan QR code{% endtrans %}</li>
+        </ol>
+        <img src="data:image/png;base64,{{ barcode({code: data, type: 'qrcode', format: 'png', width: 5, height: 5}) }}" style="max-width:250px;"/>
+    </div>
+{% endif %}

@@ -1,0 +1,5 @@
+        <many-to-one field="%3$s" target-entity="%1$s" fetch="LAZY">
+        <join-columns>
+            <join-column name="%2$s" referenced-column-name="id"/>
+        </join-columns>
+        </many-to-one>

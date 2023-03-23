@@ -1,0 +1,26 @@
+{% if email is defined %}
+    <div class="email-detailed email-item">
+        <div class="sender"><strong>{% trans %}From{% endtrans %}:</strong> {{ email.mailFrom }}</div>
+        <div class="sender"><strong>{% trans %}To{% endtrans %}:</strong> {{ email.mailTo }}</div>
+        {% if email.cc is not empty %}
+            <div class="sender"><strong>{% trans %}Cc{% endtrans %}:</strong> {{ email.cc }}</div>
+        {% endif %}
+        {% if email.bcc is not empty %}
+            <div class="sender"><strong>{% trans %}Bcc{% endtrans %}:</strong> {{ email.bcc }}</div>
+        {% endif %}
+        <div class="subject"><strong>{% trans %}Subject{% endtrans %}:</strong> {{ email.subject }}</div>
+        <div>
+            {% if email.attachments is not empty %}
+                {% for item in email.attachments %}
+                    {% if not item.isEmbedded %}
+                        <i class="fas fa-paperclip"></i>&nbsp;<a
+                            href="{{ item.file }}">{{ item.file }}</a><br>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="email-body">
+            {{ extract_message(embed_images(email))|striptags('<br><p><a><img><strong><table><tr><td><tbody><thead><ul><ol><li>')|raw }}
+        </div>
+    </div>
+{% endif %}

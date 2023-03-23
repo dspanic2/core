@@ -1,0 +1,33 @@
+<div class="form-group row {% if attribute.frontendHidden %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    <label class="col-sm-4 col-xs-4 control-label">{% if is_granted("ROLE_ADMIN") %}<a
+            href="{{ path("attribute_update_form", {"id": attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+        {% if attribute.note is not empty %}
+            <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                  rel="popover" data-html="true" data-placement="bottom"></span>
+        {% endif %}
+    </label>
+    <div class="col-sm-8 col-xs-8">
+        <input data-type="text" class="form-control" data-lpignore="true" type="hidden" data-input="filepath"
+               name="{{ attribute.attributeCode }}" value="{% if value is defined %}{{ value }}{% endif %}"/>
+        {% if value is defined and value is not empty %}
+            <div class="image-holder">
+                <div class="image-holder-options {% if formType != "form" %}hidden{% endif %}">
+                    <span class="sp-options-text sp-hover pull-left"
+                          title="{% trans %}Remove{% endtrans %}"
+                          data-action="remove-image"><i class="sp-icon sp-icon-disable"></i></span>
+                </div>
+                <img src="{{ app.request.getSchemeAndHttpHost() }}{{ attribute.folder }}{{ value }}"/>
+            </div>
+        {% endif %}
+        <div class="dropzone-wrapper {% if value is defined and value is not empty or formType != "form" %}hidden{% endif %}"
+             data-action="toggle-hidden">
+            <span class="dropzone" data-acceptedfiles="image/jpeg,image/png,image/bmp"
+                  data-url="{{ path("file_upload",
+                      {"entity_type_id": entity.attributeSet.entityType.id,
+                          "attribute_set_id": entity.attributeSet.id,
+                          "attribute_id": attribute.Id}) }}"
+                  data-limit="1"></span>
+        </div>
+    </div>
+</div>

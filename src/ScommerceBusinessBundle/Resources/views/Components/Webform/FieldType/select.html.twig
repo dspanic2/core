@@ -1,0 +1,28 @@
+{% set label = get_entity_store_attribute(current_store_id,field,"name") %}
+{% apply spaceless %}
+    {% set options = field.getFieldOptions %}
+    {% if options is not empty %}
+        <label class="plain">{{ label }}{% if field.getRequired %}*{% endif %}
+            {% if submission is not empty %}
+                {% set submissionValues = submission.getValues %}
+                {% for submissionValue in submissionValues %}
+                    {% if submissionValue.getField.getId == field.id and submissionValue.getFieldOption is not empty %}
+                        <div class="submission-value">{{ submissionValue.getFieldOption.getOptionValue }}<br><br></div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <select name="field-{{ field.id }}[]"
+                        {% if field.getReadOnly %}readonly="readonly"{% endif %}
+                        {% if field.getRequired %}required="required"{% endif %}>
+                    <option value="">{% trans into current_language %}Select option{% endtrans %}</option>
+                    {% for option in options %}
+                        <option value="{{ option.getId }}"
+                                {% if field.getReadOnly %}disabled="disabled"{% endif %}>
+                            {{ option.getOptionValue }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </label>
+    {% endif %}
+{% endapply %}

@@ -1,0 +1,132 @@
+services:
+    #    core_entities.example:
+    #        class: CoreEntitiesBundle\Example
+    #        arguments: ["@service_id", "plain_value", %parameter%]
+
+
+    attribute_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:Attribute'
+
+    attribute_set_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:AttributeSet'
+
+    settings_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:Settings'
+
+    attribute_group_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:AttributeGroup'
+
+
+    entity_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:Entity'
+
+    entity_type_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:EntityType'
+
+    entity_level_permission:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:EntityLevelPermission'
+
+    entity_attribute_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:EntityAttribute'
+
+    entity_log_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:EntityLog'
+
+    file_entity_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:FileEntity'
+
+    list_view_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:ListView'
+
+    list_view_attribute_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:ListViewAttribute'
+
+    page_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:Page'
+
+    page_block_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:PageBlock'
+
+    navigation_link_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:NavigationLink'
+
+    privilege_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:Privilege'
+
+    role_entity_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:RoleEntity'
+
+    action_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:Action'
+
+    user_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:UserEntity'
+
+    user_role_entity_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:UserRoleEntity'
+
+    entity_level_permission_repository:
+        class: Doctrine\ORM\EntityLevelPermission
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - 'AppBundle:EntityLevelPermission'

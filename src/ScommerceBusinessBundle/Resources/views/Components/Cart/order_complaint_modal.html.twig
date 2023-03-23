@@ -1,0 +1,38 @@
+<div class='overlay' id='order-complaint-modal'>
+    <div class="inner">
+        <div class="row form-row full-width margin-bottom-0">
+            <div class="form-group col-xs-12">
+                <h2 class="styled-title">{% trans into current_language %}Complaint data{% endtrans %}</h2>
+            </div>
+        </div>
+        <form id="order-complaint" novalidate method="POST" action="/dashboard/complaint_order" class="ajax-submit">
+            <input type="hidden" name="order" value="{{ data.order }}">
+
+            {% for orderItem in data.items %}
+                {% set product = orderItem.getProduct %}
+                {#                get_entity_store_attribute(current_store_id,data.page,"name") #}
+                <div class="row form-row full-width margin-bottom-0">
+                    <div class="form-group col-xs-12">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_list_item_simple.html.twig', 'data': {
+                            'product':product,
+                        }}, {})) }}
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>{% trans into current_language %}Note{% endtrans %}*
+                            <textarea name="items[{{ orderItem.getId }}]" required></textarea>
+                        </label>
+                    </div>
+                </div>
+                {% if not loop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+
+            <div class="row form-row margin-bottom-0">
+                <div class="col-xs-12">
+                    <button class="button">{% trans into current_language %}Send{% endtrans %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

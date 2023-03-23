@@ -1,0 +1,121 @@
+<div class="col-sm-12 col-xs-12">
+    <div class="panel panel-midnightblue">
+        <div class="panel-heading master-panel-heading">
+            <h5>{% trans %}General information{% endtrans %}</h5>
+        </div>
+        <div class="panel-body collapse in">
+            <fieldset class="form-group-wrapper">
+                <div class="form-group row hidden">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="id" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="title" class="form-control"
+                               data-fv-notempty="true"
+                               data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                               {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select {% if entity is not empty %}disabled="disabled"{% endif %}
+                                name="type" data-fv-notempty="true"
+                                data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                class="form-control">
+                            <option selected="selected" value="multiselect">{% trans %}multiselect{% endtrans %}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Link Entity Type{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select name="linkEntityType" class="form-control"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                            <option value=""
+                                    {% if entity is empty %}selected="selected"{% endif %}>{% trans %}Please select{% endtrans %}</option>
+                            {% for entity_type in entity_types %}
+                                <option value="{{ entity_type.entityTypeCode }}"
+                                        {% if link_entity is not empty and link_entity == entity_type.entityTypeCode %}selected="selected"{% endif %}>{{ entity_type.entityTypeCode }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Parent Entity Type{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select name="parentEntityType" data-action="change_multiselect_parent" class="form-control" data-url="{{ path('get_lookup_attributes_by_entity_type') }}"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                            <option value=""
+                                    {% if entity is empty %}selected="selected"{% endif %}>{% trans %}Please select{% endtrans %}</option>
+                            {% for entity_type in entity_types %}
+                                <option value="{{ entity_type.entityTypeCode }}" data-id="{{ entity_type.id }}"
+                                        {% if parent_entity is not empty and parent_entity == entity_type.entityTypeCode %}selected="selected"{% endif %}>{{ entity_type.entityTypeCode }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Child Entity Type{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select name="childEntityType" class="form-control"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                            <option value=""
+                                    {% if entity is empty %}selected="selected"{% endif %}>{% trans %}Please select{% endtrans %}</option>
+                            {% for entity_type in entity_types %}
+                                <option value="{{ entity_type.entityTypeCode }}"
+                                        {% if child_entity is not empty and child_entity == entity_type.entityTypeCode %}selected="selected"{% endif %}>{{ entity_type.entityTypeCode }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Attribute on parent lookup to child{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select name="attributeOnParentLookupToChild" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}">
+                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                            {% if attributes is defined and attributes is not empty %}
+                                {% for attribute in attributes %}
+                                    <option {% if entity is not empty and attribute_id is defined and attribute_id is not empty %} {% if attribute_id == attribute.id %}selected="selected"{% endif %}{% endif %}
+                                            value="{{ attribute.id }}">{{ attribute.attributeCode }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Is mandatory{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select name="mandatory" class="form-control"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                            <option value="0" {% if entity is not empty and mandatory == 0 %}selected="selected"{% endif %}>{% trans %}Not mandatory{% endtrans %}</option>
+                            <option value="1" {% if entity is not empty and mandatory == 1 %}selected="selected"{% endif %}>{% trans %}Mandatory{% endtrans %}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="class" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="dataAttributes" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="payment-form hidden">
+    <form id="mstart{{ data["order_number"] }}" class="icheckout_form" method="POST" action="{{ url }}" target="_self" enctype="application/x-www-form-urlencoded;charset=UTF-8">
+        {% for key,value in data %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+    </form>
+</div>

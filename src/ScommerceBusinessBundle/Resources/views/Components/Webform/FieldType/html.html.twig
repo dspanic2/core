@@ -1,0 +1,6 @@
+{% apply spaceless %}
+    <div class="html"
+            {{ render_nested_twig(field.getDataAttributes|default("")) }}>
+        {{ get_entity_store_attribute(current_store_id,field,"content")|raw }}
+    </div>
+{% endapply %}

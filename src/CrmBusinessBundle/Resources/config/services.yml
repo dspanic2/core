@@ -1,0 +1,357 @@
+services:
+
+  user_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\UserAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  contact_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\ContactAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\ProductAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_group_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\ProductGroupAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  discount_coupon_template_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\DiscountCouponTemplateAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  city_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\CityAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  account_address_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\AccountAddressAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  contact_address_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\ContactAddressAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  customer_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\CustomerAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  supplier_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\SupplierAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  quote_manager:
+    class: CrmBusinessBundle\Managers\QuoteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+  order_manager:
+    class: CrmBusinessBundle\Managers\OrderManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  order_return_manager:
+    class: CrmBusinessBundle\Managers\OrderReturnManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  order_complaint_manager:
+    class: CrmBusinessBundle\Managers\OrderComplaintManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  order_form_manager:
+    class: CrmBusinessBundle\Managers\OrderFormManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  account_manager:
+    class: CrmBusinessBundle\Managers\AccountManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_manager:
+    class: CrmBusinessBundle\Managers\ProductManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  crm_helper_manager:
+    class: CrmBusinessBundle\Managers\CrmHelperManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  default_import_manager:
+    class: CrmBusinessBundle\Managers\DefaultImportManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  default_export_manager:
+    class: CrmBusinessBundle\Managers\DefaultExportManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  export_manager:
+    class: CrmBusinessBundle\Managers\ExportManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  discount_coupon_manager:
+    class: CrmBusinessBundle\Managers\DiscountCouponManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  invoice_manager:
+    class: CrmBusinessBundle\Managers\InvoiceManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  fiscal_invoice_manager:
+    class: CrmBusinessBundle\Managers\FiscalInvoiceManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  hnb_api_manager:
+    class: CrmBusinessBundle\Managers\HnbApiManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  order_delivery_autocomplete_manager:
+    class: CrmBusinessBundle\Managers\OrderDeliveryAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  discount_rules_manager:
+    class: CrmBusinessBundle\Managers\DiscountRulesManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_label_rules_manager:
+    class: CrmBusinessBundle\Managers\ProductLabelRulesManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  bulk_price_manager:
+    class:  CrmBusinessBundle\Managers\BulkPriceManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  barcode_manager:
+    class: CrmBusinessBundle\Managers\BarcodeManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  generate_money_transfer_payment_slip_extension:
+    class: CrmBusinessBundle\Extensions\GenerateMoneyTransferPaymentSlipExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  crm_helper_extension:
+    class: CrmBusinessBundle\Extensions\CrmHelperExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  newsletter_manager:
+    class: CrmBusinessBundle\Managers\NewsletterManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  margin_rules_manager:
+    class: CrmBusinessBundle\Managers\MarginRulesManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  loyalty_manager:
+    class:  CrmBusinessBundle\Managers\LoyaltyManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  email_template_manager:
+    class:  CrmBusinessBundle\Managers\EmailTemplateManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  automations_manager:
+    class: CrmBusinessBundle\Managers\AutomationsManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  quote_buttons:
+    class: CrmBusinessBundle\Buttons\QuoteButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  order_buttons:
+    class: CrmBusinessBundle\Buttons\OrderButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_label_buttons:
+    class: CrmBusinessBundle\Buttons\ProductLabelButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  discount_catalog_buttons:
+    class: CrmBusinessBundle\Buttons\DiscountCatalogButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  payment_type_rules_manager:
+    class: CrmBusinessBundle\Managers\PaymentTypeRulesManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_export_rules_manager:
+    class: CrmBusinessBundle\Managers\ProductExportRulesManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_attribute_filter_rules_manager:
+    class: CrmBusinessBundle\Managers\ProductAttributeFilterRulesManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  margin_rule_buttons:
+    class: CrmBusinessBundle\Buttons\MarginRuleButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  bulk_price_buttons:
+    class: CrmBusinessBundle\Buttons\BulkPriceButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  loyalty_earnings_configuration_buttons:
+    class: CrmBusinessBundle\Buttons\LoyaltyEarningsConfigurationButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_buttons:
+    class: CrmBusinessBundle\Buttons\ProductButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_group_buttons:
+    class: CrmBusinessBundle\Buttons\ProductGroupButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  email_template_buttons:
+    class: CrmBusinessBundle\Buttons\EmailTemplateButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_export_rule_type_buttons:
+    class: CrmBusinessBundle\Buttons\ProductExportRuleTypeButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  contact_buttons:
+    class: CrmBusinessBundle\Buttons\ContactButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  campaign_manager:
+    class: CrmBusinessBundle\Managers\CampaignManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  crm_webform_manager:
+    class: CrmBusinessBundle\Managers\CrmWebformManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_document_rules_manager:
+    class: CrmBusinessBundle\Managers\ProductDocumentRulesManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+
+  default_calculation_provider:
+    class: CrmBusinessBundle\CalculationProviders\DefaultCalculationProvider
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  trs_calculation_provider:
+    class: CrmBusinessBundle\CalculationProviders\TrsCalculationProvider
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  wand_calculation_provider:
+    class: CrmBusinessBundle\CalculationProviders\WandCalculationProvider
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  luceed_calculation_provider:
+    class: CrmBusinessBundle\CalculationProviders\LuceedCalculationProvider
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

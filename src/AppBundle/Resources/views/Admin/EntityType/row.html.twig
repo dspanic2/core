@@ -1,0 +1,5 @@
+<div class="row sort-wrapper sp-show-border">
+    {% for key2,column in row.columns %}
+        {{ include('AppBundle:Admin/EntityType:column.html.twig') }}
+    {% endfor %}
+</div>

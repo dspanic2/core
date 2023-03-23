@@ -1,0 +1,68 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %} sp-block"
+     data-form-group="{{ attribute.attributeCode }}">
+    {% if stores is defined and stores is not empty %}
+        <div class="col-xs-12">
+            <div class="row">
+                <label class="col-sm-12 control-label">{% if is_granted('ROLE_ADMIN') %}<a
+                        href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+                    {% if attribute.note is not empty %}
+                        <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                              rel="popover" data-html="true" data-placement="bottom"></span>
+                    {% endif %}
+                </label>
+            </div>
+            {% for store in stores %}
+                <div class="form-group row store-file-field" data-store="{{ store.store_id }}" data-wrapper="store_value">
+                    <label class="col-sm-4 col-xs-4 control-label">
+                        <span>{{ store.store_name }}</span>
+                    </label>
+                    <div class="col-sm-8 col-xs-8">
+                        <div class="panel-heading">
+                            <div class="options {% if attribute(entity, getter) is not defined or attribute(entity, getter) is empty %}hidden{% endif %}">
+                                <span class="sp-options-text sp-hover pull-right"
+                                      title="{% trans %}Remove document{% endtrans %}"
+                                      data-action="remove-single-document">
+                                    <i class="sp-icon sp-icon-disable"></i>
+                                </span>
+                                <span class="sp-options-text sp-hover pull-right"
+                                      title="{% trans %}Reupload document{% endtrans %}"
+                                      data-action="toggle-library-dropzone">
+                                    <i class="sp-icon sp-icon-upload"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="panel-body collapse in sp-hide-subpanel sp-dropzone-container">
+                            <input type="hidden" data-input="filepath" class="file-store-holder" name="{{ attribute.attributeCode }}[{{ store.store_id }}]" value="{% if entity.id is defined and attribute(entity, getter)[store.store_id] is defined %}{{ attribute(entity, getter)[store.store_id] }}{% endif %}"/>
+                            {% if entity.id is defined and attribute(entity, getter)[store.store_id] is defined and attribute(entity, getter)[store.store_id] is not empty %}
+                                <div class="image-holder {% if attribute(entity, getter)[store.store_id] is empty %}hidden{% endif %}"
+                                     data-action="toggle-hidden">
+                                    {% set filePath = attribute(entity, getter)[store.store_id] %}
+                                    {% if filePath|split('.')|last|lower not in ["jpeg","jpg","png","bmp","webp","svg","jfif"] %}
+                                        <a target="_blank"
+                                           href="{{ app.request.getSchemeAndHttpHost() }}/{{ attribute.folder }}{{ attribute(entity, getter)[store.store_id] }}">
+                                            {{ app.request.getSchemeAndHttpHost() }}/{{ attribute.folder }}{{ attribute(entity, getter)[store.store_id] }}
+                                        </a>
+                                    {% else %}
+                                        <img src="{{ app.request.getSchemeAndHttpHost() }}{{ attribute.folder }}{{ value[store.store_id] }}"/>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            <div class="dropzone-wrapper {% if attribute(entity, getter)[store.store_id] is defined and attribute(entity, getter)[store.store_id] is not empty %}hidden{% endif %}"
+                                 data-action="toggle-hidden">
+                                    <span class="dropzone"
+                                          data-url="{{ path("file_upload",{
+                                              "entity_type_id": entity.attributeSet.entityType.id,
+                                              "attribute_set_id": entity.attributeSet.id,
+                                              "attribute_id": attribute.Id
+                                          }) }}"
+                                          data-limit="1">
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

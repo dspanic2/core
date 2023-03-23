@@ -1,0 +1,26 @@
+<form action="/webform_submission" class="webform ajax-submit label-hidden" novalidate id="{{ string_encrypt(webform.id) }}">
+    <input type="hidden" name="webform" value="{{ webform.id }}" class="keep-value"/>
+    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+    <input type="text" name="im_not_a_human" style="display: none!important;">
+
+    {% set name = get_entity_store_attribute(current_store_id,webform,"name") %}
+    {% if name is not empty %}
+        <div class="section-title">{{ name|raw }}</div>
+    {% endif %}
+
+    {% for group in webform.getGroups() %}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {
+            'template':'Components/Webform:webform_group.html.twig',
+            'data': {'group': group},
+            'id': group.getId
+        }, {})) }}
+    {% endfor %}
+
+    <div class="form-group submit">
+        {% set buttonLabel = "Submit"|trans %}
+        {% if webform.getSubmitButtonLabel is not empty %}
+            {% set buttonLabel = webform.getSubmitButtonLabel %}
+        {% endif %}
+        <button type="submit" class="button btn-type-1">{{ buttonLabel }}</button>
+    </div>
+</form>

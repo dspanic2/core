@@ -1,0 +1,72 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper">
+            <div class="form-group row hidden">
+                <div class="form-group hidden">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="text" name="title" class="form-control"
+                           data-fv-notempty="true"
+                           data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                           {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %}
+                            name="type" data-fv-notempty="true"
+                            data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                            class="form-control">
+                        <option selected="selected" value="custom_html">custom_html</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Attribute set{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <select name="relatedId" class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        {% if attribute_sets is defined %}
+                            {% for attribute_set in attribute_sets %}
+                                <option {% if entity is not empty and entity.relatedId is not empty %} {% if entity.relatedId == attribute_set.id %}selected="selected"{% endif %}{% endif %}
+                                        value="{{ attribute_set.id }}">{{ attribute_set.attributeSetCode }}
+                                </option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-12 control-label">{% trans %}Custom HTML{% endtrans %}</label>
+                <div class="col-sm-12">
+                    <textarea name="customHtml" id="code-editor" rows="10" cols="100">{% if html is not empty %}{{ html }}{% endif %}</textarea>
+                    <p><small>{% trans %}Place custom HTML. Use twig syntax to render entity attribute. All attributes have to be prefixed with entity.{% endtrans %}</small></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="text" name="class" class="form-control"
+                           {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-8">
+                    <input type="text" name="dataAttributes" class="form-control"
+                           {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

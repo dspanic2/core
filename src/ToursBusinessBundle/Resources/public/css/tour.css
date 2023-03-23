@@ -1,0 +1,52 @@
+html.tour-selector-generator-active .tour-highlight {
+    outline: 1px solid blue !important;
+}
+
+.tip-popup {
+    position: absolute;
+    z-index: 9999;
+    color: #fff;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px 50px 20px 20px;
+    width: 400px;
+}
+
+.tip-popup::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid rgba(0, 0, 0, 0.8);
+    top: -15px;
+    position: absolute;
+    left: 15px;
+}
+
+.tip-popup.right::before {
+    left: auto;
+    right: 15px;
+}
+
+.tip-popup .tip-title {
+    font-size: 18px;
+}
+
+.tip-popup .tip-body {
+    font-size: 16px;
+}
+
+.tip-popup .tip-next {
+    font-size: 16px;
+}
+
+.tip-popup .tip-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 26px;
+    line-height: 20px;
+    cursor: pointer;
+}

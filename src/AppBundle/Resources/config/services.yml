@@ -1,0 +1,173 @@
+services:
+    #    core_business.example:
+    #        class: AppBundle\Example
+    #        arguments: ["@service_id", "plain_value", %parameter%]
+
+    authenticator:
+        class: AppBundle\Security\Authenticator
+        arguments: [ '@security.password_encoder','@user_entity_context','@translator','@service_container' ]
+
+    shape_user_provider:
+        class: AppBundle\Security\Provider\UserProvider
+
+    attribute_context:
+        class: AppBundle\Context\AttributeContext
+        arguments: [ '@attribute_dataaccess' ]
+
+    property_accessor_extension:
+        class: AppBundle\Extensions\PropertyAccessorExtension
+        tags:
+            - { name: twig.extension }
+
+    attribute_set_context:
+        class: AppBundle\Context\AttributeSetContext
+        arguments: [ '@attribute_set_dataaccess' ]
+
+    settings_context:
+        class: AppBundle\Context\CoreContext
+        arguments: [ '@settings_dataaccess' ]
+
+    attribute_group_context:
+        class: AppBundle\Context\AttributeGroupContext
+        arguments: [ '@attribute_group_dataaccess' ]
+
+
+    database_context:
+        class: AppBundle\Context\DatabaseContext
+        arguments: [ '@database_dataaccess' ]
+
+    entity_context:
+        class: AppBundle\Context\EntityContext
+        arguments: [ '@entity_dataaccess','@entity_type_context','@attribute_context' ]
+
+    entity_type_context:
+        class: AppBundle\Context\EntityTypeContext
+        arguments: [ '@entity_type_dataaccess' ]
+
+    entity_attribute_context:
+        class: AppBundle\Context\EntityAttributeContext
+        arguments: [ '@entity_attribute_dataaccess' ]
+
+    entity_log_context:
+        class: AppBundle\Context\EntityLogContext
+        arguments: [ '@entity_log_dataaccess' ]
+
+    file_entity_context:
+        class: AppBundle\Context\FileEntityContext
+        arguments: [ '@file_entity_dataaccess' ]
+
+    list_view_context:
+        class: AppBundle\Context\ListViewContext
+        arguments: [ '@list_view_dataaccess' ]
+
+    list_view_attribute_context:
+        class: AppBundle\Context\ListViewAttributeContext
+        arguments: [ '@list_view_attribute_dataaccess' ]
+
+    page_context:
+        class: AppBundle\Context\PageContext
+        arguments: [ '@page_dataaccess' ]
+
+    page_block_context:
+        class: AppBundle\Context\PageBlockContext
+        arguments: [ '@page_block_dataaccess' ]
+
+    navigation_link_context:
+        class: AppBundle\Context\NavigationLinkContext
+        arguments: [ '@navigation_link_dataaccess' ]
+
+    privilege_context:
+        class: AppBundle\Context\PrivilegeContext
+        arguments: [ '@privilege_dataaccess' ]
+
+    action_context:
+        class: AppBundle\Context\ActionContext
+        arguments: [ '@action_dataaccess' ]
+
+    role_entity_context:
+        class: AppBundle\Context\CoreContext
+        arguments: [ '@role_dataaccess' ]
+
+    user_entity_context:
+        class: AppBundle\Context\CoreContext
+        arguments: [ '@user_dataaccess' ]
+
+    user_role_entity_context:
+        class: AppBundle\Context\CoreContext
+        arguments: [ '@user_role_dataaccess' ]
+
+
+    entity_level_permissions_context:
+        class: AppBundle\Context\EntityLevelPermissionContext
+        arguments: [ '@entity_level_permission_dataaccess' ]
+
+    assets_extension:
+        class: AppBundle\Extensions\AssetsExtension
+        tags:
+            - { name: twig.extension }
+
+    application_settings_extension:
+        class: AppBundle\Extensions\ApplicationSettingsExtension
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: twig.extension }
+
+    security_extension:
+        class: AppBundle\Extensions\SecurityExtension
+        arguments: [ "@security.authorization_checker",'@service_container' ]
+        tags:
+            - { name: twig.extension }
+
+    entity_extension:
+        class: AppBundle\Extensions\EntityExtension
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: twig.extension }
+
+    string_extension:
+        class: AppBundle\Extensions\StringExtension
+        arguments: [ '@service_container' ]
+        tags:
+            - { name: twig.extension }
+
+    admin_helper_extension:
+        class: AppBundle\Extensions\AdminHelperExtension
+        arguments: [ '@service_container' ]
+        tags:
+            - { name: twig.extension }
+
+    system_extension:
+        class: AppBundle\Extensions\SystemExtension
+        arguments: [ '@service_container' ]
+        tags:
+            - { name: twig.extension }
+
+    default_buttons:
+        class: AppBundle\Buttons\DefaultButtons
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    app.exception.listener:
+        class: AppBundle\EventListener\ExceptionListener
+        arguments: [ '@service_container' ]
+        #calls:
+        #    - [ setContainer,[ "@service_container" ] ]
+        #    - [ setRequest, ["@request_stack"]]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    transaction_email_sent_buttons:
+        class: AppBundle\Buttons\TransactionEmailSentButtons
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+
+    error_log_buttons:
+        class: AppBundle\Buttons\ErrorLogButtons
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]

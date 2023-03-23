@@ -1,0 +1,96 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-profile dashboard-profile-basic-info {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row" id="dash_info">
+        <div class="col-xs-12">
+            <h2>{% trans into current_language %}User account{% endtrans %}</h2>
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:basic_info_form.html.twig', 'data': {'account': data.model.account, 'contact': data.model.contact}}, {})) }}
+        </div>
+    </div>
+</div>
+
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-profile dashboard-profile-contact">
+    <div class="row" id="company_info">
+        <div class="col-xs-12">
+            {% if data.model.account.isLegalEntity %}
+                <h2>{% trans into current_language %}Company information{% endtrans %}</h2>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:legal_account_data_form.html.twig', 'data': {'account': data.model.account, 'contact': data.model.contact}}, {})) }}
+                <h2>{% trans into current_language %}Personal information{% endtrans %}</h2>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:personal_account_data_form.html.twig', 'data': {'account': data.model.account, 'contact': data.model.contact}}, {})) }}
+            {% else %}
+                <h2>{% trans into current_language %}Personal information{% endtrans %}</h2>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:personal_account_data_form.html.twig', 'data': {'account': data.model.account, 'contact': data.model.contact}}, {})) }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-profile dashboard-profile-addresses">
+    <div class="row" id="address_info">
+        <div class="col-xs-12">
+            <h2>{% trans into current_language %}Addresses{% endtrans %}</h2>
+            {% for address in data.model.account.getAddresses() %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:address_form.html.twig', 'data': {
+                    'address': address,
+                    'triggerAction': 'possible-removal',
+                    'classes': '',
+                    'enable_remove': 1,
+                    'show_first_last_input': 1,
+                    'horizontal': 1
+                }}, {})) }}
+            {% endfor %}
+            <div class="dashboard-add-new">
+                <div class="dashboard-add-new-form overlay">
+                    <div class="inner">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:address_form.html.twig', 'data': {
+                            'address': null,
+                            'triggerAction': 'global:page-reload',
+                            'classes': 'no-remove',
+                            'show_first_last_input': 1,
+                            'enable_cancel': 1,
+                            'horizontal': 1
+                        }}, {})) }}
+                    </div>
+                </div>
+                <button class="button add-new-button btn-type-1 local-overlay-toggle">{% trans into current_language %}Add new address{% endtrans %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{# {% if data.model.account.isLegalEntity %} #}
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-profile dashboard-profile-bank-accounts">
+    <div class="row" id="bank_info">
+        <div class="col-xs-12">
+            <h2>{% trans into current_language %}Bank accounts{% endtrans %}</h2>
+            {% for bank_account in data.model.account.getBankAccounts() %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:bank_account_form.html.twig', 'data': {
+                    'bank_account': bank_account,
+                    'triggerAction': 'possible-removal',
+                    'enable_remove': 1,
+                    'classes': ''
+                }}, {})) }}
+            {% endfor %}
+            <div class="dashboard-add-new">
+                <div class="dashboard-add-new-form overlay">
+                    <div class="inner">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:bank_account_form.html.twig', 'data': {
+                            'bank_account': null,
+                            'triggerAction': 'global:page-reload',
+                            'enable_cancel': 1,
+                            'classes': 'no-remove'
+                        }}, {})) }}
+                    </div>
+                </div>
+                <button class="button add-new-button btn-type-1 local-overlay-toggle">{% trans into current_language %}Add new bank account{% endtrans %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{# {% endif %} #}
+
+{# REMOVE ACCOUNT #}
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-profile dashboard-profile-delete-account">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{% trans into current_language %}Delete account{% endtrans %}</h2>
+            <button class="button btn-type-2" id="delete-account">{% trans into current_language %}Delete account{% endtrans %}</button>
+        </div>
+    </div>
+</div>

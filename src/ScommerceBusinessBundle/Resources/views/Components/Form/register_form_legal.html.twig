@@ -1,0 +1,188 @@
+<form id="register-business"
+      class="registration ajax-submit"
+      action="/register_customer_mm"
+      method="post">
+
+  <input type="hidden" name="is_legal_entity" value="1">
+  <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+
+  <div class="form-section account">
+    <h2 class="section-title">{% trans into current_language %}Company information{% endtrans %}</h2>
+
+    <div class="row form-row">
+      <div class="form-group company col-xs-12 col-sm-6">
+        <label for="company">{% trans into current_language %}Company{% endtrans %}*</label>
+        <input type="text" name="name" required>
+      </div>
+      <div class="form-group oib col-xs-12 col-sm-6">
+        <label for="oib">{% trans into current_language %}Identification number{% endtrans %}*</label>
+        <input type="text" name="oib" required>
+      </div>
+    </div>
+
+    <div class="row form-row">
+      <div class="form-group iban col-xs-12 col-sm-6">
+        <label for="iban">{% trans into current_language %}Account number at a commercial bank (IBAN){% endtrans %}</label>
+        <input type="text" name="iban">
+      </div>
+      <div class="form-group state col-xs-12 col-sm-6 has-select2">
+        <label for="state">{% trans into current_language %}Country{% endtrans %}*</label>
+        <select data-template="default"
+                data-type="lookup"
+                data-search-url="/register/get_country_autocomplete"
+                data-dependent-field="city_id"
+                class="form-control "
+                data-min-len="0"
+                data-single="true"
+                name="country_id"
+                data-allow-clear="true"
+                data-placeholder="{% trans into current_language %}Select country{% endtrans %}"
+                tabindex="-1"
+                aria-hidden="true"
+                required>
+          {% if data.model.default_country is not null and data.model.default_country is not empty %}
+            <option value="{{ data.model.default_country.id }}" selected="selected">{{ get_entity_store_attribute(current_store_id,data.model.default_country,"name") }}</option>
+          {% endif %}
+        </select>
+      </div>
+    </div>
+
+    <div class="row form-row">
+      {% if get_env("SHOW_CITY_AS_DROPDOWN")|default(0) %}
+        <div class="form-group city col-xs-12 col-sm-6 has-select2">
+          <label for="city">{% trans into current_language %}City{% endtrans %}*</label>
+          <select data-template="default"
+                  data-type="lookup"
+                  data-search-url="/register/get_city_autocomplete"
+                  class="form-control "
+                  data-min-len="3"
+                  data-single="true"
+                  name="city_id"
+                  data-allow-clear="true"
+                  data-placeholder="{% trans into current_language %}Select city{% endtrans %}"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  required>
+          </select>
+        </div>
+      {% else %}
+        <div class="form-group city col-xs-12 col-sm-3">
+          <label for="city">{% trans into current_language %}City{% endtrans %}*</label>
+          <input type="text"
+                 name="city_name"
+                 placeholder="{% trans %}City{% endtrans %}*"
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('{% trans %}Please fill out this field.{% endtrans %}')"
+                 required>
+        </div>
+        <div class="form-group city col-xs-12 col-sm-3">
+          <label for="postal_code">{% trans %}Postal code{% endtrans %}*</label>
+          <input type="tel"
+                 name="postal_code"
+                 placeholder="{% trans %}Postal code{% endtrans %}*"
+                 {% if get_env("VALIDATE_POSTAL_CODE")|default(0) == 1 %}pattern="([1-9][0-9]{3,9})"{% endif %}
+                 oninput="this.setCustomValidity('')"
+                 oninvalid="this.setCustomValidity('{% trans %}Please fill out this field.{% endtrans %}')"
+                 required>
+        </div>
+      {% endif %}
+      <div class="form-group address col-xs-12 col-sm-6">
+        <label for="street">{% trans into current_language %}Address{% endtrans %}*</label>
+        <input type="text" name="street" required>
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="form-group note col-xs-12">
+        <label for="note">{% trans into current_language %}Note{% endtrans %}</label>
+        <textarea name="note" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section account">
+    <h2 class="section-title">{% trans into current_language %}User account{% endtrans %}</h2>
+
+    <div class="row form-row">
+      <div class="form-group email col-xs-12 col-sm-6">
+        <label for="email">{% trans into current_language %}Email address{% endtrans %}*</label>
+        <input type="email" name="email" required>
+      </div>
+    </div>
+
+    <div class="row form-row">
+      <div class="form-group password col-xs-12 col-sm-6">
+        <label for="password">{% trans into current_language %}Password{% endtrans %}*</label>
+        <input type="password" name="password" autocomplete="on" required>
+      </div>
+      <div class="form-group password-repeat col-xs-12 col-sm-6">
+        <label for="password-repeat">{% trans into current_language %}Repeat password{% endtrans %}*</label>
+        <input type="password" name="repeat_password" autocomplete="on" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section basic-information">
+    <h2 class="section-title">{% trans into current_language %}Personal information{% endtrans %}</h2>
+    <div class="row form-row">
+      <div class="form-group first-name col-xs-12 col-sm-6">
+        <label for="first-name">{% trans into current_language %}First name{% endtrans %}*</label>
+        <input type="text" name="first_name" required>
+      </div>
+      <div class="form-group last-name col-xs-12 col-sm-6">
+        <label for="last-name">{% trans into current_language %}Last name{% endtrans %}*</label>
+        <input type="text" name="last_name" required>
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="form-group phone-mobile col-xs-12 col-sm-6">
+        <label for="phone-mobile">{% trans into current_language %}Mobile phone{% endtrans %}*</label>
+        <input type="text" name="phone" required>
+      </div>
+      <div class="form-group phone col-xs-12 col-sm-6">
+        <label for="phone">{% trans into current_language %}Phone{% endtrans %}</label>
+        <input type="text" name="phone_2">
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="form-group fax col-xs-12 col-sm-6">
+        <label for="fax">{% trans into current_language %}Fax{% endtrans %}</label>
+        <input type="text" name="fax">
+      </div>
+      <div class="form-group date-of-birth col-xs-12 col-sm-6">
+        <label for="phone">{% trans into current_language %}Date of birth (day-month-year){% endtrans %}</label>
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 resp-margin">
+            <select name="birth_day">
+              <option value="0">{% trans into current_language %}Day{% endtrans %}</option>
+              {% for n in 1..31 %} {# TODO: odgovarajući broj dana po mjesecu #}
+                <option value="{{ n }}">{{ n }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-4 resp-margin">
+            <select name="birth_month">
+              <option value="0">{% trans into current_language %}Month{% endtrans %}</option>
+              {% for n in 1..12 %}
+                <option value="{{ n }}">{{ n }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-4 resp-margin">
+            <select name="birth_year">
+              <option value="0">{% trans into current_language %}Year{% endtrans %}</option>
+              {% set current_year = "now"|date("Y") %}
+              {% set end_year = current_year-90 %}
+              {% for n in current_year..end_year %}
+                <option value="{{ n }}">{{ n }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group submit">
+    <input type="submit" value="{% trans into current_language %}Complete registration{% endtrans %}" class="button">
+  </div>
+</form>

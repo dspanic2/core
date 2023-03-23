@@ -1,0 +1,19 @@
+<form class="ajax-submit"
+      action="/dashboard/update_company_data"
+      method="post">
+
+    <div class="row form-row full-width margin-bottom-0">
+        <div class="form-group name col-xs-12 col-sm-4">
+            <label for="name">{% trans into current_language %}Naziv{% endtrans %}*</label>
+            <input type="text" name="name" required value="{{ account.name }}">
+        </div>
+        <div class="form-group oib col-xs-12 col-sm-4">
+            <label for="oib">{% trans into current_language %}OIB{% endtrans %}*</label>
+            <input type="text" name="oib" required value="{{ account.oib }}">
+        </div>
+    </div>
+
+    <div class="form-group submit text-left">
+        <input type="submit" value="{% trans into current_language %}Save{% endtrans %}" class="button btn-type-1">
+    </div>
+</form>

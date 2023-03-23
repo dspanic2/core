@@ -1,0 +1,60 @@
+Gls parcel: GLS pošiljke
+Request GLS: Naruči GLS
+
+# gls_parcel_entity
+Parcel number: Broj pošiljke
+Parcel id: Id pošiljke
+Client number: Id klijenta
+Client reference: Referenca klijenta
+Count: Količina
+COD amount: Iznos pouzeća
+COD reference: Referenca pouzeća
+Delivery name: Ime primatelja
+Delivery contact name: Ime kontakta za isporuku
+Delivery contact phone: Telefon kontakta za isporuku
+Delivery contact email: Email kontakta za isporuku
+Delivery city: Grad isporuke
+Delivery zip code: Poštanski broj isporuke
+Delivery street: Ulica isporuke
+Delivery house number: Kućni broj isporuke
+Delivery house number info: Info kućnog broja isporuke
+Delivery country ISO code: ISO kod države isporuke
+Pickup date: Datum preuzimanja
+Pickup name: Ime pošiljaoca
+Pickup contact name: Ime kontakta pošiljaoca
+Pickup contact phone: Kontakt telefon pošiljaoca
+Pickup contact email: Email kontakta pošiljaoca
+Pickup city: Grad pošiljaoca
+Pickup zip code: Poštanski broj pošiljaoca
+Pickup street: Ulica pošiljaoca
+Pickup house number: Kućni broj pošiljaoca
+Pickup house number info: Info kućnog broja pošiljaoca
+Pickup country ISO code: ISO kod države pošiljaoca
+Services: Usluge
+Additional information (building, stairway, etc.): Dodatne informacije (zgrada, stubište, itd.)
+Area zip code: Poštanski broj grada
+Cash on delivery amount: Iznos pouzeća
+Cash on delivery client reference number used for payment pairing, required if COD amount is filled: Referentni broj klijenta za plaćanje pouzećem koji se koristi za uparivanje uplata, potreban ako je popunjen iznos COD-a
+Client custom tag identifying parcel: Prilagođena oznaka klijenta koja identificira paket
+Count of parcels sent in one shipment: Broj pošiljaka
+Description of error returned by GLS API: Opis pogreške koju je vratio GLS API
+Email address of person which can be asked or informed about shipment details by GLS: Adresa e-pošte osobe koju GLS može zatražiti ili obavijestiti o pojedinostima pošiljke
+Error code returned by GLS API: Kod pogreške koju je vratio GLS API
+Label/Parcel database record ID received from GLS: ID zapisa baze podataka oznake/parcele primljen od GLS-a
+List of services in JSON (see documentation for available values): Popis usluga u JSON-u (pogledajte dostupne vrijednosti u dokumentaciji)
+Name of person which can be asked or informed about shipment details by GLS: Ime osobe koju GLS može zatražiti ili obavijestiti o pojedinostima pošiljke
+Name of the person or organization: Ime osobe ili organizacije
+Name of the street: Naziv ulice
+Name of the town or village: Ime grada ili sela
+Number of the house: Broj kuće
+Parcel info printed on label: Podaci o paketu otisnuti na naljepnici
+Parcel number received from GLS: Broj parcele primljen od GLS-a
+Phone number of person which can be asked or inform about shipment details by GLS: Telefonski broj osobe koju GLS može zatražiti ili obavijestiti o pojedinostima pošiljke
+Two letter country code defined in ISO 3166-1: Dvoslovni kod države definiran u ISO 3166-1
+
+# GLSController + GLSManager
+Error calling GLS service: Greška prilikom pozivanja GLS servisa
+GLS service error: Greška GLS servisa
+One or more selected parcels are invalid: Jedna ili više odabranih pošiljki su nevažeće
+Parcel pickup requested: Prikup pošiljke naručen
+Please select new parcels only: Molimo odaberite samo nove pošiljke

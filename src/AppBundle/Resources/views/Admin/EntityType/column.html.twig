@@ -1,0 +1,47 @@
+<div data-id="{{ column.group }}" class="col-md-{{ column.size }} col-sm-{{ column.size }} col-xs-12 sp-sortable-group" data-holder="attribute_group">
+    <div class="sp-sortable-group-inner sp-show-border">
+
+        <span class="sp-column-name">{% if column.group_name is defined %}{{ column.group_name }}{% endif %}
+            <div class="options">
+                <span class="sp-hover" data-confirm="{% trans %}Are you sure?{% endtrans %}" data-action="remove_attribute_group"><i class="fa fa-minus"></i></span>
+                <span class="sp-hover margin-left-10" data-action="toggle-column"><i class="fa fa-arrow-down"></i></span>
+            </div>
+        </span>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Id{% endtrans %}</label>
+            <div class="col-sm-6">
+                <input type="text" name="attribute_set[{{ attribute_set.id }}][{{ layout_type }}][inner][{{key}}][{{key2}}][group]" readonly="readonly" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if column.group is not empty %}value="{{ column.group }}"{% endif %}/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Size{% endtrans %}</label>
+            <div class="col-sm-6">
+                <select name="attribute_set[{{ attribute_set.id }}][{{ layout_type }}][inner][{{key}}][{{key2}}][size]" data-action="change-column-size" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                    <option value="3" {% if column.size is defined %}{% if column.size == '3' %}selected="selected"{% endif %}{% endif %}>3</option>
+                    <option value="4" {% if column.size is defined %}{% if column.size == '4' %}selected="selected"{% endif %}{% endif %}>4</option>
+                    <option value="6" {% if column.size is defined %}{% if column.size == '6' %}selected="selected"{% endif %}{% endif %}>6</option>
+                    <option value="9" {% if column.size is defined %}{% if column.size == '9' %}selected="selected"{% endif %}{% endif %}>9</option>
+                    <option value="12" {% if column.size is defined %}{% if column.size == '12' %}selected="selected"{% endif %}{% endif %}>12</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Show group name{% endtrans %}</label>
+            <div class="col-sm-6">
+                <select name="attribute_set[{{ attribute_set.id }}][{{ layout_type }}][inner][{{key}}][{{key2}}][show_group_name]" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                    <option value="0" {% if column.show_group_name is defined %}{% if column.show_group_name == '0' %}selected="selected"{% endif %}{% endif %}>{% trans %}No{% endtrans %}</option>
+                    <option value="1" {% if column.show_group_name is defined %}{% if column.show_group_name == '1' %}selected="selected"{% endif %}{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Master{% endtrans %}</label>
+            <div class="col-sm-6">
+                <select name="attribute_set[{{ attribute_set.id }}][{{ layout_type }}][inner][{{key}}][{{key2}}][master]" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                    <option value="0" {% if column.master is defined %}{% if column.master == '0' %}selected="selected"{% endif %}{% endif %}>{% trans %}No{% endtrans %}</option>
+                    <option value="1" {% if column.master is defined %}{% if column.master == '1' %}selected="selected"{% endif %}{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

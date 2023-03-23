@@ -1,0 +1,96 @@
+{% set installments = get_leanpay_installment_plans(price) %}
+
+{% if installments %}
+    {# convert ("," "." "hrk") #}
+    {% set convertedInstallments = {} %}
+    {% for installment in installments %}
+        {% set convertedInstallments = convertedInstallments|merge([{
+            "numberOfMonths": installment.numberOfMonths,
+            "installmentAmout": installment.installmentAmout|number_format(2, ',', '.'),
+            "installmentAmoutHrk": convert_price(installment.installmentAmout, current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2, ',', '.')
+        }]) %}
+    {% endfor %}
+
+    <div class="leanpay-info-container">
+        <span class="lp-title">Brzo i jednostavno plaćanje na rate</span>
+        <div class="price-info-block">
+            <div class="lp-price">
+                <span class="lp-eur">Od <b>{{ convertedInstallments|last.installmentAmout }} €</b></span>
+                <span class="lp-hrk">(<b>{{ convertedInstallments|last.installmentAmoutHrk }} kn</b>)</span>
+            </div>
+            <div class="lp-info">
+                Vaša mjesečna rata
+            </div>
+        </div>
+        <div class="logo-block">
+            <span class="info-txt">Kalkulacija iznosa rate</span>
+            <img src="/frontend/images/payment_icons/leanpay-logo-small.png">
+        </div>
+        <div id="lp-popup-container">
+            <img src="/frontend/images/payment_icons/leanpay-logo-small.png">
+            <span class="lp-popup-title"><strong>Jednostavno plaćanje na rate</strong></span>
+
+            {% if convertedInstallments|length == 1 %}
+
+                <div class="instalment-option">
+                    Iznos rate
+                    <strong>
+                        {{ convertedInstallments|last.numberOfMonths }} x <span class="amount-eur">{{ convertedInstallments|last.installmentAmout }} €</span>
+                        <span class="amount-hrk">({{ convertedInstallments|last.installmentAmoutHrk }} kn)</span>
+                    </strong>
+                </div>
+
+            {% elseif convertedInstallments|length == 2 %}
+
+                <div class="instalment-option">
+                    Želim što niži iznos rate
+                    <strong>
+                        {{ convertedInstallments|last.numberOfMonths }} x <span class="amount-eur">{{ convertedInstallments|last.installmentAmout }} €</span>
+                        <span class="amount-hrk">({{ convertedInstallments|last.installmentAmoutHrk }} kn)</span>
+                    </strong>
+                </div>
+                <div class="instalment-option">
+                    Želim otplatiti što prije
+                    <strong>
+                        {{ convertedInstallments|first.numberOfMonths }} x <span class="amount-eur">{{ convertedInstallments|first.installmentAmout }}€</span>
+                        <span class="amount-hrk">({{ convertedInstallments|first.installmentAmoutHrk }} kn)</span>
+                    </strong>
+                </div>
+
+            {% elseif convertedInstallments|length > 2 %}
+
+                <div class="instalment-option">
+                    Želim što niži iznos rate
+                    <strong>
+                        {{ convertedInstallments|last.numberOfMonths }} x <span class="amount-eur">{{ convertedInstallments|last.installmentAmout }} €</span>
+                        <span class="amount-hrk">({{ convertedInstallments|last.installmentAmoutHrk }} kn)</span>
+                    </strong>
+                </div>
+                <div class="instalment-option">
+                    Želim otplatiti što prije
+                    <strong>
+                        {{ convertedInstallments|first.numberOfMonths }} x <span class="amount-eur">{{ convertedInstallments|first.installmentAmout }} €</span>
+                        <span class="amount-hrk">({{ convertedInstallments|first.installmentAmoutHrk }} kn)</span>
+                    </strong>
+                </div>
+                <div class="instalment-option custom">
+                    Želim sam odabrati broj rata
+                    <strong>
+                        <span id="num-months">{{ convertedInstallments|last.numberOfMonths }}</span> x <span class="amount-eur" id="amount-eur">{{ convertedInstallments|last.installmentAmout }} €</span>
+                        <span class="amount-hrk" id="amount-hrk">({{ convertedInstallments|last.installmentAmoutHrk }} kn)</span>
+                    </strong>
+                </div>
+
+                <div class="slide-container">
+                    <input type="range" min="1" max="{{ convertedInstallments|length }}" value="1" class="slider" id="leanpay-slider" data-installments="{{ convertedInstallments|json_encode }}">
+                </div>
+
+            {% endif %}
+
+            <p class="product_leanpay_desc">Leanpay omogućuje lako plaćanje na rate. Izaberi Leanpay kao vrstu plaćanja u košarici!</p>
+            <div class="lp-links">
+                <a href="https://www.leanpay.hr" target="_blank">Više informacija</a> | <a href="https://app.leanpay.hr/vendor/pre-qualified" target="_blank">Provjeri svoj limit</a>
+            </div>
+        </div>
+    </div>
+{% endif %}

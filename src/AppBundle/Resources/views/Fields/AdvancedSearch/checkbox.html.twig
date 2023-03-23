@@ -1,0 +1,14 @@
+<div class="col-sm-4">
+    <div class="form-group sp-search-group">
+        <div class="row">
+            <label class="col-sm-12 control-label">{{ attribute.frontendLabel|trans }}</label>
+            <div class="col-sm-12 sp-search-item" data-search_type="eq">
+                <select data-id="{{ attribute.id }}" name="{{ attribute.attributeCode|camelize }}" class="form-control">
+                    <option value="">{% trans %}Please select{% endtrans %}</option>
+                    <option value="1" {% if value is defined and value is not empty and value == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                    <option value="0" {% if value is defined and value is not empty and value == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

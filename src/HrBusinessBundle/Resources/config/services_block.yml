@@ -1,0 +1,10 @@
+services:
+#    core_business.example:
+#        class: AppBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+
+ absence_status_block:
+    class:  HrBusinessBundle\Blocks\AbsenceStatusBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

@@ -1,0 +1,54 @@
+form {
+  .control-label {
+    padding-top: 6px;
+  }
+
+  .form-group-wrapper {
+    width: 100%;
+    margin: 0;
+    border: 0 none;
+    padding: 15px;
+    min-inline-size: auto;
+
+    .form-group {
+      margin-bottom: 10px;
+      position: relative;
+
+      &.has-feedback {
+        .form-control-feedback {
+          position: absolute;
+          right: 8px;
+          top: 8px;
+          font-size: 10px;
+          height: 20px;
+          width: 20px;
+        }
+      }
+
+      &.has-error {
+        .help-block {
+          color: $error;
+        }
+      }
+    }
+  }
+
+  .sp-clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 11px;
+    position: absolute;
+    right: 32px;
+    top: -1px;
+    z-index: 999;
+  }
+
+  .image-holder img {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    object-position: center;
+  }
+}

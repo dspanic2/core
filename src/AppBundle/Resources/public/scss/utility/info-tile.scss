@@ -1,0 +1,31 @@
+.info-tiles,
+a.info-tiles {
+  color: #ffffff;
+  margin: 0px 0px 20px;
+  display: block;
+  border-radius: 1px;
+  text-align: center;
+
+  &.tiles-toyo {
+    .tiles-body-alt {
+      background: #556b8d;
+      font-size: calculateRem(48px);
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      float: left;
+      height: 100px;
+      overflow: hidden;
+      width: 100%;
+
+      small {
+        font-size: calculateRem(14px);
+        text-align: center;
+        display: block;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: -7px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+}

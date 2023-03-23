@@ -1,0 +1,16 @@
+{% if data.model.account is defined and data.model.account is not empty and data.model.quote is defined and data.model.quote is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-order-preview {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="row" id="cart">
+            <div class="col-xs-12">
+                <h2>{% trans into current_language %}Order number{% endtrans %}: {{ data.model.order.getIncrementId }}</h2>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:dashboard_order_preview.html.twig', 'data': {'data': data}}, {})) }}
+                <div class="order-actions text-right">
+                    <span class="button btn-type-1 green order-repeat" data-order-id="{{ data.model.order.getId }}" data-url="/dashboard/repeat_order">{% trans into current_language %}Repeat order{% endtrans %}</span>
+                    {% if order_return_enabled(data.model.order) %}
+                        <span class="button btn-type-1 green order-return-items" style="display:none;" data-order-id="{{ data.model.order.getId }}" data-url="/dashboard/return_order_modal">{% trans into current_language %}Return items{% endtrans %}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

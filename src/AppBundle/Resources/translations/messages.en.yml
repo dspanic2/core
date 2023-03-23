@@ -1,0 +1,14 @@
+# messages.en.yml
+
+firstDayNumber: 1
+
+search_type_in: IN
+search_type_ni: NI
+
+resetting.check_email: Password reset link was sent to %email%
+resetting.password_already_requested: Password reset link was already requested
+resetting.request.invalid_username: Username %username% was not found
+
+critical_error_messages_0: Number of distinct unresolved exceptions
+critical_error_messages_1: Number of unresolved exceptions
+critical_error_messages_2: Number of 404 requests with count higher than 3

@@ -1,0 +1,30 @@
+<div class="sp-block sp-quote-descriptions-wrapper">
+    <div class="panel panel-midnightblue">
+        <div class="panel-heading main-panel-heading">
+            <a class="btn-primary btn-green btn"
+               data-action="modal_add" href="#"
+               title="{% trans %}Create new task{% endtrans %}"
+               data-url="/block/modal?action=reload&amp;attribute_set_code=project_task&amp;pid={{ data.id }}&amp;ptype=project"
+               data-pid="{{ data.id }}"
+               data-ptype="project">{% trans %}Add task{% endtrans %}</a>
+            <div class="options">
+                {% if is_granted('ROLE_ADMIN') %}
+                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                {% endif %}
+            </div>
+          {#  <div class="gantt-heading"><h3>{{ data.project.name }}</h3></div>#}
+        </div>
+    </div>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+        {#    <div class="panel-heading main-panel-heading gantt-heading">
+            </div>#}
+            <div class="panel-body">
+                <div style="position:relative" class="gantt" id="gantt_placeholder"
+                     data-tasks-edit="{{ path('block_modal_view',{'block_id':'6fe61f96c52baf36860ab1ca75e7aabd', 'action':'close-modal' }) }}"
+                     data-source-url="{{ path('get_project_task_api',{'project_id':data.id}) }}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

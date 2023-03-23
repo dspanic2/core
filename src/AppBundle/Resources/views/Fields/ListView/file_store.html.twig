@@ -1,0 +1,18 @@
+<td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+    {% set file = value.non_editable|striptags %}
+    <span class="image-holder-wrapper" {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>
+        {% if file|split('.')|last|lower not in ["jpeg","jpg","png","bmp","webp","svg","jfif"] %}
+            {{ file|raw }}
+        {% else %}
+            <span class="image-holder">
+                {% set imagePath = (attribute.folder ~ file)|image_style("list_view_image_thumbnail") %}
+                {% if imagePath is empty %}
+                    {% set imagePath = attribute.folder ~ file %}
+                {% endif %}
+                <a href="{{ app.request.getSchemeAndHttpHost() }}{{ attribute.folder }}{{ file }}">
+                    <img src="{{ app.request.getSchemeAndHttpHost() }}{{ imagePath }}?{{ "now"|date('U') }}" alt="{{ file }}"/>
+                </a>
+            </span>
+        {% endif %}
+    </span>
+</td>

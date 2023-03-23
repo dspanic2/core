@@ -1,0 +1,77 @@
+-<div class="modal fade" id="default_modal" role="dialog" aria-labelledby="label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">{% trans %}Export{% endtrans %} {{ entityType.entityTypeCode }}</h5>
+            </div>
+            <div class="modal-body">
+                <form data-validate="true" method="post"
+                      action="{{ path('export_xls',{'type': entityType.entityTypeCode }) }}" accept-charset="UTF-8"
+                      data-callback='["custom"]'
+                      data-custom-callback='["downloadFile"]'
+                      class="form-horizontal row-border">
+                    <div class="sp-multiselect-wrapper modal-header">
+                        <div class="row sp-margin-bottom-15">
+                            <div class="col-sm-12">
+                                <span class="sp-btn btn-default btn-red btn pull-left"
+                                      data-multiselect="deselect_all">{% trans %}Deselect all{% endtrans %}</span>
+                                <span class="sp-btn btn-primary btn-blue btn pull-right sp-margin-right-0"
+                                      data-multiselect="select_all">{% trans %}Select all{% endtrans %}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 hidden">
+                                <input type="hidden" name="data"
+                                       value="{% if filter.send_data is defined %}{{ filter.send_data }}{% endif %}"/>
+                                <input type="hidden" name="custom_data"
+                                       value="{% if filter.custom_data is defined %}{{ filter.custom_data }}{% endif %}"/>
+                                <input type="hidden" name="view_id" value="{{ view_id }}"/>
+                                <input type="hidden" name="entity_id" value="{{ entity_id }}"/>
+                                <input type="hidden" name="ids" value="{{ ids }}"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="sp-multiselect sp-available">
+                                    {% if attributes is defined and attributes is not empty %}
+                                        {% for e in attributes %}
+                                            {#   {% set data_id = e.attributeCode %}
+                                               {% if e.frontendType == "multiselect" %}
+                                                   #}{#{% set tmp = e.lookupAttribute.lookupAttribute.attributeCode|split('.') %}#}{#
+                                                   {% set data_id = e.attributeCode~"."~e.lookupAttribute.lookupAttribute.attributeCode %}
+                                               {% endif %}#}
+                                            {% set parts = e.displayName|split(":") %}
+                                            {% set title = [] %}
+                                            {% for part in parts %}
+                                                {% set title = title|merge([part|trans]) %}
+                                            {% endfor %}
+                                            {% set title = title|join(':') %}
+                                            <li data-action="add_multiselect_item" data-id="{{ e.path }}|SS|{{ e.displayName}}">{{ title }}</li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="sp-multiselect sp-sortable">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    <button type="submit" class="btn-primary btn btn-blue"
+                                            data-action="close-modal">{% trans %}Export{% endtrans %}</button>
+                                    <button type="button" class="btn-default btn pull-right btn-red"
+                                            data-dismiss="modal"><span
+                                                aria-hidden="true">{% trans %}Close{% endtrans %}</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

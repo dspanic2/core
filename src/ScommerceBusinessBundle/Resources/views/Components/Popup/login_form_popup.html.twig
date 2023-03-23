@@ -1,0 +1,9 @@
+<div id="login-form-overlay" class="overlay text-center">
+    <div class="inner">
+        <span class="overlay-close">×</span>
+        <div class="popup-title">{% trans into current_language %}Login{% endtrans %}</div>
+        {# Login #}
+        {{ render(controller('AppBundle:FrontTemplate:block', {'block_id': 86, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }}
+        {# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form:login_form.html.twig', 'data': {'triggerAction': 'global:page-reload'}}, {})) }} #}
+    </div>
+</div>

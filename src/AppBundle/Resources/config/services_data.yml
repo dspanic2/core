@@ -1,0 +1,137 @@
+services:
+    #    core_data_access.example:
+    #        class: CoreDataAccessBundle\Example
+    #        arguments: ["@service_id", "plain_value", %parameter%]
+
+    base_dataaccess:
+        abstract: true
+        calls:
+            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
+            - [ setValidator, [ '@validator' ] ]
+            - [ setDoctrine, [ '@doctrine' ] ]
+
+    attribute_dataaccess:
+        class: AppBundle\DAL\AttributeDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@attribute_repository' ] ]
+
+    settings_dataaccess:
+        class: AppBundle\DAL\CoreDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@settings_repository' ] ]
+
+    attribute_set_dataaccess:
+        class: AppBundle\DAL\AttributeSetDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@attribute_set_repository' ] ]
+
+    attribute_group_dataaccess:
+        class: AppBundle\DAL\AttributeGroupDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@attribute_group_repository' ] ]
+
+
+    database_dataaccess:
+        class: AppBundle\DAL\DatabaseDAL
+        arguments: [ '@doctrine.orm.entity_manager' ]
+
+    entity_dataaccess:
+        class: AppBundle\DAL\EntityDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@entity_repository' ] ]
+
+    entity_type_dataaccess:
+        class: AppBundle\DAL\EntityTypeDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@entity_type_repository' ] ]
+
+    entity_attribute_dataaccess:
+        class: AppBundle\DAL\EntityAttributeDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@entity_attribute_repository' ] ]
+
+    entity_log_dataaccess:
+        class: AppBundle\DAL\EntityLogDAL
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@entity_log_repository' ] ]
+
+    file_entity_dataaccess:
+        class: AppBundle\DAL\FileEntityDAL
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@file_entity_repository' ] ]
+
+
+    list_view_dataaccess:
+        class: AppBundle\DAL\ListViewDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@list_view_repository' ] ]
+
+    list_view_attribute_dataaccess:
+        class: AppBundle\DAL\ListViewAttributeDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@list_view_attribute_repository' ] ]
+
+    page_dataaccess:
+        class: AppBundle\DAL\PageDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@page_repository' ] ]
+
+    page_block_dataaccess:
+        class: AppBundle\DAL\PageBlockDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@page_block_repository' ] ]
+
+    navigation_link_dataaccess:
+        class: AppBundle\DAL\NavigationLinkDAL
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@navigation_link_repository' ] ]
+
+    privilege_dataaccess:
+        class: AppBundle\DAL\PrivilegeDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@privilege_repository' ] ]
+
+    role_dataaccess:
+        class: AppBundle\DAL\RoleDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@role_entity_repository' ] ]
+
+    action_dataaccess:
+        class: AppBundle\DAL\ActionDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@action_repository' ] ]
+
+    user_dataaccess:
+        class: AppBundle\DAL\CoreDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@user_repository' ] ]
+
+    user_role_dataaccess:
+        class: AppBundle\DAL\CoreDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@user_role_entity_repository' ] ]
+
+    entity_level_permission_dataaccess:
+        class: AppBundle\DAL\EntityLevelPermissionDataAccess
+        parent: base_dataaccess
+        calls:
+            - [ setEntityRepository, [ '@entity_level_permission_repository' ] ]

@@ -1,0 +1,50 @@
+{% set bundle_options = get_product_details(product) %}
+{% if bundle_options is not empty %}
+    {% set parent_product = product %}
+    <div class="row bundle-row">
+        <div class="col-xs-12">
+            <h2>{% trans %}Buy together and save{% endtrans %}</h2>
+            {% apply spaceless %}
+                <div class="sp-block-outer horizontal-scroll">
+                    <div class="items-grid grid-view">
+                        {% for bundle_product in bundle_options["bundle_product"] %}
+                            {% if bundle_product.isParent %}
+                                {% set parent_product = bundle_product.childProduct %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for bundle_product in bundle_options["bundle_product"] %}
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ListItem:bundle_list_item.html.twig', 'data': {
+                                'parent_product': parent_product,
+                                'bundle_product': bundle_product,
+                                'is_current': bundle_product.childProduct.getId() == product.getId()
+                            }}, {})) }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endapply %}
+        </div>
+        <div class="col-xs-12 bundle-cart-info">
+            <div class="total-saved">
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:bundle_savings.html.twig', 'data': {
+                    'parent_product': parent_product
+                }}, {})) }}
+            </div>
+            <div class="product-cart-wrapper inline-data">
+                <form class="item-cart main-cart bundle-cart item" action="/cart/add_to_cart">
+                    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+                    <input type="hidden" value="{{ parent_product.getId|default(null) }}" name="product_id">
+                    <div class="cart-amount left">
+                        <input type="button" value="-" class="qty-minus">
+                        <input type="number" value="1" name="qty" class="qty" min="1" max="100000">
+                        <input type="button" value="+" class="qty-plus">
+                    </div>
+                    <div class="cart-submit right">
+                        <button type="submit" class="button">
+                            {% trans %}Add all to cart{% endtrans %} <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,86 @@
+{% set product = data.page %}
+{% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+
+<div class="fixed-product-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="fixed-product-info">
+                    <div class="image">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                            'image': product.getSelectedImage,
+                            'directory':'Products',
+                            'image_style': 'product_list_item',
+                            'alt_default': product_title,
+                            'lazyload': 0
+                        }}, {})) }}
+                    </div>
+                    <div class="product-data">
+                        <div class="product-information">
+                            {% if date(product.getDateNewFrom) < date() and date(product.getDateNewTo) > date() %}
+                                <div class="labels">
+                                    <span class="is-new">{% trans into current_language %}New{% endtrans %}</span>
+                                </div>
+                            {% endif %}
+
+
+                            <div class="ratings">
+                                {% set brand = get_product_attribute_value_by_key(product, "brand") %}
+                                {% if brand is not empty %}
+                                    <div class="brand"><span class="light">{% trans into current_language %}Brand{% endtrans %}:</span> <a
+                                                href="/rezultati-pretrage?s=1&brand={{ brand.values[0].value }}" target="_blank" title="{{ brand.values[0].value }}">{{ brand.values[0].value }}</a>
+                                    </div>
+                                    <span class="separator"></span>
+                                {% endif %}
+
+                                <div class="rating">
+                                    {% set average = get_average_rating(product) %}
+                                    <span class="rate rate-1 {% if average > 0 %}active{% endif %}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+                                    <span class="rate rate-2 {% if average > 1 %}active{% endif %}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+                                    <span class="rate rate-3 {% if average > 2 %}active{% endif %}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+                                    <span class="rate rate-4 {% if average > 3 %}active{% endif %}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+                                    <span class="rate rate-5 {% if average > 4 %}active{% endif %}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+                                    <span class="light number-of-ratings">({{ get_number_of_rates(product) }})</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title">
+                            {{ product_title }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-right">
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:prices.html.twig', 'data': {
+                    'data': data,
+                }}, {})) }}
+            </div>
+            <div class="col-md-5">
+                <div class="product-cart-wrapper">
+                    {% if get_product_is_saleable(product) %}
+                        {% apply spaceless %}
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:add_to_cart_form.html.twig', 'data': {
+                                'product': product,
+                            }}, {})) }}
+                        {% endapply %}
+                    {% else %}
+                        <div class="not-available-actions">
+                            {# <button class="send-inquiry local-overlay-toggle button btn-type-5" #}
+                            {# data-pid="{{ product.id }}" #}
+                            {# data-title="{{ product_title }}">{% trans into current_language %}Send inquiry{% endtrans %}</button> #}
+                            {% if get_env("SHOW_AVAILABILITY_REMINDER")|default(0) %}
+                                <button class="remind-me-available local-overlay-toggle button btn-type-1"
+                                        data-pid="{{ product.id }}"
+                                        data-title="{{ product_title }}">{% trans into current_language %}Remind me when available{% endtrans %}</button>
+                            {% endif %}
+                            <div class="cart-submit favorite">
+                                    <span class="add-to-favorite {% if app.session.get('favorites_product_ids') is defined and app.session.get('favorites_product_ids') is not empty and product.id in app.session.get('favorites_product_ids') %}active{% endif %}"
+                                          data-pid="{{ product.id }}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:favorite.html.twig', 'data': {}}, {})) }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

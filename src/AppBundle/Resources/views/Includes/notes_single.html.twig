@@ -1,0 +1,35 @@
+<div class="note" id="note_{{ e.id }}">
+    <div class="note-body">
+        {{ e.comment|raw }}
+    </div>
+    <div class="note-footer">
+        <input type="hidden" name="note_id" class="form-control" value="{{ e.id }}"/>
+        {% set liked = 0 %}
+        {% set content = '' %}
+        {% for u in e.getUserLikes %}
+            {% set content = content ~ u.user.username %}
+            {% if not loop.last %}
+                {% set content = content ~ '<br>' %}
+            {% endif %}
+            {% if u.user.userName == app.user.username %}
+                {% set liked = 1 %}
+            {% endif %}
+        {% endfor %}
+        <span class="note-user">{{ e.user.username }}</span>
+        <span class="note-date">{{ e.created|date('d.m.Y. H:i') }}</span>{% if e.created != e.modified %}<span
+        class="note-date-edited" title="{{ e.modified|date('d.m.Y. H:i') }}">
+            ({% trans %}edited{% endtrans %})</span>{% endif %}&nbsp;|
+        <span class="note-likes {% if liked %}note-like-active{% endif %}">{% if e.getUserLikes|length %}{{ e.getUserLikes|length }}{% endif %}</span>
+        <span class="sp-notes-thumbs-up fa fa-thumbs-up {% if liked %}note-like-active{% endif %}"
+              data-action="toggle-like" data-url="{{ path('toggle_like') }}" data-content="{{ content }}"
+              data-html="true" rel="popover" data-html="true" data-placement="bottom"></span>
+        {% if app.user.username == e.user.username %}
+            <span class="note-float-right">
+                <span class="sp-notes-link"
+                      data-action="edit-note">{% trans %}Edit{% endtrans %}</span>&nbsp;|&nbsp;<span
+                        class="sp-notes-link" data-action="delete-note"
+                        data-url="{{ path('delete_note') }}">{% trans %}Delete{% endtrans %}</span>
+            </span>
+        {% endif %}
+    </div>
+</div>

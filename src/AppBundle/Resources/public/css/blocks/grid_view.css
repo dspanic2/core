@@ -1,0 +1,53 @@
+.grid-view>.item {
+    width: 140px;
+    height: 140px;
+    border: 1px solid #D2D3D6;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover!important;
+    background-repeat: no-repeat!important;
+}
+/*.grid-view>.item.added {
+    cursor: not-allowed;
+}*/
+/*.grid-view>.item:not(.added)>.overlay {
+    display: none;
+}*/
+.grid-view>.item.added>.overlay {
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 100%;
+    vertical-align: middle;
+    font-size: 40px;
+}
+.grid-view>.item.added>.overlay>i {
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+.grid-view .item-list{
+    border-bottom: 1px solid #e6e7e8;
+    padding: 3px 0;
+    width: 100%;
+}
+.grid-view .item-list:hover{
+    background-color: #edeef0;
+}
+.sp .grid-view .form-control-small{
+    height: 20px!important;
+    line-height: 20px!important;
+    padding: 0!important;
+    font-size: 14px!important;
+}

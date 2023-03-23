@@ -1,0 +1,34 @@
+services:
+
+  expense_listener:
+    class: FinanceBusinessBundle\EventListener\ExpenseListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onExpensePreUpdated}
+      - { name: kernel.event_listener, event: entity.updated, method: onExpenseUpdated}
+      - { name: kernel.event_listener, event: entity.precreated, method: onExpensePreCreated}
+      - { name: kernel.event_listener, event: entity.created, method: onExpenseCreated}
+      - { name: kernel.event_listener, event: entity.deleted, method: onExpenseDeleted}
+
+  outbound_payment_listener:
+    class: FinanceBusinessBundle\EventListener\OutboundPaymentListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.preupdated, method: onOutboundPaymentPreUpdated}
+      - { name: kernel.event_listener, event: entity.updated, method: onOutboundPaymentUpdated}
+      - { name: kernel.event_listener, event: entity.precreated, method: onOutboundPaymentPreCreated}
+      - { name: kernel.event_listener, event: entity.created, method: onOutboundPaymentCreated}
+      - { name: kernel.event_listener, event: entity.deleted, method: onOutboundPaymentDeleted}
+
+  expense_item_listener:
+    class: FinanceBusinessBundle\EventListener\ExpenseItemListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.updated, method: onExpenseItemUpdated}
+      - { name: kernel.event_listener, event: entity.created, method: onExpenseItemCreated}
+      - { name: kernel.event_listener, event: entity.deleted, method: onExpenseItemDeleted}
+
+

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.428571429;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 22px;
+            line-height: 26px;
+        }
+        .sp-worktime-table {
+            width: 100%;
+            border: 1px solid;
+            border-bottom: 0;
+            border-right: 0;
+        }
+        .sp-worktime-table td {
+            border-bottom: 1px solid;
+            border-right: 1px solid;
+            text-align: center;
+            padding: 3px 4px;
+        }
+        .sp-warrent-table {
+            width: 100%;
+        }
+        .sp-warrent-table td {
+            padding: 5px 4px;
+        }
+        .page-wrapper-horizontal:not(:last-child) {
+            page-break-after: always;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+        .sp-center, .text-center {
+            text-align: center;
+        }
+        .row {
+            width: 100%;
+            float: left;
+        }
+        .col-sm-12 {
+            width: 100%;
+            float: left;
+        }
+        .col-sm-6 {
+            width: 50%;
+            float: left;
+        }
+        .sp-underline {
+            text-decoration: underline;
+        }
+        .container {
+            width: 100%;
+            float: left;
+        }
+        .width-200 {
+            display: inline-block;
+            width: 200px;
+            height: 35px;
+            border-bottom: 1px solid #000000;
+        }
+        .sp-label {
+            font-weight: 600;
+        }
+        .sp-attribute {
+            display: inline-block;
+            width: 80%;
+        }
+        .sp-divider {
+            width: 100%;
+            padding-top: 30px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #5d8b00;
+            float: left;
+        }
+        .offer-table tr.green3 {
+            background: rgba(135, 187, 50, .3);
+        }
+        .offer-table tr.green3 td {
+            font-size: 13px !important;
+        }
+        .offer-table tr.green1 {
+            background: rgba(135, 187, 50, .1);
+        }
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            padding: 6px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+        .offer-table td.clickable {
+            background: rgba(135, 187, 50, .1);
+            border: 1px solid #fff;
+            color: #000;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .sp-old-price {
+            text-decoration: line-through;
+            width: 100%;
+            display: inline-block;
+            font-size: 12px;
+            color: #ff253a;
+        }
+        .sp-new-price {
+            width: 100%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body style="padding-top: 15px;">
+<div>
+    <div class="">
+        <div>
+            <h1 style="margin-bottom: 30px; font-size: 30px; margin-top: 20px; font-weight:bold;">{% trans %}Technical and functional specification{% endtrans %}</h1>
+        </div>
+        {% for key,bundle in data %}
+            <div {% if key != data|keys|last %}class="page-break"{% endif %}>
+                <div style="padding-top: 15px;">
+                    <h2 style="text-align: center;">{{ key|trans }} {% trans %}module{% endtrans %}</h2>
+                </div>
+                <p>{{ key|trans }} {% trans %}module{% endtrans %} {% trans %}contains the following entities{% endtrans %}:</p>
+                {% set i = 1 %}
+                {% set k = 0 %}
+                {% for entity_type_code, entity_type in bundle %}
+                    <div {% if k > 0 %}class="page-break"{% endif %}>
+                        {% set k = 1 %}
+                        <div style="padding-top: 15px;">
+                            <h3 style="text-align: center;">{{ entity_type_code }} {% trans %}entity{% endtrans %}</h3>
+                            {% if entity_type.entity_type.has_unique_permissions == 1 %}
+                                <p>{% trans %}This entity has user permissions by row{% endtrans %}</p>{% endif %}
+                            <p>{% trans %}Table{% endtrans %}: <strong>{{ entity_type_code }}</strong></p>
+                            <table class="table offer-table" style="width: 100%; margin-top: 20px;" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr class="green3">
+                                    <th style="text-align: left; font-size: 14px;">{% trans %}Code{% endtrans %}</th>
+                                    <th style="text-align: left; font-size: 14px;">{% trans %}Type{% endtrans %}</th>
+                                    <th style="text-align: left; font-size: 14px;">{% trans %}Label{% endtrans %}</th>
+                                    <th style="text-align: left; font-size: 14px;">{% trans %}Default value{% endtrans %}</th>
+                                    <th style="text-align: left; font-size: 14px;">{% trans %}Note{% endtrans %}</th>
+                                </tr>
+                                {% for attribute in entity_type.attributes %}
+                                    <tr>
+                                        <td style="font-size: 12px;">{{ attribute.attribute_code }}</td>
+                                        <td style="font-size: 12px;">{{ attribute.backend_type }}</td>
+                                        <td style="font-size: 12px;">{{ attribute.frontend_label|trans }}</td>
+                                        <td style="font-size: 12px;">{% if attribute.default_value is not empty %}{{ attribute.default_value }}{% endif %}</td>
+                                        <td style="font-size: 12px;">{{ attribute.note }}</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td style="font-size: 12px;">entity_type_id</td>
+                                    <td style="font-size: 12px;">smallint</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 12px;">attribute_set_id</td>
+                                    <td style="font-size: 12px;">smallint</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 12px;">created</td>
+                                    <td style="font-size: 12px;">datetime</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 12px;">modified</td>
+                                    <td style="font-size: 12px;">datetime</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 12px;">entity_state_id</td>
+                                    <td style="font-size: 12px;">tinyint</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-size: 12px;">Deleted or not</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 12px;">created_by</td>
+                                    <td style="font-size: 12px;">varchar</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-size: 12px;">User that created</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 12px;">modified_by</td>
+                                    <td style="font-size: 12px;">varchar</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-size: 12px;">User that modified last</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            {% if entity_type.list_views is not empty %}
+                                <h3>{% trans %}Lists{% endtrans %}:</h3>
+                                <table class="table offer-table" style="width: 100%; margin-top: 20px;" cellspacing="0">
+                                    <tbody>
+                                    <tr class="green1">
+                                        <th style="text-align: left; font-size: 14px;">{% trans %}Code{% endtrans %}</th>
+                                        <th style="text-align: left; font-size: 14px;">{% trans %}Name{% endtrans %}</th>
+                                        <th style="text-align: left; font-size: 14px;">{% trans %}Sort{% endtrans %}</th>
+                                        <th style="text-align: left; font-size: 14px;">{% trans %}Direction{% endtrans %}</th>
+                                        <th style="text-align: left; font-size: 14px;">{% trans %}Limit{% endtrans %}</th>
+                                    </tr>
+                                    {% for list_view in entity_type.list_views %}
+                                        <tr>
+                                            <td style="font-size: 12px;">{{ list_view.name }}</td>
+                                            <td style="font-size: 12px;">{{ list_view.display_name|trans }}</td>
+                                            <td style="font-size: 12px;">{{ list_view.default_sort }}</td>
+                                            <td style="font-size: 12px;">{{ list_view.default_sort_type }}</td>
+                                            <td style="font-size: 12px;">{{ list_view.show_limit }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<form id="register-form"
+      class="registration ajax-submit label-hidden"
+      action="/register_customer"
+      novalidate
+      autocomplete="off"
+      method="post">
+    <input type="text" name="im_not_a_human" style="display: none!important;">
+    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+    <input type="hidden" autocomplete="false">
+
+    <div class="form-section account">
+        <div class="row form-row full-width">
+            <div class="form-group email col-xs-12">
+                <label>{% trans into current_language %}Email address{% endtrans %}*</label>
+                <input type="email"
+                       name="email"
+                       placeholder="{% trans into current_language %}Email address{% endtrans %}*"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Enter valid email address{% endtrans %}')"#}
+                       required>
+            </div>
+        </div>
+
+        <div class="row form-row full-width passwords">
+            <div class="form-group password col-xs-12 col-sm-6">
+                <label>{% trans into current_language %}Password{% endtrans %}*</label>
+                <input type="password"
+                       name="password"
+                       autocomplete="on"
+                       placeholder="{% trans into current_language %}Password{% endtrans %}*"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                       required>
+            </div>
+            <div class="form-group password-repeat col-xs-12 col-sm-6">
+                <label>{% trans into current_language %}Repeat password{% endtrans %}*</label>
+                <input type="password"
+                       name="repeat_password"
+                       autocomplete="on"
+                       placeholder="{% trans into current_language %}Repeat password{% endtrans %}*"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                       required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section basic-information">
+        <h2 class="styled-title">{% trans into current_language %}Personal information{% endtrans %}</h2>
+        <div class="row form-row full-width">
+            <div class="form-group first-name col-xs-12 col-sm-6">
+                <label>{% trans into current_language %}First name{% endtrans %}*</label>
+                <input type="text"
+                       name="first_name"
+                       placeholder="{% trans into current_language %}First name{% endtrans %}*"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                       required>
+            </div>
+            <div class="form-group last-name col-xs-12 col-sm-6">
+                <label>{% trans into current_language %}Last name{% endtrans %}*</label>
+                <input type="text"
+                       name="last_name"
+                       placeholder="{% trans into current_language %}Last name{% endtrans %}*"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                       required>
+            </div>
+        </div>
+        <div class="row form-row full-width">
+            <div class="form-group date-of-birth col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 resp-margin">
+                        <label>{% trans into current_language %}Day{% endtrans %}</label>
+                        <select name="birth_day" class="not-set">
+                            <option value="" selected>{% trans into current_language %}Day{% endtrans %}</option>
+                            {% for n in 1..31 %} {# TODO: odgovarajući broj dana po mjesecu #}
+                                <option value="{{ n }}">{{ n }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 resp-margin">
+                        <label>{% trans into current_language %}Month{% endtrans %}</label>
+                        <select name="birth_month" class="not-set">
+                            <option value="" selected>{% trans into current_language %}Month{% endtrans %}</option>
+                            {% for n in 1..12 %}
+                                <option value="{{ n }}">{{ n }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 resp-margin">
+                        <label>{% trans into current_language %}Year of birth{% endtrans %}</label>
+                        <select name="birth_year" class="not-set">
+                            <option value="" selected>{% trans into current_language %}Year of birth{% endtrans %}</option>
+                            {% set current_year = "now"|date("Y") - 17 %}
+                            {% set end_year = current_year-90 %}
+                            {% for n in current_year..end_year %}
+                                <option value="{{ n }}">{{ n }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-row full-width">
+            <div class="form-group state col-xs-12 col-sm-4 {% if get_env("USE_SIMPLE_SELECT") != 1 %}has-select2{% endif %}">
+                <label>{% trans into current_language %}Country{% endtrans %}*</label>
+                {% if get_env("USE_SIMPLE_SELECT") == 1 %}
+                    {% set countries = get_available_countries() %}
+                    <select data-dependent-field="city_id"
+                            class="form-control"
+                            name="country_id"
+                            oninput="this.setCustomValidity('')"
+                            oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                            required>
+                        <option value="" selected="selected">{% trans into current_language %}Select country{% endtrans %}</option>
+                        {% for country in countries %}
+                            <option value="{{ country.id }}"
+                                    title="{{ get_entity_store_attribute(current_store_id,country,"name") }}"
+                                    {% if data.model.default_country is defined and data.model.default_country is not empty and data.model.default_country.getId == country.getId %}selected{% endif %}>
+                                {{ get_entity_store_attribute(current_store_id,country,"name") }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <select data-template="default"
+                            data-type="lookup"
+                            data-search-url="/register/get_country_autocomplete"
+                            data-dependent-field="city_id"
+                            class="form-control"
+                            data-min-len="0"
+                            data-single="true"
+                            name="country_id"
+                            data-allow-clear="true"
+                            data-placeholder=" "
+                            tabindex="-1"
+                            aria-hidden="true"
+                            oninput="this.setCustomValidity('')"
+                            oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                            required>
+                        {% if data.model.default_country is defined and data.model.default_country is not empty %}
+                            <option value="{{ data.model.default_country.id }}"
+                                    title="{{ get_entity_store_attribute(current_store_id,data.model.default_country,"name") }}"
+                                    selected>{{ get_entity_store_attribute(current_store_id,data.model.default_country,"name") }}</option>
+                        {% endif %}
+                    </select>
+                {% endif %}
+            </div>
+            {% if get_env("SHOW_CITY_AS_DROPDOWN")|default(0) %}
+                <div class="form-group city col-xs-12 col-sm-8">
+                    <label>{% trans into current_language %}City{% endtrans %}*</label>
+                    <select data-template="default"
+                            data-type="lookup"
+                            data-search-url="/register/get_city_autocomplete"
+                            data-preselect-id=""
+                            data-preselect-text=""
+                            class="form-control"
+                            data-min-len="0"
+                            data-single="true"
+                            name="city_id"
+                            data-allow-clear="true"
+                            data-placeholder="{% trans %}Select city{% endtrans %}"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            oninput="this.setCustomValidity('')"
+                            oninvalid="this.setCustomValidity('{% trans %}Please select value from the list.{% endtrans %}')"
+                            required>
+                    </select>
+                </div>
+            {% else %}
+                <div class="form-group city col-xs-12 col-sm-4">
+                    <label>{% trans into current_language %}City{% endtrans %}*</label>
+                    <input type="text"
+                           name="city_name"
+                           placeholder="{% trans into current_language %}City{% endtrans %}*"
+                           oninput="this.setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                           required>
+                </div>
+                <div class="form-group postal_code col-xs-12 col-sm-4">
+                    <label>{% trans into current_language %}Postal code{% endtrans %}*</label>
+                    <input type="text"
+                           name="postal_code"
+                           placeholder="{% trans into current_language %}Postal code{% endtrans %}*"
+                           {% if get_env("VALIDATE_POSTAL_CODE")|default(0) == 1 %}pattern="([1-9][0-9]{3,9})"{% endif %}
+                           minlength="4" maxlength="12"
+                           oninput="this.setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                           required>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row form-row full-width">
+            <div class="form-group address col-xs-12">
+                <label>{% trans into current_language %}Address{% endtrans %}*</label>
+                <input type="text"
+                       name="street"
+                       placeholder="{% trans into current_language %}Address{% endtrans %}*"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                       required>
+            </div>
+        </div>
+        <div class="row form-row full-width">
+            <div class="form-group phone-mobile col-xs-12 col-sm-6">
+                <label>{% trans into current_language %}Mobile phone{% endtrans %}*</label>
+                <input type="tel"
+                       name="phone"
+                       placeholder="{% trans into current_language %}Mobile phone{% endtrans %}*"
+                       pattern="[0-9]{8,12}"
+                       minlength="8" maxlength="12"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please enter value in the correct format.{% endtrans %}')"#}
+                       required>
+                <span class="form-note">{% trans into current_language %}Format{% endtrans %}: 09X1234567 {% trans into current_language %}or{% endtrans %} 00XXX1234567</span>
+            </div>
+        </div>
+        <div class="row form-row newsletter">
+            <div class="form-group col-xs-12">
+                <label class="plain smaller-responsive force-visible label-checkbox">
+                    <input type="checkbox" {% if data.model.contact is defined and data.model.contact is not empty and data.model.contact.newsletterSignup %}checked="checked"{% endif %} id="newsletter"
+                           name="newsletter_signup"> {% trans into current_language %}Apply for newsletter{% endtrans %}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section basic-information optionally-required-group">
+        <h2 class="styled-title">{% trans into current_language %}Company information{% endtrans %}
+            <div class="form-note">{% trans into current_language %}Fill if you are a legal entity{% endtrans %}</div>
+        </h2>
+        <div class="row form-row full-width">
+            <div class="form-group first-name col-xs-12 col-sm-6">
+                <input type="hidden" name="is_legal_entity" value="0"/>
+                <label>{% trans into current_language %}Company name{% endtrans %}</label>
+                <input type="text"
+                       autocomplete="false"
+                       placeholder="{% trans into current_language %}Company name{% endtrans %}"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                       name="name">
+            </div>
+            <div class="form-group last-name col-xs-12 col-sm-6">
+                <label>{% trans into current_language %}Identification number{% endtrans %}</label>
+                <input type="text"
+                       placeholder="{% trans into current_language %}Identification number{% endtrans %}"
+{#                       oninput="this.setCustomValidity('')"#}
+{#                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                       name="oib">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group submit">
+        <span class="form-note">{% trans into current_language %}We process personal data in accordance with{% endtrans %} <a target="_blank" href="{{ current_language_url }}/{{ get_page_url(current_store_id,94,"s_page") }}"
+                                                                                                                              class="link-default">{{ get_page_title(current_store_id,94,"s_page") }}</a></span>
+        <input type="submit" value="{% trans into current_language %}Complete registration{% endtrans %}" class="button btn-type-1">
+    </div>
+</form>

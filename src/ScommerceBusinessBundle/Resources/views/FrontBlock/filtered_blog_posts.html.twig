@@ -1,0 +1,32 @@
+{% if data.model.blogs is defined and data.model.blogs is not empty %}
+  <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if not data.block.getActiveIncludingDates %}inactive{% endif %}" data-category-id="{{ data.page.id }}" {{ data.block.dataAttributes }}>
+    <div class="content">
+
+      {% if data.model.subtitle is defined and data.model.subtitle is not empty %}
+        <div class="row">
+          <div class="col-xs-12">
+            {% apply spaceless %}
+              <div class="section-title">
+                {{ data.model.subtitle|raw }}
+                {% if data.model.show_more is defined and data.model.show_more is not empty %}
+                  {% if data.model.show_more.url == '/' %}
+                    {% set url = '' %}
+                  {% else %}
+                    {% set url = data.model.show_more.url %}
+                  {% endif %}
+                  <a href="{{ url }}" class="show-more">{{ data.model.show_more.title }}</a>
+                {% endif %}
+              </div>
+            {% endapply %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="blog-custom-grid">
+        {% for blog in data.model.blogs["entities"] %}
+          {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/News:news_list_item.html.twig', 'data': {'blog': blog}}, {})) }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}

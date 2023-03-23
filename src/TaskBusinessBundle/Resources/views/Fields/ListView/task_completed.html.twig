@@ -1,0 +1,14 @@
+<td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %} style="text-align: center;font-size: 20px">
+    {% if value == 1 %}
+        <i class="fa fa-check sp-true sp-task-check"
+           aria-hidden="true" title={{ "Yes"|trans }}
+           data-url="{{ path('change_completed', {'id': entity_id }) }}"
+           data-action="standard_grid_action"
+        ></i>
+    {% else %}
+        <span class="sp-false sp-task-check"
+              aria-hidden="true" title={{ "No"|trans }}
+              data-url="{{ path('change_completed', {'id': entity_id }) }}"
+              data-action="standard_grid_action"></span>
+    {% endif %}
+</td>

@@ -1,0 +1,108 @@
+<form data-validate="true" method="post" action="{{ path('quote_item_change_save') }}" accept-charset="UTF-8"
+      data-callback='["custom"]'
+      data-custom-callback='["refreshQuoteItems"]'
+      data-type="quote_item_change_save"
+      data-attribute-set-code="quote_item_change_save"
+      class="form-horizontal row-border quote_item_update">
+    <div class="sp-block-group-wrapper">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 sp-block-wrapper">
+                <div class="sp-block">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-body collapse in">
+                            <fieldset class="form-group-wrapper">
+                                <div class="form-group hidden" data-form-group="id">
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input data-type="integer" class="form-control" type="text" name="id" value="{{ data.quote_item.id }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-form-group="quote_item_product">
+                                    <label class="col-sm-6 col-xs-6 control-label"><strong>{% trans %}Product code{% endtrans %}:</strong> {{ data.quote_item.product.code }}</label>
+                                    <label class="col-sm-6 col-xs-6 control-label"><strong>{% trans %}Catalog code{% endtrans %}:</strong> {{ data.quote_item.product.catalogCode }}</label>
+                                    <label class="col-sm-12 col-xs-12 control-label"><strong>{% trans %}Name{% endtrans %}:</strong> {{ get_entity_store_attribute(data.quote_item.quote.store.id,data.quote_item.product,"name") }}</label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group-wrapper">
+                                <div class="form-group" data-form-group="quote_item_qty">
+                                    <label class="col-sm-8 col-xs-8 control-label"><strong>{% trans %}Available qty{% endtrans %}:</strong></label>
+                                    <div class="col-sm-4 col-xs-4 {% if data.quote_item.product.measure is not empty %}input-group suffix{% endif %}">
+                                        <input disabled="disabled" data-type="text" class="form-control" type="text" name="available_qty" value="{{ data.quote_item.product.qty|number_format(2, ',', '.') }}"/>
+                                        {% if data.quote_item.product.measure is not empty %}<span class="input-group-addon">{{ data.quote_item.product.measure }}</span>{% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group" data-form-group="qty">
+                                    <label class="col-sm-8 col-xs-8 control-label"><strong>{% trans %}Requested qty{% endtrans %}:</strong></label>
+                                    <div class="col-sm-4 col-xs-4 {% if data.quote_item.product.measure is not empty %}input-group suffix{% endif %}">
+                                        <input data-type="text" class="form-control" type="text" data-holder="qty" name="qty" value="{{ data.quote_item.qty|number_format(2, ',', '.') }}"/>
+                                        {% if data.quote_item.product.measure is not empty %}<span class="input-group-addon">{{ data.quote_item.product.measure }}</span>{% endif %}
+                                    </div>
+                                </div>
+
+                                {% set startPrice = data.quote_item.basePriceItemWithoutTax %}
+                                {% if data.quote_item.originalRebate > 0 %}
+                                    {% set startPrice = data.quote_item.originalBasePriceItemWithoutTax %}
+                                {% endif %}
+
+                                <div class="form-group" data-form-group="price_base">
+                                    <label class="col-sm-4 col-xs-4 control-label"><strong>{% trans %}Base price{% endtrans %}:</strong></label>
+                                    <div class="col-sm-4 col-xs-4 input-group prefix">
+                                        <span class="input-group-addon">{{ data.quote_item.quote.currency.sign }}</span>
+                                        <input data-type="text" class="form-control" type="text" data-holder="original_price_base_currency" name="original_price_base_currency" value="{{ startPrice|number_format(2, ',', '') }}"/>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 input-group prefix">
+                                        <span class="input-group-addon">{{ data.quote_item.quote.currency.sign }}</span>
+                                        <input data-type="text" class="form-control" type="text" data-holder="notused_original_base_price_without_tax" name="notused_original_base_price_without_tax" value="{{ (startPrice * data.quote_item.qty)|number_format(2, ',', '') }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-form-group="price_base">
+                                    <label class="col-sm-3 col-xs-3 control-label"><strong>{% trans %}Rebate{% endtrans %}:</strong></label>
+                                    <div class="col-sm-3 col-xs-3">
+                                        <input data-type="text" class="form-control" type="text" data-holder="rebate" name="rebate" value="{{ data.quote_item.originalRebate|number_format(2, ',', '') }}"/>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-3">
+                                        <input data-type="text" class="form-control" type="text" data-holder="notused_rebate_item" name="notused_rebate_item" value="{{ (startPrice * data.quote_item.originalRebate / 100)|number_format(2, ',', '') }}"/>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-3">
+                                        <input data-type="text" class="form-control" type="text" data-holder="notused_rebate_total" name="notused_rebate_total" value="{{ (startPrice * data.quote_item.originalRebate / 100 * data.quote_item.qty)|number_format(2, ',', '') }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-form-group="price_base">
+                                    <label class="col-sm-4 col-xs-4 control-label"><strong>{% trans %}Neto price{% endtrans %}:</strong></label>
+                                    <div class="col-sm-4 col-xs-4 input-group prefix">
+                                        <span class="input-group-addon">{{ data.quote_item.quote.currency.sign }}</span>
+                                        <input data-type="text" class="form-control" type="text" data-holder="base_price_item_without_tax"  name="base_price_item_without_tax" value="{{ (data.quote_item.basePriceItemWithoutTax)|number_format(2, ',', '') }}"/>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 input-group prefix">
+                                        <span class="input-group-addon">{{ data.quote_item.quote.currency.sign }}</span>
+                                        <input data-type="text" class="form-control" type="text" data-holder="notused_base_price_without_tax"  name="notused_base_price_without_tax" value="{{ (data.quote_item.basePriceWithoutTax)|number_format(2, ',', '') }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-form-group="price_base">
+                                    <label class="col-sm-4 col-xs-4 control-label"><strong>{% trans %}Purchase price{% endtrans %}:</strong></label>
+                                    <div class="col-sm-4 col-xs-4 input-group prefix">
+                                        <span class="input-group-addon">{{ data.quote_item.quote.currency.sign }}</span>
+                                        <input disabled="disabled" data-type="text" class="form-control" type="text" data-holder="notused_purchase_price" name="notused_purchase_price" value="{{ data.quote_item.product.pricePurchase|number_format(2, ',', '') }}"/>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 input-group prefix">
+                                        <span class="input-group-addon">{{ data.quote_item.quote.currency.sign }}</span>
+                                        <input disabled="disabled" data-type="text" class="form-control" type="text" data-holder="notused_purchase_price_total" name="notused_purchase_price_total" value="{{ (data.quote_item.product.pricePurchase * data.quote_item.qty)|number_format(2, ',', '') }}"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7 col-sm-offset-2">
+                <div class="btn-toolbar">
+                    <button type="submit" class="sp-btn btn-primary btn-blue btn" data-action="close-modal" data-url="">{% trans %}Spremi{% endtrans %}</button>
+                    <button type="button" class="btn-default btn pull-right btn-red" data-dismiss="modal"><span aria-hidden="true">{% trans %}Zatvori{% endtrans %}</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <style>
+        #quotepreview {
+            padding: 50px 0;
+        }
+
+        #quotepreview #quotepreview-user-actions {
+            margin: 15px 0;
+        }
+
+        #quotepreview table {
+            width: 100%;
+        }
+
+        #quotepreview h1:not(.main-title) {
+            font-size: 20px;
+            text-align: left;
+        }
+
+        #quotepreview .item {
+            clear: both;
+            float: right;
+        }
+
+        #quotepreview .item.item > * {
+            display: inline-block;
+            float: left;
+            width: 250px;
+        }
+
+        #quotepreview .item.item > label {
+            text-align: right;
+            margin-right: 15px;
+        }
+    </style>
+    <div id="quotepreview">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" id="quote-preview-content">
+                    {% if data.model.error is defined %}
+                        <h1 class="main-title">{{ data.model.error }}</h1>
+                    {% else %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="alert alert-info">
+                                <strong>{% trans %}Quote status{% endtrans %}
+                                    : {{ data.model.quote.getQuoteStatus.name }}</strong>
+                            </div>
+                        {% endif %}
+                        {% if data.model.quote_status.id is defined and data.model.quote_status.id == 2 %}
+                            <div class="alert alert-warning">
+                                <strong>{% trans %}Quote is canceled{% endtrans %}</strong>
+                            </div>
+                        {% endif %}
+                        {% if data.model.message is defined and data.model.message is not empty %}
+                            {% for message in data.model.message %}
+                                <div class="alert alert-{{ message.type }}">
+                                    <strong>{{ message.content }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <div id="quote-html">
+                            {#{{ quote_html|raw }}#}
+                            {#                            {% include 'CrmBusinessBundle:Quote:quote_html.html.twig' with {#}
+                            {#                                'quote': quote,#}
+                            {#                                'items': items,#}
+                            {#                                'before_title': before_title,#}
+                            {#                                'after_title': after_title#}
+                            {#                            } %}#}
+                            <h1><strong>{% trans %}Price per items{% endtrans %}</strong></h1>
+                            <div class="table-responsive">
+                                <table class="table" id="calculation">
+                                    <thead>
+                                    <tr class="border_bottom">
+                                        <th class="th-first">{% trans %}Name{% endtrans %}</th>
+                                        <th>{% trans %}Code{% endtrans %}</th>
+                                        <th>{% trans %}Price{% endtrans %}</th>
+                                        <th>{% trans %}Quantity{% endtrans %}</th>
+                                        <th>{% trans %}Fixed discount{% endtrans %}</th>
+                                        <th>{% trans %}Percent discount(%){% endtrans %}</th>
+                                        <th>{% trans %}Total{% endtrans %}</th>
+                                        <th class="remove-in-pdf">{% trans %}VAT(%){% endtrans %}</th>
+                                        <th class="remove-in-pdf">{% trans %}VAT{% endtrans %}</th>
+                                        <th>{% trans %}Total with VAT{% endtrans %}</th>
+                                        <th>{% trans %}Currency{% endtrans %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% set total_price_no_tax = 0 %}
+                                    {% set total_tax_price = 0 %}
+                                    {% set total_price = 0 %}
+                                    {% set total_quantity = 0 %}
+                                    {% for item in data.model.quote.getQuoteItems %}
+                                        <tr class="border_bottom">
+                                            <td class="td-first" data-attr-code="name">{{ item.name }}</td>
+                                            <td data-attr-code="code">{{ item.code }}</td>
+                                            <td data-code="price">{{ item.getPriceTotal|number_format(2) }}</td>
+                                            {% if item.getQty %}
+                                                {% set quantity = item.getQty %}
+                                            {% else %}
+                                                {% set quantity = 1 %}
+                                            {% endif %}
+                                            <td data-attr-code="qty">{{ quantity }}</td>
+                                            <td data-attr-code="fixed_discount">{% if item.getPriceFixedDiscount != 0 %}{{ item.getPriceFixedDiscount }}{% endif %}</td>
+                                            <td data-attr-code="percent_discount">{% if item.getPercentDiscount != 0 %}{{ item.getPercentDiscount }}{% endif %}</td>
+                                            <td data-total="">{{ item.getPriceWithoutTax }}</td>
+                                            <td class="remove-in-pdf" data-tax-type="">{{ item.getPercentDiscount }}</td>
+                                            <td class="remove-in-pdf"
+                                                data-tax-amount="">{{ item.getPriceFixedDiscount }}</td>
+                                            <td data-total-width-tax="">{{ item.getPriceTotal }}</td>
+                                            <td data-currency-name="currency_name">{{ data.model.quote.getCurrency.code }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="quote-product-calculate-table">
+                                <div class="float-right">
+                                    <div class="item">
+                                        <label for="calc-total-quantity">{% trans %}Total quantity{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="calc-total-quantity"
+                                               disabled="disabled"
+                                               value="{{ total_quantity }}">
+                                    </div>
+                                    <div class="item">
+                                        <label for="calc-total-price-no-tax">{% trans %}Total price no tax{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="calc-total-price-no-tax"
+                                               disabled="disabled"
+                                               value="{{ total_price_no_tax|number_format(2) }}">
+                                    </div>
+                                    <div class="item">
+                                        <label for="calc-total-price-tax">{% trans %}Total tax{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="calc-total-price-tax"
+                                               disabled="disabled"
+                                               value="{{ total_tax_price|number_format(2) }}">
+                                    </div>
+                                    <div class="item">
+                                        <label for="calc-total-price">{% trans %}Total price{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="calc-total-price"
+                                               disabled="disabled"
+                                               value="{{ total_price|number_format(2) }}">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="sp-user-actions" class="text-right">
+                                    {% if data.model.payment_data is defined and data.model.payment_data.buttons is defined and data.model.payment_data.buttons is not empty %}
+                                        {% for button in data.model.payment_data.buttons %}
+                                            {{ button|raw }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        {% if data.model.quote.id %}
+                                            <a href="/page/quote/form/{{ data.model.quote.id }}"
+                                               class="sp-btn btn btn-primary btn-red">{% trans %}Edit
+                                                    quote{% endtrans %}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

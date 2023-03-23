@@ -1,0 +1,107 @@
+{% if main_button is not empty or dropdown_buttons is not empty %}
+    <td class="sp-actions-td">
+        <span class="sp-actions-td-inner">
+            {% if editable|default(false) %}
+{#                <span class="sp-options-text sp-hover btn-danger sp-row-btn" data-confirm="true"#}
+{#                      data-action="standard_grid_action"#}
+{#                      title="{% trans %}Delete{% endtrans %}"#}
+{#                      data-id="{{ entity.id }}"#}
+{#                      data-url="{{ path('core_api_delete_entity', {'type': entity.attributeSet.attributeSetCode, 'id': entity.id}) }}">#}
+{#                    <i class="fa fa-trash"></i>#}
+{#                </span>#}
+                 <span class="sp-options-text sp-save-row hidden"
+                       data-confirm="false"
+                       hidden
+                       data-action="row_edited"
+                       title="{% trans %}Saving{% endtrans %}"
+                       data-url="{{ path('core_api_save_entity', {'type': entity.attributeSet.attributeSetCode, 'id':  entity.id}) }}">
+                    <i class="fa fa-spinner fa-spin sp-saving-row"></i>
+                 </span>
+            {% endif %}
+
+
+            {% if main_button is not empty %}
+                {% if main_button.type == "link" %}
+                    {% set form_type = "form" %}
+                    {% if main_button.form_type is defined and main_button.form_type is not empty %}
+                        {% set form_type = main_button.form_type %}
+                    {% endif %}
+                    <a class="btn btn-default btn-xs pull-left sp-datatable-left-button {% if main_button.class is defined %}{{ main_button.class }}{% endif %}"
+                       {% if main_button.target is defined %}target="{{ main_button.target }}"{% endif %}
+                           href="{{ path(main_button.url, {'id': entity.id, 'url': entity.attributeSet.attributeSetCode, 'type': form_type}) }}"
+                       data-container="body" data-tooltip="true" data-placement="bottom"
+                       title="{{ main_button.name|trans }}"><i class="fa fa-{% if main_button.faIcon is defined %}{{ main_button.faIcon }}{% else %}pencil-alt{% endif %}"></i></a>
+                {# FALLBACK #}
+                {% elseif main_button.type == "custom_link" %}
+                    <a class="btn btn-default btn-xs pull-left sp-datatable-left-button {% if main_button.class is defined %}{{ main_button.class }}{% endif %}"
+                       {% if main_button.target is defined %}target="{{ main_button.target }}"{% endif %}
+                           href="{{ app.request.getBaseURL() }}{{ main_button.url }}{{ entity.id }}"
+                       data-container="body" data-tooltip="true" data-placement="bottom"
+                       title="{{ main_button.name|trans }}"><i class="fas fa-edit"></i></a>
+                {% elseif main_button.type == "button" %}
+                    <span class="btn btn-default btn-xs pull-left sp-datatable-left-button {% if main_button.class is defined %}{{ main_button.class }}{% endif %}"
+                          {% if main_button.confirm is defined and main_button.confirm is not empty %}data-confirm="{{ main_button.confirm }}"{% endif %}
+                              data-action="{{ main_button.action }}" data-id="{{ entity.id }}"
+                          data-url="{{ path(main_button.url, {'id': entity.id, 'type': entity.attributeSet.attributeSetCode}) }}" {% if main_button.callback is defined and main_button.callback is not empty %}data-callback='{{ main_button.callback }}'{% endif %}
+                              role="button" tabindex="0"><i class="fa fa-{% if main_button.faIcon is defined %}{{ main_button.faIcon }}{% else %}download{% endif %}"></i></span>
+                {% endif %}
+            {% endif %}
+            {% if dropdown_buttons is not empty %}
+                <a class="btn dropdown-toggle btn-xs pull-left sp-datatable-right-button btn-default" data-toggle="dropdown"
+                   href="javascript:void(0);" data-container="body" data-placement="bottom" data-tooltip="true" role="button"
+                   tabindex="0" aria-label="{% trans %}Actions{% endtrans %}" aria-haspopup="true" aria-expanded="false"
+                   title="{% trans %}Actions{% endtrans %}" data-original-title="{% trans %}Actions{% endtrans %}"><i class="fa fa-caret-down"></i></a>
+                <ul data-menu="dropdown" class="dropdown-menu" role="menu">
+                    {% for button in dropdown_buttons %}
+                        <li>
+                            <span>
+                                {% apply spaceless %}
+                                    {% if button.type == "link" %}
+                                        {% set form_type = "form" %}
+                                        {% if main_button.form_type is defined and main_button.form_type is not empty %}
+                                            {% set form_type = main_button.form_type %}
+                                        {% endif %}
+                                        <a class="{% if button.class is defined %}{{ button.class }}{% endif %}" href="{{ path(button.url, {'id': entity.id, 'url': entity.attributeSet.attributeSetCode, 'type': form_type}) }}" role="button" tabindex="0">{{ button.name|trans }}</a>
+                                   {# FALLBACK #}
+                                    {% elseif button.type == "custom_link" %}
+                                        <a class="{% if button.class is defined %}{{ button.class }}{% endif %}" href="{{ app.request.getBaseURL() }}{{ button.url }}{{ entity.id }}" role="button" tabindex="0">{{ button.name|trans }}</a>
+                                    {% elseif button.type == "custom_button" %}
+                                        <span class="asd menu-item {% if button.class is defined %}{{ button.class }}{% endif %}"
+                                              {% if button.confirm is defined and button.confirm is not empty %}data-confirm="{{ button.confirm }}"{% endif %}
+                                              data-action="{{ button.action }}"
+                                              data-id="{{ entity.id }}"
+                                              {% if button.custom_type is defined %}
+                                                  {% set params = {'attribute_set_code': button.custom_type} %}
+                                                  {% if button.prepopulate is defined and button.prepopulate is not empty %}
+                                                      {% for item in button.prepopulate %}
+                                                          {% set params = params|merge({(item.code): attribute(entity,item.getter)}) %}
+                                                      {% endfor %}
+                                                  {% endif %}
+                                                  data-url="{{ path(button.url, params) }}"
+                                              {% else %}
+                                                  data-url="{{ path(button.url, {'id': entity.id, 'type': entity.attributeSet.attributeSetCode}) }}"
+                                              {% endif %}
+                                                {% if button.callback is defined and button.callback is not empty %}data-callback='{{ button.callback }}'{% endif %}
+                                              role="button" tabindex="0">
+                                            {{ button.name|trans }}
+                                        </span>
+                                    {% elseif button.type == "button" %}
+                                        <span class="menu-item {% if button.class is defined %}{{ button.class }}{% endif %}"
+                                              {% if button.confirm is defined and button.confirm is not empty %}data-confirm="{{ button.confirm }}"{% endif %}
+                                              data-action="{{ button.action }}"
+                                              data-id="{{ entity.id }}"
+                                              data-url="{{ path(button.url, {'id': entity.id, 'type': entity.attributeSet.attributeSetCode}) }}"
+                                              {% if button.callback is defined and button.callback is not empty %}data-callback='{{ button.callback }}'{% endif %}
+                                              role="button" tabindex="0">
+                                            {{ button.name|trans }}
+                                        </span>
+                                    {% endif %}
+                                {% endapply %}
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </span>
+    </td>
+{% endif %}

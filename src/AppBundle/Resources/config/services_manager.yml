@@ -1,0 +1,217 @@
+services:
+    #    core_business.example:
+    #        class: AppBundle\Example
+    #        arguments: ["@service_id", "plain_value", %parameter%]
+
+    error_log_manager:
+        class: AppBundle\Managers\ErrorLogManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+
+    sync_manager:
+        class: AppBundle\Managers\SyncManager
+        #autowire: true
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+    note_manager:
+        class: AppBundle\Managers\NoteManager
+        #autowire: true
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    entity_manager:
+        class: AppBundle\Managers\EntityManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    administration_manager:
+        class: AppBundle\Managers\AdministrationManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    autocomplete_manager:
+        class: AppBundle\Managers\AutocompleteManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    block_manager:
+        class: AppBundle\Managers\BlockManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    form_manager:
+        class: AppBundle\Managers\FormManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    factory_manager:
+        class: AppBundle\Factory\FactoryManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    list_view_manager:
+        class: AppBundle\Managers\ListViewManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    privilege_manager:
+        class: AppBundle\Managers\PrivilegeManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    navigation_link_manager:
+        class: AppBundle\Managers\NavigationLinkManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    page_manager:
+        class: AppBundle\Managers\PageManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    database_manager:
+        class: AppBundle\Managers\DatabaseManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    mail_manager:
+        class: AppBundle\Managers\MailManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    helper_manager:
+        class: AppBundle\Managers\HelperManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    google_captcha_validate_manager:
+        class: AppBundle\Managers\GoogleCaptchaValidateManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    file_manager:
+        class: AppBundle\Managers\FileManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    documentation_manager:
+        class: AppBundle\Managers\DocumentationManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    rest_manager:
+        class: AppBundle\Managers\RestManager
+
+    core_sync_manager:
+        class: AppBundle\Managers\CoreSyncManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    cache_manager:
+        class: AppBundle\Managers\CacheManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    calendar_manager:
+        class: AppBundle\Managers\CalendarManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    repeat_event_manager:
+        class: AppBundle\Managers\RepeatEventManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    translation_manager:
+        class: AppBundle\Managers\TranslationManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    image_optimize_manager:
+        class: ImageOptimizationBusinessBundle\Managers\OptimizeImageManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    image_optimize_provider:
+        class: ImageOptimizationBusinessBundle\Managers\TinyPNGProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    excel_manager:
+        class: AppBundle\Managers\ExcelManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    app_template_manager:
+        class: AppBundle\Managers\AppTemplateManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    transaction_email_manager:
+        class: AppBundle\Managers\TransactionEmailManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    shape_cleaner_manager:
+        class: AppBundle\Managers\ShapeCleanerManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    analytics_manager:
+        class: AppBundle\Managers\AnalyticsManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    api_manager:
+        class: AppBundle\Managers\ApiManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    cron_job_manager:
+        class: AppBundle\Managers\CronJobManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    application_settings_manager:
+        class: AppBundle\Managers\ApplicationSettingsManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    import_manual_manager:
+        class: AppBundle\Managers\ImportManualManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]

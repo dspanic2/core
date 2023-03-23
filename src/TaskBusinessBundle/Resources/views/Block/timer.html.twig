@@ -1,0 +1,24 @@
+<div class="sp-block sp-bloc-activity_timer {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if data.subtype == 'view' or is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 sp-activity-tracking">
+                    <div id="activity-timer">
+                        {{ include('TaskBusinessBundle:Includes:activity_timer.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

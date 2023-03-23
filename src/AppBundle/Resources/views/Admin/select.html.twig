@@ -1,0 +1,6 @@
+{% if default is defined and default is not empty %}
+    <option value="">{{ default|trans }}</option>
+{% endif %}
+{% for entity in entities %}
+    <option {% if entity.selected is defined and entity.selected == true %}selected="selected"{% endif %} value="{{ entity.value }}">{{ entity.label|trans }}</option>
+{% endfor %}

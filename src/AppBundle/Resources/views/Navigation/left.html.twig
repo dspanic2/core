@@ -1,0 +1,25 @@
+<!-- BEGIN SIDEBAR -->
+<nav id="page-leftbar" role="navigation">
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="acc-menu" id="sidebar">
+        <li class="divider"></li>
+        {% for link in links %}
+            {% if(link.isParent==1) %}
+                {% if(link.childLinks is empty) %}
+                    <li><a href="{{ app.request.getBaseURL() }}{{ link.url }}"><i class="{{ link.cssClass }}"></i>
+                    <span>{{ link.displayName }}</span></a>
+                {% else%}
+                    <li><a href="javascript:;"><i class="{{ link.cssClass }}"></i>
+                            <span>{{ link.displayName }}</span></a>
+                        <ul class="acc-menu">
+                            {% for child in link.childLinks %}
+                                <li><a href="{{ app.request.getBaseURL() }}{{ child.url }}">{{ child.displayName }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</nav>

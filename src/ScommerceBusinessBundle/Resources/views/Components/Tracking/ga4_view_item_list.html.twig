@@ -1,0 +1,47 @@
+{% if products|default([]) is not empty %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script type="text/javascript">
+                {% apply spaceless %}
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'ga4_view_item_list',
+                    'ecommerce': {
+                        'items': [
+                            {% for product in products %}
+                                {% if loop.index < 21 %}
+                                    {% set productName = get_entity_store_attribute(current_store_id,product,"name")|striptags %}
+
+                                    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+
+                                    {% set brand = product.getBrand %}
+                                    {% set brandName = "" %}
+                                    {% if brand is not empty %}
+                                        {% set brandName = get_entity_store_attribute(current_store_id,brand,"name")|striptags %}
+                                    {% endif %}
+                                    {
+                                        'item_id': '{{ product.getId }}',
+                                        'item_name': '{{ productName }}',
+                                        'price': {{ prices.final_tracking_price|number_format(2,".","") }},
+                                        'currency': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                                        'discount': {% if prices.discount_tracking_price is not empty %}{{ (prices.tracking_price-prices.discount_tracking_price)|number_format(2, '.', '') }}{% else %}0.00{% endif %},
+                                        'item_brand': '{{ brandName }}',
+                                        {% for item in get_menu_tree_for_product(product) %}
+                                        'item_category{% if loop.index > 1 %}{{ loop.index }}{% endif %}': '{{ item|striptags }}',
+                                        {% endfor %}
+                                        'item_list_name': '{{ item_list_name|default("") }}',
+                                        'item_list_id': '{{ item_list_id|default(0) }}',
+                                        'index': {{ loop.index-1 }},
+                                        'quantity': 1
+                                    }{% if not loop.last %},{% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        ]
+                    }
+                });
+                {% endapply %}
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

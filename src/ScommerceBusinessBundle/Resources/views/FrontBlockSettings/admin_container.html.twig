@@ -1,0 +1,42 @@
+<div class="grid-stack-item" data-block-id="{{ data.block.id }}" data-gs-title="{% if data.block.name is defined %}{{ data.block.name }}{% endif %}" data-gs-x="{% if data.x is defined %}{{ data.x }}{% endif %}" data-gs-y="{% if data.y is defined %}{{ data.y }}{% endif %}" data-gs-id="{{ data.block.id }}" data-gs-type="{{ data.block.type }}" data-gs-min-width="2" data-gs-min-height="2" data-gs-width="{% if data.width is defined %}{{ data.width }}{% endif %}" data-gs-height="{% if data.height is defined %}{{ data.height }}{% endif %}">
+    <div class="grid-stack-item-content sp-border_{{ data.block.type }}">
+        <div class="sp-main-actions-wrapper">
+            <div class="container">
+                {% if data.block.name is defined %}<h4>{{ data.block.name }} - {{ data.block.type }}</h4>{% endif %}
+                <div class="options">
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="drop-block" style="display: none;">
+                        <i class="sp-icon sp-icon-anchor sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="move-block">
+                        <i class="sp-icon sp-icon-move sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="add-edit-front-block" data-id="{{ data.block.id }}" data-parent-id="" data-parent-type="" data-form-type="modal" data-is-front="false"  data-url="{{ path('front_block_update_form') }}">
+                        <i class="sp-icon sp-icon-settings sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="remove-front-block" data-url="{{ path('front_block_remove') }}">
+                        <i class="sp-icon sp-icon-disable sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="add-edit-front-block" data-id="" data-parent-id="{{ data.block.id }}" data-parent-type="s_front_block" data-form-type="modal" data-is-front="false"  data-url="{{ path('front_block_update_form') }}">
+                        <i class="sp-icon sp-icon-add sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="add-edit-front-block" data-id="" data-parent-id="{{ data.block.id }}" data-parent-type="s_front_block" data-form-type="modal" data-is-front="false"  data-url="{{ path('front_block_add_existing_form') }}">
+                        <i class="sp-icon sp-icon-edit sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button">
+                        <a href="/page/s_front_block/form/{{ data.block.id }}" target="_blank"><i class="sp-icon sp-icon-link sp-hover"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="grid-stack-inner-wrapper">
+            <div data-action="grid_stack_inner" class="grid-stack grid-stack-inner" data-parent-id="{{ data.block.id }}" data-parent-type="s_front_block" data-url="{{ path('front_block_get') }}">
+                {% if data.block.content is defined and data.block.content is not empty %}
+                    {% set content = data.block.content|json_decode %}
+                    {% for key,block in content %}
+                        {{ render(controller('AppBundle:FrontTemplate:adminBlock', {'block_id': block.id, 'x': block.x|default(0), 'y': block.y|default(100), 'width': block.width|default(12), 'height': block.height|default(2) }))}}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

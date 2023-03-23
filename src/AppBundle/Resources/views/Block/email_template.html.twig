@@ -1,0 +1,126 @@
+<div class="sp-block sp-quote-descriptions-wrapper" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="panel panel-midnightblue">
+        <div class="panel-heading main-panel-heading">
+            <div class="options">
+                {% if is_granted('ROLE_ADMIN') %}
+                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="sp-block-inner">
+
+        {% if data.configuration is defined and data.configuration.attribute_code_to_save is defined %}
+            <div class="hidden" data-holder="email_template_configuration" data-attribute-code-save="{{ data.configuration.attribute_code_to_save }}"></div>
+        {% endif %}
+
+        <div id="newsletter-preloaded-export"></div>
+        {#Here we add new template item types#}
+        <div id="sp-template-itmes">
+            <div class="sim-edit" id="sim-edit-title">
+                <div class="sim-edit-box">
+                    <div class="sim-edit-box-title">{% trans %}Edit Title{% endtrans %}</div>
+
+                    <div class="sim-edit-box-content">
+                        <div class="sim-edit-box-content-text">{% trans %}Title{% endtrans %}</div>
+                        <div class="sim-edit-box-content-field"><input type="text" class="sim-edit-box-content-field-input title"/></div>
+                    </div>
+                    <div class="sim-edit-box-buttons">
+                        <div class="sim-edit-box-buttons-save">{% trans %}Save{% endtrans %}</div>
+                        <div class="sim-edit-box-buttons-cancel">{% trans %}Cancel{% endtrans %}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sim-edit" id="sim-edit-image">
+                <div class="sim-edit-box" style="height:620px; margin-top: -10%;" >
+                    <div class="sim-edit-box-title">{% trans %}Edit Image{% endtrans %}</div>
+                    <div class="sim-edit-box-content">
+                        <div class="dropzone-wrapper">
+                            <span class="dropzone" data-url="{{ path('ckeditor_uploader_save') }}" data-acceptedfiles="image/*" data-callback='["setNewsletterImageUrl"]' data-limit="1"></span>
+                        </div>
+                        <div class="sim-edit-box-content-text">{% trans %}URL{% endtrans %}:<span>{% trans %}(full address including http://){% endtrans %}</span></div>
+                        <div class="sim-edit-box-content-field"><input type="text" class="sim-edit-box-content-field-input image"/></div>
+                    </div>
+                    <div class="sim-edit-box-buttons">
+                        <div class="sim-edit-box-buttons-save">{% trans %}Save{% endtrans %}</div>
+                        <div class="sim-edit-box-buttons-cancel">{% trans %}Cancel{% endtrans %}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sim-edit" id="sim-edit-link">
+                <div class="sim-edit-box" style="height:330px;">
+                    <div class="sim-edit-box-title">{% trans %}Edit Link{% endtrans %}</div>
+
+                    <div class="sim-edit-box-content">
+                        <div class="sim-edit-box-content-text">{% trans %}Title{% endtrans %}</div>
+                        <div class="sim-edit-box-content-field"><input type="text" class="sim-edit-box-content-field-input title"/></div>
+                        <div class="sim-edit-box-content-text">{% trans %}URL{% endtrans %}:<span>{% trans %}(full address including http://){% endtrans %}</span></div>
+                        <div class="sim-edit-box-content-field"><input type="text" class="sim-edit-box-content-field-input url"/></div>
+                    </div>
+                    <div class="sim-edit-box-buttons">
+                        <div class="sim-edit-box-buttons-save">{% trans %}Save{% endtrans %}</div>
+                        <div class="sim-edit-box-buttons-cancel">{% trans %}Cancel{% endtrans %}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sim-edit" id="sim-edit-text">
+                <div class="sim-edit-box" style="height:390px;">
+                    <div class="sim-edit-box-title">{% trans %}Edit Text{% endtrans %}</div>
+
+                    <div class="sim-edit-box-content">
+                        <div class="sim-edit-box-content-text">{% trans %}Text{% endtrans %}</div>
+                        <div class="sim-edit-box-content-field"><textarea class="sim-edit-box-content-field-textarea text"></textarea></div>
+                    </div>
+                    <div class="sim-edit-box-buttons">
+                        <div class="sim-edit-box-buttons-save">{% trans %}Save{% endtrans %}</div>
+                        <div class="sim-edit-box-buttons-cancel">{% trans %}Cancel{% endtrans %}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-midnightblue">
+            <div id="newsletter-builder-area-center-frame-content-wrapper">
+                <div id="newsletter-builder" class="resize-height">
+
+                  <div id="newsletter-builder-area" class="resize-height resize-width">
+                    <div id="newsletter-builder-area-center">
+                      <div id="newsletter-builder-area-center-frame">
+                          <div id="newsletter-builder-area-center-frame-buttons">
+                              <div class="row">
+                                  <div class="col-xs-3">
+                                      <div id="newsletter-builder-area-center-frame-buttons-add" class="sp-btn btn-primary btn-blue btn pull-left">{% trans %}Add{% endtrans %}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                                        {{ include('AppBundle:Email/EmailTemplateParts:email_block_menu.html.twig') }}
+                                      </div>
+                                  </div>
+                                  <div class="col-xs-6">
+                                      <input type="text" class="form-control" name="test_emails" placeholder="{% trans %}Enter cc email here{% endtrans %}"/>
+                                  </div>
+                                  <div class="col-xs-3">
+                                        <span data-action="test_newsletter_email" class="sp-btn btn-default btn-red btn pull-right" data-url="{{ path('test_email_template') }}">{% trans %}Send test email{% endtrans %}</span>
+                                  </div>
+                              </div>
+                              {#<div id="newsletter-builder-sidebar-buttons-bbutton">{% trans %}Export{% endtrans %}</div>#}
+                          {#<div id="newsletter-builder-area-center-frame-buttons-reset"><a href="index.html"><i class="icon-reload-CCW"></i>&nbsp;&nbsp;Reset</a></div>#}
+                          </div>
+                          {{ include('AppBundle:Email/EmailTemplateParts:email_block_list.html.twig') }}
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+
+                {#Template content holder#}
+                <div id="newsletter-builder-area-center-frame-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,288 @@
+<div class="form-section basic-information">
+    <div class="row form-row full-width">
+        <div class="form-group first-name col-xs-12 col-sm-6">
+            <label><span class="label-text">{% trans into current_language %}First name{% endtrans %}*</span>
+                <input type="text"
+                       name="first_name"
+                       required
+                       data-label="{% trans into current_language %}First name{% endtrans %}"
+                       placeholder="{% trans into current_language %}First name{% endtrans %}*"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.firstName }}{% endif %}">
+            </label>
+        </div>
+        <div class="form-group last-name col-xs-12 col-sm-6">
+            <label><span class="label-text">{% trans into current_language %}Last name{% endtrans %}*</span>
+                <input type="text"
+                       placeholder="{% trans into current_language %}Last name{% endtrans %}*"
+                       name="last_name"
+                       required data-label="{% trans into current_language %}Last name{% endtrans %}"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.lastName }}{% endif %}">
+            </label>
+        </div>
+    </div>
+    <div class="row form-row full-width hidden">
+        <div class="form-group date-of-birth col-xs-12">
+            <div class="row">
+                {% set day = "" %}
+                {% set month = "" %}
+                {% set year = "" %}
+                {% if data.model.contact is defined and data.model.contact is not empty and data.model.contact.dateOfBirth is not empty %}
+                    {% set day = data.model.contact.dateOfBirth|date("d") %}
+                    {% set month = data.model.contact.dateOfBirth|date("m") %}
+                    {% set year = data.model.contact.dateOfBirth|date("Y") %}
+                {% endif %}
+                <div class="col-xs-12 col-sm-4 resp-margin">
+                    <label><span class="label-text">{% trans into current_language %}Day{% endtrans %}</span>
+                        <select name="birth_day" class="not-set">
+                            <option value="0">{% trans into current_language %}Day{% endtrans %}</option>
+                            {% for n in 1..31 %} {# TODO: odgovarajući broj dana po mjesecu #}
+                                <option value="{{ n }}"
+                                        {% if day is not empty and day == n %}selected="selected"{% endif %}>{{ n }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-sm-4 resp-margin">
+                    <label><span class="label-text">{% trans into current_language %}Month{% endtrans %}</span>
+                        <select name="birth_month" class="not-set">
+                            <option value="0">{% trans into current_language %}Month{% endtrans %}</option>
+                            {% for n in 1..12 %}
+                                <option value="{{ n }}"
+                                        {% if month is not empty and month == n %}selected="selected"{% endif %}>{{ n }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-sm-4 resp-margin">
+                    <label><span class="label-text">{% trans into current_language %}Year of birth{% endtrans %}</span>
+                        <select name="birth_year" class="not-set">
+                            <option value="0">{% trans into current_language %}Year of birth{% endtrans %}</option>
+                            {% set current_year = "now"|date("Y") - 17 %}
+                            {% set end_year = current_year-90 %}
+                            {% for n in current_year..end_year %}
+                                <option value="{{ n }}"
+                                        {% if year is not empty and year == n %}selected="selected"{% endif %}>{{ n }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-row full-width">
+        <div class="form-group email col-xs-12 col-sm-6">
+            <label><span class="label-text">{% trans into current_language %}Email address{% endtrans %}*</span>
+                <input type="email"
+                       placeholder="{% trans into current_language %}Email address{% endtrans %}*"
+                       name="email"
+                       data-label="{% trans into current_language %}Email address{% endtrans %}"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Enter valid email address{% endtrans %}')"
+                       required
+                       value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.email }}{% elseif data.model.quote is defined and data.model.quote is not empty and data.model.quote.accountEmail is not empty %}{{ data.model.quote.accountEmail }}{% endif %}">
+            </label>
+        </div>
+        <div class="form-group phone-mobile col-xs-12 col-sm-6">
+            <label><span class="label-text">{% trans into current_language %}Mobile phone{% endtrans %}*</span>
+                <input type="tel"
+                       placeholder="{% trans into current_language %}Mobile phone{% endtrans %}*"
+                       name="phone"
+                       data-label="{% trans into current_language %}Mobile phone{% endtrans %}"
+                       required
+                       pattern="[0-9]{8,12}"
+                       minlength="7" maxlength="12"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please enter value in the correct format.{% endtrans %}')"
+                       value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.phone }}{% endif %}">
+            </label>
+            <span class="form-note">{% trans into current_language %}Format{% endtrans %}: 09X1234567 {% trans into current_language %}or{% endtrans %} 00XXX1234567</span>
+        </div>
+    </div>
+    {% if not is_user_logged_in() %}
+        <div class="row form-row accept-terms">
+            <div class="col-xs-12">
+                <label class="plain smaller-responsive force-visible label-checkbox">
+                    <input type="checkbox"
+                           data-submit-enable="true"
+                           data-id="accept_terms"
+                           oninput="this.setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                           {% if is_user_logged_in() %}checked="checked"{% endif %}
+                           required> {% trans into current_language %}I accept{% endtrans %} <a target="_blank" class="terms_of_use"
+                                                                                                href="{{ current_language_url }}/{{ get_page_url(current_store_id,38,"s_page") }}">{% trans into current_language %}terms of use{% endtrans %}
+                        *</a>
+                    <span class="form-note">{% trans into current_language %}We process personal data in accordance with{% endtrans %} <a target="_blank"
+                                                                                                                                          href="{{ current_language_url }}/{{ get_page_url(current_store_id,94,"s_page") }}"
+                                                                                                                                          class="link-default">{{ get_page_title(current_store_id,94,"s_page") }}</a></span>
+                </label>
+            </div>
+        </div>
+    {% endif %}
+
+    <h2 class="styled-title">{% trans into current_language %}Billing address{% endtrans %}</h2>
+    <div class="row form-row full-width">
+        <div class="form-group state col-xs-12 col-sm-6 {% if get_env("USE_SIMPLE_SELECT") != 1 %}has-select2{% endif %}">
+            <label><span class="label-text">{% trans into current_language %}Country{% endtrans %}*</span>
+                {% if get_env("USE_SIMPLE_SELECT") == 1 %}
+                    {% set countries = get_available_countries() %}
+                    <select data-dependent-field="city_id"
+                            class="form-control"
+                            name="country_id"
+                            oninput="this.setCustomValidity('')"
+                            oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                            required>
+                        <option value="" selected="selected">{% trans into current_language %}Select country{% endtrans %}</option>
+                        {% for country in countries %}
+                            <option value="{{ country.id }}" {% if data.model.billing_country is defined and data.model.billing_country is not empty and data.model.billing_country.id == country.id %}selected{% endif %}>{{ get_entity_store_attribute(current_store_id,country,"name") }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <select data-template="default"
+                            data-label="{% trans into current_language %}Country{% endtrans %}"
+                            data-type="lookup"
+                            data-search-url="/register/get_country_autocomplete"
+                            data-dependent-field="city_id"
+                            class="form-control"
+                            data-min-len="0"
+                            data-single="true"
+                            name="country_id"
+                            data-allow-clear="true"
+                            data-placeholder="{% trans into current_language %}Select country{% endtrans %}*"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            oninput="this.setCustomValidity('')"
+                            oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                            required>
+                        {% if data.model.billing_country is defined and data.model.billing_country is not empty %}
+                            <option value="{{ data.model.billing_country.id }}">{{ get_entity_store_attribute(current_store_id,data.model.billing_country,"name") }}</option>
+                        {% endif %}
+                    </select>
+                {% endif %}
+            </label>
+        </div>
+        {% if get_env("SHOW_CITY_AS_DROPDOWN")|default(0) %}
+        <div class="form-group city col-xs-12 col-sm-6 has-select2">
+            <label><span class="label-text">{% trans into current_language %}City{% endtrans %}*</span>
+                <select data-template="default"
+                        data-type="lookup"
+                        data-search-url="/register/get_city_autocomplete"
+                        data-preselect-id=""
+                        data-preselect-text=""
+                        class="form-control"
+                        data-min-len="0"
+                        data-single="true"
+                        name="city_id"
+                        data-allow-clear="true"
+                        data-placeholder="{% trans %}Select city{% endtrans %}"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        oninput="this.setCustomValidity('')"
+                        oninvalid="this.setCustomValidity('{% trans %}Please select value from the list.{% endtrans %}')"
+                        required>
+                    {% if data.model.billing_city is defined and data.model.billing_city is not empty %}
+                        <option value="{{ data.model.billing_city.id }}">{{ get_entity_store_attribute(current_store_id,data.model.billing_city,"name") }}</option>
+                    {% endif %}
+                </select>
+            </label>
+        </div>
+    </div>
+    {% else %}
+    </div>
+    <div class="row form-row full-width">
+        <div class="form-group city col-xs-12 col-sm-6">
+            <label><span class="label-text">{% trans into current_language %}City{% endtrans %}*</span>
+                <input type="text"
+                       name="city_name"
+                       placeholder="{% trans into current_language %}City{% endtrans %}*"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       value="{% if data.model.billing_city is defined and data.model.billing_city is not empty %}{{ get_entity_store_attribute(current_store_id,data.model.billing_city,"name") }}{% endif %}"
+                       required>
+            </label>
+        </div>
+        <div class="form-group postal_code col-xs-12 col-sm-6">
+            <label><span class="label-text">{% trans into current_language %}Postal code{% endtrans %}*</span>
+                <input type="text"
+                       name="postal_code"
+                       placeholder="{% trans into current_language %}Postal code{% endtrans %}*"
+                       pattern="([1-9][0-9]{3,9})"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       value="{% if data.model.billing_city is defined and data.model.billing_city is not empty %}{{ data.model.billing_city.postalCode }}{% endif %}"
+                       required>
+            </label>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row form-row full-width">
+        <div class="form-group address col-xs-12">
+            <label><span class="label-text">{% trans into current_language %}Address{% endtrans %}*</span>
+                <input type="text"
+                       name="street"
+                       required
+                       placeholder="{% trans into current_language %}Address{% endtrans %}*"
+                       data-label="{% trans into current_language %}Address{% endtrans %}"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                       value="{% if data.model.billing_address is defined and data.model.billing_address is not empty %}{{ data.model.billing_address.getStreet }}{% endif %}">
+            </label>
+        </div>
+    </div>
+</div>
+
+{% if not is_user_logged_in() %}
+    <div class="row form-row create-account">
+        <div class="form-group email col-xs-12">
+            <label class="plain smaller-responsive label-checkbox">
+                <input type="checkbox" name="create_account"
+                       id="create_account"
+                       title="{% trans into current_language %}If you want to register on this website, check this box. The system will remember the data you entered for the purpose of purchase and register you as a user. In the future, you will be able to buy as a registered user and you will not have to enter your details with each purchase. You can view and edit your information by clicking on „[My Profile]”{% endtrans %}"> {% trans into current_language %}Create user account{% endtrans %}
+            </label>
+        </div>
+    </div>
+{% endif %}
+
+<div class="row form-row passwords full-width optional"
+     {% if not is_user_logged_in() %}style="display: none;"{% endif %}>
+    <div class="form-group password col-xs-12 col-sm-6">
+        <label><span class="label-text">{% trans into current_language %}Password{% endtrans %}*</span>
+            <input type="password"
+                   name="password"
+                   autocomplete="off"
+                   placeholder="{% trans into current_language %}Password{% endtrans %}*"
+                   required
+                   readonly
+                   onfocus="if (this.hasAttribute('readonly')) {this.removeAttribute('readonly');this.blur();this.focus();}"
+                   data-label="{% trans into current_language %}Password{% endtrans %}"
+                   oninput="this.setCustomValidity('')"
+                   oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')">
+        </label>
+    </div>
+    <div class="form-group password-repeat col-xs-12 col-sm-6">
+        <label><span class="label-text">{% trans into current_language %}Repeat password{% endtrans %}*</span>
+            <input type="password"
+                   placeholder="{% trans into current_language %}Repeat password{% endtrans %}*"
+                   name="repeat_password"
+                   autocomplete="off"
+                   required
+                   readonly
+                   onfocus="if(this.hasAttribute('readonly')){this.removeAttribute('readonly');this.blur();this.focus();}"
+                   data-label="{% trans into current_language %}Repeat password{% endtrans %}"
+                   oninput="this.setCustomValidity('')"
+                   oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')">
+        </label>
+    </div>
+</div>
+
+
+{# <div class="row form-row full-width {% if data.model.user_logged_in == false or data.model.contact.newsletterSignup == 0 %}{% else %}hidden{% endif %}">
+    <div class="col-sm-12">
+        <label class="plain smaller-responsive">
+            <input type="checkbox" id="newsletter_signup" name="newsletter_signup" {% if data.model.contact is defined and data.model.contact is not empty and data.model.contact.newsletterSignup == 1 %}checked="checked"{% endif %}> {% trans into current_language %}I want to receive promo materials{% endtrans %}
+        </label>
+    </div>
+</div> #}

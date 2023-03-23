@@ -1,0 +1,66 @@
+<div class="sp-block sp-multiselect-wrapper {{ data.block.class }}" {% if data.model.parent_entity is defined and data.model.parent_entity is not empty %}data-parent_entity="{{ data.model.parent_entity }}"{% endif %} {% if data.model.child_entity is defined and data.model.child_entity is not empty %}data-child_entity="{{ data.model.child_entity }}"{% endif %} {% if data.model.link_entity is defined and data.model.link_entity is not empty %}data-link_entity="{{ data.model.link_entity }}"{% endif %} {% if data.model.attribute_id is defined and data.model.attribute_id is not empty %}data-id="{{ data.model.attribute_id }}"{% endif %} {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="panel-heading">
+                    <h5>{{ data.block.title|trans }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="options">
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            </div>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <span class="sp-btn btn-default btn-red btn pull-left" data-multiselect="deselect_all">{% trans %}Deselect all{% endtrans %}</span>
+                        <span class="sp-btn btn-primary btn-blue btn pull-right sp-margin-right-0" data-multiselect="select_all">{% trans %}Select all{% endtrans %}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="sp-multiselect sp-available">
+                            {% if data.model.options is defined and data.model.options is not empty %}
+                                {% for e in data.model.options %}
+                                    {% set val = attribute(e, data.model.child_entity_attribute_name) %}
+                                    {% if val is iterable %}
+                                        {% set title = val|first %}
+                                    {% else %}
+                                        {% set title = val %}
+                                    {% endif %}
+                                    <li data-action="add_multiselect_item" data-id="{{ e.id }}">{{ title }}</li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="sp-multiselect sp-sortable">
+                            {% set has_data = "" %}
+                            {% if data.model.selectedOptions is defined and data.model.selectedOptions is not empty and data.model.options is defined and data.model.options is not empty %}
+                                {% for e in data.model.options %}
+                                    {% if e.id in data.model.selectedOptions %}
+                                        {% set has_data = "1" %}
+                                        {% set val = attribute(e, data.model.child_entity_attribute_name) %}
+                                        {% if val is iterable %}
+                                            {% set title = val|first %}
+                                        {% else %}
+                                            {% set title = val %}
+                                        {% endif %}
+                                        <li data-action="remove_multiselect_item" data-id="{{ e.id }}"><i class="fa fa-arrows-alt"></i> {{ title }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group sp-min-height-20">
+                            <input type="hidden" data-action="multiselect-validator" class="form_control" name="{% if data.model.link_entity is defined and data.model.link_entity is not empty %}{{ data.model.link_entity }}{% endif %}" {% if data.model.mandatory %}data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select at least one value{% endtrans %}"{% endif %} value="{{ has_data }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

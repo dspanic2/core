@@ -1,0 +1,99 @@
+{% extends 'CrmBusinessBundle:Email:base.html.twig' %}
+
+{% block header %}{% include 'ScommerceBusinessBundle:Email/Components:header.html.twig' %}{% endblock %}
+
+{% block body %}
+    <table width="100%" border="0" cellpadding="0"
+           cellspacing="0">
+        <tbody>
+        <tr>
+            <td valign="top" align="left">
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left"
+                            style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            {% trans into data.current_language %}Respected Mr/Mrs{% endtrans %},<br>
+                            <br>
+                                {% trans into data.current_language %}Product quantity has dropped below minimum allowed quantity on the{% endtrans %} {{ data.base_url }} shop, for the following products:<br><br>
+
+                            {% for product_item in data.products %}
+
+                                <a href="{{ get_env('SSL') }}://admin.{{ data.base_url }}/page/product/form/{{ product_item.product.id }}">{{ product_item.product.name }}</a><br>
+                                <p>{{ product_item.product.code }}</p>
+                                {% if product_item.image is defined and product_item.image is not empty %}
+                                    <img alt="{{ product_item.product_title }}"
+                                         title="{{ product_item.product_title }}"
+                                         src="{{ get_env('SSL') }}://{{ data.base_url }}{{ get_env("FRONTEND_URL_PORT") }}/Documents/Products/{{ product_item.image.file }}"
+                                         width="{{ (data.web_path~product_item.image.file)|image_width }}"
+                                         height="{{ (data.web_path~product_item.image.file)|image_height }}"
+                                         style="width:200px;height:auto;"
+                                    />
+                                    <br>
+                                {% endif %}
+
+                                <hr><br>
+                            {% endfor %}
+
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% if entity is defined and entity.getProduct is not empty %}
+    {% set product = entity.getProduct %}
+    {% set masterProduct = get_master_product(product) %}
+    <table width="100%" border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+        <tr>
+            <td align="left" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                <br>
+                <br>
+                <div>
+                    <a href="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/{{ get_entity_store_attribute(get_env("DEFAULT_STORE_ID"),masterProduct,"url") }}" style="width:30%;text-align: center;display:inline-block;text-decoration: none;box-shadow: 0 0 11px rgb(33 33 33 / 20%);padding: 15px;text-decoration: none;color: #000;">
+                        {% if product.getSelectedImage() is not empty %}
+                        <img alt="{{ get_entity_store_attribute(get_env(" DEFAULT_STORE_ID"),product,"name") }}"
+                             style="width: 200px;"
+                             src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/Documents/Products/{{ product.getSelectedImage().file }}"/>
+                        {% else %}
+                            <img alt="{{ get_entity_store_attribute(get_env(" DEFAULT_STORE_ID"),product,"name") }}"
+                                 style="width: 200px;"
+                                 src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/image-placeholder.png"/>
+                        {% endif %}
+
+                        <p style="margin: 0 0 10px 0;text-decoration: none;font-size: 16px;">{{ get_entity_store_attribute(get_env("DEFAULT_STORE_ID"),product,"name") }}</p>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endif %}

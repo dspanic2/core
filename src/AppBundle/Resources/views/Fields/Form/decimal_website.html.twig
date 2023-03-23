@@ -1,0 +1,41 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    {% if websites is defined and websites is not empty %}
+        <div class="col-xs-12">
+            <div class="row">
+                <label class="col-sm-4 col-xs-4 control-label">
+                    {% if is_granted('ROLE_ADMIN') %}<a
+                        href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+                    {% if attribute.note is not empty %}
+                        <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                              rel="popover" data-placement="top"></span>
+                    {% endif %}
+                </label>
+            </div>
+            {% for website in websites %}
+                <div class="form-group row" data-store="{{ website.website_id }}" data-wrapper="store_value">
+                    <label class="col-sm-4 col-xs-4 control-label">
+                        <span>{{ website.website_name }}</span>
+                    </label>
+                    <div class="col-sm-8 col-xs-8">
+                        <input data-type="decimal"
+                               {% if formType == "view" or attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                               class="form-control"
+                               type="text"
+                               name="{{ attribute.attributeCode }}[{{ website.website_id }}]"
+                                {% apply spaceless %}
+                                    {% if(attribute.validator is not empty) %}
+                                        {% set validators = attribute.validator | json_decode %}
+                                        {% for validator in validators %}
+                                            {{ include('AppBundle:Form/Validators:' ~ validator.type ~ '.html.twig') }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    value="{% if value[website.website_id] is defined %}{{ value[website.website_id] }}{% endif %}"
+                                {% endapply %}
+                        />
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

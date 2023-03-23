@@ -1,0 +1,21 @@
+{% if is_pagespeed is not defined or not is_pagespeed %}
+    {% if data.model.faq is defined and data.model.faq is not empty %}
+        <div class="sp-block-outer sp-block-outer-{{ data.block.type }} section faq {{ data.block.class }}" {{ data.block.dataAttributes }}>
+            <div class="row">
+                <div class="col-xs-12">
+                    {% if 'no-title' not in data.block.class %}
+                        <h2>{% trans into current_language %}FAQ{% endtrans %}</h2>
+                    {% endif %}
+                    <div class="accordion">
+                        {% for faq in data.model.faq %}
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:accordion_item.html.twig', 'data': {
+                                'name': get_entity_store_attribute(current_store_id,faq,"name"),
+                                'description': get_entity_store_attribute(current_store_id,faq,"description")|raw,
+                            }}, {})) }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

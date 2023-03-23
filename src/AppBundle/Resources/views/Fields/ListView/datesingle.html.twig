@@ -1,0 +1,25 @@
+{% if field.listMode == "edit" and not attribute.readOnly and field.listViewAttribute.enableInlineEditing == 1 %}
+    <td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+        <input data-type="datesingle"
+               {% if width is not empty %}style="width: {{ width }}px;"{% endif %}
+               {% if attribute.readOnly %}data-readonly="force"{% endif %} type="text"
+               data-action="date" {% if value is empty and attribute.defaultValue is empty %}data-clear="true"{% endif %}
+               class="inline-edit-field form-control" name="{{ attribute.attributeCode }}"
+                {% if(attribute.validator is not empty) %}
+                    {% set validators = attribute.validator | json_decode %}
+                    {% for validator in validators %}
+                        {{ include('AppBundle:Form/Validators:' ~ validator.type ~ '.html.twig') }}
+                    {% endfor %}
+                {% endif %}
+                {% if value is not empty %}
+                    value="{{ value }}"
+                {% elseif value is  empty and  attribute.defaultValue == 'now' %}
+                    value=""
+                {% endif %}
+        />
+    </td>
+{% else %}
+    <td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+        <span {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>{{ value }}</span>
+    </td>
+{% endif %}

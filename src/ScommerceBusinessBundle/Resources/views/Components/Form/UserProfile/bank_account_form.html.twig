@@ -1,0 +1,25 @@
+<form class="ajax-submit {{ classes }}"
+      action="/dashboard/insert_update_account_bank_data"
+      method="post"
+      data-trigger-action="{{ triggerAction }}">
+
+    <input type="hidden" name="id" value="{{ bank_account.id|default(null) }}">
+    <input type="hidden" name="remove" value="0">
+
+    <div class="row form-row full-width margin-bottom-0">
+        <div class="form-group col-xs-12">
+            <label for="iban">{% trans into current_language %}IBAN{% endtrans %}*</label>
+            <input type="text" name="iban" required value="{{ bank_account.iban|default('') }}">
+        </div>
+    </div>
+
+    <div class="form-group submit text-left">
+        <input type="submit" value="{% trans into current_language %}Save{% endtrans %}" class="button btn-type-1">
+        {% if enable_cancel is defined and enable_cancel == 1 %}
+            <button class="form-cancel-item cancel-new-address button btn-type-3">{% trans %}Cancel{% endtrans %}</button>
+        {% endif %}
+        {% if enable_remove is defined and enable_remove == 1 %}
+            <button class="form-remove-item button btn-type-2">{% trans %}Remove{% endtrans %}</button>
+        {% endif %}
+    </div>
+</form>

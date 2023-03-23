@@ -1,0 +1,35 @@
+.logo {
+  padding: 10px 20px;
+  height: 60px;
+  background: $logo_bg;
+
+  a {
+    display: block;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center left;
+    }
+  }
+
+  & > a.responsive-logo {
+    display: none;
+  }
+
+  @media(max-width: 991px) {
+    padding: 5px;
+    & > a {
+      display: none;
+    }
+    & > a.responsive-logo {
+      display: block;
+    }
+  }
+}
+
+.minified .logo {
+  padding: 5px;
+}

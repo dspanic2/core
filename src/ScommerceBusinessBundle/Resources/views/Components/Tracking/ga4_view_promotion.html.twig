@@ -1,0 +1,27 @@
+{% if slider is defined %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script type="text/javascript">
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'ga4_view_promotion',
+                    'ecommerce': {
+                        'items': [
+                            {% for slide in slider.getImages() %}
+                            {
+                                'item_id': '',
+                                'item_name': '',
+                                'promotion_id': '{{ slide.getId }}',
+                                'promotion_name': '{{ slide.getName|striptags }}',
+                                'location_id': 'homepage',
+                                'index': {{ loop.index-1 }}
+                            }{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        ]
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

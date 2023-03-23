@@ -1,0 +1,132 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper grid-view-settings">
+            <div class="form-group row hidden">
+                <div class="col-sm-6">
+                    <input type="hidden"
+                           name="id"
+                           class="form-control"
+                           {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text"
+                           name="title"
+                           class="form-control"
+                           data-fv-notempty="true"
+                           data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                           {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %}
+                            name="type"
+                            data-fv-notempty="true"
+                            data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                            class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        <option selected="selected" value="grid_view">grid_view</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Entity type{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select name="entity_type"
+                            data-url="{{ path('get_lookup_attributes_by_entity_type') }}"
+                            data-attribute-set-definition-url="{{ path('get_attribute_set_definition') }}"
+                            class="form-control"
+                            data-fv-notempty="true"
+                            data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        {% for entity_type in entity_types %}
+                            <option {% if entity is not empty and entity.entityType is not empty and entity.entityType.id == entity_type.id %}selected="selected"{% endif %}
+                                    value="{{ entity_type.id }}">{{ entity_type.entityTypeCode }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Category filter{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <ul class="ul-no-style ul-no-padding dependant-select">
+                        <select name="category" class="form-control" required>
+                            <option value="">{% trans %}Please select attribute{% endtrans %}</option>
+                            <option value="attribute_set" {% if category is defined and category == "attribute_set" %}selected="selected"{% endif %}>{% trans %}- Filter by attribute set{% endtrans %}</option>
+                            {% if attributes is defined %}
+                                {% for attribute in attributes %}
+                                    <option value="{{ attribute.attributeCode }}" {% if category is defined and category == attribute.attributeCode %}selected="selected"{% endif %}>{{ attribute.frontendLabel }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                        <p><small>{% trans %}Use selected attribute as category filter{% endtrans %}</small></p>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-12 control-label">{% trans %}Attribute set definition{% endtrans %}</label>
+                <p><small>{% trans %}Default actions{% endtrans %}: add_simple_to_cart, open_configurable<br>Default urls: get_product, default_configurable_form</small></p>
+                <div class="attribute_set_definition_wrapper">
+                    {% if attribute_set_definition is defined %}
+                        {% for attributeSetCode,definition in attribute_set_definition %}
+                            <div class="col-sm-12">
+                                <textarea data-size="autosize" name="attribute_set_definition[{{ attributeSetCode }}]" class="form-control border-important">{{ definition|trim }}</textarea>
+                                <p><small>{{ attributeSetCode }}</small></p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <p><small>{% trans %}Leave empty for default{% endtrans %}.<br>Default values on default_grid_item.html.twig:<br>Configurable => 0<br>Price: retail_price<br>Title => name<br>Image => selected_image</small></p>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Height{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="height" class="form-control" {% if height %}value="{{ height }}"{% endif %}/>
+                    <p><small>{% trans %}For example{% endtrans %}: <strong>500px</strong>, <strong>200px</strong> etc. or <strong>initial</strong> to expand to content.</small></p>
+                </div>
+            </div>
+            {#<div class="form-group">
+                <label class="col-sm-3 control-label">{% trans %}Callback function{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="callback" class="form-control" value="{% if callback %}{{ callback }}{% endif %}"/>
+                    <p><small>{% trans %}For example{% endtrans %}: productCalculation, somethingElse</small></p>
+                </div>
+            </div>#}
+            <div class="form-group row">
+                <label class="col-sm-12 control-label">{% trans %}Default filter{% endtrans %}</label>
+                <div class="col-sm-12">
+                    <textarea data-size="autosize" name="filter" class="form-control border-important">{% apply spaceless %}
+                        {% if filter %}{{ filter|trim }}{% endif %}
+                    {% endapply %}</textarea>
+                    <p><small>{% trans %}JSON filter{% endtrans %}: [{"connector":"and", "filters":[{"field":"order","operation":"in","value":"{id}"}]}]</small></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text"
+                           name="class"
+                           class="form-control"
+                           {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text"
+                           name="dataAttributes"
+                           class="form-control"
+                           {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

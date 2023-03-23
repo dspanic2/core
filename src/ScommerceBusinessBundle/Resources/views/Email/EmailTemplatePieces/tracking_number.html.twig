@@ -1,0 +1,4 @@
+{% if entity.deliveryReference is defined and entity.deliveryReference is not empty %}
+    <p>{% trans %}Vaša pošiljka je predana dostavnoj službi{% endtrans %}</p>
+    <p>{% trans %}Pošiljku možete pratiti preko ovog{% endtrans%} <a href="https://www.dpdgroup.com/hr/mydpd/my-parcels/search?parcelNumber={{ entity.deliveryReference }}">{% trans %}linka{% endtrans %}</a></p>
+{% endif %}

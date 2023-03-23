@@ -1,0 +1,33 @@
+{
+  "index": {
+    "attribute": "entity_type_id,lookup_entity_type_id,lookup_attribute_set_id,lookup_attribute_id,backend_table",
+    "entity_attribute": "attribute_set_id,attribute_id,entity_type_id",
+    "entity_level_permission": "entity_type_id,role_id",
+    "entity_log": "entity_type_id,attribute_set_id,username",
+    "entity_type": "entity_type_code",
+    "list_view": "entity_type,attribute_set",
+    "navigation_link": "parent_id,page",
+    "page": "entity_type,attribute_set",
+    "page_block": "entity_type,attribute_set",
+    "privilege": "role,action_type,action_code",
+    "user_entity": "core_language_id,email",
+    "user_role_entity": "core_user_id,role_id,attribute_set_id,entity_type_id",
+    "shape_track_product_impressions_transaction": "session_id,email",
+    "error_log_entity": "name,is_handeled,line,ticket_id",
+    "cron_job_history_entity": "created,date_started,is_running,cron_batch_id",
+    "cron_job_entity": "name,method,is_active",
+    "transaction_email_sent_entity": "contact_id,entity_id,s_entity_type"
+  },
+  "unique": {
+    "attribute_group": "uid",
+    "attribute_set": "uid",
+    "entity_type": "uid",
+    "page": "uid",
+    "page_block": "uid",
+    "list_view": "uid",
+    "navigation_link": "uid",
+    "attribute": "uid",
+    "role_entity": "uid,role_code",
+    "core_language_entity": "uid"
+  }
+}

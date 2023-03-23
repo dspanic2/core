@@ -1,0 +1,56 @@
+<div class="modal fade" id="default_modal" role="dialog" aria-labelledby="label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{% apply spaceless %}{% if entity is not empty %}{% trans %}Edit{% endtrans %} {{ entity.type }} - {{ entity.title }}{% else %}{% trans %}Add new block{% endtrans %}{% endif %}{% endapply %}</h4>
+            </div>
+            <div class="modal-body" style="overflow:hidden;">
+                <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}" accept-charset="UTF-8"
+                      data-callback='["custom"]'
+                      data-custom-callback='{% if entity is not empty %}{% if is_front is defined and is_front == true %}["reloadPage"]{% endif %}{% else %}["addBlock"]{% endif %}'
+                      data-type="{{ managed_entity_type }}"
+                      class="form-horizontal row-border">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            {{ html|raw }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}Is custom{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in sp-privileges-wrapper">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Is custom{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="checkbox" checked="checked" name="isCustom" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            {% set entity_id = 0 %}
+                            {% if entity is not empty %}
+                                {% set entity_id = entity.uid %}
+                            {% endif %}
+                            {{ render(controller('AppBundle:AdministratorController/Role:getEntityRolePrivileges', {'type': managed_entity_type, 'entity': entity_id })) }}
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    <button type="submit" class="btn-primary btn btn-blue" data-action="close-modal">{% if entity is not empty %}{% trans %}Save{% endtrans %}{% else %}{% trans %}Save and continue{% endtrans %}{% endif %}</button>
+                                    <button type="button" class="btn-default btn pull-right btn-red" data-dismiss="modal"><span aria-hidden="true">{% trans %}Close{% endtrans %}</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

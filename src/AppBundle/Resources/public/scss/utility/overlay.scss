@@ -1,0 +1,94 @@
+.overlay {
+  transition: all 0.5s ease;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  position: fixed;
+  height: 100%;
+
+  & > * {
+    z-index: 100;
+    position: relative;
+  }
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.modal {
+  transition: all 0.5s ease;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  position: fixed;
+  height: 100%;
+
+  .modal-title {
+    margin-top: 6px;
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .modal-dialog {
+    width: 50%;
+    min-height: 50%;
+    max-height: 90%;
+    overflow: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid $secondary_color;
+  }
+
+  .modal-header {
+    padding: 10px;
+
+    .close {
+      float: right;
+    }
+  }
+
+  .panel-footer {
+    background: $header_bg_1;
+    padding: 10px;
+  }
+}
+
+#ajax-loading {
+  &::after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    animation: ajax-loading-animation 1.2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+  }
+
+  @keyframes ajax-loading-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

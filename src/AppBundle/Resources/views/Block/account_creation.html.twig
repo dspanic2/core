@@ -1,0 +1,119 @@
+<div class="sp-block sp-account-creation-wrapper {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        {% if blockTitle is defined %}
+                            <h5>{{ blockTitle|trans }}</h5>
+                        {% else %}
+                            <h5>{{ data.block.title|trans }}
+                                <div class="options">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        {#<a class="sp-options-text sp-options-text-attribute-group" href="{{ path('attribute_group_update_form', {'id': data.block.relatedId}) }}"><i class="sp-icon sp-icon-edit sp-hover"></i></a>#}
+                                        {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                    {% endif %}
+                                </div>
+                            </h5>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <form data-validate="true"
+                          method="post"
+                          action="{{ path('pos_lead_save') }}"
+                          accept-charset="UTF-8"
+                          data-callback=''
+                          data-url="{{ path('account_search') }}"
+                          class="form-horizontal row-border account-creation-form">
+                        <div class="panel-body collapse in">
+                            <div class="form-group">
+                                {#<label class="col-sm-12 control-label" for="acc_search">{% trans %}Select existing account{% endtrans %}</label>#}
+                                <div class="col-sm-12">
+                                    <select name="acc_search"
+                                            id="acc_search"
+                                            class="form-control"
+                                    ></select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="first_name">{% trans %}Firstname{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="first_name"
+                                           id="first_name"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="last_name">{% trans %}Lastname{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="last_name"
+                                           id="last_name"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="phone">{% trans %}Phone{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="phone"
+                                           id="phone"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="email">{% trans %}E-mail{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="email"
+                                           id="email"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="oib">{% trans %}OIB{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="oib"
+                                           id="oib"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="billing_city">{% trans %}City{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="billing_city"
+                                           id="billing_city"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="code">{% trans %}Code{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="code"
+                                           id="code"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="billing_country">{% trans %}Country{% endtrans %}</label>
+                                <div class="col-sm-8">
+                                    <input name="billing_country"
+                                           id="billing_country"
+                                           class="form-control"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,77 @@
+<div class="sp-block sp-grid-stack-block {{ data.block.class }}" data-type="grid_stack_block">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                {% if data.model.entity.id is defined and data.model.entity.id is not empty %}
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="sp-new-block-wrapper">
+                            <div class="sp-add-block-button">
+                                <span data-action="add-edit-front-block" data-id=""
+                                      data-parent-id="{{ data.model.entity.id }}"
+                                      data-parent-type="{{ data.model.entity.entityType.entityTypeCode }}"
+                                      data-form-type="modal" data-is-front="false"
+                                      data-url="{{ path('front_block_update_form') }}" class="btn btn-primary"><i
+                                            class="fa fa-plus"></i> {% trans %}Add new block{% endtrans %}</span>
+                                <span data-action="add-edit-front-block" data-id=""
+                                      data-parent-id="{{ data.model.entity.id }}"
+                                      data-parent-type="{{ data.model.entity.entityType.entityTypeCode }}"
+                                      data-form-type="modal" data-is-front="false"
+                                      data-url="{{ path('front_block_add_existing_form') }}" class="btn btn-primary"><i
+                                            class="fa fa-plus"></i> {% trans %}Add existing block{% endtrans %}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div data-wrapper="content" class="row sp-grid-wrapper">
+                <div class="sp-main-actions-wrapper">
+                    <div class="container">
+                        <div class="options">
+                            <span class="sp-options-text sp-options-text-attribute-group sp-admin-button sp-padding-top-10"
+                                  data-action="drop-block" style="display: none;">
+                                <i class="sp-icon sp-icon-anchor sp-hover"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 sp-grid-wrapper-inner">
+                    {% set content = null %}
+                    {% if data.model.entity.layout is defined %}
+                        {% set content = data.model.entity.layout %}
+                    {% elseif data.model.entity.content is defined and data.model.entity.content is not empty %}
+                        {% set content = data.model.entity.content %}
+                    {% endif %}
+                    <div data-action="grid_stack" class="grid-stack" data-parent-id="{{ data.model.entity.id }}"
+                         data-parent-type="{{ data.model.entity.entityType.entityTypeCode }}"
+                         data-url="{{ path('front_block_get') }}">
+                        {% if content is defined and content is not empty %}
+                            {% set content = content|json_decode %}
+                            {% if content is not empty %}
+                                {% for key,block in content %}
+                                    {{ render(controller('AppBundle:FrontTemplate:adminBlock', {
+                                        'block_id': block.id,
+                                        'x': block.x|default(0),
+                                        'y': block.y|default(100),
+                                        'width': block.width|default(12),
+                                        'height': block.height|default(2)
+                                    })) }}
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

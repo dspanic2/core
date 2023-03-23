@@ -1,0 +1,52 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} item banner-main {{ data.block.class }} {% if not data.block.getActiveIncludingDates %}inactive{% endif %}" {{ data.block.dataAttributes }}>
+    {% set banner_desktop = null %}
+    {% set banner_mobile = null %}
+    {% set filename = "" %}
+    {% for img in data.block.images %}
+        {% if img.entityStateId == 1 and img.ord == 0 %}
+            {% set banner_desktop = img.file %}
+            {% set filename = img.filename %}
+        {% endif %}
+        {% if img.entityStateId == 1 and img.ord == 1 %}
+            {% set banner_mobile = img.file %}
+        {% endif %}
+    {% endfor %}
+    {% if banner_mobile is null %}
+        {% set banner_mobile = banner_desktop %}
+    {% endif %}
+
+    {% if data.block.getSelectedImage() is not empty %}
+        {% set image_base = "/Documents/s_front_block_images/" %}
+        {# {% set banner_desktop_image_style_url = (image_base ~ banner_desktop)|image_style('banner_medium') %} #}
+        {% set banner_desktop_image_style_url = (image_base ~ banner_desktop) %}
+
+        {% set img = null %}
+        {% if banner_mobile is not null %}
+            {# {% set banner_mobile_image_style_url = (image_base ~ banner_mobile)|image_style('mobile_420') %} #}
+            {% set banner_mobile_image_style_url = (image_base ~ banner_mobile) %}
+            {% set img %}
+                <picture>
+                    <source media="(max-width: 420px)" srcset="{{ banner_mobile_image_style_url }}">
+                    <source media="(min-width: 421px)" srcset="{{ banner_desktop_image_style_url }}">
+                    <img src="{{ banner_desktop_image_style_url }}" alt="{{ filename }}">
+                </picture>
+            {% endset %}
+        {% else %}
+            {% set img %}<img src="{{ banner_desktop_image_style_url }}">{% endset %}
+        {% endif %}
+        {% if get_entity_store_attribute(current_store_id,data.block ,"url") is not empty %}
+            <a href="{{ get_entity_store_attribute(current_store_id,data.block ,"url") }}">{{ img }}<span class="button btn-type-1">Pregled ponude</span></a>
+        {% else %}
+            {{ img }}
+        {% endif %}
+    {% endif %}
+    {# <div class="info">
+        {% if data.block.subtitle is defined and data.block.subtitle is not empty %}<span
+                class="kicker">{{ data.block.subtitle }}</span>{% endif %}
+        {% if data.block.mainTitle is defined and data.block.mainTitle is not empty %}
+            <h2>{{ data.block.mainTitle }}</h2>{% endif %}
+        {% if data.block.url is defined and data.block.url is not empty %}
+            <a href="{{ data.block.url }}" class="button">{% trans %}Offer review{% endtrans %}</a>
+        {% endif %}
+    </div> #}
+</div>

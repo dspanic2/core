@@ -1,0 +1,6 @@
+<div class="hidden payment-form">
+    <form method="POST" id="leanpay{{ orderNumber }}" action="{{ url }}">
+        <input type="hidden" name="token" value="{{ token }}" />
+        <input type="submit" value="Buy with Leanpay" style="display:none;">
+    </form>
+</div>

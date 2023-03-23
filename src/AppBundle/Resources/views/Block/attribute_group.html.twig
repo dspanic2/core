@@ -1,0 +1,45 @@
+{% set formType = data.subtype %}
+{% set disable_edit = data.disable_edit %}
+
+{% if disable_edit != false %}
+    {% set formType = "view" %}
+{% endif %}
+
+{% if data.model.entity is not null %}
+    {% if data.model.entity.locked is not null %}
+        {% set formType = "view" %}
+        {% set disable_edit = true %}
+    {% endif %}
+{% endif %}
+
+<div class="sp-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.model.attributesGroup.attributeGroupName|trans }}{% if data.tooltip is defined and data.tooltip is not empty %}<span class="fa fa-question-circle sp-question-circle" data-content="{{ data.tooltip|trans }}" rel="popover" data-html="true" data-placement="bottom" data-original-title="" title=""></span>{% endif %}
+                    {% if data.subtype == "view" or is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {#{% if formType == "view" and disable_edit == false and data.is_modal is not defined %}
+                                {% if (app.user.hasPrivilege(3,data.model.attributesGroup.attributeSet.uid)) or is_granted('ROLE_ADMIN') %}
+                                <span class="sp-options-text sp-options-text-attribute-group" data-action="toggle-edit">
+                                    <i class="sp-icon sp-icon-edit sp-hover"></i>
+                                </span>
+                            {% endif %}#}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="sp-options-text sp-options-text-attribute-group sp-admin-button"
+                                   href="{{ path('attribute_group_update_form', {'id': data.block.relatedId}) }}"><i
+                                            class="sp-icon sp-icon-edit sp-hover"></i></a>
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <fieldset class="form-group-wrapper">
+                {% for entityAttribute in data.model.attributesGroup.entityAttributes %}
+                    {{ render(controller('AppBundle:Forms:field', {'entityAttribute': entityAttribute, 'entity': data.model.entity, 'formType': formType, 'parent': data.parent })) }}
+                {% endfor %}
+            </fieldset>
+        </div>
+    </div>
+</div>

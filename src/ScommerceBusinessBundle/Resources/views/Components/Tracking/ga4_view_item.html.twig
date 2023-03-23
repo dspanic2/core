@@ -1,0 +1,43 @@
+{% if product is defined %}
+    {% set productName = get_entity_store_attribute(current_store_id,product,"name")|striptags %}
+
+    {% set listTrackingData = app.request.cookies.get("list_tracking")|json_decode(constant('JSON_OBJECT_AS_ARRAY'))["product-" ~ product.getId]|default("") %}
+
+    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':data.configurable_bundle|default({})}, {}))|json_decode %}
+
+    {% set brand = product.getBrand %}
+    {% set brandName = "" %}
+    {% if brand is not empty %}
+        {% set brandName = get_entity_store_attribute(current_store_id,brand,"name")|striptags %}
+    {% endif %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script type="text/javascript">
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'ga4_view_item',
+                    'ecommerce': {
+                        'items': [
+                            {
+                                'item_id': '{{ product.getId }}',
+                                'item_name': '{{ productName }}',
+                                'price': {{ prices.final_tracking_price|number_format(2,".","") }},
+                                'currency': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                                'discount': {% if prices.discount_tracking_price is not empty %}{{ (prices.tracking_price-prices.discount_tracking_price)|number_format(2, '.', '') }}{% else %}0.00{% endif %},
+                                'item_brand': '{{ brandName }}',
+                                {% for item in get_menu_tree_for_product(product) %}
+                                'item_category{% if loop.index > 1 %}{{ loop.index }}{% endif %}': '{{ item|striptags }}',
+                                {% endfor %}
+                                'item_list_name': '{{ listTrackingData["list_name"]|default("")|striptags }}',
+                                'item_list_id': '{{ listTrackingData["list_id"]|default("") }}',
+                                'index': {{ listTrackingData["list_index"]|default(0) }},
+                                'quantity': 1
+                            }
+                        ]
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

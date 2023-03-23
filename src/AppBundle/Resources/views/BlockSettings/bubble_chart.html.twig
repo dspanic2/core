@@ -1,0 +1,64 @@
+<div class="col-sm-12 col-xs-12">
+    <div class="panel panel-midnightblue">
+        <div class="panel-heading master-panel-heading">
+            <h5>{% trans %}General information{% endtrans %}</h5>
+        </div>
+        <div class="panel-body collapse in">
+            <fieldset class="form-group-wrapper">
+                <div class="form-group hidden">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="id" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="title" class="form-control" data-fv-notempty="true"
+                               data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                               {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Data Source{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <textarea data-size="autosize" rows="4"
+                                  placeholder="{% trans %}Please fill in Data source{% endtrans %}"
+                                  class="form-control form-control-textarea"
+                                  name="datasource">{% if datasource is defined %}{{ datasource }}{% endif %}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Tooltip{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <textarea data-size="autosize" rows="4"
+                                  placeholder="{% trans %}Please fill in tooltip{% endtrans %}"
+                                  class="form-control form-control-textarea" name="tooltip">{% if tooltip is defined %}{{ tooltip }}{% endif %}</textarea>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Cache tag{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="cache_tag" class="form-control"
+                               {% if cache_tag is defined %}value="{{ cache_tag }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="class" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="dataAttributes" class="form-control"
+                               {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

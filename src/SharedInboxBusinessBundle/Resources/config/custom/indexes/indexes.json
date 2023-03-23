@@ -1,0 +1,8 @@
+{
+  "index": {
+    "email_attachment_entity": "email_id",
+    "email_contact_link_entity": "contact_id,email_id",
+    "email_entity": "state,parent_email_id,ticket_id,from_contact_id,shared_inbox_connection_id",
+    "shared_inbox_connection_entity": "type_id"
+  }
+}

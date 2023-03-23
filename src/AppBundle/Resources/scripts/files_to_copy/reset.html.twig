@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}sp-no-padding{% endblock %}
+
+{% block body %}
+
+<div id="wrap">
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12 hidden-xs min-100vh login-bg"></div>
+        <div class="col-md-9 col-sm-9 col-xs-12 min-100vh">
+            <div class="focusedform">
+                <div class="verticalcenter sp-verticalcenter">
+                    {% set logo ="/backend/AppBundle/logo.png" %}
+                    {% if file_exists("logo.png") %}
+                        {% set logo ="/logo.png" %}
+                    {% endif %}
+                    <img src="{{ logo }}" alt="Logo" class="brand">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <form data-action="reset-form" action="{{ path('fos_user_resetting_reset', {'token': token}) }}" method="post" class="form-horizontal">
+                                <fieldset class="form-group-wrapper">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="fos_user_resetting_form_plainPassword_first" name="fos_user_resetting_form[plainPassword][first]" required="required" placeholder="{% trans %}Your password{% endtrans %}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="fos_user_resetting_form_plainPassword_second" name="fos_user_resetting_form[plainPassword][second]" required="required" placeholder="{% trans %}Password again{% endtrans %}"/>
+                                            <input type="hidden" id="fos_user_resetting_form__token" name="fos_user_resetting_form[_token]" value="{{ app.session.getBag('attributes').get('_csrf/resetting') }}">
+                                        </div>
+                                    </div>
+                                    <button class="sp-btn btn btn-primary btn-green btn-block" style="margin-bottom: 30px;" type="submit" id="_submit" name="_submit" data-action="login-submit">{% trans %}Save new password{% endtrans %}</button>
+                                    {% if invalid_username is defined %}
+                                        <div class="sp-error-message">{{ 'This token has been used or does not exist'|trans }}</div>
+                                    {% endif %}
+                                    {% if error is defined and error is not empty %}
+                                        {% for e in error %}
+                                            <div class="sp-error-message" style="color: #ff5b5b;"><strong>{{ e|trans }}</strong></div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if invalid_username is not defined and error is empty %}
+                                        <div class="sp-error-message"><strong>{{ 'Password should'|trans }}</strong></div>
+                                            <ul style="text-align: left;">
+                                                <li>{{ 'be at least 8 characters in length'|trans }}</li>
+                                                <li>{{ 'include at least one upper case letter'|trans }}</li>
+                                                <li>{{ 'include at least one lower case letter'|trans }}</li>
+                                                <li>{{ 'include at least one number'|trans }}</li>
+                                                <li>{{ 'include at least one special character'|trans }}</li>
+                                                <li>{{ 'be without spaces'|trans }}</li>
+                                            </ul>
+                                    {% endif %}
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-link" style="padding-left:0">{% trans %}Back to login{% endtrans %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

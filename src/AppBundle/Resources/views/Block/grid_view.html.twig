@@ -1,0 +1,86 @@
+{% set data_filter = 1 %}
+
+{#<div class="sp-block gridview-wrapper {% if data.productCalculateTable == 1 %}only-product-calculations{% endif %}" data-block-id="{{ data.block.id }}" data-type="{{ data.type }}">#}
+{#data-price-attr-code="{% if data.price_attr_code is defined %}{{ data.price_attr_code }}{% endif %}" data-callback="{% if data.callback is defined %}{{ data.callback }}{% endif %}"#}
+<div class="sp-block sp-grid-view-wrapper {{ data.block.class }}" data-block-id="{{ data.block.id }}" data-type="{{ data.type }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-shape">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        <h5>{{ data.block.title|trans }}
+                            <div class="options">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                {% endif %}
+
+                                {#{% if is_granted('ROLE_ADMIN') or app.user.hasPrivilege(1,data.block.attributeSet.uid) %}
+                                    <a class="sp-options-text"
+                                       title="{% trans %}Create new{% endtrans %}"
+                                       data-action-type="create"
+                                       href="{{ path('page_view', {'url': data.block.attributeSet.attributeSetCode, 'type': 'form'}) }}"
+                                    >
+                                        <i class="sp-icon sp-icon-add"></i>
+                                        <span class="sp-icon-text">{% trans %}Create new{% endtrans %}</span>
+                                    </a>
+                                {% endif %}#}
+                                {% if data_filter %}
+                                    <span class="sp-options-text sp-hover pull-right"
+                                          title="{% trans %}Reset filter{% endtrans %}"
+                                          data-action="grid-view-filter-reset">
+                                        <i class="sp-icon sp-icon-refresh"></i>
+                                        <span class="sp-icon-text">
+                                            {% trans %}Reset filter{% endtrans %}
+                                        </span>
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        <div class="row">
+                            {% if data.categories is defined %}
+                                {% if data.categories %}
+                                    <div class="col-xs-6">
+                                        <div class="row">
+                                            <label for="category" class="col-sm-4 col-xs-12">{% trans %}Filter by{% endtrans %}:</label>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <select required
+                                                        name="gridview_category"
+                                                        data-url="{{ path('gridview_filter') }}"
+                                                        class="form-control no-icon">
+                                                    <option value="">{% trans %}Select filter{% endtrans %}</option>
+                                                    {% for category in data.categories %}
+                                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            <div class="col-sm-6 col-xs-6 text-right">
+                                <input type="text"
+                                       name="keyword"
+                                       class="form-control"
+                                       placeholder="{% trans %}Insert search query here{% endtrans %}"
+                                       data-url="{{ path('gridview_filter') }}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" style="height: {{ data.height }};overflow: auto; width: 100%;">
+                            <div class="col-xs-12">
+                                <div class="grid-view"><div class="ajax-loader"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

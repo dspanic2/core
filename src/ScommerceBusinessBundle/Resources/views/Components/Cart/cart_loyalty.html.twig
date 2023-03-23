@@ -1,0 +1,22 @@
+{% set loyalty = get_loyalty_points() %}
+
+{% if loyalty.discounts is defined and loyalty.discounts %}
+    <div class="add-loyalty">
+        <label for="loyalty_discounts">Ostvareni loyalty bodovi: <b>{{ loyalty.points }}</b></label>
+        {% if loyalty.discounts %}
+            <select name="loyalty_discounts" id="loyalty_discounts">
+                <option value="null">Odaberi loyalty bodove</option>
+                {% for level in loyalty.discounts %}
+                    <option value="{{ level.id }}" {% if level.percent_discount == loyalty.selectedPercentage %}selected{% endif %}>{{ level.points }} bodova - {{ level.percent_discount|number_format }}%</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
+        <div class="buttons">
+            <button class="button apply" id="apply_loyalty_discount">{% trans %}Apply loyalty{% endtrans %}</button>
+            {% if loyalty.selectedPercentage != "0%" %}
+                <button class="button remove" id="remove_loyalty_discount">{% trans %}Remove{% endtrans %}</button>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

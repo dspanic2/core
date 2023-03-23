@@ -1,0 +1,21 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section register-forms {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
+            {% if (data.model.google_login_url is defined and data.model.google_login_url is not empty) or (data.model.facebook_login_url is defined and data.model.facebook_login_url) %}
+                <div class="social-login-wrapper">
+                    <div class="login-item">
+                        {% if data.model.google_login_url is defined and data.model.google_login_url is not empty %}
+                            <a title="Sign in with Google" href="{{ data.model.google_login_url }}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:google_button.html.twig', 'data': {}}, {})) }}</a>
+                        {% endif %}
+                    </div>
+                    <div class="login-item text-right">
+                        {% if data.model.facebook_login_url is defined and data.model.facebook_login_url %}
+                            <a title="Log in with Facebook" href="{{ data.model.facebook_login_url }}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:facebook_button.html.twig', 'data': {}}, {})) }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form:login_form.html.twig', 'data': {'triggerAction': false}}, {})) }}
+        </div>
+    </div>
+</div>

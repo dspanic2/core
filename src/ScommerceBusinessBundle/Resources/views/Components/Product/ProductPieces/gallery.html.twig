@@ -1,0 +1,68 @@
+{% set product = get_real_product(product, get_query_parameters()) %}
+{% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+<div class="product-gallery" itemprop="image">
+    {% set images = product.getImages()|default(null) %}
+    <div class="product-slider-navigation" data-image-count="{{ images|length }}">
+        {% if images is not empty and images|length > 1 %}
+            {% for key,image in images %}
+                <div class="image">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                        'image': image,
+                        'directory':'Products',
+                        'image_style': 'product_list_item',
+                        'alt_default': product_title ~ "-" ~ key
+                    }}, {})) }}
+                    <noscript>
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                            'image': image,
+                            'directory':'Products',
+                            'image_style': 'product_list_item',
+                            'alt_default': product_title ~ "-" ~ key,
+                            'itemprop': 1,
+                            'lazyload': 0
+                        }}, {})) }}
+                    </noscript>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="product-slider-wrapper {% if images|length == 1 %}single-image{% endif %}">
+        <span class="add-to-favorite {% if app.session.get('favorites_product_ids') is defined and app.session.get('favorites_product_ids') is not empty and product.id in app.session.get('favorites_product_ids') %}active{% endif %}" data-pid="{{ product.id }}"><i class="fi-xnluxl-heart"></i><i class="fi-xnsuxl-heart-solid heart-active"></i></span>
+        <span class="add-to-compare {% if app.session.get('compare') is defined and app.session.get('compare') is not empty and product.id in app.session.get('compare') %}active{% endif %}" data-pid="{{ product.id }}"></span>
+        {% if prices.discount_percentage is defined and prices.discount_percentage is not empty and prices.discount_percentage > 0 %}
+            <span class="product-discount">-{{ prices.discount_percentage|number_format(0, '', '') }}<span class="percentage">%</span></span>
+        {% endif %}
+        <div class="product-slider">
+            {% if images is not empty %}
+                {% for key,image in images %}
+                    <div class="image">
+                        <a href="/Documents/Products/{{ image.file }}">
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                'image': image,
+                                'directory':'Products',
+                                'image_style': 'product_image',
+                                'alt_default': product_title ~ "-" ~ key,
+                            }}, {})) }}
+                            <noscript>
+                                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                    'image': image,
+                                    'directory':'Products',
+                                    'image_style': 'product_image',
+                                    'alt_default': product_title ~ "-" ~ key,
+                                    'itemprop': 1,
+                                    'lazyload': 0
+                                }}, {})) }}
+                            </noscript>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="image">
+                    <img src="/frontend/images/image-placeholder.png"
+                         itemprop="image"
+                         alt="no image"/>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

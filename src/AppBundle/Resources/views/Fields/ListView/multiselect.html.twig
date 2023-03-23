@@ -1,0 +1,66 @@
+{% set val = "" %}
+{% for v in value %}0
+    {% set val = val~", "~v.lookup_value %}
+{% endfor %}
+{% set val = val|trim(', ', 'left') %}
+<td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+    {% if document is not empty and document.documents is defined %}
+        <span class="image-holder" {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>
+            <span class="dropzone"
+                  data-url="{{ path('file_create', {'attribute_id': document.file_attribute.getId, 'related_entity_type': document.related_entity.entityType.entityTypeCode, 'related_entity_id': document.related_entity.id }) }}"
+                  data-limit="20"
+                  data-acceptedFiles="audio/*,image/*,.psd,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.txt,.csv,.glb"></span>
+
+            <span class="item add-new-item">
+                <i class="fas fa-plus"></i>
+            </span>
+
+            <span class="sortable-items"
+                  data-parent_id="{{ document.related_entity.getId }}"
+                  data-entity_type_code="{{ document.lookup_entity_type.entityTypeCode }}"
+                  data-sortable_url="{{ path('gallery_set_sort') }}"
+                  data-parent_attribute_id="{{ document.document_parent_attribute_id }}"
+                  data-selected_url="{{ path('gallery_set_selected') }}">
+                {% set folder = document.folder %}
+                {% for doc in document.documents %}
+                    <span class="item">
+                        <input type="hidden" name="image_sort_id[]" value="{{ doc.id }}"/>
+                        {% if (app.user.hasPrivilege(4,document.lookup_attribute_set.uid)) or is_granted('ROLE_ADMIN') %}
+                            <span class="sp-option sp-image-remove"
+                                  data-callback='["removeGalleryItem"]'
+                                  data-action="standard_action"
+                                  data-confirm="true"
+                                  data-id="{{ doc.id }}"
+                                  data-url="/{{ document.lookup_entity_type.getEntityTypeCode }}/delete/{{ doc.id }}">
+                                <i class="sp-icon sp-icon-disable"></i>
+                            </span>
+                        {% endif %}
+                        <span class="sp-option sp-image-select {% if doc.selected %}hidden{% endif %}" title="{% trans %}Make primary{% endtrans %}"
+                              data-action="set-gallery-item-primary"
+                              data-doc_id="{{ doc.id }}"
+                              data-entity_type_code="{{ document.lookup_entity_type.entityTypeCode }}"
+                              data-parent_attribute_id="{{ document.document_parent_attribute_id }}"
+                              data-parent_id="{{ document.related_entity.getId }}"
+                              data-selected_url="{{ path('gallery_set_selected') }}">
+                            <i class="sp-icon sp-icon-enable"></i>
+                        </span>
+                        {% set file = doc.file %}
+                        {% if file|split('.')|last|lower not in ["jpeg","jpg","png","bmp","webp","svg","jfif"] %}
+                            {{ file|raw }}
+                        {% else %}
+                            {% set imagePath = (folder ~ file)|image_style("list_view_image_thumbnail") %}
+                            {% if imagePath is empty %}
+                                {% set imagePath = folder ~ file %}
+                            {% endif %}
+                            <a href="{{ app.request.getSchemeAndHttpHost() }}{{ folder }}{{ file }}">
+                        <img src="{{ app.request.getSchemeAndHttpHost() }}{{ imagePath }}" alt="{{ file }}"/>
+                    </a>
+                        {% endif %}
+                    </span>
+                {% endfor %}
+            </span>
+    </span>
+    {% else %}
+        <span {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>{{ val|raw }}</span>
+    {% endif %}
+</td>

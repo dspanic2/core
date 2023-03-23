@@ -1,0 +1,41 @@
+<div class="sp-block {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{% trans %}Absence status{% endtrans %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <fieldset class="form-group-wrapper table-responsive">
+                {% if data.model.absenceEmployeeYear is not defined %}
+                    <p>{% trans %}This user is not connected to any employee{% endtrans %}</p>
+                {% else %}
+                    <table class="sp_budget_table table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">{% trans %}Number of vacation days left from{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>{% trans %}Last year{% endtrans %}</th>
+                                <td>{{ data.model.data.lastYearDays }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}This year{% endtrans %}</th>
+                                <td>{{ data.model.data.thisYearDays }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="sp-btn btn-primary btn-blue btn" data-action="open_new_absence" data-url="{{ data.model.url }}">{% trans %}Request new absence{% endtrans %}</button>
+                {% endif %}
+            </fieldset>
+        </div>
+    </div>
+</div>

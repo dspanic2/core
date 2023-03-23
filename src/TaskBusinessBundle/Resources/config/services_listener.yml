@@ -1,0 +1,22 @@
+services:
+
+    task_listener:
+        class: TaskBusinessBundle\EventListener\TaskListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: entity.precreated, method: onTaskPreCreated }
+            - { name: kernel.event_listener, event: entity.preupdated, method: onTaskPreUpdated }
+            - { name: kernel.event_listener, event: entity.created, method: onTaskCreated }
+            - { name: kernel.event_listener, event: entity.updated, method: onTaskUpdated }
+            - { name: kernel.event_listener, event: entity.created, method: onTaskNoteCreated }
+
+    activity_listener:
+        class: TaskBusinessBundle\EventListener\ActivityListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: entity.created, method: onActivityCreated }
+            - { name: kernel.event_listener, event: entity.precreated, method: onActivityPreCreated }
+            - { name: kernel.event_listener, event: entity.preupdated, method: onActivityPreUpdated }
+            - { name: kernel.event_listener, event: entity.predeleted, method: onActivityPreDeleted }

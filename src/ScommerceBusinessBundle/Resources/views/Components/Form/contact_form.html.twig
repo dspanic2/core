@@ -1,0 +1,61 @@
+<form id="contact-form"
+      action="/api/general_contact_form"
+      novalidate
+      class="ajax-submit">
+
+    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+    <input type="text" name="im_not_a_human" style="display: none!important;">
+
+    <div class="row form-row full-width">
+        <div class="form-group first-name col-xs-12 col-sm-6">
+            <label>{% trans %}First name{% endtrans %}
+                <input type="text"
+                       name="first_name">
+            </label>
+        </div>
+        <div class="form-group last-name col-xs-12 col-sm-6">
+            <label>{% trans %}Last name{% endtrans %}
+                <input type="text"
+                       name="last_name">
+            </label>
+        </div>
+    </div>
+
+    <div class="row form-row full-width">
+        <div class="form-group email col-xs-12">
+            <label>{% trans %}Email address{% endtrans %}*
+                <input type="email"
+                       name="email"
+                       oninput="this.setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('{% trans %}Please enter valid email address.{% endtrans %}')"
+                       required>
+            </label>
+        </div>
+    </div>
+
+    <div class="row form-row full-width">
+        <div class="form-group note col-xs-12">
+            <label>{% trans %}Message{% endtrans %}*
+                <textarea name="message"
+                          rows="5"
+                          required
+                          oninput="this.setCustomValidity('')"
+                          oninvalid="this.setCustomValidity('{% trans %}Please fill out this field.{% endtrans %}')"></textarea>
+            </label>
+        </div>
+    </div>
+
+    <div class="row form-row">
+        <div class="form-group col-xs-12 text-left">
+            <label class="plain force-visible label-checkbox">
+                <input required type="checkbox"
+                       name="gdpr">{% trans into current_language %}I agree to use the information provided for the purpose of receiving notification of special offers and promotions{% endtrans %}
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group submit text-center">
+        <span class="form-note">{% trans into current_language%}We process personal data in accordance with{% endtrans%} <a target="_blank" href="/gdpr" class="link-default">{% trans into current_language %}Privacy policy{% endtrans %}</a></span>
+        <input type="submit" value="{% trans %}Send{% endtrans %}" class="button btn-type-1">
+    </div>
+</form>

@@ -1,0 +1,88 @@
+<fieldset class="form-group-wrapper">
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">{% trans %}Lookup entity type{% endtrans %}</label>
+        <div class="col-sm-6">
+            <select name="lookupEntityType" data-action="change-lookup-type"
+                    data-related="lookupAttributeSet" class="form-control"
+                    data-options="{{ entity_types|json_encode }}">
+                <option value="">{% trans %}Select lookup entity type{% endtrans %}</option>
+                {% for  key, option in entity_types %}
+                    {% if option.self is not defined %}
+                        <option value="{{ key }}"
+                                {% if entity.lookupEntityType is defined and entity.lookupEntityType is not empty and entity.lookupEntityType.id == key %}selected="selected"{% endif %}>{{ option.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">{% trans %}Lookup attribute set{% endtrans %}</label>
+        <div class="col-sm-6">
+            <select name="lookupAttributeSet" data-action="change-lookup-set"
+                    data-related="lookupAttribute" data-related2="modalPageBlockId"
+                    class="form-control">
+                <option value="">{% trans %}Select lookup attribute set{% endtrans %}</option>
+                {% if entity.lookupEntityType is defined and entity.lookupEntityType is not empty %}
+                    {% for key,option in entity_types[entity.lookupEntityType.id].attribute_sets %}
+                        <option value="{{ key }}"
+                                {% if entity is defined and entity.lookupAttributeSet.id == key %}selected="selected"{% endif %}>{{ option.name }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">{% trans %}Lookup attribute{% endtrans %}</label>
+        <div class="col-sm-6">
+            <select name="lookupAttribute" class="form-control">
+                <option value="">{% trans %}Select lookup attribute{% endtrans %}</option>
+                {% if entity.lookupAttributeSet is defined and entity.lookupEntityType is defined and entity.lookupEntityType is not empty and entity.lookupAttributeSet is not empty %}
+                    {% for key,option in entity_types[entity.lookupEntityType.id].attribute_sets[entity.lookupAttributeSet.id].attributes %}
+                        <option value="{{ key }}"
+                                {% if entity is defined and entity.lookupAttribute.id == key %}selected="selected"{% endif %}>{{ option.name }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">{% trans %}Use lookup link{% endtrans %}</label>
+        <div class="col-sm-6">
+            <select name="useLookupLink" class="form-control"
+                    data-fv-notempty="true"
+                    data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                <option value="1"
+                        {% if entity.useLookupLink == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                <option value="0"
+                        {% if entity.useLookupLink == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">{% trans %}Enable modal create{% endtrans %}</label>
+        <div class="col-sm-6">
+            <select name="enableModalCreate" class="form-control"
+                    data-fv-notempty="true"
+                    data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                <option value="1"
+                        {% if entity.useInQuickSearch is defined and entity.enableModalCreate == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                <option value="0"
+                        {% if entity.useInQuickSearch is defined and entity.enableModalCreate == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">{% trans %}Modal create page block id{% endtrans %}</label>
+        <div class="col-sm-6">
+            <select name="modalPageBlockId" class="form-control">
+                <option value="">{% trans %}Select page block id or leave empty for default{% endtrans %}</option>
+                {% if entity.lookupAttribute.lookupAttributeSet is defined and entity.lookupAttribute.lookupEntityType is defined and entity.lookupAttribute.lookupEntityType is not empty and entity.lookupAttribute.lookupAttributeSet is not empty and entity_types[entity.lookupAttribute.lookupEntityType.id].attribute_sets[entity.lookupAttribute.lookupAttributeSet.id].blocks is defined %}
+                    {% for key,option in entity_types[entity.lookupAttribute.lookupEntityType.id].attribute_sets[entity.lookupAttribute.lookupAttributeSet.id].blocks %}
+                        <option value="{{ key }}"
+                                {% if entity is defined and entity.modalPageBlockId == key %}selected="selected"{% endif %}>{{ option.name }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+    </div>
+</fieldset>

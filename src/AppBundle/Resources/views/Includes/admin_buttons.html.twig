@@ -1,0 +1,20 @@
+{% if data.page.buttons is defined and data.page.buttons is not empty %}
+    {% set buttons = data.page.buttons|json_decode %}
+{% else %}
+    {% if data.page.type is defined and ( data.page.type == 'list' or data.page.type == 'dashboard' ) %}
+        {% set buttons = '[]'|json_decode %}
+    {% else %}
+        {% set hidden_class = null %}
+        {% if data.page.type is defined and data.page.type == 'form' %}
+            {% set hidden_class = ' hidden get_buttons_hidden' %}
+        {% endif %}
+        {% set buttons = '[{"type":"button","name":"Save","class":"btn-primary btn-blue' ~ hidden_class ~ '","url":"","action":"return"},{"type":"button","name":"Save and continue","class":"btn-primary btn-blue' ~ hidden_class ~ '","url":"","action":"continue"},{"type":"link","name":"Back","class":"btn-default btn-red' ~ hidden_class ~ '","url":"","action":"back"}]' %}
+        {% set buttons = buttons|json_decode %}
+    {% endif %}
+{% endif %}
+{% if data.model.entity is defined and data.model.entity is not empty %}
+    {% if data.model.entity.locked is not null %}
+        {% set locked = 1 %}
+    {% endif %}
+{% endif %}
+{{ include('AppBundle:Includes:buttons.html.twig') }}

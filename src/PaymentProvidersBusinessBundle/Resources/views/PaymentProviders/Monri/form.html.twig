@@ -1,0 +1,20 @@
+<div class="hidden payment-form">
+    <form name="pay" id="monri{{ data.cart }}" action="{{ data.action }}" method="POST">
+        {% if data.ch_full_name is defined and data.ch_full_name is not empty %}<input type="hidden" name="ch_full_name" value="{{ data.ch_full_name }}">{% endif %}
+        {% if data.ch_address is defined and data.ch_address is not empty %}<input type="hidden" name="ch_address" value="{{ data.ch_address }}">{% endif %}
+        {% if data.ch_city is defined and data.ch_city is not empty %}<input type="hidden" name="ch_city" value="{{ data.ch_city }}">{% endif %}
+        {% if data.ch_zip is defined and data.ch_zip is not empty %}<input type="hidden" name="ch_zip" value="{{ data.ch_zip }}">{% endif %}
+        {% if data.ch_country is defined and data.ch_country is not empty %}<input type="hidden" name="ch_country" value="{{ data.ch_country }}">{% endif %}
+        {% if data.ch_phone is defined and data.ch_phone is not empty %}<input type="hidden" name="ch_phone" value="{{ data.ch_phone }}">{% endif %}
+        {% if data.ch_email is defined and data.ch_email is not empty %}<input type="hidden" name="ch_email" value="{{ data.ch_email }}">{% endif %}
+        {% if data.order_info is defined and data.order_info is not empty %}<input type="hidden" name="order_info" value="{{ data.order_info }}">{% endif %}
+        {% if data.order_number is defined and data.order_number is not empty %}<input type="hidden" name="order_number" value="{{ data.order_number }}">{% endif %}
+        {% if data.amount is defined and data.amount is not empty %}<input type="hidden" name="amount" value="{{ data.amount }}">{% endif %}
+        {% if data.currency is defined and data.currency is not empty %}<input type="hidden" name="currency" value="{{ data.currency }}">{% endif %}
+        {% if data.language is defined and data.language is not empty %}<input type="hidden" name="language" value="{{ data.language }}">{% endif %}
+        {% if data.transaction_type is defined and data.transaction_type is not empty %}<input type="hidden" name="transaction_type" value="{{ data.transaction_type }}">{% endif %}
+        {% if data.authenticity_token is defined and data.authenticity_token is not empty %}<input type="hidden" name="authenticity_token" value="{{ data.authenticity_token }}">{% endif %}
+        {% if data.digest is defined and data.digest is not empty %}<input type="hidden" name="digest" value="{{ data.digest }}">{% endif %}
+        <input type="submit" value="Buy">
+    </form>
+</div>

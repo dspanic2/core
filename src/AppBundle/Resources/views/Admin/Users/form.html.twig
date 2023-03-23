@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ generate_admin_title(entity, managed_entity_type|trans) }}{% endblock %}
+
+{% block header %}
+    {% block main_actions %}
+        {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}" accept-charset="UTF-8"
+                      data-callback=''
+                      data-type="{{ managed_entity_type }}"
+                      class="form-horizontal row-border">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% if entity is not empty %}{% trans %}Update{% endtrans %} {{ managed_entity_type|trans }}{% else %}{% trans %}Create{% endtrans %} {{ managed_entity_type|trans }}{% endif %}</h4>
+                                    {% if entity.id is defined and entity is not empty %}
+                                        <div class="options">
+                                            <a href="{{ path(managed_entity_type ~ '_view_form', {'id': entity.id}) }}"><i class="fa fa-eye"></i></a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row hidden">
+                                            <div class="col-sm-6">
+                                                <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Username{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="username" class="form-control" data-fv-notempty="true" minlength="6" data-fv-stringlength-message="{% trans %}Username name must have at least 6 characters{% endtrans %}" data-fv-notempty-message="{% trans %}Please fill in the username{% endtrans %}" {% if entity is not empty %}value="{{ entity.username }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}e-mail{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="email" class="form-control" data-fv-notempty="true" data-fv-emailaddress="true" data-fv-emailaddress-message="{% trans %}Plesae enter a correct e-mail{% endtrans %}" data-fv-notempty-message="{% trans %}Please fill in the e-mail{% endtrans %}" {% if entity is not empty %}value="{{ entity.email }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Roles{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="roles[]" data-type="multiselect" class="form-control" data-fv-notempty="true" multiple="multiple" data-fv-notempty-message="{% trans %}Please select user roles{% endtrans %}">
+                                                    {% for role in roles %}
+                                                        <option value="{{ role.id }}" {% apply spaceless %}
+                                                            {% if entity is not empty %}
+                                                                {% for value in entity.UserRoles %}
+                                                                    {% if value.Role.id == role.id %}selected="selected"{% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                                {% endapply %}>{{ role.roleCode|trans }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}System role{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="system_role" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select the system role{% endtrans %}">
+                                                    <option value="ROLE_USER" {% if entity is not empty %}{% if "ROLE_USER" in entity.roles %}selected="selected"{% endif %}{% endif %}>{% trans %}ROLE_USER{% endtrans %}</option>
+                                                    <option value="ROLE_ADMIN" {% if entity is not empty %}{% if "ROLE_ADMIN" in entity.roles %}selected="selected"{% endif %}{% endif %}>{% trans %}ROLE_ADMIN{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {% if entity is empty %}
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Password{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input data-lpignore="true" type="password" name="password" class="form-control" minlength="6" data-fv-stringlength-message="{% trans %}Password needs to have at least 6 characters{% endtrans %}" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in the password{% endtrans %}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Repeat password{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input data-lpignore="true" type="password" name="password_again" class="form-control" data-fv-identical="true" data-fv-identical-field="password" data-fv-identical-message="{% trans %}Passwords are not the same{% endtrans %}" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in the confirm password{% endtrans %}"/>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Multi-Factor Authentication{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <div class="checkbox">
+                                                        {% if entity.googleAuthenticatorSecret %}
+                                                            <label>
+                                                                <input
+                                                                        {% if entity.googleAuthenticatorSecret %}checked="checked"{% endif %}
+                                                                        name="mfa_google_authenticator_enabled"
+                                                                        type="checkbox"/>{% trans %}Enabled{% endtrans %}
+                                                            </label>
+                                                        {% else %}
+                                                            {% trans %}Not enabled.{% endtrans %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </fieldset>
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-7 col-sm-offset-2">
+                                                <div class="btn-toolbar">
+                                                    {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

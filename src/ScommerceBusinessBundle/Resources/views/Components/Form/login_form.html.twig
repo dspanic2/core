@@ -1,0 +1,30 @@
+<form id="login"
+      action="/login_customer"
+      class="ajax-submit">
+
+    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+
+    <div class="form-section account">
+        <div class="row form-row">
+            <div class="form-group username col-xs-12">
+                <label for="username">{% trans into current_language %}Username or email address{% endtrans %}*</label>
+                <input type="text" name="email" required class="full-width">
+            </div>
+        </div>
+
+        <div class="row form-row">
+            <div class="form-group password col-xs-12">
+                <label for="password">{% trans into current_language %}Password{% endtrans %}*</label>
+                <input type="password" name="password" autocomplete="on" required class="full-width no-validate">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group submit">
+        <input type="submit" value="{% trans into current_language %}Sign in{% endtrans %}" class="button btn-type-1">
+    </div>
+
+    <div class="form-group submit">
+        <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,68,"s_page") }}" class="forgot-password">{% trans into current_language %}Forgot password{% endtrans %}?</a> | <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,52,"s_page") }}" class="forgot-password">{% trans into current_language %}Create account{% endtrans %}</a>
+    </div>
+</form>

@@ -1,0 +1,9 @@
+{% set savings = get_bundle_savings_calculation(parent_product, include|default([])) %}
+<div class="total-item">
+    <span class="total-label">{% trans %}Total{% endtrans %}</span> <span
+            class="total-value"><strong>{{ savings.total_bundle_price|number_format(2, ',', '.') }} {{ savings.currency_code }}</strong></span>
+</div>
+<div class="total-item">
+    <span class="total-saved-label">{% trans %}Total saved{% endtrans %}</span> <span
+            class="total-saved-value"><strong>{{ savings.total_discount_price|number_format(2, ',', '.') }} {{ savings.currency_code }}</strong></span>
+</div>

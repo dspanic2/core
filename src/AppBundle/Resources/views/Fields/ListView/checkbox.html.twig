@@ -1,0 +1,30 @@
+{% set td_value %}
+    {% if value == 1 %}
+        {{ "Yes"|trans }}
+    {% else %}
+        {{ "No"|trans }}
+    {% endif %}
+{% endset %}
+
+{% if field.listMode == "edit" and not attribute.readOnly and field.listViewAttribute.enableInlineEditing == 1 %}
+    <td title="{{ td_value }}" {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %} {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>
+        <input class="form-control" type="hidden" data-action="checkbox-value" name="{{ attribute.attributeCode }}" value="{% if value is not empty and value == 1 %}1{% else %}0{% endif %}"/>
+        <input data-off-text="{% trans %}No{% endtrans %}"
+               data-on-text="{% trans %}Yes{% endtrans %}"
+               type="checkbox"
+               name="{{ attribute.attributeCode }}_checkbox"
+               data-type="bchackbox"
+               {% if value is not empty and value == 1 %}checked="checked"{% endif %}
+               value="1"/>
+    </td>
+{% else %}
+    <td title="{{ td_value }}" {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+        {% if value == 1 %}
+            <span class="sp-true"
+                  {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>{{ td_value }}</span>
+        {% else %}
+            <span class="sp-false"
+                  {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>{{ td_value }}</span>
+        {% endif %}
+    </td>
+{% endif %}

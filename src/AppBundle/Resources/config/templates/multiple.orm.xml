@@ -1,0 +1,10 @@
+<many-to-many field="%1$s" target-entity="%2$s" fetch="LAZY">
+    <join-table name="%3$s">
+        <join-columns>
+            <join-column name="%4$s" referenced-column-name="id" />
+        </join-columns>
+        <inverse-join-columns>
+            <join-column name="%5$s" referenced-column-name="id" />
+        </inverse-join-columns>
+    </join-table>
+</many-to-many>

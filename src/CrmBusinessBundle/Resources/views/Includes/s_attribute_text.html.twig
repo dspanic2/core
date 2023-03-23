@@ -1,0 +1,23 @@
+<div class="col-sm-4">
+    <div class="form-group sp-search-group">
+        <div class="row">
+            <label class="col-sm-12 control-label">{{ attribute.name|trans }}</label>
+            <div class="col-sm-4">
+                <select name="search_type" class="form-control">
+                    <option value="bw" {% if search_type is defined and search_type is not empty and search_type == "bw" %}selected="selected"{% endif %}>{% trans %}search_type_bw{% endtrans %}</option>
+                    <option value="eq" {% if search_type is defined and search_type is not empty and search_type == "eq" %}selected="selected"{% endif %}>{% trans %}search_type_eq{% endtrans %}</option>
+                    <option value="bs" {% if search_type is defined and search_type is not empty and search_type == "bs" %}selected="selected"{% endif %}>{% trans %}search_type_bs{% endtrans %}</option>
+                    <option value="ew" {% if search_type is defined and search_type is not empty and search_type == "ew" %}selected="selected"{% endif %}>{% trans %}search_type_ew{% endtrans %}</option>
+                    <option value="nc" {% if search_type is defined and search_type is not empty and search_type == "nc" %}selected="selected"{% endif %}>{% trans %}search_type_nc{% endtrans %}</option>
+                    <option value="bn" {% if search_type is defined and search_type is not empty and search_type == "bn" %}selected="selected"{% endif %}>{% trans %}search_type_bn{% endtrans %}</option>
+                    <option value="en" {% if search_type is defined and search_type is not empty and search_type == "en" %}selected="selected"{% endif %}>{% trans %}search_type_en{% endtrans %}</option>
+                    <option value="in" {% if search_type is defined and search_type is not empty and search_type == "in" %}selected="selected"{% endif %}>{% trans %}search_type_in{% endtrans %}</option>
+                    <option value="ni" {% if search_type is defined and search_type is not empty and search_type == "ni" %}selected="selected"{% endif %}>{% trans %}search_type_ni{% endtrans %}</option>
+                </select>
+            </div>
+            <div class="col-sm-8 sp-search-item" data-search_type="bw">
+                <input data-id="s_{{ attribute.id }}" type="text" name="s.{{ attribute.filterKey }}" class="form-control" {% if value is defined and value is not empty %}value="{{ value }}"{% endif %}/>
+            </div>
+        </div>
+    </div>
+</div>

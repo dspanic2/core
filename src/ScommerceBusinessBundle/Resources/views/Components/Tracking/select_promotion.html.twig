@@ -1,0 +1,39 @@
+{% apply spaceless %}
+    {% set trackingCode %}
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'ga4_select_promotion',
+                'ecommerce': {
+                    'items': [{
+                        'item_id': '',
+                        'item_name': '',
+                        'promotion_id': '{{ promotion_id|default(0) }}',
+                        'promotion_name': '{{ promotion_name|default(0)|striptags }}',
+                        'location_id': 'homepage',
+                        'index': {{ promotion_index|default(0) }}
+                    }]
+                }
+            });
+        </script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'ga3_selectPromotion',
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                            {
+                                'id': '{{ promotion_id|default(0) }}',
+                                'name': '{{ promotion_name|default(0)|striptags }}',
+                                'creative': '{{ promotion_id|default(0) }}',
+                                'position': '{{ promotion_index|default(0) }}'
+                            }]
+                    }
+                }
+            });
+        </script>
+    {% endset %}
+    {# Cisto da se kod formatira u phpstormu, ali za execute ne trebaju script tagovi #}
+    {{ trackingCode|striptags|raw }}
+{% endapply %}

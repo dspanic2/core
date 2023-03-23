@@ -1,0 +1,7 @@
+{% if attribute is defined %}{% apply spaceless %}
+    {% set value = attribute(field_data, attribute) %}
+    {% if value is iterable %}
+        {% set value = value|first %}
+    {% endif %}
+    {{ value }}
+{% endapply %}{% endif %}

@@ -1,0 +1,12 @@
+<div class="row" data-attribute-id="{{ attribute.id }}" data-field-wrapper="true">
+    <div class="col-sm-10 col-xs-10">
+        {{ render(controller('AppBundle:Forms:advancedSearchField', {'attribute': attribute, 'value': value, 'search_type': search_type }))}}
+    </div>
+    <div class="col-sm-2 col-xs-2">
+    <button type="button" class="sp-btn btn-danger btn"
+            data-attribute-code="{{ attribute.attributeCode }}"
+            data-action="delete_bulk_price_attribute"
+            title="{% trans %}Delete{% endtrans %}"><i
+                class="glyphicon glyphicon-remove"></i></button>
+    </div>
+</div>

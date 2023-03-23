@@ -1,0 +1,8 @@
+services:
+
+ project_gantt_block:
+    class:  ProjectManagementBusinessBundle\Blocks\ProjectGanttBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+

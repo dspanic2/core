@@ -1,0 +1,24 @@
+services:
+  wiki_manager:
+    class: WikiBusinessBundle\Managers\WikiManager
+    calls:
+      - [ setContainer, ["@service_container"] ]
+      - [ initialize ]
+
+  wiki_route_manager:
+    class: WikiBusinessBundle\Managers\WikiRouteManager
+    calls:
+      - [ setContainer, ["@service_container"] ]
+      - [ initialize ]
+
+  wiki_page_autocomplete_manager:
+    class:  WikiBusinessBundle\Managers\WikiPageAutocompleteManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  wiki_topic_autocomplete_manager:
+    class:  WikiBusinessBundle\Managers\WikiTopicAutocompleteManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]

@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="sp-block">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 main-content">
+                <div class="panel panel-midnightblue">
+                    <div class="panel-body collapse in table-panel-body ">
+                        <table cellpadding="0" cellspacing="0" border="0"
+                               class="table table-striped table-bordered datatables fixed-columns sync-compare-table">
+                            <thead class="sp-table-header">
+                            <tr class="sp-table-width">
+                                <th>Bundle</th>
+                                <th>Local</th>
+                                <th>Remote</th>
+                                <th>Status</th>
+                                <th>Select</th>
+                                <th>Difference</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in results %}
+                            <tr class="compare-result {{ item.state }}">
+                                <td>  {{ item.remote.bundle }} </td>
+                                <td>  {% if  item.local!="" %}{{ item.local.attributeSetCode }}{% endif %}</td>
+                                <td>  {{ item.remote.attributeSetCode }}</td>
+                                <td>  {{ item.state }}</td>
+                                <td>  {% if item.state !="unmodified" %}
+                                        <input type="checkbox"
+                                               name="checked_items"
+                                               value="{{ item.remote.uid }}"/>{% endif %}
+                                </td>
+                                <td>
+                                    {% if item.state =="modified" %}
+                                        <a target="_blank"
+                                                href="{{ path('administrator_difference', {'uid': item.remote.uid, 'remote_url':remote_url,'core_type':compare_type}) }}"
+                                                role="button"
+                                                tabindex="0">{% trans %}Difference{% endtrans %}</a>
+                                    {% endif %}
+                                </td>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container -->

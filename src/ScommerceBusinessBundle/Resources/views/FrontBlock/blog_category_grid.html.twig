@@ -1,0 +1,29 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} blog-grid {{ data.block.class }}" {% if data.page.templateType.code == "blog_category" %}data-category-id="{{ data.page.id }}"{% endif %}>
+    {% if data.model.subtitle is not empty %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="section-title">{{ data.model.subtitle }}</div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-xs-12 items-grid grid-view columns-4">
+            {% for category in data.model.categories %}
+                <div class="item">
+                    {% set name = get_entity_store_attribute(current_store_id,category,"name") %}
+                    <a href="{{ category.getUrlPath(current_store_id) }}">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                            'image': category.getSelectedImage,
+                            'directory':'blog_category_image',
+                            'image_style': 'category_item',
+                            'alt_default': name
+                        }}, {})) }}
+                        <h3>
+                            <div>{{ name }}<span class="chevron-right"></span></div>
+                        </h3>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

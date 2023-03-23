@@ -1,0 +1,39 @@
+{% macro renderMenu(menuItems, level = 1, class = "", offset = 0, limit = 0) %}
+    {% if level <= 3 %}
+        <ul class="{{ class }} level-{{ level }}">
+            {% if limit == 0 %}
+                {% set limit = menuItems|length %}
+            {% endif %}
+            {% for i in offset..limit %}
+                {% if menuItems[i] is defined %}
+                    {% set menu_item = menuItems[i] %}
+                    {% if menu_item.show == 1 %}
+                        <li {% if menu_item.css_class is not empty %}class="{{ menu_item.css_class }}"{% endif %}>
+                            {% if menu_item.children is defined and menu_item.children is not empty and level == 1 %}
+                                <span class="menu-toggle">{{ menu_item.text }} <i
+                                            class="fi-xnsdxl-chevron-solid"></i></span>
+                            {% else %}
+                                {% set url = current_language_url~"/"~menu_item.url %}
+                                <a href="{{ url|replace({ '//': '/' }) }}" title="{{ menu_item.text }}">{{ menu_item.text }}</a>
+                            {% endif %}
+                            {% if menu_item.children is defined and menu_item.children is not empty %}
+                                {% set level = level +1 %}
+                                {% if level == 2 %}
+                                    <div class="submenu-wrapper">
+                                        <div class="container">
+                                            {{ _self.renderMenu(menu_item.children, level, "submenu") }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {{ _self.renderMenu(menu_item.children, level, "submenu") }}
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+ {{ _self.renderMenu(menu,1,"main-menu",0,0) }}

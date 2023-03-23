@@ -1,0 +1,23 @@
+.growl.growl-error {
+  background-color: $primary_color;
+}
+
+.growl.growl-error {
+  background-color: $error;
+}
+
+.growl.growl-notice {
+  background-color: $notice;
+}
+
+.growl.growl-warning {
+  /*background-color: #ffb000;*/
+}
+
+.grid-view > .item:not(.added):hover {
+  border-color: $notice;
+}
+
+.grid-view > .item.added > .overlay {
+  color: $notice;
+}

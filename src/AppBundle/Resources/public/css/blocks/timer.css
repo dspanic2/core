@@ -1,0 +1,4 @@
+.activity-timer-placeholder .timer-running:not(.active),
+.activity-timer-placeholder .timer-stopped:not(.active) {
+    display: none;
+}

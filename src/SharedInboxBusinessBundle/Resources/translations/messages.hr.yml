@@ -1,0 +1,20 @@
+# shared_inbox_connection_entity
+Host: Poslužitelj
+Use SSL: SSL
+Username: Korisničko ime
+Password: Lozinka
+Type: Vrsta
+Save attachments: Spremi priloge
+Create ticket: Napravi ticket
+Default ticket user: Zadani korisnik ticketa
+Reply notification type: Vrsta obavijesti o dogovoru
+Last message number: Broj zadnje poruke
+
+# email_entity
+Parent email: Prethodni email
+Body: Sadržaj
+
+Details: Detalji
+Email attachments: Privitci
+
+Correspondence: Prepiska

@@ -1,0 +1,123 @@
+<div class='overlay' id='order-return-modal'>
+    <div class="inner">
+        <div class="row form-row full-width margin-bottom-0">
+            <div class="form-group col-xs-12">
+                <h2 class="styled-title">{% trans into current_language %}Return data{% endtrans %}</h2>
+            </div>
+        </div>
+        <form id="order-return">
+            <input type="hidden" name="order" value="{{ data.order }}">
+            <input type="hidden" name="items" value="{% apply spaceless %}{{ (data.items)|json_encode(constant('JSON_PRETTY_PRINT')) }}{% endapply %}">
+
+            <div class="row form-row full-width margin-bottom-0">
+                <div class="form-group col-xs-12">
+                    <label>{% trans into current_language %}Pickup date{% endtrans %}*
+                        <input type="text"
+                               name="date"
+                               autocomplete="off"
+                               class="datetimepicker"
+                               placeholder=" "
+                               required>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row form-row full-width margin-bottom-0">
+                <div class="form-group col-xs-12">
+                    {% set bankAccounts = get_bank_accounts() %}
+                    <select class="form-control"
+                            name="bank_account"
+                            required>
+                        <option value="" selected="selected">{% trans into current_language %}Select bank account{% endtrans %}*</option>
+                        {% for bankAccount in bankAccounts %}
+                            <option value="{{ bankAccount.id }}">{{ get_entity_store_attribute(current_store_id,bankAccount,"iban") }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row form-row full-width margin-bottom-0">
+                <div class="form-group col-xs-12">
+                    <button class="button btn-type-2 return-add-new-bank-account">{% trans into current_language %}Add new bank account{% endtrans %}</button>
+                </div>
+            </div>
+
+            <div class="row form-row full-width margin-bottom-0">
+                <div class="form-group col-xs-12">
+                    {% set addresses = get_addresses() %}
+                    <select class="form-control"
+                            name="address"
+                            required>
+                        <option value="" selected="selected">{% trans into current_language %}Select pickup address{% endtrans %}*</option>
+                        {% for address in addresses %}
+                            {% set street = address.street %}
+                            {% set city = get_entity_store_attribute(current_store_id,address.city,"name") %}
+                            {% set postalCode = address.city.postalCode %}
+                            {% set country = get_entity_store_attribute(current_store_id,address.city.country,"name") %}
+                            {% set addressText = street ~ ", " ~ city ~ ", " ~ postalCode ~ ", " ~ country %}
+                            <option value="{{ address.id }}">{{ addressText }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row form-row full-width margin-bottom-0">
+                <div class="form-group col-xs-12">
+                    <button class="button btn-type-2 return-add-new-address">{% trans into current_language %}Add new address{% endtrans %}</button>
+                </div>
+            </div>
+
+            <div class="row form-row full-width margin-bottom-0">
+                <div class="form-group col-xs-12">
+                    <label>{% trans into current_language %}Return reason{% endtrans %}*
+                        <textarea name="return_reason"
+                                  placeholder=" "
+                                  required
+                                  rows="2"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="row form-row full-width margin-bottom-0">
+                <div class="form-group col-xs-12">
+                    <label>{% trans into current_language %}Delivery message{% endtrans %}*
+                        <textarea name="delivery_message"
+                                  placeholder=" "
+                                  rows="2"></textarea>
+                    </label>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="button submit-return-request btn-type-1" data-url="/dashboard/return_order">{% trans into current_language %}Send return request{% endtrans %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-add-new">
+    <div class="return-new-bank-account dashboard-add-new-form overlay">
+        <div class="inner">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:bank_account_form.html.twig', 'data': {
+                'bank_account': null,
+                'triggerAction': 'global:page-reload',
+                'classes': 'no-remove',
+                'enable_cancel': 1
+            }}, {})) }}
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-add-new">
+    <div class="return-new-address dashboard-add-new-form overlay">
+        <div class="inner">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:address_form.html.twig', 'data': {
+                'address': null,
+                'triggerAction': 'global:page-reload',
+                'classes': 'no-remove',
+                'show_first_last_input': 1,
+                'enable_cancel': 1,
+                'horizontal': 1
+            }}, {})) }}
+        </div>
+    </div>
+</div>

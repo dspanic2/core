@@ -1,0 +1,197 @@
+{% if not is_user_logged_in() %}
+    <div class="row form-row">
+        <div class="form-group email col-xs-12">
+            <label class="plain smaller-responsive force-visible label-checkbox">
+                <input type="checkbox"
+                       name="shipping_address_same"
+                       id="delivery_address"
+                       {% if data.model.shipping_address is defined and data.model.shipping_address is not empty and data.model.billing_address is defined and data.model.billing_address is not empty and data.model.billing_address.id != data.model.shipping_address.id %}{% else %}checked{% endif %}/> {% trans into current_language %}Same as in personal data{% endtrans %}
+            </label>
+        </div>
+    </div>
+    <div class="delivery-address-data optional" style="display: none;">
+        <div class="row form-row full-width">
+            <div class="form-group col-xs-12 col-sm-4">
+                <label><span class="label-text">{% trans into current_language %}First name{% endtrans %}</span>
+                    <input type="text" name="shipping_first_name"
+                           placeholder="{% trans into current_language %}First name{% endtrans %}"
+                           value="{% if data.model.shipping_address is defined and data.model.shipping_address is not empty %}{{ data.model.shipping_address.firstName }}{% endif %}">
+                </label>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4">
+                <label><span class="label-text">{% trans into current_language %}Last name{% endtrans %}</span>
+                    <input type="text" name="shipping_last_name"
+                           placeholder="{% trans into current_language %}Last name{% endtrans %}"
+                           value="{% if data.model.shipping_address is defined and data.model.shipping_address is not empty %}{{ data.model.shipping_address.lastName }}{% endif %}">
+                </label>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4">
+                <label><span class="label-text">{% trans into current_language %}Phone{% endtrans %}</span>
+                    <input type="tel"
+                           placeholder="{% trans into current_language %}Phone{% endtrans %}"
+                           name="shipping_phone"
+                           data-label="{% trans into current_language %}Phone{% endtrans %}"
+                           pattern="[0-9]{8,12}"
+                           minlength="7" maxlength="12"
+                           oninput="this.setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('{% trans into current_language %}Please enter value in the correct format.{% endtrans %}')"
+                           value="{% if data.model.shipping_address is defined and data.model.shipping_address is not empty and data.model.billing_address is defined and data.model.billing_address is not empty and data.model.shipping_address.id != data.model.billing_address.id and data.model.shipping_address.phone is defined %}{{ data.model.shipping_address.phone }}{% endif %}">
+                </label>
+                <span class="form-note">{% trans into current_language %}Format{% endtrans %}: 09X1234567 {% trans into current_language %}or{% endtrans %} 00XXX1234567</span>
+            </div>
+        </div>
+        <div class="row form-row full-width">
+            <div class="form-group state col-xs-12 col-sm-6 {% if get_env("USE_SIMPLE_SELECT") != 1 %}has-select2{% endif %}">
+                <label><span class="label-text">{% trans into current_language %}Country{% endtrans %}*</span>
+                    {% if get_env("USE_SIMPLE_SELECT") == 1 %}
+                        {% set countries = get_available_countries() %}
+                        <select data-dependent-field="city_id"
+                                class="form-control"
+                                name="shipping_country_id"
+                                data-search-url="/register/get_country_autocomplete"
+                                oninput="this.setCustomValidity('')"
+                                oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                                required>
+                            <option value="" selected="selected">{% trans into current_language %}Select country{% endtrans %}</option>
+                            {% for country in countries %}
+                                <option value="{{ country.id }}" {% if data.model.billing_country is defined and data.model.billing_country is not empty and data.model.billing_country.id == country.id %}selected{% endif %}>{{ get_entity_store_attribute(current_store_id,country,"name") }}</option>
+                            {% endfor %}
+                        </select>
+                    {% else %}
+                        <select data-template="default"
+                                data-label="{% trans into current_language %}Country{% endtrans %}"
+                                data-type="lookup"
+                                data-search-url="/register/get_country_autocomplete"
+                                data-dependent-field="city_id"
+                                class="form-control"
+                                data-min-len="0"
+                                data-single="true"
+                                name="shipping_country_id"
+                                data-placeholder="{% trans into current_language %}Select country{% endtrans %}*"
+                                data-allow-clear="true"
+                                tabindex="-1"
+                                aria-hidden="true"
+                                oninput="this.setCustomValidity('')"
+                                oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                                required>
+                            {% if data.model.shipping_country is defined and data.model.shipping_country is not empty and data.model.billing_country is defined and data.model.billing_country is not empty and data.model.shipping_country.id != data.model.billing_country.id %}
+                                <option value="{{ data.model.shipping_country.id }}" selected>{{ get_entity_store_attribute(current_store_id,data.model.shipping_country,"name") }}</option>
+                            {% endif %}
+                        </select>
+                    {% endif %}
+                </label>
+            </div>
+            {% if get_env("SHOW_CITY_AS_DROPDOWN")|default(0) %}
+                <div class="form-group city col-xs-12 col-sm-6 has-select2">
+                    <label><span class="label-text">{% trans into current_language %}City{% endtrans %}*</span>
+                        <select data-template="default"
+                                data-type="lookup"
+                                data-search-url="/register/get_city_autocomplete"
+                                data-preselect-id=""
+                                data-preselect-text=""
+                                class="form-control"
+                                data-min-len="0"
+                                data-single="true"
+                                name="shipping_city_id"
+                                data-allow-clear="true"
+                                data-placeholder="{% trans %}Select city{% endtrans %}"
+                                tabindex="-1"
+                                aria-hidden="true"
+                                oninput="this.setCustomValidity('')"
+                                oninvalid="this.setCustomValidity('{% trans %}Please select value from the list.{% endtrans %}')"
+                                required>
+                            {% if data.model.shipping_address is defined and data.model.shipping_address is not empty and data.model.billing_address is defined and data.model.billing_address is not empty and data.model.shipping_address.id != data.model.billing_address.id %}
+                                <option value="{{ data.model.shipping_address.city.id }}">{{ get_entity_store_attribute(current_store_id,data.model.shipping_address.city,"name") }}</option>
+                            {% endif %}
+                        </select>
+                    </label>
+                </div>
+            </div>
+            {% else %}
+            </div>
+                <div class="row form-row full-width">
+                    <div class="form-group city col-xs-12 col-sm-6">
+                        <label><span class="label-text">{% trans into current_language %}City{% endtrans %}*</span>
+                            <input type="text"
+                                   name="shipping_city_name"
+                                   placeholder="{% trans into current_language %}City{% endtrans %}*"
+                                   oninput="this.setCustomValidity('')"
+                                   oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                                   required
+                                   value="{% if data.model.shipping_address is defined and data.model.shipping_address is not empty and data.model.billing_address is defined and data.model.billing_address is not empty and data.model.shipping_address.id != data.model.billing_address.id %}{{ data.model.shipping_address.city.name }}{% endif %}">
+                        </label>
+                    </div>
+                    <div class="form-group postal_code col-xs-12 col-sm-6">
+                        <label><span class="label-text">{% trans into current_language %}Postal code{% endtrans %}*</span>
+                            <input type="text"
+                                   name="shipping_postal_code"
+                                   placeholder="{% trans into current_language %}Postal code{% endtrans %}*"
+                                   pattern="([1-9][0-9]{3,9})"
+                                   minlength="4" maxlength="12"
+                                   oninput="this.setCustomValidity('')"
+                                   oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                                   required
+                                   value="{% if data.model.shipping_address is defined and data.model.shipping_address is not empty and data.model.billing_address is defined and data.model.billing_address is not empty and data.model.shipping_address.id != data.model.billing_address.id %}{{ data.model.shipping_address.city.postalCode }}{% endif %}">
+                        </label>
+                    </div>
+                </div>
+            {% endif %}
+        <div class="row form-row full-width">
+            <div class="form-group address col-xs-12">
+                <label><span class="label-text">{% trans into current_language %}Address{% endtrans %}*</span>
+                    <input type="text"
+                           placeholder="{% trans into current_language %}Address{% endtrans %}*"
+                           name="shipping_street"
+                           data-label="{% trans into current_language %}Address{% endtrans %}"
+                           required
+                           oninput="this.setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                           value="{% if data.model.shipping_address is defined and data.model.shipping_address is not empty and data.model.billing_address is defined and data.model.billing_address is not empty and data.model.shipping_address.id != data.model.billing_address.id %}{{ data.model.shipping_address.getStreet }}{% endif %}">
+                </label>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="row form-row">
+        {% set addresses = data.model.account.getAddresses() %}
+        <div class="form-group email col-xs-12">
+            <select name="account_shipping_address_id"
+                    style="{% if addresses is empty %}display:none;{% endif %}"
+                    data-label="{% trans into current_language %}Delivery address{% endtrans %}"
+                    oninput="this.setCustomValidity('')"
+                    oninvalid="this.setCustomValidity('{% trans into current_language %}Please select item from the list.{% endtrans %}')"
+                    required>
+                {% for address in addresses %}
+                    {% set street = address.street %}
+                    {% set city = get_entity_store_attribute(current_store_id,address.city,"name") %}
+                    {% set postalCode = address.city.postalCode %}
+                    {% set country = get_entity_store_attribute(current_store_id,address.city.country,"name") %}
+
+                    {% set addressText = street ~ ", " ~ city ~ ", " ~ postalCode ~ ", " ~ country %}
+                    {% if address.firstName is not empty %}
+                        {% set addressText = address.firstName ~ " " ~ address.lastName ~ ", " ~ addressText %}
+                    {% endif %}
+                    <option value="{{ address.id }}" {% if address.defaultShippingAddress is defined and address.defaultShippingAddress == 1 %}selected="selected"{% endif %} {% if data.model.shipping_address is not empty and data.model.shipping_address.id == address.id %}selected="selected"{% endif %}>{{ addressText }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="dashboard-add-new optional">
+        <div class="add-new-address-form overlay">
+            <div class="inner">
+                <span class="overlay-close">×</span>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form/UserProfile:address_form.html.twig', 'data': {
+                    'data': data,
+                    'address': null,
+                    'triggerAction': 'global:page-reload',
+                    'classes': 'no-remove label-hidden',
+                    'horizontal': 1,
+                    'show_first_last_input': 1,
+                    'enable_cancel': 1,
+                    'enable_remove': 0
+                }}, {})) }}
+            </div>
+        </div>
+        <button class="button btn-type-1 add-new-button local-overlay">{% trans into current_language %}Add new address{% endtrans %}</button>
+    </div>
+{% endif %}

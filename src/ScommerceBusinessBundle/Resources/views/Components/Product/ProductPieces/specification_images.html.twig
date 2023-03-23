@@ -1,0 +1,42 @@
+{% set display = false %}
+{% set output = "" %}
+{% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+
+{% for attribute in product.getPreparedProductAttributes %}
+    {% if attribute.attribute.getSelectedImage is not empty %}
+        {% set display = true %}
+        {% set image_url = "/Documents/s_product_attribute_configuration_image/"  ~ attribute.attribute.getSelectedImage().file %}
+        {% apply spaceless %}
+            {% set itemOutput %}
+                <div class="item">
+                    <div class="attr-title">{{ attribute.attribute.name|trans }}</div>
+                    <div class="attr-image">
+                        <img src="{{ image_url }}"
+                             alt="{% if attribute.attribute.getSelectedImage.alt is defined and attribute.attribute.getSelectedImage.alt is not empty %}{{ attribute.attribute.getSelectedImage.alt }}{% else %}{{ product_title }}{% endif %}"
+                             title="{% if attribute.attribute.getSelectedImage.title is defined and attribute.attribute.getSelectedImage.title is not empty %}{{ attribute.attribute.getSelectedImage.title }}{% else %}{{ product_title }}{% endif %}"/>
+                    </div>
+                    <div class="attr-values">
+                        {% for value in attribute.values %}
+                            <div class="attr-value">{{ value.prefix|raw }}{{ value.value|raw }}{{ value.sufix|raw }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endset %}
+        {% endapply %}
+        {% set output = output ~ itemOutput %}
+    {% else %}
+        {# SKIP #}
+    {% endif %}
+{% endfor %}
+
+{% if display %}
+    <div class="specification-images">
+        <div class="background-overlay"></div>
+        {% if show_title %}
+            {% set specs_title = get_entity_store_attribute(current_store_id,product,"specs_title") %}
+            <h2 class="section-title"><strong>Tehnički</strong> podaci
+                za {% if specs_title is not empty %}{{ specs_title }}{% else %}{{ product_title }}{% endif %}</h2>
+        {% endif %}
+        <div class="data">{{ output|raw }}</div>
+    </div>
+{% endif %}

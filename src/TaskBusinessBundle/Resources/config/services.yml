@@ -1,0 +1,16 @@
+services:
+  #    crmbusiness.example:
+  #        class: CrmBusinessBundle\Example
+  #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+  task_completed_field:
+    class: TaskBusinessBundle\Fields\TaskCompletedField
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  activity_actions_field:
+    class: TaskBusinessBundle\Fields\ActivityActionsField
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

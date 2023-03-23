@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <div class="panel panel-midnightblue">
+            <div class="panel-heading master-panel-heading">
+                <h4>{{ layout_type|trans }}</h4>
+            </div>
+            <div class="panel-body collapse in">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#{{ layout_type }}_{{ attribute_set.id }}_layout">{% trans %}Layout{% endtrans %}</a></li>
+                    <li><a data-toggle="tab" href="#{{ layout_type }}_{{ attribute_set.id }}_unused">{% trans %}Unused attribute groups{% endtrans %}</a></li>
+                    <li><a data-toggle="tab" href="#{{ layout_type }}_{{ attribute_set.id }}_general">{% trans %}General attributes{% endtrans %}</a></li>
+                </ul>
+                <div class="tab-content" data-holder="layout_type" data-type="{{ layout_type }}">
+                    <div id="{{ layout_type }}_{{ attribute_set.id }}_layout" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <fieldset class="form-group-wrapper">
+                                    <div class="sort-wrapper" data-holder="used_attribute_groups">
+                                        {% if layout.inner.layout.row is defined %}
+                                            {% for key, row in layout.inner.layout.row %}
+                                                {{ include('AppBundle:Admin/EntityType:row.html.twig') }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="{{ layout_type }}_{{ attribute_set.id }}_unused" class="tab-pane fade in">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <fieldset class="form-group-wrapper" data-holder="unused_attribute_groups" data-url="{{ path('entity_type_get_attribute_group') }}">
+                                    {% for attributeGroup in attribute_set.attributeGroups %}
+                                        {{ include('AppBundle:Admin/EntityType:unused_attribute_group.html.twig') }}
+                                    {% endfor %}
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="{{ layout_type }}_{{ attribute_set.id }}_general" class="tab-pane fade in">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <fieldset class="form-group-wrapper">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Layout{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <select name="attribute_set[{{ attribute_set.id }}][{{ layout_type }}][type]" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                <option value="1column" {% if layout.type is defined and layout.type == '1column' %}selected="selected"{% endif %}>{% trans %}1column{% endtrans %}</option>
+                                                <option value="2column_right" {% if layout.type is defined and layout.type == '2column_right' %}selected="selected"{% endif %}>{% trans %}2column_right{% endtrans %}</option>
+                                                <option value="2column_left" {% if layout.type is defined and layout.type == '2column_left' %}selected="selected"{% endif %}>{% trans %}2column_left{% endtrans %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Show save and continue{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <select name="attribute_set[{{ attribute_set.id }}][{{ layout_type }}][save_and_continue]" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                <option value="1" {% if layout.type is defined and layout.type == '1' %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                <option value="0" {% if layout.type is defined and layout.type == '0' %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

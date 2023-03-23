@@ -1,0 +1,13 @@
+services:
+
+ tree_view_block:
+    class:  WikiBusinessBundle\Blocks\TreeViewBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+ wiki_content_block:
+   class:  WikiBusinessBundle\Blocks\WikiContentBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]

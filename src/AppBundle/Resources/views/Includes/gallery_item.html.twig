@@ -1,0 +1,36 @@
+<div class="sp-gallery-item col-sm-6 col-xs-12 {% if data.selected is defined and data.selected is not empty and entity.selected %}sp-primary{% endif %}" data-gallery-id="{{ entity.id }}">
+    {% if data is not defined or data.subtype is not defined or data.subtype != "view" %}
+        <div class="sp-gallery-actions-wrapper">
+            {% if (app.user.hasPrivilege(4,entity.attributeSet.uid)) or is_granted('ROLE_ADMIN') %}
+                <span class="sp-options-text sp-hover pull-left" data-callback='["removeGalleryItem"]' data-action="standard_action" data-confirm="true" data-id="{{ entity.id }}" data-url="/{{ entity.entityType.entityTypeCode }}/delete/{{ entity.id }}"><i class="sp-icon sp-icon-disable"></i></span>
+            {% endif %}
+            {% if entity.fileType|lower in ['png','jpg','jpeg','bmp','webp','svg'] %}
+                {% if (app.user.hasPrivilege(3,entity.attributeSet.uid)) or is_granted('ROLE_ADMIN') %}
+                    <span class="sp-options-text sp-hover pull-left" data-action="rotate-image" data-id="{{ entity.id }}" data-url="{{ path('rotate_image') }}" data-entity_type_code="{{ entity.entityType.entityTypeCode }}" data-direction="-90"><i class="sp-icon sp-icon-rotate-left"></i></span>
+                    <span class="sp-options-text sp-hover pull-left" data-action="rotate-image" data-id="{{ entity.id }}" data-url="{{ path('rotate_image') }}" data-entity_type_code="{{ entity.entityType.entityTypeCode }}" data-direction="90"><i class="sp-icon sp-icon-rotate-right"></i></span>
+                {% endif %}
+            {% endif %}
+            {% if data.selected is defined and data.selected is not empty %}<span class="sp-options-text sp-hover pull-right {% if entity.selected %}hidden{% endif %}" title="{% trans %}Make primary{% endtrans %}" data-action="set-gallery-item-primary"><i class="sp-icon sp-icon-enable"></i></span>{% endif %}
+        </div>
+    {% endif %}
+    <div class="sp-gallery-item-holder">
+        <input type="hidden" name="image_sort_id[]" value="{{ entity.id }}"/>
+        {% if entity.fileType is defined and entity.fileType is not empty %}
+            {% if entity.fileType|lower in ['png','jpg','jpeg','bmp','webp','svg','gif','jfif'] %}
+                <a data-fancybox="gallery" href="{{ fileAttributeFolder }}{{ entity.file }}">
+                    {% set imagePath = (fileAttributeFolder ~ entity.file)|image_style("list_view_image_thumbnail") %}
+                    {% if imagePath is empty %}
+                        {% set imagePath = fileAttributeFolder ~ entity.file %}
+                    {% endif %}
+                    <img src="{{ imagePath }}?{{ 'now'|date('U') }}"/>
+                </a>
+                <div class="sp-gallery-item-metadata">
+                    <label>{% trans %}Alt{% endtrans %}: <input type="text" placeholder="{% trans %}Enter image alt{% endtrans %}" name="image_alt" value="{% if entity.alt is defined %}{{ entity.alt }}{% endif %}" data-value="{% if entity.alt is defined %}{{ entity.alt }}{% endif %}"/><span class="save hidden" data-entity_type_code="{{ entity.entityType.entityTypeCode }}" data-id="{{ entity.id }}" data-action="set-image-alt" data-url="{{ path('gallery_set_alt') }}"><i class="fa fa-check"></i></span></label>
+                    <label>{% trans %}Title{% endtrans %}: <input type="text" placeholder="{% trans %}Enter image title{% endtrans %}" name="image_title" value="{% if entity.title is defined %}{{ entity.title }}{% endif %}" data-value="{% if entity.title is defined %}{{ entity.title }}{% endif %}"/><span class="save hidden"  data-entity_type_code="{{ entity.entityType.entityTypeCode }}" data-id="{{ entity.id }}" data-action="set-image-title" data-url="{{ path('gallery_set_title') }}"><i class="fa fa-check"></i></span></label>
+                </div>
+            {% else %}
+                <span class="sp-document sp-icon-{{ entity.fileType }}"></span>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

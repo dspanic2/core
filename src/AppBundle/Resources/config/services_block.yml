@@ -1,0 +1,269 @@
+services:
+    #    core_business.example:
+    #        class: AppBundle\Example
+    #        arguments: ["@service_id", "plain_value", %parameter%]
+
+    edit_form_block:
+        class: AppBundle\Blocks\EditFormBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    list_view_block:
+        class: AppBundle\Blocks\ListViewBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    report_view_block:
+        class: AppBundle\Blocks\ReportViewBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    library_view_block:
+        class: AppBundle\Blocks\LibraryViewBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    gallery_block:
+        class: AppBundle\Blocks\GalleryBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    attribute_group_block:
+        class: AppBundle\Blocks\AttributeGroupBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    multiselect_block:
+        class: AppBundle\Blocks\MultiselectBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    checkbox_list_block:
+        class: AppBundle\Blocks\CheckboxListBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    calendar_block:
+        class: AppBundle\Blocks\CalendarBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    kanban_attribute_columns_block:
+        class: AppBundle\Blocks\KanbanAttributeColumnsBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    kanban_custom_columns_block:
+        class: AppBundle\Blocks\KanbanCustomColumnsBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+
+    line_chart_block:
+        class: AppBundle\Blocks\LineChartBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    area_chart_block:
+        class: AppBundle\Blocks\AreaChartBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    pie_chart_block:
+        class: AppBundle\Blocks\PieChartBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    google_authenticator_block:
+        class: AppBundle\Blocks\GoogleAuthenticatorBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    stacked_bar_chart_block:
+        class: AppBundle\Blocks\StackedBarChartBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    bar_chart_block:
+        class: AppBundle\Blocks\BarChartBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    choropleth_chart_block:
+        class: AppBundle\Blocks\ChoroplethChartBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    bubble_chart_block:
+        class: AppBundle\Blocks\BubbleChartBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+
+    role_form_block:
+        class: AppBundle\Blocks\RoleFormBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    user_form_block:
+        class: AppBundle\Blocks\UserFormBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    google_doc_preview_block:
+        class: AppBundle\Blocks\GoogleDocPreviewBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    google_maps_block:
+        class: AppBundle\Blocks\GoogleMapsBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    text_block:
+        class: AppBundle\Blocks\TextBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+    timeline_block:
+        class: AppBundle\Blocks\TimelineBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    grid_view_block:
+        class: AppBundle\Blocks\GridViewBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+    account_creation_block:
+        class: AppBundle\Blocks\AccountCreationBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+
+
+    custom_html_block:
+        class: AppBundle\Blocks\CustomHtmlBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    notes_block:
+        class: AppBundle\Blocks\NotesBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    video_gallery_block:
+        class: AppBundle\Blocks\VideoGalleryBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    email_template_block:
+        class: AppBundle\Blocks\EmailTemplate
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    ical_export_block:
+        class: AppBundle\Blocks\IcalExportBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    container_block:
+        class: AppBundle\Blocks\ContainerBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    step_form_block:
+        class: AppBundle\Blocks\StepFormBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    qr_code_block:
+        class: AppBundle\Blocks\QrCodeBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    tabs_block:
+        class: AppBundle\Blocks\TabsBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    collapsible_block:
+        class: AppBundle\Blocks\CollapsibleBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+
+    leaflet_maps_block:
+        class: AppBundle\Blocks\LeafletMapsBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    related_attribute_group_block:
+        class: AppBundle\Blocks\RelatedAttributeGroupBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    google_analytics_block:
+        class: AppBundle\Blocks\GoogleAnalyticsBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    messages_block:
+        class: AppBundle\Blocks\MessagesBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    html_preview_block:
+        class: AppBundle\Blocks\HtmlPreview
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    critical_error_messages_block:
+        class: AppBundle\Blocks\CriticalErrorMessagesBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    import_manual_block:
+        class: AppBundle\Blocks\ImportManualBlock
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]

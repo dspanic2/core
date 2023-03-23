@@ -1,0 +1,14 @@
+<div id="no-results">
+    <div class="no-result-message">
+        {% trans into current_language %}We are sorry! We couldn't find any results matching your search{% endtrans %} <strong>"{{ term }}"</strong>.
+    </div>
+
+    <div class="suggestion">
+        <ul>
+            <li>{% trans into current_language %}Try searching using product code{% endtrans %}</li>
+            <li>{% trans into current_language %}Make sure your search terms are spelled correctly{% endtrans %}</li>
+            <li>{% trans into current_language %}Try searching using similar terms{% endtrans %}</li>
+            <li><a href="{{ get_page_url(current_store_id,35,"s_page") }}">{% trans into current_language %}Contact us{% endtrans %}</a> {% trans into current_language %}for help{% endtrans %}</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+Dpd parcel: DPD pošiljke
+Request DPD: Naruči
+Print labels: Ispiši naljepnice
+Print DPD labels: Ispiši naljepnice
+Delete DPD: Obriši
+Cancel DPD: Storniraj
+Refresh DPD status: Osvježi status dostave
+You can't delete parcel if labels have already been printed: Ne možete obrisati pošiljku ako su naljepnice već isprintane.
+
+# dpd_parcel_entity
+Recipient name: Ime primatelja
+Recipient name 2: Dodatno ime primatelja
+Contact information: Kontakt informacije
+Recipient street: Adresa primatelja
+Recipient city: Grad primatelja
+Country: Država
+Postal code: Poštanski broj
+Recipient email: Email primatelja
+Recipient phone: Telefon primatelja
+Recipient house number: Kućni broj primatelja
+Sender remark: Napomena pošiljaoca
+Weight: Težina
+Order number: Broj narudžbe
+Parcel type: Vrsta paketa
+Parcel COD type: Vrsta pouzeća
+COD amount: Iznos pouzeća
+COD purpose: Kodni broj pouzeća
+Predict: Predikt
+Check ID: Provjera osobne iskaznice
+ID check name: Ime na osobnoj iskaznici
+ID check number: Broj osobne iskaznice
+Sender name: Ime pošiljaoca
+Sender city: Grad pošiljaoca
+Sender postal code: Poštanski broj pošiljaoca
+Sender country: Država pošiljaoca
+Sender street: Adresa pošiljaoca
+Sender phone: Telefon pošiljaoca
+Pudo id:
+Order: Narudžba
+Error code: Kod greške
+Error description: Opis greške
+File: Datoteka
+Filename: Naziv datoteke
+Parcel number: Broj pošiljke
+Parcel label: Naljepnica pošiljke
+Required for export parcels: Obavezno za pošiljke u inozemstvo
+Weight in kilograms: Težina u kilogramima
+Send email and SMS notifications about delivery to recipient: Šalji email i SMS obavijesti o dostavi primatelju
+
+Missing id: Nedostaje id pošiljke
+Missing parcel type id: Nedostaje tip paketa
+Missing order number: Nedostaje broj narudžbe
+Already requested: Zahtjev je već poslan
+Not requested: Zahtjev nije poslan
+Predict is turned off: Predikt je isključen
+Pefreshed successfully: Uspješno osvježeno
+Not sent: Nije poslano
+Already printed: Već isprintano
+Delete successfully: Uspješno obrisano
+Cancel successfully: Uspješno stornirano
+No parcels: Nema pošiljki
+Can't delete. Already printed: Ne može se obrisati. Već je ispisano
+Can't cancel. Parcels must be sent or printed: Ne može se stornirati. Pošiljke moraju biti poslane ili isprintane
+
+# DPDController + DPDManager
+DPD service error: Greška DPD servisa
+DPD service error or parcel does not exist: Greška DPD servisa ili parcela ne postoji
+Parcel labels generated: Naljepnice pošiljke su generirane
+Parcel pickup requested: Prikup pošiljke naručen
+Selected parcels have no scheduled pickup: Označene pošiljke nisu naručene za prikup
+
+Manifest: Otpremnica
+COD manifest: COD otpremnica

@@ -1,0 +1,8 @@
+services:
+
+  gls_parcel_listener:
+     class: GLSBusinessBundle\EventListener\GlsParcelListener
+     calls:
+        - [ setContainer,[ "@service_container" ] ]
+     tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onGlsParcelPreCreated }

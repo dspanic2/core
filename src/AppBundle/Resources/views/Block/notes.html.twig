@@ -1,0 +1,49 @@
+<div class="sp-block sp-block-wrapper {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if data.subtype == 'view' or is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="notes-content-placeholder">
+                        {{ include('AppBundle:Includes:notes_content.html.twig') }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 new-note">
+                    <div class="form-group-wrapper">
+                        <div class="form-group">
+                            <textarea data-type="ckeditor-note" data-expand-on-focus="true" class="form-note" id="form-note" name="note"></textarea>
+                            <button type="button"
+                                    class="sp-btn btn-default btn-red btn pull-right"
+                                    style="margin-top:10px;margin-right:0"
+                                    data-action="cancel-note">{% trans %}Cancel{% endtrans %}</button>
+                            <button type="button"
+                                    class="sp-btn btn-primary btn-blue btn pull-right"
+                                    style="margin-top:10px;margin-right:5px"
+                                    data-action="save-note"
+                                    data-url="{{ path('add_note') }}"
+                                    data-related-id="{{ data.id }}"
+                                    data-related-type="{{ data.model.page.entityType.entityTypeCode }}"
+                                    data-uid="{{ app.user.id }}"
+                                    data-note-id="">{% trans %}Save{% endtrans %}</button>
+                            <div class="note-info hidden">{% trans %}Currently editing note by{% endtrans %}&nbsp;<span
+                                        class="note-user"></span>&nbsp;<span class="note-date"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

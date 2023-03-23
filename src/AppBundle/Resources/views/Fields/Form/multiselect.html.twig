@@ -1,0 +1,42 @@
+{% set autocompleteTemplate = "default" %}
+    {#{% if(entityAttribute.attribute.frontendModel is not empty) %}
+        {% set autocompleteTemplate = attribute.frontendModel %}
+    {% endif %}#}
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    <label class="col-sm-4 col-xs-4 control-label">{% if is_granted('ROLE_ADMIN') %}<a
+            href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+        {% if attribute.note is not empty %}
+            <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                  rel="popover" data-html="true" data-placement="bottom"></span>
+        {% endif %}
+    </label>
+    <div class="col-sm-8 col-xs-8">
+        <select {% if formType == "view" or attribute.readOnly %}disabled="disabled"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %} data-id="{{ attribute.id }}" {% apply spaceless %}
+            data-parent_entity="{{ attribute.entityType.entityTypeCode }}"
+            data-link_entity="{{ attribute.lookupEntityType.entityTypeCode }}"
+            data-child_entity="{{ attribute.lookupAttribute.lookupAttribute.entityType.entityTypeCode }}"
+            data-template="{{ attribute.frontendModel }}"
+            data-type="{{ attribute.frontendInput }}"
+            data-search-url="{{ path('get_autocomplete') }}"
+            data-search-create-url="{{ path('create_autocomplete') }}"
+            data-multiple="true"
+            class="form-control"
+            data-min-len="0"
+            name="{{ attribute.attributeCode }}[]"
+            multiple="multiple" data-allow-clear="true" data-placeholder="{% trans %}Search...{% endtrans %}"
+                {% if(attribute.validator is not empty) %}
+                    {% set validators = attribute.validator | json_decode %}
+                    {% for validator in validators %}
+                        {{ include('AppBundle:Form/Validators:' ~ validator.type ~ '.html.twig') }}
+                    {% endfor %}
+                {% endif %}
+                {% endapply %}>
+
+            {% for option in value %}
+                <option value="{{ option.id }}" selected="selected" title="{{ option.lookup_value|striptags }}">{% apply spaceless %}{{ option.lookup_value }}{% endapply %}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+{#{% endif %}#}

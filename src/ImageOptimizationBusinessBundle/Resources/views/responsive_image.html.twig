@@ -1,0 +1,26 @@
+{#
+{% if slide.alt is defined and slide.alt is not empty %}
+    {% set alt = image.alt %}
+{% else %}
+    {% set alt = "Default alt text" %}
+{% endif %}
+{% if slide.title is defined and slide.title is not empty %}
+    {% set title = image.title %}
+{% else %}
+    {% set title = "Default title text" %}
+{% endif %}
+{{ responsive_image_style(image_url,'medium_banner',alt,title)|raw }}
+#}
+{% if data.styles.default is defined and data.styles.default is not empty %}
+    <img alt="{{ data.alt }}" title="{{ data.title }}" src="{{ data.styles.default }}">
+{% else %}
+    <picture>
+        {% for breakpoint,path in data.styles %}
+            {% if loop.last %}
+                <img alt="{{ data.alt }}" title="{{ data.title }}" src="{{ path }}" width="{{ path|image_width }}" height="{{ path|image_height }}">
+            {% else %}
+                <source media="all and (max-width: {{ breakpoint }}px)" srcset="{{ path }}">
+            {% endif %}
+        {% endfor %}
+    </picture>
+{% endif %}

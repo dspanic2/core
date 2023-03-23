@@ -1,0 +1,3 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_gifts.html.twig', 'data': {'data': data}}, {})) }}
+</div>

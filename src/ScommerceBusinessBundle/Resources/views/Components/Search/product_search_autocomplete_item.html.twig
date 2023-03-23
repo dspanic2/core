@@ -1,0 +1,32 @@
+<div class="product-display-grid item" data-pid="{{ product.id }}">
+    <a href="{{ current_language_url }}/{{ get_entity_store_attribute(current_store_id,product,"url") }}" class="autocomplete-link">
+        {% if product.getImages() is defined and product.getImages() is not empty %}
+            {% set image_url = "/Documents/Products/"  ~ product.getSelectedImage().file %}
+            {% set image_style_url = image_url|image_style('product_list_item') %}
+            {% if image_style_url %}
+                {% set image_url = image_style_url %}
+            {% endif %}
+        {% else %}
+            {% set image_url = "/frontend/images/image-placeholder.png" %}
+        {% endif %}
+        <div class="image">
+            <img class="icon" src="{{ image_url }}">
+        </div>
+        <div class="info">
+            <h3>{{ get_entity_store_attribute(current_store_id,product,"name") }}</h3>
+            <div class="price">
+                {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+                {% if prices.price is not empty %}
+                    <div class="price-regular {% if prices.discount_price is not empty %}has-discount{% endif %}">
+                        <span class="price-value">{{ prices.price|number_format(2, ',', '.') }} {{ prices.currency_code }} {% if prices.discount_price is empty %}<span class="vat-mark">{{ prices.vat_type|trans }}</span>{% endif %}</span>
+                    </div>
+                    {% if prices.discount_price is not empty %}
+                        <div class="price-regular price-discount">
+                            <span class="price-value">{{ prices.discount_price|number_format(2, ',', '.') }} {{ prices.currency_code }} <span class="vat-mark">{{ prices.vat_type|trans }}</span></span>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </a>
+</div>

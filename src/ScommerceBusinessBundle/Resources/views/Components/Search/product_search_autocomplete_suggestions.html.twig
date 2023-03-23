@@ -1,0 +1,24 @@
+{% if suggestions is not empty %}
+    <div class="title-small-styled">{% trans into current_language %}Suggestions{% endtrans %}</div>
+    <ul>
+        {% for suggestion in suggestions %}
+            <li><a href="{{ get_page_url(current_store_id,51,"s_page") }}?s=1&keyword={{ suggestion.usedQuery }}">{{ suggestion.usedQuery }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if brands is not empty %}
+    <div class="title-small-styled">{% trans into current_language %}Brands{% endtrans %}</div>
+    <ul>
+        {% for brand in brands %}
+            <li><a href="{{ get_page_url(current_store_id,51,"s_page") }}?s=1&brand={{ get_entity_store_attribute(current_store_id,brand,"name") }}">{{ get_entity_store_attribute(current_store_id,brand,"name") }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if product_groups is not empty %}
+    <div class="title-small-styled">{% trans into current_language %}Categories{% endtrans %}</div>
+    <ul>
+        {% for product_group in product_groups %}
+            <li><a href="/{{ product_group.getUrlPath(current_store_id) }}">{{ get_entity_store_attribute(current_store_id,product_group,"name") }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}

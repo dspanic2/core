@@ -1,0 +1,35 @@
+{% for entity in entities %}
+    <tr data-id="{{ entity.id }}" class="{{ cycle(['odd', 'even'], loop.index0) }} sp-row-clickable" data-doubleclick-url="{{ path(managed_entity_type ~ '_update_form', {'id': entity.id}) }}">
+        <td>{{ entity.id }}</td>
+        <td>{{ entity.entityTypeCode }}</td>
+        <td>{{ entity.entityModel }}</td>
+        <td>{{ entity.entityTable }}</td>
+        <td>{{ entity.bundle }}</td>
+        <td>{{ entity.isCustom }}</td>
+        <td class="sp-actions-td">
+            <span class="sp-actions-td-inner">
+                {#<a class="btn btn-default btn-xs pull-left sp-datatable-left-button" href="{{ path(managed_entity_type ~ '_view_form', {'id': entity.id}) }}" data-container="body" data-tooltip="true" data-placement="bottom" title="{% trans %}Show{% endtrans %}"><i class="fa fa-eye"></i></a>#}
+                <a class="btn dropdown-toggle btn-xs pull-left sp-datatable-right-button btn-default" data-toggle="dropdown" href="javascript:void(0);" data-container="body" data-placement="bottom" data-tooltip="true" role="button" tabindex="0" aria-label="{% trans %}Actions{% endtrans %}" aria-haspopup="true" aria-expanded="false" title="{% trans %}Actions{% endtrans %}" data-original-title="{% trans %}Actions{% endtrans %}"><i class="fa fa-caret-down"></i></a>
+                <ul data-menu="dropdown" class="dropdown-menu" role="menu">
+                    <li>
+                        <span>
+                            <a href="{{ path(managed_entity_type ~ '_update_form', {'id': entity.id}) }}" role="button" tabindex="0">{% trans %}Edit{% endtrans %}</a>
+                        </span>
+                    </li>
+                    <li><span><span class="menu-item" data-action="standard_grid_action" data-confirm="true" data-id="{{ entity.id }}" data-url="{{ path(managed_entity_type ~ '_delete') }}" data-custom-callback="" role="button" tabindex="0">{% trans %}Delete{% endtrans %}</span></span></li>
+                    <li><span><span class="menu-item" data-action="standard_grid_action" data-id="{{ entity.id }}" data-url="{{ path(managed_entity_type ~ '_regenerate') }}" data-custom-callback="" role="button" tabindex="0">{% trans %}Regenerate files{% endtrans %}</span></span></li>
+                    <li><span><span class="menu-item" data-action="standard_grid_action" data-id="{{ entity.id }}" data-url="{{ path(managed_entity_type ~ '_url_to_entity_type') }}" data-custom-callback="" role="button" tabindex="0">{% trans %}Add url to entity type{% endtrans %}</span></span></li>
+                    <li>
+                        <span>
+                            <a target="_blank" href="{{ path(managed_entity_type ~ '_export_entity_type', {'id': entity.id}) }}" role="button" tabindex="0">{% trans %}Export entity type{% endtrans %}</a>
+                        </span>
+                    </li>
+                    <li><span><span class="menu-item" data-action="standard_grid_action" data-id="{{ entity.id }}" data-url="{{ path(managed_entity_type ~ '_create_pages') }}" data-custom-callback="" role="button" tabindex="0">{% trans %}Create pages{% endtrans %}</span></span></li>
+                    <li><span><span class="menu-item" data-action="standard_grid_action" data-id="{{ entity.id }}" data-url="{{ path(managed_entity_type ~ '_make_document') }}" data-custom-callback="" role="button" tabindex="0">{% trans %}Make document{% endtrans %}</span></span></li>
+                    <li><span><span class="menu-item" data-action="standard_grid_action" data-id="{{ entity.id }}" data-url="{{ path(managed_entity_type ~ '_set_custom') }}" data-custom-callback="" role="button" tabindex="0">{% trans %}Set custom{% endtrans %}</span></span></li>
+                    <li><span><span class="menu-item" data-action="standard_grid_action" data-id="{{ entity.id }}" data-url="{{ path(managed_entity_type ~ '_unset_custom') }}" data-custom-callback="" role="button" tabindex="0">{% trans %}Unset custom{% endtrans %}</span></span></li>
+                </ul>
+            </span>
+        </td>
+    </tr>
+{% endfor %}

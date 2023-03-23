@@ -1,0 +1,359 @@
+{% extends 'ScommerceBusinessBundle:Email:base.html.twig' %}
+
+{% block header %}{% include 'ScommerceBusinessBundle:Email/Components:header_image.html.twig' %}{% endblock %}
+
+{% block body %}
+    <table width="100%" border="0" cellpadding="0"
+           cellspacing="0">
+        <tbody>
+        <tr>
+            <td valign="top" align="left">
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            <h1 style="text-align: center">Zahtjev za povratom</h1>
+                            <p>Zahtjev za povratom je uspješno zaprimljen.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            <p>Broj zahtjeva: <strong>{{ data.orderReturn.incrementId }}</strong></p>
+                            <p>Datum zahtjeva: <strong>{{ data.orderReturn.created|date("d.m.Y.") }}</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            <p>Pozdrav {{ data.orderReturn.getAccountName }},</p>
+                            <p>Tvoj zahtjev ćemo riješiti u najkraćem mogućem roku o čemu ćemo te povratno obavijestiti.</p>
+                            <p>Hvala na strpljenju.</p>
+                            {# OVDJE CE DOCI LINK NA STRANICU GDJE SE PRAI OD DPD-a #}
+{#                            <p>Status narudžbe možeš pratiti na poveznici <a href="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/{{ get_page_url(current_store_id,60,"s_page") }}">korisničkom računu</a>.</p>#}
+                            <br>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            <p>U slučaju poteškoća s povratom možeš nas kontaktirati na <a href="tel:{{ get_application_setting("phone_number") }}">{{ get_application_setting("phone_number") }}</a>. Za više informacija, molimo da pročitate naše <a href="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/{{ get_page_url(current_store_id,38,"s_page") }}">Uvjete poslovanja</a> i <a href="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/{{ get_page_url(current_store_id,94,"s_page") }}">Pravila privatnosti</a>.</p>
+                            <br>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-family:'Open Sans',sans-serif;font-size:16px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            <br>
+                            <br>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <td align="left" valign="top" width="400" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;">
+                                        <div>
+                                            {{ include ('ScommerceBusinessBundle:Email/Components:company_information.html.twig', {'data':data}) }}
+                                                {#{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Email/Components:company_information.html.twig', 'data': {'data':data}}, {})) }}#}
+                                        </div>
+                                    </td>
+                                    <td align="left" valign="top" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;">
+                                        <div>
+                                            <strong>{% trans into data.current_language %}User information{% endtrans %}:</strong><br><br>
+                                            {{ data.orderReturn.account.name }}<br>
+                                            IBAN: {{ data.orderReturn.bankAccount.iban }}<br>
+                                            {{ data.orderReturn.accountPickupAddress.street }}<br>
+                                            {{ data.orderReturn.accountPickupCity.postalCode }} {{ data.orderReturn.accountPickupCity.name }}, {{ get_entity_store_attribute(data.current_store_id,data.orderReturn.accountPickupCity.country,"name") }}<br>
+                                            {% if data.orderReturn.account.phone is not empty %}{{ data.orderReturn.account.phone }}<br>{% endif %}
+                                            {% if data.orderReturn.account.isLegalEntity %}OIB: {{ data.orderReturn.account.oib }}<br>{% endif %}
+                                            {% if data.orderReturn.account.email is not empty %}{{ data.orderReturn.account.email }}<br>{% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left"
+                            style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            <br>
+                            <br>
+                            <table width="100%" border="0" cellpadding="2" cellspacing="0">
+                                <thead>
+                                <tr style="background-color:#f3f3f3; font-weight:bold; border-bottom:#999 1px solid;">
+                                    <th align="left" width="80" valign="center"></th>
+                                    <th align="left" width="80" valign="center">{% trans into data.current_language %}Product code{% endtrans %}</th>
+                                    <th align="left" width="340" valign="center">{% trans into data.current_language %}Product{% endtrans %}</th>
+                                    <th align="center" width="80" valign="center">{% trans into data.current_language %}Price per unit{% endtrans %}</th>
+                                    <th align="center" width="50" valign="center">{% trans into data.current_language %}Amount{% endtrans %}</th>
+                                    <th align="right" width="100" valign="center">{% trans into data.current_language %}Total for return{% endtrans %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in data.orderReturn.getOrderReturnItems() %}
+                                    {% if not is_configurable(item.product) %}
+                                        <tr>
+                                            <td style="border-bottom:#CCC 1px solid" align="left" width="80" valign="center">
+                                                {% if item.product.getSelectedImage() is not empty %}
+                                                    {% set image_url = "/Documents/Products/"  ~ item.product.getSelectedImage().file %}
+                                                    {% set image_style_url = image_url|image_style('product_image_thumbnail') %}
+                                                    {% if image_style_url %}
+                                                        {% set image_url = image_style_url %}
+                                                    {% endif %}
+                                                    <img width="60" style="width: 60px" src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}{{ image_url }}" alt="{{ item.product.code }}"/>
+                                                {% endif %}
+                                            </td>
+                                            <td style="border-bottom:#CCC 1px solid" align="left" width="80" valign="center">{{ item.product.code }}</td>
+                                            <td style="border-bottom:#CCC 1px solid" align="left" width="340" valign="center">{{ get_entity_store_attribute(data.current_store_id,item.product,"name") }}</td>
+                                            <td style="border-bottom:#CCC 1px solid" align="right" width="80" valign="center">-{{ (item.priceItem - item.priceDiscountCouponItem - item.priceLoyaltyDiscountItem)|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                            <td style="border-bottom:#CCC 1px solid" align="center" width="50" valign="center">{{ prepare_qty(item.getQty,item.product.getQtyStep) }}</td>
+                                            <td style="border-bottom:#CCC 1px solid" align="right" width="80" valign="center">-{{ (item.priceTotal - item.priceDiscountCouponTotal - item.priceLoyaltyDiscountTotal)|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                <tr>
+                                    <td colspan="6">&nbsp;</td>
+                                </tr>
+
+                                {# TOTALS #}
+                                {#<tr style="padding: 20px 0 5px">
+                                    <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Subtotal without tax{% endtrans %}:</td>
+                                    <td colspan="3" align="right" style="font-weight:700;">-{{ data.orderReturn.getPriceItemsWithoutTax|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                </tr>
+                                {% if data.orderReturn.getPriceDeliveryWithoutTax() > 0 %}
+                                    <tr style="padding: 5px 0">
+                                        <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Delivery without tax{% endtrans %}:</td>
+                                        <td colspan="3" align="right" style="font-weight:700;">{{ data.orderReturn.getPriceDeliveryWithoutTax|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr style="padding: 5px 0">
+                                    <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Total tax{% endtrans %}:</td>
+                                    <td colspan="3" align="right" style="font-weight:700;">-{{ data.orderReturn.getPriceTax|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                </tr>
+                                <tr style="padding: 5px 0">
+                                    <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Subtotal with tax{% endtrans %}:</td>
+                                    <td colspan="3" align="right" style="font-weight:700;">-{{ (data.orderReturn.getPriceItemsTotal + data.orderReturn.getPriceDeliveryTotal)|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                </tr>#}
+                                {#OVO DOLJE NECEMO#}
+                                {#{% if get_env("SHOW_DISCOUNTS_AS_SUM") == 1 %}
+                                    {% set discountAmount = 0 %}
+                                    {% set discountAmount = discountAmount + data.orderReturn.getDiscountCouponPriceTotal %}
+                                    {% set discountAmount = discountAmount + data.orderReturn.getDiscountLoyaltyPriceTotal %}
+                                    {% if discountAmount > 0 %}
+                                        <tr style="padding: 5px 0">
+                                            <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Discount{% endtrans %}:</td>
+                                            <td colspan="3" align="right"
+                                                style="font-weight:700;">{{ discountAmount|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% else %}
+                                    {% if data.orderReturn.getDiscountCouponPriceTotal > 0 %}
+                                        <tr style="padding: 5px 0">
+                                            <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Coupon{% endtrans %}:</td>
+                                            <td colspan="3" align="right" style="font-weight:700;">-{{ data.orderReturn.getDiscountCouponPriceTotal|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if data.orderReturn.getDiscountLoyaltyPriceTotal > 0 %}
+                                        <tr style="padding: 5px 0">
+                                            <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Loyalty{% endtrans %}:</td>
+                                            <td colspan="3" align="right" style="font-weight:700;">-{{ data.orderReturn.getDiscountLoyaltyPriceTotal|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endif %}#}
+                                {#OVO GORE NECEMO#}
+                                {#<tr>
+                                    <td colspan="3" align="right"
+                                        style="color: #000000;text-transform:uppercase;font-size: 12px;font-weight: 600;">{% trans into data.current_language %}Total for return{% endtrans %}:
+                                    </td>
+                                    <td colspan="3" align="right"
+                                        style="font-weight:600; color: #C91208;font-size: 16px;">-{{ data.orderReturn.getPriceTotal|number_format(2, ',', '.') }} {{ data.orderReturn.currency.sign }}</td>
+                                </tr>#}
+                                {# END TOTALS #}
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            <br>
+                            <br>
+                            <table>
+                                <tbody>
+
+                                <tr>
+                                    <td align="left" valign="top">
+                                        <strong>{% trans into data.current_language %}Pickup address{% endtrans %}:</strong><br>
+                                        {{ data.orderReturn.accountPickupStreet }}, {{ data.orderReturn.accountPickupCity.postalCode }} {{ data.orderReturn.accountPickupCity.name }}, {{ get_entity_store_attribute(data.current_store_id,data.orderReturn.accountPickupCity.country,"name") }}<br>
+                                    </td>
+                                </tr>
+                                {% if data.orderReturn.returnReason is not empty %}
+                                    <tr>
+                                        <td colspan="2" align="left" valign="top">
+                                            <strong>{% trans into data.current_language %}Return reason{% endtrans %}:</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="left" valign="top" style="color: #7f0000;">
+                                            {{ data.orderReturn.returnReason }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if data.orderReturn.deliveryMessage is not empty %}
+                                    <tr>
+                                        <td colspan="2" align="left" valign="top">
+                                            <strong>{% trans into data.current_language %}Message for delivery service{% endtrans %}:</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="left" valign="top" style="color: #7f0000;">
+                                            {{ data.orderReturn.deliveryMessage }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td
+                            style="line-height:30px">
+                            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                                 width="800" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <br>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

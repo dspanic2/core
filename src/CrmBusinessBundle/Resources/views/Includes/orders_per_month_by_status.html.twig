@@ -1,0 +1,44 @@
+{% set orderArray = [] %}
+{% set startValues = null %}
+{% for item in data.items %}
+    {% set values = item.items|json_decode %}
+    {% if values|length > orderArray|length %}
+        {% set orderArray = [] %}
+        {% set startValues = values %}
+        {% for value in values %}
+            {% set orderArray = orderArray|merge([value.month_id]) %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+<fieldset class="form-group-wrapper sp-table-mark sp-remove-zero sp-move-arrows">
+    <table class="sp_report_view_table table">
+        <thead>
+        <tr>
+            <th>{% trans %}Status{% endtrans %}</th>
+            {% for value in startValues %}
+                <th>{{ value.month_name|trans }} {{ value.year }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data.items %}
+            <tr>
+                <td>{{ item.order_state|trans }}</td>
+                {% set values = item.items|json_decode %}
+                {% for o in orderArray %}
+                    {% set found = 0 %}
+                    {% for value in values %}
+                        {% if o == value.month_id %}
+                            {% set found = 1 %}
+                            <td>{{ value.count|number_format(0, ',', '.') }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    {% if found == 0 %}
+                        <td></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</fieldset>

@@ -1,0 +1,35 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    <label class="col-sm-4 col-xs-4 control-label">{% if is_granted('ROLE_ADMIN') %}<a
+            href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+        {% if attribute.note is not empty %}
+            <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                  rel="popover" data-html="true" data-placement="bottom"></span>
+        {% endif %}
+    </label>
+    <div class="col-sm-8 col-xs-8">
+        <select {% if formType == "view" or attribute.readOnly %}disabled="disabled"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                data-id="{{ attribute.id }}" {% apply spaceless %}
+            data-template="{{ attribute.frontendModel }}"
+            data-type="{{ attribute.frontendInput }}"
+            data-search-create-url="{{ path('create_autocomplete') }}"
+            class="form-control"
+            data-min-len="0"
+            data-single="true"
+            name="{{ attribute.attributeCode }}"
+            data-allow-clear="true" data-placeholder="{% trans %}Search...{% endtrans %}"
+                {% if(attribute.validator is not empty) %}
+                    {% set validators = attribute.validator | json_decode %}
+                    {% for validator in validators %}
+                        {{ include('AppBundle:Form/Validators:' ~ validator.type ~ '.html.twig') }}
+                    {% endfor %}
+                {% endif %}
+                {% endapply %}>
+            {% for option in options %}
+                <option value="{{ option.id }}" {% if option.id==value %}selected="selected"{% endif %}
+                        title="{{ attribute(option, lookupAttribute)|striptags }}">{% apply spaceless %}{{ attribute(option, lookupAttribute) }}{% endapply %}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+{#{% endif %}#}

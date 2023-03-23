@@ -1,0 +1,88 @@
+{% set queryParams = get_query_parameters() %}
+{% set selectedOptions = null %}
+
+{% if queryParams["qi"] is defined %}
+    {% set selectedOptions = get_selected_configurable_bundle_options(queryParams["qi"]) %}
+{% endif %}
+<div class="configurable-bundle-grid" data-pid="{{ product.id }}">
+    {% for option_data in get_product_details(product) %}
+        <div class="item" data-option-id="{{ option_data.configurable_bundle_option.id }}">
+            {% set title = get_entity_store_attribute(current_store_id,option_data.configurable_bundle_option,"title_for_web") %}
+            {% if editable %}
+                <div class="cb-title">{{ title }}{% if option_data.configurable_bundle_option.isMandatory %}*{% endif %}</div>
+            {% endif %}
+
+            {# Generira opcije #}
+            {% set options %}
+                {% for optionProduct in option_data.products %}
+                    {% set productTitle = get_entity_store_attribute(current_store_id,optionProduct,"name") %}
+                    {% apply spaceless %}
+                        <div class="dropdown-option"
+                             data-pid="{{ optionProduct.id }}">
+                            {% set optionPrices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':optionProduct}, {}))|json_decode %}
+                            {# Pripremi cijenu #}
+                            {% if optionPrices.discount_price is not empty %}
+                                {% set optionPrice %}
+                                    {{ optionPrices.discount_price|number_format(2, ',', '.') }} {{ optionPrices.currency_code }} {% if optionProduct.measure is defined and optionProduct.measure is not empty %}/{{ optionProduct.measure }}{% endif %}
+                                {% endset %}
+                            {% else %}
+                                {% set optionPrice %}
+                                    {{ optionPrices.price|number_format(2, ',', '.') }} {{ optionPrices.currency_code }} {% if optionProduct.measure is defined and optionProduct.measure is not empty %}/{{ optionProduct.measure }}{% endif %}
+                                {% endset %}
+                            {% endif %}
+                            {{ productTitle }} - <strong>{{ optionPrice }}</strong>
+                        </div>
+                    {% endapply %}
+                {% endfor %}
+            {% endset %}
+
+            {% set default_option = option_data.default %}
+            {# Prebrika default preko quote itema #}
+            {% if selectedOptions is not empty %}
+                {% if selectedOptions[option_data.configurable_bundle_option.id] is defined %}
+                    {% set default_option = get_product_by_id(selectedOptions[option_data.configurable_bundle_option.id]["product_id"]) %}
+                {% endif %}
+            {% endif %}
+
+            {% if option_data.configurable_bundle_option.getSelectedImage() is not empty %}
+                <div class="cb-image">
+                    {% set image_url = "/Documents/product_configuration_bundle_option_image/"  ~ option_data.configurable_bundle_option.getSelectedImage().file %}
+                    <img class="icon"
+                         src="{{ image_url }}"
+                         alt="{% if option_data.configurable_bundle_option.getSelectedImage().alt is defined and option_data.configurable_bundle_option.getSelectedImage().alt is not empty %}{{ option_data.configurable_bundle_option.getSelectedImage().alt }}{% else %}{{ title }}{% endif %}"
+                         title="{% if default_option is not null %}{{ get_entity_store_attribute(current_store_id,default_option,"name") }}{% else %}{{ title }}{% endif %}">
+                </div>
+            {% endif %}
+
+            {# TODO PROVJERITI #}
+            {% if editable %}
+                {% set emptyOption = "Select option"|trans %}
+                {% if default_option is not empty %}
+                    <div class="cb-selected" data-pid="{{ default_option.id }}" data-empty="{{ emptyOption }}">
+                        <div class="option-value">{{ get_entity_store_attribute(current_store_id,default_option,"name") }}</div>
+                        {% if not option_data.configurable_bundle_option.isMandatory %}<span class="cb-remove"><i class="fas fa-trash-alt"></i></span>{% endif %}
+                    </div>
+                {% elseif editable %}
+                    <div class="cb-selected" data-empty="{{ emptyOption }}">
+                        <div class="option-value"><span class="opacity">{{ emptyOption }}</span></div>
+                        {% if not option_data.configurable_bundle_option.isMandatory %}<span class="cb-remove hidden"><i class="fas fa-trash-alt"></i></span>{% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if editable %}
+                <div class="cb-options">
+                    <div class="custom-dropdown">
+                        <div class="dropdown-open">
+{#                            <strong>{% trans into current_language %}Configure{% endtrans %}&nbsp;<i class="fas fa-wrench"></i></strong>#}
+                            <strong><i class="fas fa-wrench"></i></strong>
+                        </div>
+                        <div class="dropdown-options">
+                            {{ options }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,63 @@
+{# <span class="sp-btn btn-primary btn-blue btn" data-email-id="{{ email.id }}" data-action="email_reply" data-url=""><i class="fas fa-reply"></i>&nbsp;{% trans %}Reply{% endtrans %}</span> #}
+{# <span class="sp-btn btn-primary btn-blue btn" data-email-id="{{ email.id }}" data-action="email_reply_all" data-url=""><i class="fas fa-reply-all"></i>&nbsp;{% trans %}Reply all{% endtrans %}</span> #}
+
+{% macro renderEmailReply(e,show_replay) %}
+    {% set email = e.email %}
+    <div class="accordion-item email-item">
+        <div class="accordion-header {% if open is defined and open %}open{% endif %}" data-target="#email-{{ email.id }}">
+            {{ email.mailFrom }} - {{ email.subject }}
+            {% if show_replay is defined and show_replay == true %}<span class="email-reply-button" data-email-id="{{ email.id }}" data-action="email_reply" data-url="{{ path('email_reply_form') }}"><i class="fas fa-reply"></i>&nbsp;{% trans %}Reply{% endtrans %}</span>{% endif %}
+        </div>
+        <div id="email-{{ email.id }}" class="accordion-body {% if open is defined and open %}open{% endif %}">
+            <div class="email-attachments">
+                {% if email.attachments is not empty %}
+                    {% for item in email.attachments %}
+                        {% if not item.isEmbedded %}
+                            <i class="fas fa-paperclip"></i>&nbsp;<a href="{{ item.file }}">{{ item.file }}</a><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="email-body">
+                {{ extract_message(embed_images(email))|striptags('<br><p><a><img><strong><table><tr><td><tbody><thead><ul><ol><li>')|raw }}
+            </div>
+        </div>
+        {% if e.replies is not empty %}
+            <div class="email-replies">
+                {% for reply in e.replies %}
+                    {{ _self.renderEmailReply(reply,show_replay) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{{ _self.renderEmailReply(e,show_replay) }}
+
+{#
+{% if email is defined %}
+    <div class="accordion-item email-item">
+        <div class="accordion-header {% if open is defined and open %}open{% endif %}"
+             data-target="#email-{{ email.id }}">
+            {{ email.mailFrom }} - {{ email.subject }}<span class="email-reply-button" data-email-id="{{ email.id }}"
+                                                            data-action="email_reply"
+                                                            data-url="{{ path('email_reply_form') }}"><i
+                        class="fas fa-reply"></i>&nbsp;{% trans %}Reply{% endtrans %}</span>
+        </div>
+        <div id="email-{{ email.id }}"
+             class="accordion-body {% if open is defined and open %}open{% endif %}"
+             data-parent="#{{ parent }}">
+            <div>
+                {% if email.attachments is not empty %}
+                    {% for item in email.attachments %}
+                        {% if not item.isEmbedded %}
+                            <i class="fas fa-paperclip"></i>&nbsp;<a
+                                href="{{ item.file }}">{{ item.file }}</a><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {{ email.body|striptags('<br><p><a><img><strong><table><tr><td><tbody><thead><ul><ol><li>')|raw }}
+        </div>
+    </div>
+{% endif %}#}

@@ -1,0 +1,16 @@
+{# implementiran (overajdan ovaj template) na encianu#}
+{#{% apply spaceless %}#}
+{#    {% if contact is defined %}#}
+{#        {% set trackingCode %}#}
+{#            <script>#}
+{#                window.dataLayer = window.dataLayer || [];#}
+{#                window.dataLayer.push({#}
+{#                    'event': 'login',#}
+{#                    'user_id': '{{ contact.getId }}'#}
+{#                });#}
+{#            </script>#}
+{#        {% endset %}#}
+{#        #}{# Cisto da se kod formatira u phpstormu, ali za execute ne trebaju script tagovi #}
+{#        {{ trackingCode|striptags|raw }}#}
+{#    {% endif %}#}
+{#{% endapply %}#}

@@ -1,0 +1,83 @@
+<div class="modal fade" id="default_modal" role="dialog" aria-labelledby="label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{% trans %}Open user account for contact{% endtrans %}</h4>
+            </div>
+            <div class="modal-body" style="overflow:hidden;">
+                <form data-validate="true"
+                      id="contact_create_user_account"
+                      method="post"
+                      action=""
+                      accept-charset="UTF-8"
+                      class="form-horizontal row-border">
+                    <div class="sp-block-group-wrapper">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 sp-block-wrapper">
+                                <div class="sp-block sp-form-block-300">
+                                    <div class="panel panel-midnightblue">
+                                        <div class="panel-body collapse in">
+                                            <div class="panel-heading">
+                                                <fieldset class="form-group-wrapper">
+                                                    <div class="form-group " data-form-group="password">
+                                                        <label class="col-sm-4 col-xs-4 control-label">{% trans %}Password{% endtrans %}</label>
+                                                        <div class="col-sm-8 col-xs-8">
+                                                            <input type="hidden" name="id" value="{{ id }}"/>
+                                                            <input data-type="text" class="form-control" type="text" name="password" placeholder="{% trans %}Insert password{% endtrans %}"/>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 sp-block-wrapper">
+                                <div class="sp-block sp-form-block-300">
+                                    <div class="panel panel-midnightblue">
+                                        <div class="panel-body collapse in">
+                                            <div class="panel-heading">
+                                                <fieldset class="form-group-wrapper">
+                                                    <div class="form-group row" data-form-group="store_id">
+                                                        <label class="col-sm-4 col-xs-4 control-label">{% trans %}Store{% endtrans %}</label>
+                                                        <div class="col-sm-8 col-xs-8">
+                                                            <select class="form-control" name="store_id">
+                                                                {% for store in stores %}
+                                                                    <option value="{{ store.id }}">{{ store.name }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    <button type="button"
+                                            data-url="{{ path('contact_generate_user_account') }}"
+                                            class="btn-primary btn btn-blue"
+                                            data-action="quote_send_client_email">{% trans %}Save{% endtrans %}</button>
+                                    <button type="button"
+                                            class="btn-default btn pull-right btn-red"
+                                            data-dismiss="modal">
+                                        <span aria-hidden="true">{% trans %}Close{% endtrans %}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

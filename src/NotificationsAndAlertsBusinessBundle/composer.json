@@ -1,0 +1,19 @@
+{
+  "name": "shipshapesolutions/notificationandalertsbusinessbundle",
+  "type": "shipshape-core-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ShipShape",
+      "email": "info@shipshape-solutions.com",
+      "homepage": "https://shipshape-solutions.com/"
+    }
+  ],
+  "require": {
+    "shipshapesolutions/composer-bundle-installer": "1.x-dev",
+    "kreait/firebase-bundle": "^2.5.0"
+  },
+  "extra": {
+    "install-directory": "./src/NotificationsAndAlertsBusinessBundle"
+  }
+}

@@ -1,0 +1,23 @@
+<div class="col-sm-4">
+    <div class="form-group sp-search-group">
+        <div class="row">
+            <label class="col-sm-12 control-label">{{ attribute.frontendLabel|trans }}</label>
+            <div class="col-sm-4">
+                <select name="search_type" class="form-control">
+                    <option value="json_bw" {% if search_type is defined and search_type is not empty and search_type == "json_bw" %}selected="selected"{% endif %}>{% trans %}search_type_bw{% endtrans %}</option>
+                    <option value="json_eq" {% if search_type is defined and search_type is not empty and search_type == "json_eq" %}selected="selected"{% endif %}>{% trans %}search_type_eq{% endtrans %}</option>
+                    <option value="json_bs" {% if search_type is defined and search_type is not empty and search_type == "json_bs" %}selected="selected"{% endif %}>{% trans %}search_type_bs{% endtrans %}</option>
+                    <option value="json_ew" {% if search_type is defined and search_type is not empty and search_type == "json_ew" %}selected="selected"{% endif %}>{% trans %}search_type_ew{% endtrans %}</option>
+                    <option value="json_nc" {% if search_type is defined and search_type is not empty and search_type == "json_nc" %}selected="selected"{% endif %}>{% trans %}search_type_nc{% endtrans %}</option>
+                    <option value="json_bn" {% if search_type is defined and search_type is not empty and search_type == "json_bn" %}selected="selected"{% endif %}>{% trans %}search_type_bn{% endtrans %}</option>
+                    <option value="json_en" {% if search_type is defined and search_type is not empty and search_type == "json_en" %}selected="selected"{% endif %}>{% trans %}search_type_en{% endtrans %}</option>
+                    <option value="json_in" {% if search_type is defined and search_type is not empty and search_type == "json_in" %}selected="selected"{% endif %}>{% trans %}search_type_in{% endtrans %}</option>
+                    <option value="json_ni" {% if search_type is defined and search_type is not empty and search_type == "json_ni" %}selected="selected"{% endif %}>{% trans %}search_type_ni{% endtrans %}</option>
+                </select>
+            </div>
+            <div class="col-sm-8 sp-search-item" data-search_type="json_bw">
+                <input data-id="{{ attribute.id }}" type="text" name="{{ attribute.attributeCode|camelize }}" class="form-control" {% if value is defined and value is not empty %}value="{{ value }}"{% endif %}/>
+            </div>
+        </div>
+    </div>
+</div>

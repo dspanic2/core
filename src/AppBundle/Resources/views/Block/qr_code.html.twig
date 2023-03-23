@@ -1,0 +1,26 @@
+<div class="sp-block sp-qr-wrapper {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="panel-heading">
+                    <h5>{{ data.block.title|trans }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="options">
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            </div>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 hidden-xs"></div>
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="qr-code-wrapper">
+                            <img  src="data:image/png;base64,{{ barcode({code: data.model.code, type: 'qrcode', format: 'png', width: 30, height: 30, color: [0, 0, 0]}) }}" />
+                        </div>
+                    </div>
+                    <div class="col-sm-2 hidden-xs"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

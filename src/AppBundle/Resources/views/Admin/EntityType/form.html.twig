@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ generate_admin_title(entity, managed_entity_type|trans) }}{% endblock %}
+
+{% block header %}
+    {% block main_actions %}
+        {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}" accept-charset="UTF-8"
+                      data-callback=''
+                      data-type="{{ managed_entity_type }}"
+                      class="form-horizontal row-border">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}General information{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row hidden">
+                                            <div class="col-sm-6">
+                                                <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Code{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" {% if entity is not empty %}disabled="disabled"{% endif %} name="entityTypeCode" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.entityTypeCode }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Bundle{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="bundle" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    {% for key,bundle in bundles %}
+                                                        <option value="{{ key }}" {% if entity.bundle is defined and entity.bundle == key %}selected="selected"{% endif %}>{{ key }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Has unique permissions{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="hasUniquePermissions" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="0" {% if entity.hasUniquePermissions is defined and entity.hasUniquePermissions == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                    <option value="1" {% if entity.hasUniquePermissions is defined and entity.hasUniquePermissions == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row hidden">
+                                            <label class="col-sm-3 control-label">{% trans %}Custom doctrine data{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <textarea name="doctrineCustom" class="form-control" data-size="autosize" rows="4">{% if entity.doctrineCustom is defined and entity is not empty %}{{ entity.doctrineCustom }}{% endif %}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row hidden">
+                                            <label class="col-sm-3 control-label">{% trans %}Custom entity data{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <textarea name="entityCustom" class="form-control" data-size="autosize" rows="4">{% if entity.entityCustom is defined and entity is not empty %}{{ entity.entityCustom }}{% endif %}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Custom use class{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <textarea name="entityUseClasses" class="form-control" data-size="autosize" rows="4">{% if entity.entityUseClasses is defined and entity is not empty %}{{ entity.entityUseClasses }}{% endif %}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Extend class{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="entityExtendClass" class="form-control" {% if entity is not empty %}value="{{ entity.entityExtendClass }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        {% if entity is empty %}
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Is document{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="checkbox" name="isDocument" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Is view{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="checkbox" name="isView" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                                </div>
+                                            </div>
+
+                                            {# <div class="form-group">
+                                            <label class="col-sm-3 control-label">{% trans %}Is relation{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="checkbox" name="isRelation" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                            </div>
+                                        </div> #}
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Generate pages{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="checkbox" name="generatePages" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Generate list view{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="checkbox" name="generateListView" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Sync content{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="checkbox" name="syncContent" {% if entity.syncContent is defined and entity is not empty and entity.syncContent == 1 %}checked="checked"{% endif %} data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Is custom{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="checkbox" checked="checked" name="isCustom" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

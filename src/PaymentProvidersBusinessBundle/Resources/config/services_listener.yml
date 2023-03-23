@@ -1,0 +1,8 @@
+services:
+    payment_transaction_listener:
+        class: PaymentProvidersBusinessBundle\EventListener\PaymentTransactionListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: order.canceled, method: onOrderCanceled }
+            - { name: kernel.event_listener, event: order.reversed, method: onOrderReversed }

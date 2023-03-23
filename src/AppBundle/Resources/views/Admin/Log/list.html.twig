@@ -1,0 +1,15 @@
+{% for entity in entities %}
+    <tr data-id="{{ entity.id }}" class="{{ cycle(['odd', 'even'], loop.index0) }} sp-row-clickable" data-doubleclick-url="{{ path(managed_entity_type ~ '_view_form', {'id': entity.id, 'attributeSetCode': entity.attributeSetCode}) }}">
+        <td>{{ entity.entityTypeCode }}</td>
+        <td>{{ entity.attributeSetCode }}</td>
+        <td>{{ entity.entityId }}</td>
+        <td>{{ entity.username }}</td>
+        <td>{{ entity.action }}</td>
+        <td>{{ entity.eventTime|date("d/m/Y H:i:s") }}</td>
+        <td class="sp-actions-td">
+            <span class="sp-actions-td-inner">
+                <a class="btn btn-default btn-xs pull-left sp-datatable-left-button" href="{{ path(managed_entity_type ~ '_view_form', {'id': entity.entityId, 'attributeSetCode': entity.attributeSetCode}) }}" data-container="body" data-tooltip="true" data-placement="bottom" title="{% trans %}Show{% endtrans %}"><i class="fa fa-eye"></i></a>
+            </span>
+        </td>
+    </tr>
+{% endfor %}

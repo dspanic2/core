@@ -1,0 +1,36 @@
+<div class="email-message">
+    <table class="message">
+        <tr>
+            <td>{{ message|raw }}</td>
+        </tr>
+    </table>
+    <table style="border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0 0 0">
+        <tr>
+            <td><strong>From:</strong></td>
+            <td>{{ email.mailFrom }} &lt;{{ email.mailFrom }}&gt;</td>
+        </tr>
+        <tr>
+            <td><strong>Sent:</strong></td>
+            <td>{{ email.mailDatetime|date('d F Y H:i') }}</td>
+        </tr>
+        <tr>
+            <td><strong>To:</strong></td>
+            <td>{{ email.mailTo }}</td>
+        </tr>
+        {% if email.cc is not empty %}
+            <tr>
+                <td><strong>Cc:</strong></td>
+                <td>{{ email.cc }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td><strong>Subject:</strong></td>
+            <td>{{ email.subject }}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>{{ embed_images(email)|raw }}</td>
+        </tr>
+    </table>
+</div>

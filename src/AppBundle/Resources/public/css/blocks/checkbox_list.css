@@ -1,0 +1,6 @@
+.sp-checkboxlist-wrapper label{
+    margin-bottom: 4px;
+    width: 50%;
+    float: left;
+    cursor: pointer;
+}

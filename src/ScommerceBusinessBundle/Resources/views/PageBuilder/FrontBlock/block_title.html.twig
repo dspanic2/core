@@ -1,0 +1,122 @@
+<form id="page-builder" action="/api/page_builder_save_block" class="ajax-submit" {% if block is defined %}data-replace=[data-block-id="{{ block.getId }}"]{% endif %} data-set-html="1" data-trigger-action="reset-page-builder" novalidate>
+    <div class="builder-title">{% trans into current_language %}Block title{% endtrans %}</div>
+
+    {% set settings = page_builder_get_block_settings(block|default(null)) %}
+
+    {% if block is defined %}
+        <input type="hidden" name="id" value="{{ block.getId }}"/>
+    {% endif %}
+    <input type="hidden" name="type" value="block_title"/>
+    <input type="hidden" name="before_block" value=""/>
+    <input type="hidden" name="to_container" value=""/>
+    <input type="hidden" name="enable_edit" value="1"/>
+
+
+    <div class="form-row row full-width">
+        <div class="form-group col-xs-12">
+            <label>
+                <span class="label-text">{% trans into current_language %}Administrative label{% endtrans %}</span>
+                <input type="text" name="name" {% if block is defined %}value="{{ get_entity_store_attribute(current_store_id,block,"name") }}"{% endif %}/>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-row row full-width">
+        <div class="form-group col-xs-12">
+            <label>
+                <span class="label-text">{% trans into current_language %}Title{% endtrans %}*</span>
+                <input type="text" required name="main_title[{{ current_store_id }}]" {% if block is defined %}value="{{ get_entity_store_attribute(current_store_id,block,"main_title") }}"{% endif %}/>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-row row full-width">
+        <div class="form-group col-xs-12">
+            <label class="label-checkbox">
+                <input type="checkbox" name="active" {% if block is not defined or block.getActive %}checked="checked"{% endif %}/>
+                <span class="label-text">{% trans into current_language %}Active{% endtrans %}</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-row row full-width">
+        <div class="form-group col-xs-6">
+            <label>
+                <span class="label-text">{% trans into current_language %}Active from{% endtrans %}</span>
+                <input type="text"
+                       {% if block is defined and block.getActiveFrom is not empty %}value="{{ block.getActiveFrom|date('d.m.Y H:i') }}"{% endif %}
+                       name="active_from"
+                       autocomplete="off"
+                       class="datetimepicker">
+            </label>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>
+                <span class="label-text">{% trans into current_language %}Active to{% endtrans %}</span>
+                <input type="text"
+                       {% if block is defined and block.getActiveTo is not empty %}value="{{ block.getActiveTo|date('d.m.Y H:i') }}"{% endif %}
+                       name="active_to"
+                       autocomplete="off"
+                       class="datetimepicker">
+            </label>
+        </div>
+    </div>
+
+    {% set entities = get_entities_by_type("campaign") %}
+    {% if entities is not empty %}
+        <div class="form-row row full-width">
+            <div class="form-group col-xs-12">
+                <label>
+                    <span class="label-text">{% trans into current_language %}Active during campaign{% endtrans %}</span>
+                    <select name="campaign_active_id">
+                        <option value="">{% trans into current_language %}Select option{% endtrans %}</option>
+                        {% for campaign in entities %}
+                            <option value="{{ campaign.getId }}" {% if block is defined and block.getCampaignActiveId == campaign.getId %}selected{% endif %}>{{ get_entity_store_attribute(current_store_id,campaign,"name") }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-row row full-width">
+            <div class="form-group col-xs-12">
+                <label>
+                    <span class="label-text">{% trans into current_language %}Active once campaign ends{% endtrans %}</span>
+                    <select name="campaign_not_active_id">
+                        <option value="">{% trans into current_language %}Select option{% endtrans %}</option>
+                        {% for campaign in entities %}
+                            <option value="{{ campaign.getId }}" {% if block is defined and block.getCampaignNotActiveId == campaign.getId %}selected{% endif %}>{{ get_entity_store_attribute(current_store_id,campaign,"name") }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="form-row row full-width">
+        <div class="form-group col-xs-12">
+            <label class="label-checkbox">
+                <input type="checkbox" name="page_builder_settings[in_container]" {% if settings.in_container|default(0) == 1 %}checked="checked"{% endif %}/>
+                <span class="label-text">{% trans into current_language %}In container{% endtrans %}</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-row row full-width">
+        <div class="form-group col-xs-12">
+            <label class="label-checkbox">
+                <input type="checkbox" name="page_builder_settings[centered]" {% if settings.centered|default(0) == 1 %}checked="checked"{% endif %}/>
+                <span class="label-text">{% trans into current_language %}Centered{% endtrans %}</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group submit">
+        <button class="button">{% trans into current_language %}Save{% endtrans %}</button>
+        {% if block is defined %}
+            <button class="button btn-type-2 page-builder-remove-block" data-block-id="{{ block.getId }}">{% trans into current_language %}Remove{% endtrans %}</button>
+        {% endif %}
+        <span class="expanded"></span>
+        <button class="button page-builder-cancel">{% trans into current_language %}Cancel{% endtrans %}</button>
+    </div>
+</form>

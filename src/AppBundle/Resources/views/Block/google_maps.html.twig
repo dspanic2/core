@@ -1,0 +1,32 @@
+<div class="sp-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key={{ data.gmaps_key }}" type="text/javascript"></script>
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <div class="options">
+                            {{ include("AppBundle:Includes:manage_block_buttons.html.twig") }}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    {% if data.lat is not empty and data.lng is not empty and data.gmaps_title is not empty %}
+                        {% if data.gmaps_title is iterable %}
+                            {% set title = data.gmaps_title|first %}
+                        {% else %}
+                            {% set title = data.gmaps_title %}
+                        {% endif %}
+                        <div id="gmap_{{ data.block.id }}" class="gmap-wrapper"
+                             data-locations='[{"lat": {{ data.lat }},"lon": {{ data.lng }},"zoom": 12,"title":"{{ title }}"}]'></div>
+                    {% else %}
+                        <p>{% trans %}Please enter coordinates and save{% endtrans %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

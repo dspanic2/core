@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="AppBundle\Entity\RoleEntity" table="role_entity">
+        ###CLASS_START
+        <one-to-many target-entity="AppBundle\Entity\Privilege" mapped-by="role" field="privileges" fetch="EAGER" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,74 @@
+<form class="ajax-submit"
+      action="/dashboard/update_personal_data"
+      method="post">
+
+    <div class="row form-row full-width">
+        <div class="form-group col-xs-6 col-sm-3">
+            <label for="first_name">{% trans into current_language %}First name{% endtrans %}*</label>
+            <input type="text" name="first_name" required value="{{ contact.firstName }}">
+        </div>
+        <div class="form-group col-xs-6 col-sm-3">
+            <label for="last_name">{% trans into current_language %}Last name{% endtrans %}*</label>
+            <input type="text" name="last_name" required value="{{ contact.lastName }}">
+        </div>
+        <div class="form-group date-of-birth col-xs-12 col-sm-6">
+            {% if contact.dateOfBirth is not empty %}
+                {% set dayOfBirth = contact.dateOfBirth|date("d")|number_format(0, '', '') %}
+                {% set monthOfBirth = contact.dateOfBirth|date("m")|number_format(0, '', '') %}
+                {% set yearOfBirth = contact.dateOfBirth|date("Y")|number_format(0, '', '') %}
+            {% else %}
+                {% set dayOfBirth = 0 %}
+                {% set monthOfBirth = 0 %}
+                {% set yearOfBirth = 0 %}
+            {% endif %}
+            <label>{% trans into current_language %}Date of birth (day-month-year){% endtrans %}</label>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 resp-margin">
+                    <select name="birth_day" id="day">
+                        <option value="0" {% if dayOfBirth == 0 %}selected{% endif %}>{% trans into current_language %}Day{% endtrans %}</option>
+                        {% for n in 1..31 %} {# TODO: odgovarajući broj dana po mjesecu #}
+                            <option value="{{ n }}" {% if n == dayOfBirth %}selected{% endif %}>{{ n }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-4 resp-margin">
+                    <select name="birth_month" id="month">
+                        <option value="0" {% if monthOfBirth == 0 %}selected{% endif %}>{% trans into current_language %}Month{% endtrans %}</option>
+                        {% for n in 1..12 %}
+                            <option value="{{ n }}" {% if n == monthOfBirth %}selected{% endif %}>{{ n }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-4 resp-margin">
+                    <select name="birth_year" id="year">
+                        <option value="0" {% if yearOfBirth == 0 %}selected{% endif %}>{% trans into current_language %}Year{% endtrans %}</option>
+                        {% set current_year = "now"|date("Y") %}
+                        {% set end_year = current_year-90 %}
+                        {% for n in current_year..end_year %}
+                            <option value="{{ n }}" {% if n == yearOfBirth %}selected{% endif %}>{{ n }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-row full-width margin-bottom-0">
+        <div class="form-group col-xs-12 col-sm-4">
+            <label for="phone">{% trans into current_language %}Mobile phone{% endtrans %}*</label>
+            <input type="text" name="phone" required value="{{ contact.phone }}">
+        </div>
+        <div class="form-group col-xs-12 col-sm-4">
+            <label for="phone_2">{% trans into current_language %}Phone{% endtrans %}</label>
+            <input type="text" name="phone_2" value="{{ contact.phone2 }}">
+        </div>
+        <div class="form-group col-xs-12 col-sm-4">
+            <label for="fax">{% trans into current_language %}Fax{% endtrans %}</label>
+            <input type="text" name="fax" value="{{ contact.fax }}">
+        </div>
+    </div>
+
+    <div class="form-group submit text-left">
+        <input type="submit" value="{% trans into current_language %}Save{% endtrans %}" class="button btn-type-1">
+    </div>
+</form>

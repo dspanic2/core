@@ -1,0 +1,9 @@
+services:
+
+  notification_listener:
+     class: NotificationsAndAlertsBusinessBundle\EventListener\NotificationListener
+     calls:
+        - [ setContainer,[ "@service_container" ] ]
+     tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onNotificationPreCreated}
+      - { name: kernel.event_listener, event: entity.created, method: onNotificationCreated}

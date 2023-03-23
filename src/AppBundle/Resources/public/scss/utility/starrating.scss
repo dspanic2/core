@@ -1,0 +1,39 @@
+.starrating > input {
+  display: none;
+}
+
+/* Remove radio buttons */
+
+.starrating > label:before {
+  content: "\f005"; /* Star */
+  margin: 2px;
+  font-size: 1.4em;
+  font-family: "Font Awesome 5 Free", sans-serif;
+  display: inline-block;
+}
+
+.starrating > label {
+  margin-bottom: 0px;
+  float: right;
+  color: #a2a2a2; /* Start color when not clicked */
+}
+
+.starrating .formstar > label {
+  font-size: 2em;
+}
+
+.starrating {
+  float: left;
+}
+
+.starrating > input:checked ~ label {
+  color: #ffb00c;
+}
+
+/* Set yellow color when star checked */
+
+.starrating .formstar > input:hover ~ label {
+  color: #ffb00c;
+}
+
+/* Set yellow color when star hover */

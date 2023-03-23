@@ -1,0 +1,26 @@
+<div class="sp-block {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{% trans %}Import templates{% endtrans %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="panel-body collapse in table-panel-body table-responsive">
+                <div class="col-sm-12">
+                    <a target="_blank" href="https://crm.shipshape-solutions.com/Documents/import_manual_template/account_contact_address_user_default.xlsx">Template za račune, kontakte, adrese i korisnike</a><br>
+                    <a target="_blank" href="https://crm.shipshape-solutions.com/Documents/import_manual_template/configurable_product_import.xlsx">Template za konfigurabilne proizvode</a><br>
+                    <a target="_blank" href="https://crm.shipshape-solutions.com/Documents/import_manual_template/simple_product_import.xlsx">Template za jednostavne proizvode</a><br>
+                    <a target="_blank" href="https://crm.shipshape-solutions.com/Documents/import_manual_template/simple_product_import_update_descriptions_meta_descriptions.xlsx">Template za ažuriranje opisa i meta opisa</a><br>
+                    <a target="_blank" href="https://crm.shipshape-solutions.com/Documents/import_manual_template/simple_product_import_update_qty_active_prices.xlsx">Template za ažuriranje količine i cijene</a><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

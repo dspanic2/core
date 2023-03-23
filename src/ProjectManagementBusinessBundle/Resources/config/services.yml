@@ -1,0 +1,6 @@
+services:
+  project_manager:
+    class: ProjectManagementBusinessBundle\Managers\ProjectManager
+    calls:
+      - [setContainer, ["@service_container"]]
+      - [initialize]

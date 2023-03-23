@@ -1,0 +1,9 @@
+{% set notes = get_entity_notes(entity.entityType.entityTypeCode,entity.id) %}
+{% if notes is not empty %}
+    {% for note in notes %}
+        <p>
+            <strong>{{ note.created|date("d.m.Y. H:i:s") }} - {{ note.user.fullName }}</strong>
+            {{ note.comment|raw }}
+        </p>
+    {% endfor %}
+{% endif %}

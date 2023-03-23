@@ -1,0 +1,28 @@
+{% if data.model.categories is defined and data.model.categories is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} section categories {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="row">
+            {% apply spaceless %}
+                <div class="col-xs-12 items-grid">
+                    {% for category in data.model.categories %}
+                        {% set name = get_entity_store_attribute(current_store_id,category,"name") %}
+                        <div class="item">
+                            <a href="/{{ category.getUrlPath() }}">
+                                {% if category.getSelectedImage() is not empty %}
+                                    {% set image_url = "/Documents/product_group_images/"  ~ category.getSelectedImage().file %}
+                                    {% set image_style_url = image_url|image_style('category_item') %}
+                                    {% if image_style_url %}
+                                        {% set image_url = image_style_url %}
+                                    {% endif %}
+                                {% else %}
+                                    {% set image_url = "/images/category-placeholder.jpg" %}
+                                {% endif %}
+                                <img src="{{ image_url }}" alt="{{ name }}" title="{{ name }}">
+                            </a>
+                            <h3>{{ name }}</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endapply %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,22 @@
+<div class="hidden payment-form">
+    <form name="pay" id="wspay{{ data.cart }}" action="{{ data.Action }}" method="POST">
+        <input type="hidden" name="ShopID" value="{{ data.ShopID }}">
+        <input type="hidden" name="ShoppingCartID" value="{{ data.ShoppingCartID }}">
+        <input type="hidden" name="TotalAmount" value="{{ data.TotalAmount }}">
+        <input type="hidden" name="Signature" value="{{ data.Signature }}">
+        <input type="hidden" name="ReturnURL" value="{{ data.site_base_url }}/api/wspay_confirm">
+        <input type="hidden" name="CancelURL" value="{{ data.site_base_url }}/api/wspay_cancel">
+        <input type="hidden" name="ReturnErrorURL" value="{{ data.site_base_url }}/api/wspay_confirm">
+        {#<input type="hidden" name="PaymentPlan" value="0000">#}
+        {% if data.Lang is defined and data.Lang is not empty %}<input type="hidden" name="Lang" value="{{ data.Lang }}">{% endif %}
+        {% if data.CustomerFirstName is defined and data.CustomerFirstName is not empty %}<input type="hidden" name="CustomerFirstName" value="{{ data.CustomerFirstName }}">{% endif %}
+        {% if data.CustomerLastName is defined and data.CustomerLastName is not empty %}<input type="hidden" name="CustomerLastName" value="{{ data.CustomerLastName }}">{% endif %}
+        {% if data.CustomerAddress is defined and data.CustomerAddress is not empty %}<input type="hidden" name="CustomerAddress" value="{{ data.CustomerAddress }}">{% endif %}
+        {% if data.CustomerCity is defined and data.CustomerCity is not empty %}<input type="hidden" name="CustomerCity" value="{{ data.CustomerCity }}">{% endif %}
+        {% if data.CustomerZIP is defined and data.CustomerZIP is not empty %}<input type="hidden" name="CustomerZIP" value="{{ data.CustomerZIP }}">{% endif %}
+        {% if data.CustomerCountry is defined and data.CustomerCountry is not empty %}<input type="hidden" name="CustomerCountry" value="{{ get_array_store_attribute(current_store_id,data.CustomerCountry) }}">{% endif %}
+        {% if data.CustomerPhone is defined and data.CustomerPhone is not empty %}<input type="hidden" name="CustomerPhone" value="{{ data.CustomerPhone }}">{% endif %}
+        {% if data.CustomerEmail is defined and data.CustomerEmail is not empty %}<input type="hidden" name="CustomerEmail" value="{{ data.CustomerEmail }}">{% endif %}
+        <input type="submit" value="Buy">
+    </form>
+</div>

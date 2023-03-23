@@ -1,0 +1,25 @@
+services:
+
+  task_list_view_block:
+    class: TaskBusinessBundle\Blocks\TaskListViewBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  timer_block:
+    class: TaskBusinessBundle\Blocks\TimerBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  task_agile_kanban_block:
+    class: TaskBusinessBundle\Blocks\TaskAgileKanbanBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  task_agile_current_user_kanban_block:
+    class: TaskBusinessBundle\Blocks\TaskAgileCurrentUserKanbanBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

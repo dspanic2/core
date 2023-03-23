@@ -1,0 +1,13 @@
+services:
+
+    activity_manager:
+        class: TaskBusinessBundle\Managers\ActivityManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    task_manager:
+        class: TaskBusinessBundle\Managers\TaskManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]

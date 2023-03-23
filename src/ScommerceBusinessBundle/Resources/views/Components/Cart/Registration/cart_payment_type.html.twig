@@ -1,0 +1,58 @@
+<form action="#">
+    {% set selectedPaymentType = data.model.payment_type|default(null) %}
+    <div class="form-section account">
+        <div class="row form-row full-width">
+            <div class="form-group payment-type col-xs-12 col-sm-12 {% if get_env("USE_SIMPLE_SELECT") != 1 %}has-select2{% endif %}">
+                <label><span class="label-text">{% trans into current_language %}Payment type{% endtrans %}*</span>
+                    {% if get_env("USE_SIMPLE_SELECT") == 1 %}
+                        <select class="form-control"
+                                name="payment_type_id"
+                                data-search-url="/cart/get_payment_type_autocomplete"
+                                data-placeholder="{% trans into current_language %}Select payment type{% endtrans %}"
+                                data-missing-delivery-placeholder="{% trans into current_language %}Select delivery type first{% endtrans %}"
+                                required>
+                            <option value="" selected="selected">
+                                {% if data.model.delivery_type is empty %}
+                                    {% trans into current_language %}Select delivery type first{% endtrans %}
+                                {% else %}
+                                    {% trans into current_language %}Select payment type{% endtrans %}
+                                {% endif %}
+                            </option>
+                            {% for payment in data.model.payment_types %}
+                                <option value="{{ payment.id }}"
+                                        data-description="{{ get_entity_store_attribute(current_store_id,payment,"description") }}"
+                                        {% if selectedPaymentType is not empty and payment.id == selectedPaymentType.id %}selected="selected"{% endif %}>
+                                    {{ get_entity_store_attribute(current_store_id,payment,"name") }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    {% else %}
+                        <select data-template="default"
+                                data-label="{% trans into current_language %}Payment type{% endtrans %}"
+                                data-type="lookup"
+                                data-search-url="/cart/get_payment_type_autocomplete"
+                                class="form-control"
+                                data-min-len="0"
+                                data-single="true"
+                                name="payment_type_id"
+                                data-allow-clear="true"
+                                data-placeholder="{% trans into current_language %}Select payment type{% endtrans %}"
+                                tabindex="-1"
+                                aria-hidden="true"
+                                oninput="this.setCustomValidity('')"
+                                oninvalid="this.setCustomValidity('{% trans into current_language %}Please select item from the list.{% endtrans %}')"
+                                required>
+                            {% if selectedPaymentType is not empty %}
+                                <option value="{{ selectedPaymentType.id }}"
+                                        data-description="{{ get_entity_store_attribute(current_store_id,selectedPaymentType,"description") }}"
+                                        selected="selected">{{ get_entity_store_attribute(current_store_id,selectedPaymentType,"name") }}</option>
+                            {% endif %}
+                        </select>
+                    {% endif %}
+                    {% set selectedPaymentTypeDescription = get_entity_store_attribute(current_store_id,selectedPaymentType,"description") %}
+                    <span class="description">{% if selectedPaymentTypeDescription is not empty %}{{ selectedPaymentTypeDescription|raw }}{% endif %}</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</form>

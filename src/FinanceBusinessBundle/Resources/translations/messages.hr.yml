@@ -1,0 +1,54 @@
+Base price tax: Iznos poreza na osnovnu cijenu
+Base price total: Ukupna osnovna cijena
+Base price without tax: Ukupna osnovna cijena bez poreza
+Cron recalculate: Cron rekalkulacija
+Currency changed: Valuta promijenjena
+Currency: Valuta
+Currency rate: Tečaj valute
+Invoice issue date: Datum izdavanja računa
+Category: Kategorija
+Has error: Ima grešku
+Is overpaid: Preplaćeno je
+Is paid: Plaćeno je
+Manual currency rate: Ručni unos tečaja valute
+Check if you want to set currency rate manually: Označite ako želite ručno unijeti tečaj valute
+Payment due: Datum dospijeća
+Price tax: Iznos poreza
+Total price: Ukupna cijena
+Price without tax: Ukupna cijena bez poreza
+Supplier: Dobavljač
+Total left to pay: Preostalo za plaćanje
+Total paid: Ukupno plaćeno
+Expense: Trošak
+Base prices expense: Osnovna cijena troška 
+expense details: detalji izdavanja
+Expense document: Dokument troška
+Order: Narudžba
+Price total: Ukupna cijena
+Tax type: Vrsta poreza
+Expense item: Stavka troška
+Expense items: Stavke troška
+Expense item base price: Osnovna cijena stavke troška
+expense item details: Detalji stavke troška
+Payment date: Datum plaćanja
+Transaction code: Šifra transakcije
+Outbound payment: Isplata
+Document outbound payment: Dokument isplate
+outbound payment details: Detalji isplate
+Expense type: Vrsta troška
+expense type details: Detalji vrste troška
+Outbound payment type: Vrsta isplate
+outbound payment type details: Detalji vrste isplate
+Expense category: Kategorija troška
+expense category details: Detalji kategorije troška
+Expenses: Troškovi
+Expense form: Obrazac troška
+Expense item form: Obrazac stavke troška
+Outbound payment form: Obrazac isplate
+Expense types: Vrste troškova
+Expense type form: Obrazac vrste troška
+Outbound payment types: Vrste isplata
+Outbound payment type form: Obrazac vrste isplate 
+Expense categories: Kategorije troškova
+Expense category form: Obrazac kategorije troškova
+Quote: Ponuda

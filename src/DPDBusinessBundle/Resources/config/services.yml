@@ -1,0 +1,6 @@
+services:
+    dpd_manager:
+        class: DPDBusinessBundle\Managers\DPDManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]

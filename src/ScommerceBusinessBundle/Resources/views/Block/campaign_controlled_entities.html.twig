@@ -1,0 +1,45 @@
+{% if data.model is defined and data.model is not empty %}
+    <div class="sp-block {{ data.block.class }}">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="panel-heading">
+                    <h5>{{ data.block.title|trans }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="options">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="margin-top-20 row form-group">
+                    <div class="col-xs-12">
+                        {% if data.model.entities is defined and data.model.entities is not empty %}
+                            {% for entity_type_code,entity_type_data in data.model.entities %}
+                                {% if entity_type_data.attributes|default([]) is not empty %}
+                                    <h2>{{ entity_type_data.label|trans }}</h2>
+                                    <div class="links-wrapper">
+                                        {% for attribute_code,attribute_data in entity_type_data.attributes %}
+                                            {% if attribute_data.entities|default([]) is not empty %}
+                                                <h3>{{ attribute_data.label|trans }}</h3>
+                                                <div class="links-wrapper">
+                                                    {% for entity_data in attribute_data.entities %}
+                                                        <a href="/page/{{ entity_type_code }}/form/{{ entity_data.id }}" style="display: block">{{ entity_data.name }}</a>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    {% if not loop.last %}<hr>{% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p>{% trans %}No entities found{% endtrans %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

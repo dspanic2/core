@@ -1,0 +1,29 @@
+<fieldset class="form-group-wrapper sp-table-mark sp-remove-zero sp-move-arrows">
+    <p>Ovdje dodje opis</p>
+    <table class="sp_report_view_table table">
+        <thead>
+        <tr>
+            <th>{% trans %}Id{% endtrans %}</th>
+            <th>{% trans %}Name{% endtrans %}</th>
+            <th>{% trans %}Product groups{% endtrans %}</th>
+            <th>{% trans %}Base price{% endtrans %}</th>
+            <th>{% trans %}Retail price{% endtrans %}</th>
+            <th>{% trans %}Sales{% endtrans %}</th>
+            <th>{% trans %}Amount{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data.items %}
+            <tr>
+                <td class="sp_bold">{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.product_groups }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.price_tax }}</td>
+                <td>{{ item.sales }}</td>
+                <td>{{ item.amount }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</fieldset>

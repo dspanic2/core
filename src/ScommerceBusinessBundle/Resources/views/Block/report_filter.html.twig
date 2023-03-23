@@ -1,0 +1,64 @@
+<div class="sp-block report-filter-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="row sp-margin-bottom-15">
+                <div class="col-sm-2">
+                    <div style="position: relative">
+                        <div class="form-group">
+                            {% set filterRange = app.request.cookies.get('report_range')|default("") %}
+                            <div class="date-range-dropdown" data-range="{{ filterRange }}">
+                                <div class="date-range-label"><span>{% if filterRange is not empty %}{{ filterRange }}{% else %}{% trans %}Select date{% endtrans %}{% endif %}</span></div>
+                                <div class="date-range-values">
+                                    <div class="range-today"><span>{% trans %}Today{% endtrans %}</span></div>
+                                    <div class="range-yesterday"><span>{% trans %}Yestarday{% endtrans %}</span></div>
+                                    <div class="range-last-month"><span>{% trans %}Last month{% endtrans %}</span></div>
+                                    <div class="range-last-3-months"><span>{% trans %}Last 3 months{% endtrans %}</span></div>
+                                    <div class="range-last-6-months"><span>{% trans %}Last 6 months{% endtrans %}</span></div>
+                                    <div class="range-last-12-months"><span>{% trans %}Last 12 months{% endtrans %}</span></div>
+                                    <div class="range-custom"><span>{% trans %}Custom dates{% endtrans %}</span>
+                                        <div class="date-range-placeholder">
+                                            <input data-type="daterange"
+                                                   type="text"
+                                                   data-action="date"
+                                                   {% if filterRange is empty %}data-clear="true"{% endif %}
+                                                   class="form-control"
+                                                   name="report_date_range"
+                                                   value="{{ filterRange }}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# <span data-action="clear-date" class="sp-clear {% if filterRange is empty %}hidden{% endif %}">x</span> #}
+                        </div>
+                    </div>
+                </div>
+
+                {% if data.model.stores is defined and data.model.stores is not empty %}
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            {% set filterStore = app.request.cookies.get('report_store')|default("") %}
+                            <select name="report_store" class="form-control">
+                                <option class="default-stores" {% if filterStore|trans  == data.model.all_stores|join(',')|trans  %}selected="selected"{% endif %} value="{{ data.model.all_stores|join(',') }}">{% trans %}All stores{% endtrans %}</option>
+                                {% for website in data.model.stores %}
+                                    <optgroup label="{{ website["name"]|capitalize }}">
+                                        <option {% if filterStore|trans  == website["ids"]|join(',')|trans  %}selected="selected"{% endif %} value="{{ website["ids"]|join(',') }}">{% trans %}All stores in website{% endtrans %}</option>
+                                        {% for store in website["stores"] %}
+                                            <option {% if filterStore|trans  == store["id"]|trans  %}selected="selected"{% endif %} value="{{ store["id"] }}">{{ store["name"] }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        {# <button type="submit" class="apply-filter sp-btn btn-primary btn-blue btn">{% trans %}Apply{% endtrans %}</button> #}
+                        <button type="submit" class="apply-show-all sp-btn btn-secondary btn-blue btn">{% trans %}Show all{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

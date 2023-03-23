@@ -1,0 +1,18 @@
+services:
+
+ project_task_listener:
+    class: ProjectManagementBusinessBundle\EventListener\ProjectTaskListener
+    calls:
+       - [ setContainer,[ "@service_container" ] ]
+    tags:
+     - { name: kernel.event_listener, event: entity.precreated, method: onTaskPreCreated}
+     - { name: kernel.event_listener, event: entity.preupdated, method: onTaskPreUpdated}
+     - { name: kernel.event_listener, event: entity.created, method: onTaskCreated}
+     - { name: kernel.event_listener, event: entity.updated, method: onTaskUpdated}
+
+ project_documents_listener:
+    class: ProjectManagementBusinessBundle\EventListener\ProjectDocumentsListener
+    calls:
+       - [ setContainer,[ "@service_container" ] ]
+    tags:
+       - { name: kernel.event_listener, event: entity.precreated, method: onDocumentPreCreated}

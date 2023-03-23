@@ -1,0 +1,12 @@
+<td {% if fieldClass is not empty %} class="{{ fieldClass }}" {% endif %}>
+	{% if value is defined and value is not empty %}
+		{% for val in value %}
+			{% if val == 1 %}
+				<span class="sp-true" {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>{{ "Yes"|trans }}</span>
+			{% else %}
+				<span class="sp-false" {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>{{ "No"|trans }}</span>
+			{% endif %}
+			{% if not loop.last %},{% endif %}
+		{% endfor %}
+	{% endif %}
+</td>

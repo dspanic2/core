@@ -1,0 +1,7 @@
+{#{% extends 'MakromikroBusinessBundle:Email:mm_base.html.twig' %}#}
+
+{#{% block header %}{% include 'MakromikroBusinessBundle:Email:mm_header.html.twig' %}{% endblock %}#}
+
+{#{% block body %}#}
+    {{ data.html|default("")|raw }}
+{#{% endblock %}#}

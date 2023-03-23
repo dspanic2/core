@@ -1,0 +1,24 @@
+{% if product is defined %}
+    {% set product = get_real_product(product, get_query_parameters()) %}
+
+    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':data.configurable_bundle|default({})}, {}))|json_decode %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'google_tag_params': {
+                        'dynx_itemid': '{{ product.getId }}',
+                        'dynx_pagetype': 'product',
+                        'dynx_totalvalue': {{ prices.final_tracking_price|number_format(2,".","") }}
+                    }
+                });
+            </script>
+        {% endset %}
+        {% if execute|default(0) == 1 %}
+            {{ trackingData|striptags|raw }}
+        {% else %}
+            {{ set_global_tracking_data(trackingData) }}
+        {% endif %}
+    {% endapply %}
+{% endif %}

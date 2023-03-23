@@ -1,0 +1,27 @@
+<div class="sp-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="panel-heading">
+                    <h5>{#{ data.block.title|trans }#}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    </h5>
+                </div>
+            {% endif %}
+            {% if data.error is defined %}
+                {{ data.error }}
+            {% endif %}
+            {% if data.model.html is defined %}
+                {#{{ include(template_from_string(data.model.html)) }}#}
+                {{ data.model.html|raw }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+

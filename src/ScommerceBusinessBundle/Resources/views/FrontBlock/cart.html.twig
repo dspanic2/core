@@ -1,0 +1,3 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section {{ data.block.class }} {% if data.model.quote is defined and data.model.quote is not empty and data.model.quote.accountEmail is not empty %}marketing-on{% endif %}" {{ data.block.dataAttributes }}>
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart.html.twig', 'data': {'data': data}}, {})) }}
+</div>

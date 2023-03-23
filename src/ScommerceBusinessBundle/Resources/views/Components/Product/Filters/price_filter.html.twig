@@ -1,0 +1,28 @@
+{% set title = "Price"|trans %}
+{% set expanded = true %}
+{% for values in data %}
+    {% for key,filter in values %}
+        <div class="category-filter additional {% if expanded %}expanded{% else %}shortened{% endif %}" data-filter-key="{{ key }}">
+            <div class="filter-title" title="{{ title }}">{{ title }}</div>
+            <div class="filter-values {{ key }}">
+                <div class="price-filter-range"></div>
+                <div class="price-filter-input">
+                    <input type="number"
+                           name="min_price"
+                           min="{{ (filter.min_price)|round(0, 'floor') }}"
+                           max="{{ (filter.max_price)|round(0, 'ceil') }}"
+                           value="{% if filter.selected_min_price is defined and filter.selected_min_price is not empty %}{{ (filter.selected_min_price)|round(0, 'floor') }}{% else %}{{ (filter.min_price)|round(0, 'floor') }}{% endif %}"
+                           class="min-price price-range-field"/>
+                    <input type="number"
+                           name="max_price"
+                           min="{{ (filter.min_price)|round(0, 'floor') }}"
+                           max="{{ (filter.max_price)|round(0, 'ceil') }}"
+                           value="{% if filter.selected_max_price is defined and filter.selected_max_price is not empty %}{{ (filter.selected_max_price)|round(0, 'ceil') }}{% else %}{{ (filter.max_price+1)|round(0, 'ceil') }}{% endif %}"
+                           class="max-price price-range-field"/>
+                    <button class="apply local-overlay-toggle">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:checkmark.html.twig', 'data': {}}, {})) }}</button>
+                    <button class="reset local-overlay-toggle">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:times.html.twig', 'data': {}}, {})) }}</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}

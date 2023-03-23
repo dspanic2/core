@@ -1,0 +1,20 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section newsletter-unsubscribe {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="col-xs-12">
+          {% if data.model.success is defined and data.model.success %}
+            <h1>{% trans into current_language %}Success{% endtrans %}</h1>
+          {% else %}
+            <h1>{% trans into current_language %}Error{% endtrans %}</h1>
+          {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+          {% if data.model.success is defined and data.model.success %}
+            <p>{% trans into current_language %}You have been successfully unsubscribed{% endtrans %}</p>
+          {% else %}
+            <p>{% trans into current_language %}An error occurred during unsubscription{% endtrans %}</p>
+          {% endif %}
+        </div>
+    </div>
+</div>

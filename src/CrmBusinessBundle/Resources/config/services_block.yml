@@ -1,0 +1,79 @@
+services:
+
+ quote_descriptions_block:
+    class:  CrmBusinessBundle\Blocks\QuoteDescriptionsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+ deal_progress_block:
+   class:  CrmBusinessBundle\Blocks\DealProgressBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ discount_rules_block:
+   class:  CrmBusinessBundle\Blocks\DiscountRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ bulk_prices_block:
+     class:  CrmBusinessBundle\Blocks\BulkPricesBlock
+     calls:
+       - [ setContainer,[ "@service_container" ] ]
+       - [ initialize ]
+
+ margin_rules_block:
+   class:  CrmBusinessBundle\Blocks\MarginRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ loyalty_earnings_rules_block:
+   class:  CrmBusinessBundle\Blocks\LoyaltyEarningsRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ email_template_preview_block:
+   class:  CrmBusinessBundle\Blocks\EmailTemplatePreviewBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ product_label_rules_block:
+   class: CrmBusinessBundle\Blocks\ProductLabelRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ payment_type_rules_block:
+   class: CrmBusinessBundle\Blocks\PaymentTypeRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ product_export_rules_block:
+   class: CrmBusinessBundle\Blocks\ProductExportRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ product_document_rules_block:
+   class: CrmBusinessBundle\Blocks\ProductDocumentRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ discount_cart_rules_block:
+   class: CrmBusinessBundle\Blocks\DiscountCartRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]
+
+ discount_coupon_rules_block:
+   class: CrmBusinessBundle\Blocks\DiscountCouponRulesBlock
+   calls:
+     - [ setContainer,[ "@service_container" ] ]
+     - [ initialize ]

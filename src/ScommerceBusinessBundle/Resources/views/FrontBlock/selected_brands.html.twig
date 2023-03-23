@@ -1,0 +1,49 @@
+{% if data.model.brands is defined and data.model.brands is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if not data.block.getActiveIncludingDates %}inactive{% endif %}" {{ data.block.dataAttributes }}>
+        {% if data.model.subtitle is defined and data.model.subtitle is not empty %}
+            <div class="row">
+                <div class="col-xs-12">
+                    {% apply spaceless %}
+                        <div class="section-title">
+                            {{ data.model.subtitle|raw }}
+                            {% if data.model.show_more is defined and data.model.show_more is not empty %}
+                                {% if data.model.show_more.url == '/' %}
+                                    {% set url = '' %}
+                                {% else %}
+                                    {% set url = data.model.show_more.url %}
+                                {% endif %}
+                                <a href="{{ url }}" class="show-more">{{ data.model.show_more.title }}</a>
+                            {% endif %}
+                        </div>
+                    {% endapply %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-xs-12 items-grid">
+                {% apply spaceless %}
+                    {% for brand in data.model.brands %}
+                        {% if brand.getSelectedImage() is not empty %}
+                            <span class="item">
+                                    <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,51,"s_page") }}?s=1&brand={{ get_entity_store_attribute(current_store_id,brand,"name") }}"
+                                       class="item-bordered icon-vertical"
+                                       title="{{ get_entity_store_attribute(current_store_id,brand,"name") }}">
+                                        {% set image_url = "/Documents/brand_image/"  ~ brand.getSelectedImage().file %}
+                                        {% set image_style_url = image_url|image_style('brand') %}
+                                        {% if image_style_url %}
+                                            {% set image_url = image_style_url %}
+                                        {% endif %}
+                                        <img class="icon"
+                                             src="{{ image_url }}"
+                                             alt="{% if brand.getSelectedImage().alt is defined and brand.getSelectedImage().alt is not empty %}{{ brand.getSelectedImage().alt }}{% else %}{{ get_entity_store_attribute(current_store_id,brand,"name") }}{% endif %}"
+                                             title="{% if brand.getSelectedImage().title is defined and brand.getSelectedImage().title is not empty %}{{ brand.getSelectedImage().title }}{% else %}{{ get_entity_store_attribute(current_store_id,brand,"name") }}{% endif %}">
+                                    </a>
+                                </span>
+                        {% endif %}
+                    {% endfor %}
+                {% endapply %}
+            </div>
+        </div>
+    </div>
+{% endif %}

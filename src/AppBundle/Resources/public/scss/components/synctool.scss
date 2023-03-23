@@ -1,0 +1,26 @@
+tr.compare-result.new,
+tr.compare-result.new > td {
+  background-color: #DAFF7F !important;
+}
+
+tr.compare-result.new:hover,
+tr.compare-result.new:hover > td {
+  background-color: #99b555 !important;
+}
+
+tr.compare-result.modified,
+tr.compare-result.modified > td {
+  background-color: #FFE97F !important;
+}
+
+tr.compare-result.modified:hover,
+tr.compare-result.modified:hover > td {
+  background-color: #a09250 !important;
+}
+
+button.run_sync {
+  position: fixed;
+  bottom: 70px;
+  right: 50px;
+  margin: 0;
+}

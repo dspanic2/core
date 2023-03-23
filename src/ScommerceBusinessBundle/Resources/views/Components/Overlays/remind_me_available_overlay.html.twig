@@ -1,0 +1,48 @@
+<div id="availability-reminder-form-overlay" class="overlay fixed-form">
+    <div class="inner">
+        <span class="overlay-close">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:times.html.twig', 'data': {}}, {})) }}</span>
+        <form id="remind-available"
+              class="ajax-submit"
+              action="/api/remind_me"
+              method="post">
+            <input type="hidden" name="product_id">
+            <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+
+            <div class="row form-row full-width">
+                <div class="form-group email col-xs-12">
+                    <label for="email">{% trans into current_language %}Email address{% endtrans %}*</label>
+                    <input type="email" name="email" required>
+                </div>
+                {# <div class="form-group phone col-xs-12 col-sm-6"> #}
+                {# <label for="email">{% trans into current_language %}Phone{% endtrans %}</label> #}
+                {# <input type="text" name="phone"> #}
+                {# </div> #}
+            </div>
+
+            {# <div class="row form-row"> #}
+            {# <div class="form-group first_name col-xs-12 col-sm-6"> #}
+            {# <label for="first_name">{% trans into current_language %}First name{% endtrans %}*</label> #}
+            {# <input type="text" name="first_name" required> #}
+            {# </div> #}
+
+            {# <div class="form-group last_name col-xs-12 col-sm-6"> #}
+            {# <label for="last_name">{% trans into current_language %}Last name{% endtrans %}*</label> #}
+            {# <input type="text" name="last_name" required> #}
+            {# </div> #}
+            {# </div> #}
+
+            <div class="row form-row">
+                <div class="form-group col-xs-12 text-left">
+                    <label class="plain force-visible label-checkbox">
+                        <input required type="checkbox"
+                               name="gdpr">{% trans into current_language %}I agree to use the information provided for the purpose of receiving notification of special offers and promotions{% endtrans %}
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group submit">
+                <input type="submit" value="{% trans into current_language %}Send{% endtrans %}" class="button btn-type-1">
+            </div>
+        </form>
+    </div>
+</div>

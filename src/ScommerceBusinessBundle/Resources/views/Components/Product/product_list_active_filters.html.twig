@@ -1,0 +1,150 @@
+{% if additional is defined and additional is not empty %}
+    {% set rendered = [] %}
+    {% if additional["price"] is defined and additional["price"] is not empty %}
+        {% set rendered = rendered|merge(['price']) %}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Filters:price_filter.html.twig', 'data': {'data': additional["price"]}}, {})) }}
+    {% endif %}
+    {% if additional["categories"] is defined and additional["categories"] is not empty %}
+        {% set rendered = rendered|merge(['categories']) %}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Filters:categories_filter.html.twig', 'data': {'data': additional["categories"]}}, {})) }}
+    {% endif %}
+    {% set hasMore = false %}
+    {% for attr_id,filter in additional %}
+        {% if attr_id not in rendered %}
+            {% set hasMore = true %}
+        {% endif %}
+    {% endfor %}
+    {% if hasMore %}
+        <div class="category-filter-wrapper">
+            {% for attr_id,filter in additional %}
+                {% if attr_id not in rendered %}
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Filters:simple_bool.html.twig', 'data': {'attr_id':attr_id, 'data': filter}}, {})) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
+
+{% set boolFilters = [] %}
+{% if secondary_filters is defined and secondary_filters is not empty %}
+    {% for attr_id,filter in secondary_filters %}
+        {% if filter.values is defined and filter.values is not empty %}
+            {% if filter.attribute_configuration.s_product_attribute_configuration_type_id == 4 %}{# BOOL #}
+                {% set boolFilters = boolFilters|merge({(attr_id): filter}) %}
+            {% else %}{# NOT BOOL #}
+                {% set is_selected = false %}
+                {% set secondary_filters_html %}
+                    {% for key,filter_value in filter.values %}
+                        {% if filter_value.selected %}
+                            {% set is_selected = true %}
+                            <li>
+                                {% set filterlabelValue = filter_value.name|trans %}
+                                <label for='checkbox-{{ attr_id }}-{{ key }}'
+                                       class="{% if filter_value.disabled %}disabled{% endif %} label-checkbox"
+                                       title="{{ filterlabelValue }}">
+                                    <input type='checkbox'
+                                           value='{{ filter_value.name }}'
+                                           name='filter-{{ attr_id }}-{{ filter.attribute_configuration.id }}'
+                                           id='checkbox-{{ attr_id }}-{{ key }}'
+                                           {% if filter_value.disabled %}disabled{% endif %}
+                                            {% if filter_value.selected %}checked{% endif %}/>
+                                    {{ filterlabelValue }}
+
+                                    <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_63_401)">
+                                            <path d="M9.99002 1.105C9.91095 1.02488 9.81675 0.961261 9.71289 0.917839C9.60903 0.874417 9.49758 0.852074 9.38501 0.852074C9.27244 0.852074 9.16102 0.874417 9.05716 0.917839C8.9533 0.961261 8.8591 1.02488 8.78003 1.105L5.14001 4.825L1.46002 1.14501C1.29493 1.01036 1.08573 0.941761 0.872955 0.952538C0.660185 0.963314 0.458994 1.05269 0.30835 1.20333C0.157706 1.35397 0.0683324 1.55517 0.0575562 1.76794C0.0467799 1.98071 0.115378 2.18991 0.250031 2.355L3.93002 6.035L0.250031 9.71502C0.169908 9.79409 0.106288 9.88826 0.0628662 9.99212C0.0194445 10.096 -0.00292969 10.2074 -0.00292969 10.32C-0.00292969 10.4326 0.0194445 10.544 0.0628662 10.6479C0.106288 10.7517 0.169908 10.8459 0.250031 10.925C0.328075 11.0049 0.421439 11.0682 0.524536 11.1112C0.627634 11.1541 0.73832 11.1759 0.850006 11.175C0.963208 11.1761 1.07549 11.1545 1.18024 11.1116C1.28499 11.0686 1.38012 11.0052 1.46002 10.925L5.14001 7.24502L8.82001 10.925C8.98103 11.0844 9.19845 11.1738 9.42502 11.1738C9.65158 11.1738 9.86901 11.0844 10.03 10.925C10.1102 10.8459 10.1738 10.7517 10.2172 10.6479C10.2606 10.544 10.283 10.4326 10.283 10.32C10.283 10.2074 10.2606 10.096 10.2172 9.99212C10.1738 9.88826 10.1102 9.79409 10.03 9.71502L6.35001 6.035L10.03 2.355C10.1139 2.27267 10.1798 2.17384 10.2235 2.06475C10.2673 1.95566 10.2879 1.83871 10.2841 1.72124C10.2804 1.60378 10.2523 1.48835 10.2017 1.38229C10.1511 1.27622 10.079 1.1818 9.99002 1.105Z"
+                                                  fill="#3D3C43"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_63_401">
+                                                <rect width="10.29" height="10.29" fill="white" transform="translate(0 0.855003)"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </label>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endset %}
+                {% if is_selected %}
+                    <div class="category-filter shortened {% if is_selected %}expanded{% endif %}"
+                         data-attr-id="{{ filter.attribute_configuration.id }}"
+                         data-attr-type="secondary"
+                            {% if filter.attribute_configuration.attribute_code is defined %}
+                                data-attr-code="{{ filter.attribute_configuration.attribute_code }}"
+                            {% endif %}
+                         data-filter-key="{{ filter.attribute_configuration.filter_key }}">
+                        <div class="filter-title"
+                             title="{{ filter.attribute_configuration.name|trans }}">{{ filter.attribute_configuration.name|trans }}</div>
+                        <div class="filter-values {% if filter.attribute_configuration.filter_template is defined and filter.attribute_configuration.filter_template is not empty %}{{ filter.attribute_configuration.filter_template }}{% endif %}">
+                            <ul>
+                                {{ secondary_filters_html }}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if boolFilters is not empty %}
+        {% for attr_id,filter in boolFilters %}
+            {% set isFirstAttribute = loop.first %}
+            {% set isLastAttribute = loop.last %}
+            {% if filter.values is defined and filter.values is not empty %}
+                {% if filter.attribute_configuration.s_product_attribute_configuration_type_id == 4 %}{# BOOL #}
+                    {% if filter.selected %}
+                        {% set bool_filters_html %}
+                            {% for key,filter_value in filter.values %}
+                                {% if filter_value.selected %}{% set is_selected = true %}{% endif %}
+                                <li>
+                                    {% set filterlabelValue = filter.attribute_configuration.name|trans %}
+                                    <label for='checkbox-{{ attr_id }}-{{ key }}'
+                                           class="{% if filter_value.disabled %}disabled{% endif %} label-checkbox"
+                                           title="{{ filterlabelValue }}">
+                                        <input type='checkbox'
+                                               value='{{ filter_value.name }}'
+                                               name='filter-{{ attr_id }}-{{ filter.attribute_configuration.id }}'
+                                               id='checkbox-{{ attr_id }}-{{ key }}'
+                                               {% if filter_value.disabled %}disabled{% endif %}
+                                                {% if filter_value.selected %}checked{% endif %}/>
+                                        {{ filterlabelValue }}
+
+                                        <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_63_401)">
+                                                <path d="M9.99002 1.105C9.91095 1.02488 9.81675 0.961261 9.71289 0.917839C9.60903 0.874417 9.49758 0.852074 9.38501 0.852074C9.27244 0.852074 9.16102 0.874417 9.05716 0.917839C8.9533 0.961261 8.8591 1.02488 8.78003 1.105L5.14001 4.825L1.46002 1.14501C1.29493 1.01036 1.08573 0.941761 0.872955 0.952538C0.660185 0.963314 0.458994 1.05269 0.30835 1.20333C0.157706 1.35397 0.0683324 1.55517 0.0575562 1.76794C0.0467799 1.98071 0.115378 2.18991 0.250031 2.355L3.93002 6.035L0.250031 9.71502C0.169908 9.79409 0.106288 9.88826 0.0628662 9.99212C0.0194445 10.096 -0.00292969 10.2074 -0.00292969 10.32C-0.00292969 10.4326 0.0194445 10.544 0.0628662 10.6479C0.106288 10.7517 0.169908 10.8459 0.250031 10.925C0.328075 11.0049 0.421439 11.0682 0.524536 11.1112C0.627634 11.1541 0.73832 11.1759 0.850006 11.175C0.963208 11.1761 1.07549 11.1545 1.18024 11.1116C1.28499 11.0686 1.38012 11.0052 1.46002 10.925L5.14001 7.24502L8.82001 10.925C8.98103 11.0844 9.19845 11.1738 9.42502 11.1738C9.65158 11.1738 9.86901 11.0844 10.03 10.925C10.1102 10.8459 10.1738 10.7517 10.2172 10.6479C10.2606 10.544 10.283 10.4326 10.283 10.32C10.283 10.2074 10.2606 10.096 10.2172 9.99212C10.1738 9.88826 10.1102 9.79409 10.03 9.71502L6.35001 6.035L10.03 2.355C10.1139 2.27267 10.1798 2.17384 10.2235 2.06475C10.2673 1.95566 10.2879 1.83871 10.2841 1.72124C10.2804 1.60378 10.2523 1.48835 10.2017 1.38229C10.1511 1.27622 10.079 1.1818 9.99002 1.105Z"
+                                                      fill="#3D3C43"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_63_401">
+                                                    <rect width="10.29" height="10.29" fill="white" transform="translate(0 0.855003)"/>
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </label>
+                                </li>
+                            {% endfor %}
+                        {% endset %}
+                        <div class="category-filter shortened {% if is_selected %}expanded{% endif %} is-bool {% if isLastAttribute %}is-last{% endif %} {% if isFirstAttribute %}is-first{% endif %}"
+                             data-attr-id="{{ filter.attribute_configuration.id }}"
+                             data-attr-type="secondary"
+                                {% if filter.attribute_configuration.attribute_code is defined %}
+                                    data-attr-code="{{ filter.attribute_configuration.attribute_code }}"
+                                {% endif %}
+                             data-filter-key="{{ filter.attribute_configuration.filter_key }}">
+                            <div class="filter-title">{{ "Characteristics"|trans }}</div>
+                            <div class="filter-values {% if filter.attribute_configuration.filter_template is defined and filter.attribute_configuration.filter_template is not empty %}{{ filter.attribute_configuration.filter_template }}{% endif %}">
+                                <ul>
+                                    {{ bool_filters_html }}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+<div class="text-center">
+    <button class="clear-all-filters button btn-type-3">{% trans into current_language %}Clear all filters{% endtrans %}</button>
+</div>

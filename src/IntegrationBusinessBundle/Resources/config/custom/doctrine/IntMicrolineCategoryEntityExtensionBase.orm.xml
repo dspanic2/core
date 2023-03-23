@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="IntegrationBusinessBundle\Entity\IntMicrolineCategoryEntity" table="int_microline_category_entity">
+        ###CLASS_START
+        <one-to-many field="categoryGroupLinks" target-entity="IntegrationBusinessBundle\Entity\IntMicrolineCategoryGroupLinkEntity" mapped-by="intMicrolineCategory">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+        <one-to-many field="categoryProductLinks" target-entity="IntegrationBusinessBundle\Entity\IntMicrolineCategoryProductLinkEntity" mapped-by="intMicrolineCategory">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

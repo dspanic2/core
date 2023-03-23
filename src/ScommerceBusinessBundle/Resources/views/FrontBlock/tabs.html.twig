@@ -1,0 +1,24 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}">
+    <div class="tabs">
+        <ul>
+            {% for row in data.block.preparedContent %}
+                {% set rowIndex = loop.index %}
+                {% for block in row.blocks %}
+                    {% set blockIndex = loop.index %}
+                    <li>
+                        <a href="#item-{{ rowIndex }}-{{ blockIndex }}" class="item">{{ block.name }}</a>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        {% for row in data.block.preparedContent %}
+            {% set rowIndex = loop.index %}
+            {% for block in row.blocks %}
+                {% set blockIndex = loop.index %}
+                <div id="item-{{ rowIndex }}-{{ blockIndex }}" data-block-id="{{ block.id }}">
+                    {{ render(controller('AppBundle:FrontTemplate:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>

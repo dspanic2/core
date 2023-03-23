@@ -1,0 +1,23 @@
+{
+  "name": "shipshapesolutions/shapeunittestingbundle",
+  "type": "shipshape-core-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ShipShape",
+      "email": "info@shipshape-solutions.com",
+      "homepage": "https://shipshape-solutions.com/"
+    }
+  ],
+  "require": {
+    "shipshapesolutions/composer-bundle-installer": "1.x-dev"
+  },
+  "require-dev": {
+    "symfony/phpunit-bridge": "^3.0",
+    "phpunit/phpunit": "5.7.27",
+    "brianium/paratest": "^0.15"
+  },
+  "extra": {
+    "install-directory": "./src/ShapeUnitTestingBundle"
+  }
+}

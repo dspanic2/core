@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div id="page-content">
+    <div id='wrap'>
+        <div class="container">
+            <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}" accept-charset="UTF-8"
+                  data-callback=''
+                  data-type="{{ managed_entity_type }}"
+                  class="form-horizontal row-border">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="panel panel-midnightblue">
+                            <div class="panel-heading master-panel-heading">
+                                <h4>{% trans %}General information{% endtrans %}</h4>
+                            </div>
+                            <div class="panel-body collapse in">
+                                <fieldset class="form-group-wrapper">
+                                    <div class="form-group row hidden">
+                                        <div class="col-sm-6">
+                                            <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Code{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" readonly="readonly" name="attributeCode" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.roleCode }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs">
+                    {% for key,privileges in privileges_list %}
+                        <li {% if key == 1 %}class="active"{% endif %}><a data-toggle="tab" href="#w{{ key }}">{{ privileges.name|trans }}</a></li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    <div id="w1" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="panel panel-midnightblue">
+                                    <div class="panel-heading master-panel-heading">
+                                        <h4>{{ privileges_list[1].name|trans }}</h4>
+                                    </div>
+                                    <div class="panel-body collapse in">
+                                        <fieldset class="form-group-wrapper">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label"></label>
+                                                <div class="col-sm-2">{% trans %}Create{% endtrans %}</div>
+                                                <div class="col-sm-2">{% trans %}Delete{% endtrans %}</div>
+                                                <div class="col-sm-2">{% trans %}Edit{% endtrans %}</div>
+                                                <div class="col-sm-2">{% trans %}View{% endtrans %}</div>
+                                            </div>
+                                            {% for privilege in privileges_list[1].privileges %}
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 control-label">{{ privilege.entity_code }}</label>
+                                                    {% for action in privilege.action_code %}
+                                                        <div class="col-sm-2">
+                                                            <label>
+                                                                <input readonly="readonly" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" type="checkbox" name="privilege[{{ privilege.action_type }}][{{ privilege.entity_type_id }}][{{ action }}]" data-type="bchackbox" {% apply spaceless %}
+                                                                       {% if entity_privileges[privilege.action_type][privilege.entity_type_id][action] is defined %}checked="checked"{% endif %}
+                                                                       value="1"
+                                                                {% endapply %}/></label>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endfor %}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="w2" class="tab-pane fade in">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="panel panel-midnightblue">
+                                    <div class="panel-heading master-panel-heading">
+                                        <h4>{{ privileges_list[2].name|trans }}</h4>
+                                    </div>
+                                    <div class="panel-body collapse in">
+                                        <fieldset class="form-group-wrapper">
+                                            {% for privilege in privileges_list[2].privileges %}
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 control-label">{{ privilege.entity_code }}</label>
+                                                    {% for action in privilege.action_code %}
+                                                        <div class="col-sm-6">
+                                                            <label>
+                                                                <input readonly="readonly" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" type="checkbox" name="privilege[{{ privilege.action_type }}][{{ privilege.entity_type_id }}][{{ action }}]" data-type="bchackbox" {% apply spaceless %}
+                                                                    {% if entity_privileges[privilege.action_type][privilege.entity_type_id][action] is defined %}checked="checked"{% endif %}
+                                                                    value="1"
+                                                                        {% endapply %}/></label>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endfor %}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="w3" class="tab-pane fade in">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="panel panel-midnightblue">
+                                    <div class="panel-heading master-panel-heading">
+                                        <h4>{{ privileges_list[3].name|trans }}</h4>
+                                    </div>
+                                    <div class="panel-body collapse in">
+                                        <fieldset class="form-group-wrapper">
+                                            {% for privilege in privileges_list[3].privileges %}
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 control-label">{{ privilege.entity_code }}</label>
+                                                    {% for action in privilege.action_code %}
+                                                        <div class="col-sm-6">
+                                                            <label>
+                                                                <input readonly="readonly" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" type="checkbox" name="privilege[{{ privilege.action_type }}][{{ privilege.entity_type_id }}][{{ action }}]" data-type="bchackbox" {% apply spaceless %}
+                                                                    {% if entity_privileges[privilege.action_type][privilege.entity_type_id][action] is defined %}checked="checked"{% endif %}
+                                                                    value="1"
+                                                                        {% endapply %}/></label>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endfor %}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-7 col-sm-offset-2">
+                            <div class="btn-toolbar">
+                                <a href="/" class="sp-btn btn-default btn-red btn" data-action="back">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
+{% endblock %}

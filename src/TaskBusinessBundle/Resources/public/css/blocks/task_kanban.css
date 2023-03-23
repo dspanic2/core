@@ -1,0 +1,154 @@
+.sp-block-task_agile_kanban.schedule-mode .sp-block-user_agile_kanban .kanban-column {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.sp-block-task_agile_kanban h5 {
+    cursor: pointer;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .actions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 5px
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .actions ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .title {
+    display: flex;
+    align-items: center;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .title .priority-title {
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    flex: 1;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .title .actions {
+    flex: 0 0 30px;
+    width: 30px;
+    background: #fff;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban {
+    display: grid;
+    gap: 15px;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items {
+    height: 100%;
+    background: rgba(158, 154, 151, 0.1);
+    padding: 5px;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item {
+    margin-bottom: 5px;
+    border: 1px solid #5171A5;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .subject-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .subject-wrapper .subject {
+    cursor: pointer;
+    background: #5171A5;
+    color: #FFF;
+    padding: 5px;
+    flex: 1;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .subject-wrapper .actions {
+    flex: 0 0 150px;
+    width: 150px;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .subject-wrapper .actions a {
+    color: #000;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .subject-wrapper .actions ul li[data-action='kanban_activity_tracking_start'].active {
+    display: none;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .subject-wrapper .actions ul li[data-action='kanban_activity_tracking_stop'] {
+    display: none;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .subject-wrapper .actions ul li[data-action='kanban_activity_tracking_start'].active ~ li[data-action='kanban_activity_tracking_stop'] {
+    display: flex;
+}
+
+.sp-block-task_agile_kanban .sp-block-user_agile_kanban .kanban-column .items .task-item .body-wrapper {
+    background: #fff;
+}
+
+#kanban-filters {
+    background: #3a3633;
+    position: fixed;
+    bottom: 40px;
+    right: 63px;
+    min-width: 300px;
+    z-index: 9;
+    display: none;
+}
+
+#kanban-filters .kanban-filter-title-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#kanban-filters .kanban-filter-title-wrapper .kanban-filter-title {
+    background: #fff;
+    border: 1px solid #3a3633;
+    padding: 3px;
+    font-weight: bold;
+    flex: 1;
+    height: 28px;
+}
+
+#kanban-filters .kanban-filter-title-wrapper label {
+    flex: 0 0 30px;
+    width: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    border-bottom: 1px solid #fff;
+}
+
+#kanban-filters ul {
+    margin: 0;
+    list-style: none;
+    height: 400px;
+    overflow: auto;
+    padding: 5px;
+}
+
+#kanban-filters ul li label {
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 0;
+    cursor: pointer;
+}

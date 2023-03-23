@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            padding-top: 0 !important;
+            overflow-x: hidden !important;
+            background-color: #fff;
+        }
+
+        header {
+            padding: 7px 0 0 0;
+            height: 75px;
+            overflow: hidden;
+            float: left;
+            width: 100%;
+            border-bottom: 1px solid #adb5bd;
+            position: fixed;
+            z-index: 999999;
+            background-color: #fff;
+        }
+
+        .logo-header {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 60px;
+        }
+
+        .spt-selected {
+            border-bottom: 2px solid #4f6275;
+        }
+
+        .spt-icon {
+            font-weight: 400;
+            line-height: 60px;
+            display: inline-block;
+            width: 25%;
+            text-align: center;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .spt-header-button {
+            margin-top: 12px;
+            padding: 7px 15px;
+        }
+
+        #quote-html {
+            border-bottom: 1px solid #adb5bd;
+        }
+
+        .table {
+            display: table;
+        }
+
+        .table-cell-vertical {
+            display: table-cell;
+            height: 100%;
+            float: unset;
+            vertical-align: middle;
+        }
+
+        header a {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #sp-user-actions {
+            margin: 10px 0;
+        }
+
+        #orderpreview {
+            padding: 75px 0 50px 0;
+        }
+
+        /*#quotepreview table {
+            width: 100%;
+        }
+
+        #quotepreview h1:not(.main-title) {
+            font-size: 20px;
+            text-align: left;
+        }
+
+        #quotepreview .item {
+            clear: both;
+            float: right;
+        }
+
+        #quotepreview .item.item > * {
+            display: inline-block;
+            float: left;
+            width: 250px;
+        }
+
+        #quotepreview .item.item > label {
+            text-align: right;
+            margin-right: 15px;
+        }*/
+        #quote-preview-content {
+            border: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        #footer {
+            position: relative !important;
+        }
+
+        #footer footer {
+            border-top: 1px solid #adb5bd;
+            background: #ffffff;
+            color: #343a40;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .sp-qupte-buttons-wrapper {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 9999999999;
+            background-color: #fff;
+            border-top: 1px solid #adb5bd;
+        }
+
+        .jconfirm {
+            z-index: 9999999999 !important;
+        }
+    </style>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <img src="/backend/CrmBusinessBundle/img/logo_ponuda.png" alt="Logo" class="logo-header"/>
+                </div>
+                <div class="col-sm-6 spt-menu-wrapper">
+                    {# <span class="spt-icon spt-summary spt-selected sp-hover" data-action="go-to-summary">{% trans %}Summary{% endtrans %}</span>
+                    <span class="spt-icon spt-day sp-hover" data-action="go-to-day" data-day="1">{% trans %}Day by day{% endtrans %}</span>
+                    <span class="spt-icon spt-price sp-hover" data-action="go-to-price">{% trans %}Price{% endtrans %}</span> #}
+                    <span class="sp-btn btn btn-primary btn-red pull-right spt-header-button">{% trans %}Print confirmation{% endtrans %}</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="orderpreview">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12" id="quote-preview-content">
+                    {% if data.error is defined %}
+                        <h1 class="main-title">{{ data.error }}</h1>
+                    {% else %}
+                        {% if data.message is defined and data.message is not empty %}
+                            {% for message in data.message %}
+                                <div class="alert alert-{{ message.type }}">
+                                    <strong>{{ message.content }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <div id="quote-html">
+                            <div class="sp-center">
+                                <h2>{% trans %}Thank you for your payment.{% endtrans %}</h2>
+                                {% if data.order.totalLeftToPay == 0 %}
+                                    <p>Your order has been paid in full</p>
+                                {% else %}
+                                    <p>{% trans %}Paid:{% endtrans %} {{ data.order.totalPaid|number_format(2, '.', ',') }}</p>
+                                    <p>{% trans %}Left to pay:{% endtrans %} {{ data.order.totalLeftToPay|number_format(2, '.', ',') }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {# {% if data.buttons is not empty or is_granted('ROLE_ADMIN') %}
+                            <div class="sp-qupte-buttons-wrapper">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="sp-user-actions" class="text-right">
+                                            {% if data.buttons is defined and data.buttons is not empty %}
+                                                {% for button in data.buttons %}
+                                                    <button type="submit" class="sp-btn btn {{ button.class }}"
+                                                            data-action="{{ button.action }}"
+                                                            {% if button.url is not empty %}data-url="{{ path(button.url) }}"{% endif %}
+                                                            {% if button.data is defined and button.data is not empty %}
+                                                                {% for key,val in button.data %}
+                                                                    data-{{ key }}="{{ val }}"
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                    >{{ button.name }}</button>
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                {% if data.order.id is defined and data.order.id is not empty %}
+                                                    <a href="/page/order/form/{{ data.order.id }}" class="sp-btn btn btn-primary btn-red">{% trans %}Edit order{% endtrans %}</a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %} #}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

@@ -1,0 +1,46 @@
+{% if data.model.side_menu_items is defined and data.model.side_menu_items is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} side-menu-block {{ data.block.class }}">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="menu-title"><strong>{{ data.model.subtitle }}</strong></div>
+                {{ _self.renderMenu(data.model.side_menu_items,0,5) }}
+                {% if data.model.side_menu_items|length > 6 %}
+                    <div
+                        class="show-more-wrapper {% if data.model.is_active is defined and data.model.is_active %}expanded{% endif %}">
+                        {{ _self.renderMenu(data.model.side_menu_items,6) }}
+                    </div>
+
+                    <div
+                        class="show-more-toggle {% if data.model.is_active is defined and data.model.is_active %}more{% endif %}">
+                        <span class="more">{% trans into current_language %}Show more{% endtrans %}</span>
+                        <span class="less">{% trans into current_language %}Show less{% endtrans %}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% macro renderMenu(menuItems, offset = 0, limit = 0) %}
+    <ul class="side-menu">
+        {% if limit == 0 %}
+            {% set limit = menuItems|length %}
+        {% endif %}
+        {% for i in offset..limit %}
+            {% if menuItems[i] is defined %}
+                {% set menu_item = menuItems[i] %}
+                {% if menu_item.show == 1 %}
+                    <li {% if menu_item.css_class is not empty %}class="{{ menu_item.css_class }}"{% endif %}>
+                        {% if menu_item.children is defined and menu_item.children is not empty %}
+                            <span class="submenu-toggle"></span>
+                        {% endif %}
+                        <a href="{{ current_language_url }}/{{ menu_item.url }}">{{ menu_item.text }}</a>
+                        {% if menu_item.children is defined and menu_item.children is not empty %}
+                            {{ _self.renderMenu(menu_item.children) }}
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}

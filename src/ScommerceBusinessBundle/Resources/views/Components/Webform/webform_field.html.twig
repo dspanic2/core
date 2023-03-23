@@ -1,0 +1,8 @@
+<div class="row form-row full-width">
+    <div class="form-group col-xs-12">
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Webform/FieldType:' ~ field.webformFieldType.getFieldTypeCode ~ '.html.twig', 'data': {
+            'field': field,
+            'submission': submission
+        }}, {})) }}
+    </div>
+</div>

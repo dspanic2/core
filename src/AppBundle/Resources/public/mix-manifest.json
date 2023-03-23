@@ -1,0 +1,9 @@
+{
+    "/js/backend.min.js": "/js/backend.min.js",
+    "/../../../../web/backend/style.css": "/../../../../web/backend/style.css",
+    "/js/functions.min.js": "/js/functions.min.js",
+    "/js/shipshape_analytics.min.js": "/js/shipshape_analytics.min.js",
+    "/js/shipshape_init_datatable.min.js": "/js/shipshape_init_datatable.min.js",
+    "/js/shipshape_init_default.min.js": "/js/shipshape_init_default.min.js",
+    "/js/shipshape_init_validation.min.js": "/js/shipshape_init_validation.min.js"
+}

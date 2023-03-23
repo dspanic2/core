@@ -1,0 +1,145 @@
+{% if product is defined and product is not empty %}
+    {% set product_name = get_entity_store_attribute(current_store_id,product,"name") %}
+    {% set product_url = get_entity_store_attribute(current_store_id,product,"url") %}
+    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+    {% set categories = "" %}
+    {% if product.getProductGroups() is defined and product.getProductGroups() is not empty and product.getProductGroups()|length > 0 %}
+        {% for category in product.getProductGroups() %}
+            {% if loop.index > 1 %}
+                {% set categories = categories ~ "/" %}
+            {% endif %}
+            {% set categoryName = get_entity_store_attribute(current_store_id,category.getProductGroup(),"name") %}
+            {% set categories = categories ~ categoryName %}
+        {% endfor %}
+    {% endif %}
+    <div class="product-display-grid item"
+         data-product-brand="{% if product.getBrand() is defined and product.getBrand() is not empty %}{{ get_entity_store_attribute(current_store_id,product.getBrand(),"name") }}{% endif %}"
+         data-product-categories="{{ categories }}"
+         data-product-code="{{ product.getCode() }}">
+        {{ include('ScommerceBusinessBundle:Components/Utilities:product_diemensions.html.twig', {'product': product}) }}
+        <span
+                class="add-to-favorite {% if app.session.get('favorites_product_ids') is defined and app.session.get('favorites_product_ids') is not empty and product.id in app.session.get('favorites_product_ids') %}active{% endif %}"
+                data-pid="{{ product.id }}"></span>
+        <span class="add-to-compare {% if app.session.get('compare') is defined and app.session.get('compare') is not empty and product.id in app.session.get('compare') %}active{% endif %}"
+              data-pid="{{ product.id }}"></span>
+        <a class="product-display-grid-image"
+           href="{{ current_language_url }}/{{ product_url }}">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                'image': product.getSelectedImage(),
+                'directory':'Products',
+                'image_style': 'product_list_item',
+                'alt_default': product_name
+            }}, {})) }}
+            {% if is_legal_account() == 0 %}
+                {# PRIVATE #}
+                {% if prices.discount_percentage is defined and prices.discount_percentage is not empty %}
+                    <span class="discount-mark">{{ prices.discount_percentage }}</span>
+                {% endif %}
+            {% else %}
+                {# LEGAL #}
+                {% if prices.discount_percentage_base is defined and prices.discount_percentage_base is not empty %}
+                    <span class="discount-mark">{{ prices.discount_percentage_base }}</span>
+                {% endif %}
+            {% endif %}
+        </a>
+        <div class="product-info">
+            <h3>
+                <a class="product-click"
+                   href="{{ current_language_url }}/{{ product_url }}"
+                   title="{{ product_name }}">{{ product_name }}</a>
+            </h3>
+            {% if product.productAttributes is defined and product.productAttributes is not empty %}
+                <div class="features">
+                    {% set has_colors = false %}
+                    {% for attribute in product.getPreparedProductAttributes("specs") %}
+                        {% set attrConfig = attribute.attribute %}
+                        {% if attrConfig.showInList is defined and attrConfig.showInList %}
+                            {# Skip boja tip #}
+                            {% if attrConfig.id not in [114] %}
+                                {% for value in attribute.values %}
+                                    {% if attrConfig.listViewTemplate != 'color' %}
+                                        <div class="list-attribute">
+                                            <span class="attr-name"><strong>{{ attrConfig.name|trans }}:&nbsp;</strong></span>
+                                            <span class="list-attr-{{ attrConfig.listViewTemplate }}">{{ value.value|trans }}{% if value.sufix is defined and value.sufix is not empty %} {{ value.sufix }}{% endif %}</span>
+                                        </div>
+                                    {% elseif not has_colors %}
+                                        {% set has_colors = true %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="colors">
+                    {% if has_colors %}
+                        {% for attribute in product.getPreparedProductAttributes("specs") %}
+                            {% set attrConfig = attribute.attribute %}
+                            {% if attrConfig.id in [114] %}
+                                <div class="list-attribute">
+                                    <span class="attr-name"><strong>{{ attrConfig.name|trans }}:&nbsp;</strong></span>
+                                    {% for value in attribute.values %}
+                                        <span
+                                        class="list-attr-{{ attrConfig.listViewTemplate }}">{{ value.value|trans }}{% if value.sufix is defined and value.sufix is not empty %} {{ value.sufix }}{% endif %}</span>{% if loop.index < attribute.values|length %}, {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% elseif attrConfig.showInList is defined and attrConfig.showInList and attrConfig.listViewTemplate == 'color' %}
+                                <div class="list-attribute">
+                                    <span class="attr-name"><strong>{{ attrConfig.name|trans }}:&nbsp;</strong></span>
+                                    {% set boje = attrConfig.additionalParams|json_decode %}
+                                    {% for value in attribute.values %}
+                                        {% if attrConfig.listViewTemplate == 'color' %}
+                                            {% set boja = attribute(boje.0, value.value)|default('#000') %}
+                                            <span title="{{ value.value|trans }}"
+                                                  class="list-attr-{{ attrConfig.listViewTemplate }}"
+                                                  style="background: {{ boja }};{% if boja == '#ffffff' %}border:1px solid #d7d5e0;{% endif %}"></span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="other-information">
+                <span>{% trans into current_language %}Code{% endtrans %}: <strong>{{ product.code }}</strong></span>
+                {% set qty = product.getPreparedQty() %}
+                {# <span>{% trans into current_language %}In stock{% endtrans %}: <strong>{{ qty }}</strong></span> #}
+                <span>{% trans into current_language %}Availability{% endtrans %}: {% if qty > 0 %}<strong
+                            class="green">{% trans into current_language %}available{% endtrans %}</strong>{% else %}
+                        <strong
+                            class="red">{% trans into current_language %}suppliable{% endtrans %}</strong>{% endif %}</span>
+            </div>
+        </div>
+        <div class="price">
+            {% if prices.price is not empty %}
+                <div class="price-regular {% if prices.discount_price is not empty %}has-discount{% endif %}">
+                    <span class="price-value">{{ prices.price|number_format(2, ',', '.') }} {{ prices.currency_code }} {% if prices.discount_price is empty %}
+                            <span class="vat-mark">{{ prices.vat_type|trans }}</span>{% endif %}</span>
+                </div>
+                {% if prices.discount_price is not empty %}
+                    <div class="price-regular price-discount">
+                        <span class="price-value">{{ prices.discount_price|number_format(2, ',', '.') }} {{ prices.currency_code }} <span
+                                    class="vat-mark">{{ prices.vat_type|trans }}</span></span>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% set weights = product.getPreparedWeights %}
+        {% if weights is empty %}
+            {% if get_product_is_saleable(product) %}
+                <form class="item-cart" action="/cart/add_to_cart">
+                    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+                    <input type="button" value="-" class="qty-minus">
+                    <input type="number" value="1" name="qty" class="qty" min="1"
+                           max="{{ prepare_qty(product.getQty,product.getQtyStep) }}">
+                    <input type="button" value="+" class="qty-plus">
+                    <input type="hidden" value="{{ product.id }}" name="product_id">
+                    <button type="submit" title="{% trans into current_language %}Add to cart{% endtrans %}"></button>
+                </form>
+            {% else %}
+                <button class="send-inquiry button"
+                        data-pid="{{ product.id }}">{% trans into current_language %}Send inqury{% endtrans %}</button>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}

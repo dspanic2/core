@@ -1,0 +1,96 @@
+<div class="col-sm-12 col-xs-12">
+    <div class="panel panel-midnightblue">
+        <div class="panel-heading master-panel-heading">
+            <h5>{% trans %}General information{% endtrans %}</h5>
+        </div>
+        <div class="panel-body collapse in">
+            <fieldset class="form-group-wrapper kanban-custom-columns-settings">
+                <div class="form-group row hidden">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="title" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <select {% if entity is not empty %}disabled="disabled"{% endif %} name="type" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" class="form-control">
+                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                            <option  selected="selected"  value="kanban_custom_columns">kanban_custom_columns</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Kanban data{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <ul class="ul-no-style ul-no-padding dependant-select">
+                            {#{% if entity_content is not defined %}#}
+                                <select name="listView"
+                                        class="form-control"
+                                        required>
+                                    <option value="">{% trans %}Select list view{% endtrans %}</option>
+                                    {% for list_view in list_views %}
+                                        <option value="{{ list_view.id }}" {% if content.list_view is defined and content.list_view == list_view.id %}selected="selected"{% endif %} >{{ list_view.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <small>{% trans %}List to pull data from{% endtrans %}</small>
+                                <select name="kanbanColumnAttribute"
+                                        class="form-control sp-available-attributes-wrapper"
+                                        readonly
+                                        data-url="{{ path('remote_get_attributes') }}"
+                                        required>
+                                    <option value="custom" selected="selected">{% trans %}Custom{% endtrans %}</option>
+                                    {# its custom columns block so only this value is required #}
+                                </select>
+                                <small>{% trans %}Use selected value as columns{% endtrans %}</small>
+                                <select name="kanbanTitleAttribute"
+                                        class="form-control"
+                                        {% if title_attribute %}readonly{% endif %}
+                                        required>
+                                    {% if title_attribute %}
+                                        <option value="">{% trans %}Select title attribute{% endtrans %}</option>
+                                        <option value="{{ title_attribute.id }}" selected="selected">{{ title_attribute.name }}</option>
+                                    {% else %}
+                                        <option value="" selected="selected">{% trans %}Select title attribute{% endtrans %}</option>
+                                    {% endif %}
+                                    {#ajax inserted values#}
+                                </select>
+                                <small>{% trans %}Use selected value as kanban item title{% endtrans %}</small>
+                                <select name="kanbanDescriptionAttribute"
+                                        class="form-control"
+                                        {% if description_attribute %}readonly{% endif %}
+                                        required>
+                                    {% if description_attribute %}
+                                        <option value="">{% trans %}Select description attribute{% endtrans %}</option>
+                                        <option value="{{ description_attribute.id }}" selected="selected">{{ description_attribute.name }}</option>
+                                    {% else %}
+                                        <option value="" selected="selected">{% trans %}Select description attribute{% endtrans %}</option>
+                                    {% endif %}
+                                    {#ajax inserted values#}
+                                </select>
+                                <small>{% trans %}Use selected value as kanban item description{% endtrans %}</small>
+                            {#{% endif %}#}
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="class" class="form-control" {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="dataAttributes" class="form-control" {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

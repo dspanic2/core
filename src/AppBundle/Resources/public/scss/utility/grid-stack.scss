@@ -1,0 +1,230 @@
+.sp-grid-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.sp-grid-wrapper-inner {
+  background: #150a1f;
+  min-height: 70vh !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.grid-stack-item-content {
+  background-color: #fff !important;
+  padding: 15px;
+  position: relative;
+}
+
+.sp-grid-wrapper .sp-main-actions-wrapper {
+  background-color: #fff !important;
+  border: none !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+.grid-stack-item .sp-main-actions-wrapper h4 {
+  line-height: 25px;
+}
+
+.grid-stack-item .sp-main-actions-wrapper
+.sp-grid-wrapper .sp-main-actions-wrapper span:hover {
+  cursor: pointer;
+}
+
+.sp-grid-wrapper .sp-main-actions-wrapper .options {
+  height: 25px;
+  line-height: 25px;
+}
+
+.sp-stack-item-icon {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%)
+}
+
+.sp-available-blocks-wrapper {
+  background-color: #fff;
+  float: left;
+  width: 100%;
+}
+
+.sp-new-block-wrapper, .sp-same-attrset-block-wrapper, .sp-other-attrset-block-wrapper {
+  padding: 0 10px 15px 10px;
+}
+
+.sp-available-blocks-wrapper h5 {
+  padding: 0 10px;
+  font-weight: 600;
+}
+
+.sp-available-blocks-wrapper span.btn {
+  margin-right: 0;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.sp-available-blocks-wrapper span.btn i {
+  margin-right: 5px;
+}
+
+.sp-block-item {
+  display: block;
+  min-height: 150px;
+  width: 100%;
+  border: 1px solid #999;
+  float: left;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 10px;
+}
+
+.sp-block-item h4 {
+  margin: 0;
+}
+
+/*.btn.sp-type_list_view{
+    color: #ffffff;
+    background-color: #e73c3c;
+    border-color: #e73c3c;
+}
+.btn.sp-type_list_view:hover, .btn.sp-type_list_view:active{
+    color: #ffffff;
+    background-color: #d61a1a;
+    border-color: #cd1919;
+}
+.sp-border_list_view{
+    border:2px solid #e73c3c;
+}
+.btn.sp-type_attribute_group{
+    color: #ffffff;
+    background-color: #5bb75b;
+    border-color: #5bb75b;
+}
+.btn.sp-type_attribute_group:hover, .btn.sp-type_attribute_group:active{
+    color: #ffffff;
+    background-color: #51a351;
+    border-color: #51a351;
+}
+.sp-border_attribute_group{
+    border:2px solid #5bb75b;
+}
+.btn.sp-type_edit_form{
+    color: #ffffff;
+    background-color: #49afcd;
+    border-color: #49afcd;
+}
+.btn.sp-type_edit_form:hover, .btn.sp-type_edit_form:active{
+    color: #ffffff;
+    background-color: #2f96b4;
+    border-color: #2f96b4;
+}*/
+/*.sp-border_edit_form{
+    border:2px solid #49afcd;
+}
+.btn.sp-type_multiselect{
+    color: #ffffff;
+    background-color: #9800f0;
+    border-color: #9800f0;
+}
+.btn.sp-type_multiselect:hover, .btn.sp-type_multiselect:active{
+    color: #ffffff;
+    background-color: #7d00c6;
+    border-color: #7d00c6;
+}
+.sp-border_multiselect{
+    border:2px solid #9700f0;
+}
+.btn.sp-type_calendar{
+    color: #ffffff;
+    background-color: #2d00f0;
+    border-color: #2d00f0;
+}
+.btn.sp-type_calendar:hover, .btn.sp-type_calendar:active{
+    color: #ffffff;
+    background-color: #2a07c1;
+    border-color: #2a07c1;
+}
+.sp-border_calendar{
+    border:2px solid #2d00f0;
+}
+.btn.sp-type_checkbox_list{
+    color: #ffffff;
+    background-color: #00b1e4;
+    border-color: #00b1e4;
+}
+.btn.sp-type_checkbox_list:hover, .btn.sp-type_checkbox_list:active{
+    color: #ffffff;
+    background-color: #1494b9;
+    border-color: #1494b9;
+}
+.sp-border_checkbox_list{
+    border:2px solid #00b1e4;
+}
+.btn.sp-type_kanban{
+    color: #ffffff;
+    background-color: #e1d900;
+    border-color: #e1d900;
+}
+.btn.sp-type_kanban:hover, .btn.sp-type_kanban:active{
+    color: #ffffff;
+    background-color: #bbb51a;
+    border-color: #bbb51a;
+}
+.sp-border_kanban{
+    border:2px solid #e1d900;
+}*/
+
+.grid-stack > .grid-stack-item > .ui-resizable-e,
+.grid-stack > .grid-stack-item > .ui-resizable-w {
+  top: 0 !important;
+  bottom: 0 !important;
+}
+
+.grid-stack > .grid-stack-item > .ui-resizable-e {
+  border-right: 1px dotted black;
+}
+
+.grid-stack > .grid-stack-item > .ui-resizable-w {
+  border-left: 1px dotted black;
+}
+
+.sp-grid-wrapper {
+  .grid-stack-item {
+    &.sp-edit-selected {
+      .grid-stack-item-content {
+        outline: 2px solid $primary_color;
+      }
+    }
+
+    .stores {
+      margin-bottom: 15px;
+
+      label > span {
+        margin-right: 15px;
+      }
+
+      .inline-store-wrapper {
+        margin-top: 15px;
+      }
+    }
+
+    .sp-inline-edit-wrapper {
+      display: none;
+
+      .options {
+        text-align: right;
+        margin-top: 15px;
+      }
+    }
+  }
+}

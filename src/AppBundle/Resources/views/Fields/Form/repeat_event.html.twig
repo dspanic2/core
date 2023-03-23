@@ -1,0 +1,194 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    <label class="col-sm-4 col-xs-4 control-label">{% if is_granted('ROLE_ADMIN') %}<a
+            href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+        {% if attribute.note is not empty %}
+            <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                  rel="popover" data-html="true" data-placement="bottom"></span>
+        {% endif %}
+    </label>
+    <div class="col-sm-8 col-xs-8">
+        <label>
+            <input type="hidden" data-action="checkbox-value" name="{{ attribute.attributeCode }}"
+                   value="{% if value is not empty %}1{% else %}0{% endif %}"/>
+            <input {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}
+                   data-off-text="{% trans %}No{% endtrans %}"
+                   data-on-text="{% trans %}Yes{% endtrans %}"
+                   type="checkbox"
+                   name="repeat_event_checkbox"
+                   id="repeat_event_checkbox"
+                   data-type="bchackbox"
+                    {% if value is not empty and value !=0 %}checked="checked"{% endif %}
+                   value="1"
+            /></label>
+    </div>
+</div>
+<div class="form-group row" id="repeat_options_holder" {% if value is empty %}style="display: none;"{% endif %}>
+    <div class="form-group row">
+        <label for="repeat_type" class="col-sm-4 control-label">{% trans %}Repeats{% endtrans %}</label>
+        <div class="col-sm-8 col-xs-8">
+            <select class="form-control" name="repeat_type" id="repeat_type"
+                    {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}>
+                <option value="daily" {% if value is not empty %}{% if value.repeat_type=="daily" %}
+                    selected="selected"{% endif %}{% endif %}>
+                    Daily
+                </option>
+                <option value="everyWeekDay" {% if value is not empty %}{% if value.repeat_type=="everyWeekDay" %}
+                    selected="selected"{% endif %}{% endif %}>{% trans %}Every Weekday (Monday to Friday){% endtrans %}</option>
+                <option value="weekly" {% if value is not empty %}{% if value.repeat_type=="weekly" %}
+                    selected="selected"{% endif %}{% endif %}>{% trans %}Weekly{% endtrans %}</option>
+                <option value="monthly" {% if value is not empty %}{% if value.repeat_type=="monthly" %}
+                    selected="selected"{% endif %}{% endif %}>{% trans %}Monthly{% endtrans %}</option>
+                <option value="yearly" {% if value is not empty %}{% if value.repeat_type=="yearly" %}
+                    selected="selected"{% endif %}{% endif %}>{% trans %}Yearly{% endtrans %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row" id="repeat_interval_group"
+         {% if value is not empty %}{% if value.repeat_type=="everyWeekDay" %}style="display: none;"{% endif %}{% endif %}>
+        <label for="repeat_interval"
+               class="col-sm-4 control-label">{% trans %}Every{% endtrans %}</label>
+        <div class="input-group col-sm-4">
+            <input data-type="integer" type="number" data-fv-notempty="true" disabled="disabled"
+                   {% if entity_id is not empty %}readonly="readonly" data-readonly="force"{% endif %}
+                   class="form-control" type="text" name="repeat_interval"
+                   value="{% if  value.repeat_interval is defined %}{{ value.repeat_interval }}{% else %}1{% endif %}"
+            />
+            <span class="input-group-addon" id="repeat_interval_label">{% if value is not empty %}
+                {% if value.repeat_type=="daily" %}Days{% endif %}
+                {% if value.repeat_type=="weekly" %}Weeks{% endif %}
+                {% if value.repeat_type=="yearly" %}Years{% endif %}
+                {% if value.repeat_type=="monthly" %}Months{% endif %}{% endif %}</span>
+        </div>
+    </div>
+
+    <div class="form-group row" id="repeat_by_group"
+            {% if value is not empty %}
+        {% if value.repeat_type!="monthly" %}style="display: none;"{% endif %}
+    {% else %}
+        style="display: none;"
+            {% endif %}>
+        <label for="repeat_by_group" class="col-sm-4 control-label">{% trans %}By{% endtrans %}</label>
+        <div class="input-group col-sm-8">
+            <label class="radio-inline">
+                <input class="repeat_by" type="radio" id="repeat_by_day_of_the_month" name="repeat_by"
+                        {% if  value.repeat_by is defined %}{% if value.repeat_by=="repeat_by_day_of_the_month" %} checked{% endif %}{% endif %}
+                       value="repeat_by_day_of_the_month">{% trans %}Day of the Month{% endtrans %}
+            </label>
+            <label class="radio-inline">
+                <input class="repeat_by" type="radio" id="repeat_by_day_of_the_week" name="repeat_by"
+                        {% if  value.repeat_by is defined %}{% if value.repeat_by=="repeat_by_day_of_the_week" %} checked{% endif %}{% endif %}
+                       value="repeat_by_day_of_the_week">{% trans %}Day of the Week{% endtrans %}
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group row" id="repeat_on_group"
+            {% if value is not empty %}
+        {% if value.repeat_type!="weekly" %}style="display: none;"{% endif %}
+    {% else %}
+        style="display: none;"
+            {% endif %}>
+        <label for="repeat_on" class="col-sm-4 control-label">{% trans %}On{% endtrans %}
+        </label>
+        <div class="input-group col-sm-8">
+            <label class="checkbox-inline">
+                <input class="repeat_on_day" type="checkbox" id="repeat_on_day" name="repeat_on_day[]"
+                       value="sunday"
+                       {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}
+                        {% if  value.repeat_on_day is defined %}{% if "sunday" in value.repeat_on_day %}checked{% endif %}{% endif %}>
+                {% trans %}Sun{% endtrans %}
+            </label>
+            <label class="checkbox-inline">
+                <input class="repeat_on_day" type="checkbox" id="repeat_on_day" name="repeat_on_day[]"
+                       {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}
+                       value="monday"
+                       {% if  value.repeat_on_day is defined %}{% if "monday" in value.repeat_on_day %}checked{% endif %}{% endif %}>
+                {% trans %}Mon{% endtrans %}
+            </label>
+            <label class="checkbox-inline">
+                <input class="repeat_on_day" type="checkbox" id="repeat_on_day" name="repeat_on_day[]"
+                       value="tuesday"
+                       {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}
+                        {% if  value.repeat_on_day is defined %}{% if "tuesday" in value.repeat_on_day %}checked{% endif %}{% endif %}>
+                {% trans %}Tue{% endtrans %}
+            </label>
+            <label class="checkbox-inline">
+                <input class="repeat_on_day" type="checkbox" id="repeat_on_day" name="repeat_on_day[]"
+                       value="wednesday"
+                       {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}
+                        {% if  value.repeat_on_day is defined %}{% if "wednesday" in value.repeat_on_day %}checked{% endif %}{% endif %}>
+                {% trans %}Wen{% endtrans %}
+            </label>
+            <label class="checkbox-inline">
+                <input class="repeat_on_day" type="checkbox" id="repeat_on_day" name="repeat_on_day[]"
+                       value="thursday"
+                       {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}
+                        {% if  value.repeat_on_day is defined %}{% if "thursday" in value.repeat_on_day %}checked{% endif %}{% endif %}>
+                {% trans %}Thu{% endtrans %}
+            </label>
+            <label class="checkbox-inline">
+                <input class="repeat_on_day" type="checkbox" id="repeat_on_day" name="repeat_on_day[]"
+                       value="friday" {% if entity_id is not empty %}disabled="disabled"
+                       data-readonly="force"{% endif %}
+                        {% if  value.repeat_on_day is defined %}{% if "friday" in value.repeat_on_day %}checked{% endif %}{% endif %}>
+                {% trans %}Fri{% endtrans %}
+            </label>
+            <label class="checkbox-inline">
+                <input class="repeat_on_day" type="checkbox" id="repeat_on_day" name="repeat_on_day[]"
+                       value="saturday" {% if entity_id is not empty %}disabled="disabled"
+                       data-readonly="force"{% endif %}
+                        {% if  value.repeat_on_day is defined %}{% if "saturday" in value.repeat_on_day %}checked{% endif %}{% endif %}>
+                {% trans %}Sat{% endtrans %}
+            </label>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="repeat_type" class="col-sm-4 control-label">End repeat</label>
+        <div class="col-sm-8">
+            <select class="form-control" name="ending_condition" id="ending_condition"
+                    {% if entity_id is not empty %}disabled="disabled" data-readonly="force"{% endif %}>
+                <option value="on"
+                        {% if  value.ending_condition is defined %}{% if  value.ending_condition =="on" %}selected{% endif %}{% endif %}>
+                    On
+                </option>
+                <option value="after"
+                        {% if  value.ending_condition is defined %}{% if  value.ending_condition =="after" %}selected{% endif %}{% endif %}>
+                    After
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row" id="ending_on_date"
+         {% if  value.ending_condition is defined %}{% if  value.ending_condition =="after" %}style="display: none"{% endif %}{% endif %}>
+        <label for="repeat_type" class="col-sm-4 control-label">Date</label>
+        <div class="col-sm-8">
+            <input data-type="datesingle" data-fv-notempty="true"
+                   data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" disabled="disabled"
+                   {% if entity_id is not empty %}readonly="readonly" data-readonly="force"{% endif %}
+                   type="text"
+                   data-action="date" {% if value is empty and attribute.defaultValue is empty %}data-clear="true"{% endif %}
+                   class="form-control" name="repeat_end_date"
+                   value="{% if value.repeat_end_date is defined %}{{ value.repeat_end_date }}{% endif %}"
+            />
+            <span data-action="clear-date"
+                  class="sp-clear {% if formType == "view" or attribute.readOnly %}hidden{% endif %}">x</span>
+        </div>
+    </div>
+    <div class="form-group row" id="ending_after_number"
+         {% if  value.ending_condition is defined %}{% if  value.ending_condition !="after" %}style="display: none"
+         {% endif %}{% else %}style="display: none"{% endif %}>
+        <label for="repeat_type" class="col-sm-4 control-label">Number of occurences</label>
+        <div class="col-sm-8">
+            <input data-type="integer" data-fv-notempty="true"
+                   data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" disabled="disabled"
+                   {% if entity_id is not empty %}readonly="readonly" data-readonly="force"{% endif %}
+                   class="form-control" type="text" name="repeat_number_of_occurances" {% apply spaceless %}
+
+                value="{% if  value.repeat_number_of_occurances is defined %}{{ value.repeat_number_of_occurances }}{% endif %}"
+                    {% endapply %}/>
+        </div>
+    </div>
+</div>

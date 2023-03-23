@@ -1,0 +1,33 @@
+<div class="sp-block-outer {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="panel-heading sp-frontend-edit-block-wrapper">
+                <h5>{% trans %}Edit block{% endtrans %}
+                    <div class="options">
+                        <span class="sp-options-text sp-options-text-attribute-group sp-options-text-attribute-group-top sp-admin-button" data-action="add-block-modal-front"
+                              data-url="{{ path('page_block_update_form', {'form_type':'modal','parent_id': data.block.id, 'parent_type':'page_block'}) }}"><i class="sp-icon sp-icon-add sp-hover"></i></span>
+                        {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        <a class="sp-options-text sp-options-text-attribute-group sp-admin-button" href="{{ path('page_block_update_form', {'id': data.block.id}) }}"><i
+                                    class="sp-icon sp-icon-edit sp-hover"></i></a>
+                    </div>
+                </h5>
+            </div>
+        {% endif %}
+        <button type="button" class="btn sp-btn-collapse collapsed" data-action="collapse_block"
+                data-collapse-text='{% trans %}Show less{% endtrans %} <i class="fa fa-angle-double-up"></i>'
+                data-open-text='{% trans %}Show more{% endtrans %} <i class="fa fa-angle-double-down"></i>'
+                data-toggle="collapse" data-target="#block_{{ data.block.id }}">{% trans %}Show more{% endtrans %} <i class="fa fa-angle-double-down"></i>
+        </button>
+        <div class="collapse-content collapse" id="block_{{ data.block.id }}">
+            {% for key,row in data.block.preparedContent %}
+                <div class="tab-pane fade row {% if key == 0 %}active in{% endif %}" id="{{ row.blocks[0].id }}">
+                    {% for block in row.blocks %}
+                        <div class="col-xs-12 col-sm-{{ block.width }} col-md-{{ block.width }} sp-block-wrapper" data-block-id="{{ block.id }}">
+                            {{ render(controller('AppBundle:Block:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

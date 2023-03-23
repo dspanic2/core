@@ -1,0 +1,22 @@
+<h5>{% trans %}Import results{% endtrans %}</h5>
+<table class="table table-striped table-bordered">
+    {#<tr>
+        <th colspan="2">{% trans %}Total created{% endtrans %}: {{ results.created }}</th>
+    </tr>#}
+    <tr>
+        <th colspan="2">{% trans %}Total updated/created{% endtrans %}: {{ results.updated }}</th>
+    </tr>
+    {% for key,entity in results.entities %}
+        <tr>
+            <th>{% trans %}Line{% endtrans %}: {{ key }}</th>
+            <td>
+                {% if entity.error == "true" %}{% trans %}Failed{% endtrans %}{% else %}{% trans %}Success{% endtrans %}{% endif %}
+                {% if entity.messages is not empty %}
+                    {% for message in entity.messages %}
+                        <span class="sp-width-100">{{ message }}</span>
+                    {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>

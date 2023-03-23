@@ -1,0 +1,77 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper quote-descriptions-preview-settings">
+            <div class="form-group row hidden">
+                <div class="col-sm-6">
+                    <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="title" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %} name="type" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        <option  selected="selected"  value="quote_descriptions">quote_descriptions</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <input type="checkbox" name="use_secondary_entity" {% if use_secondary_entity is defined %}value="{{ use_secondary_entity }}"{% endif %}/>
+                    <label class="control-label">{% trans %}Use another entity type instead {% endtrans %}</label>
+                </div>
+                <div class="clearfix"></div>
+                <p><small>{% trans %}Select entity type that is linked with products to be used for descriptions and preview.{% endtrans %}</small></p>
+            </div>
+            <div class="form-group row hidden">
+                <label class="col-sm-3 control-label">{% trans %}Secondary entity{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select name="secondary_entity"
+                            data-url="{{ path('get_lookup_attributes_by_entity_type') }}"
+                            class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        {% for entity_type in entity_types %}
+                            <option {% if entity is not empty and entity.entityType is not empty and entity.entityType.id == entity_type.id %}selected="selected"{% endif %}
+                                    value="{{ entity_type.id }}">{{ entity_type.entityTypeCode }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row hidden">
+                <label class="col-sm-3 control-label">{% trans %}Secondary entity description attribute{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select name="attribute"
+                            class="form-control sp-available-attributes-wrapper">
+                        {% if attribute %}
+                            <option value="{{ attribute.id }}" selected="selected">{{ attribute.name }}</option>
+                        {% else %}
+                            <option value="" selected="selected">{% trans %}Select attribute{% endtrans %}</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="class" class="form-control" {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="dataAttributes" class="form-control" {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

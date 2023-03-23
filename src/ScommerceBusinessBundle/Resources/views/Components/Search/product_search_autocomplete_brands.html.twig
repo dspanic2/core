@@ -1,0 +1,8 @@
+{% if brands is not empty %}
+    <div class="title-small-styled">{% trans into current_language %}Brands{% endtrans %}</div>
+    <ul>
+        {% for brand in brands %}
+            <li><a href="{{ get_page_url(current_store_id,51,"s_page") }}?s=1&brand={{ get_entity_store_attribute(current_store_id,brand,"name") }}">{{ get_entity_store_attribute(current_store_id,brand,"name") }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}

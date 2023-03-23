@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="%2$s\Entity\%4$s" table="%1$s">
+    <indexes>
+      <index name="IDX_EAV_ENTITY_INT_ENTITY_TYPE_ID" columns="entity_type_id"/>
+      <index name="IDX_EAV_ENTITY_INT_ATTRIBUTE_ID" columns="attribute_id"/>
+      <index name="IDX_EAV_ENTITY_INT_STORE_ID" columns="store_id"/>
+      <index name="IDX_EAV_ENTITY_INT_ENTITY_ID" columns="entity_id"/>
+      <index name="IDX_EAV_ENTITY_INT_ATTRIBUTE_ID_VALUE" columns="attribute_id,value"/>
+      <index name="IDX_EAV_ENTITY_INT_ENTITY_TYPE_ID_VALUE" columns="entity_type_id,value"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="UNQ_EAV_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID" columns="entity_id,attribute_id,store_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="attributeId" type="smallint" column="attribute_id" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="comment">Attribute Id</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="value" type="integer" column="value" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Attribute Value</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <many-to-one field="entityType" target-entity="AppBundle\Entity\EntityType" fetch="LAZY">
+      <join-columns>
+        <join-column name="entity_type_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="entity" target-entity="%2$s\Entity\%3$s" fetch="LAZY">
+      <join-columns>
+        <join-column name="entity_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,55 @@
+<form id="comment"
+      class="ajax-submit comment-form"
+      action="/api/add_comment"
+      method="post">
+    <input type="hidden" name="entity_id" value="{{ current_entity.id }}">
+    <input type="hidden" name="s_entity_type" value="{{ current_entity.entityType.id }}">
+    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+
+    <div class="row">
+        <div class="col-xs-12">
+            {% if app.session.get('account') is defined and app.session.get('account') is not empty %}
+                <div class="welcome">{% trans into current_language %}Hello{% endtrans %}
+                    <strong>{{ app.session.get('account').name }},</strong></div>
+            {% else %}
+                <div class="welcome">{% trans into current_language %}<strong>Leave a comment,</strong> you know you want to!{% endtrans %}</div>
+            {% endif %}
+            {% if current_entity is defined and current_entity is not empty %}
+                <div class="message">{% trans into current_language %}Comment and rate this{% endtrans %} {{ current_entity.entityType.entityTypeCode|trans }} :)</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row form-row full-width">
+        <div class="form-group first_name col-xs-12 col-sm-6">
+            <label for="full_name">{% trans into current_language %}First and last name{% endtrans %}</label>
+            <input type="text" name="first_name">
+        </div>
+
+        <div class="form-group last_name col-xs-12 col-sm-6">
+            <label for="email">{% trans into current_language %}Email address{% endtrans %}*</label>
+            <input type="email" name="email" required>
+        </div>
+    </div>
+
+    <div class="row form-row full-width">
+        <div class="form-group col-xs-12">
+            <label for="comment">{% trans into current_language %}Your comment{% endtrans %}*</label>
+            <textarea name="comment" rows="10"></textarea>
+        </div>
+    </div>
+
+    <div class="row form-row">
+        <div class="form-group first_name col-xs-12">
+            <label>
+                <input required type="checkbox"
+                       name="gdpr">{% trans into current_language %}I agree to use the information provided for the purpose of receiving notification of special offers and promotions{% endtrans %}
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group submit">
+        <button type="submit"
+                class="button btn-type-1">{% trans into current_language %}Save comment{% endtrans %}</button>
+    </div>
+</form>

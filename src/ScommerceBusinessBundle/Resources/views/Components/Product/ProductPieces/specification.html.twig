@@ -1,0 +1,25 @@
+<div class="specification">
+    {% if show_title %}
+        {% set specs_title = get_entity_store_attribute(current_store_id,product,"specs_title") %}
+        {% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+        <h2 class="section-title"><strong>{% trans into current_language %}Tehnical{% endtrans %}</strong> {% trans into current_language %}data for{% endtrans %} {% if specs_title is not empty %}{{ specs_title }}{% else %}{{ product_title }}{% endif %}</h2>
+    {% endif %}
+    <div class="inline-data">
+        {% for attribute in product.getPreparedProductAttributes %}
+            <div class="item">
+                <div class="left">{{ attribute.attribute.name|trans }}</div>
+                <div class="right">
+                    {% autoescape %}
+                        {% for value in attribute.values %}
+                            {% set outputValue = value.prefix|raw ~ value.value|raw ~ value.sufix|raw %}
+                            {% if outputValue == "1" %}
+                                {% set outputValue = "Yes"|trans %}
+                            {% endif %}
+                            <div class="width-100">{{ outputValue|trans }}</div>
+                        {% endfor %}
+                    {% endautoescape %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

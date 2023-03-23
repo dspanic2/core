@@ -1,0 +1,3 @@
+{% for block in availableBlocks %}
+    <span class="btn sp-type_{{ block.type }}" data-id="{{ block.id }}" data-action="add-existing-block"><i class="fa fa-plus"></i> {{ block.type }} - {{ block.title }}</span>
+{% endfor %}

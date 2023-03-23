@@ -1,0 +1,123 @@
+<div class="sp-block-outer {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <form data-validate="true" method="post" action="{{ path('front_role_save') }}" accept-charset="UTF-8"
+          data-callback=''
+          data-type="{{ data.block.attributeSet.entityType.entityTypeCode }}"
+          class="form-horizontal row-border">
+
+         {% set data = data|merge({
+         "form_type": "edit"
+         }) %}
+         <div class="sp-block-group-wrapper">
+             {% for row in data.block.preparedContent %}
+                <div class="row">
+                    {% for block in row.blocks %}
+                        <div class="col-xs-12 col-sm-{{ block.width }} col-md-{{ block.width }} sp-block-wrapper" data-block-id="{{ block.id }}">
+                            {{ render(controller('AppBundle:Block:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'}))}}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="sp-block">
+                        <div class="panel panel-midnightblue">
+                            <div class="panel-body collapse in">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 control-label sp-bold">{% trans %}Toggle all{% endtrans %}</label>
+                                    <div class="col-sm-2">
+                                        <label>
+                                        <input data-off-text="{% trans %}No{% endtrans %}"
+                                               data-on-text="{% trans %}Yes{% endtrans %}"
+                                               type="checkbox"
+                                               data-action="togglePrivilegesAll"
+                                               name="toggleAll"
+                                               data-type="bchackbox" {% apply spaceless %}
+                                            value="1"
+                                        {% endapply %}/></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs">
+                            {% for key,privileges in data.privileges_list %}
+                                <li {% if key == "attribute_set" %}class="active"{% endif %}><a data-toggle="tab" href="#w{{ key }}">{{ privileges.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content">
+                            {% for key,privileges in data.privileges_list %}
+                                <div id="w{{ key }}" class="tab-pane fade in row {% if key == "attribute_set" %}active{% endif %}">
+                                    {#<div class="row">#}
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="panel panel-midnightblue">
+                                                <div class="panel-heading master-panel-heading">
+                                                    <h5>{{ privileges.name }}</h5>
+                                                </div>
+                                                <div class="panel-body collapse in">
+                                                    <fieldset class="form-group-wrapper">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 control-label"></label>
+                                                            {% for privilege_type in privileges.privileges|first %}
+                                                                <div class="col-sm-2">{{ data.action_types[privilege_type.action_type] }}</div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="form-group row">
+                                                             <label class="col-sm-3 control-label sp-bold">{% trans %}Toggle column{% endtrans %}</label>
+                                                            {% for privilege_type in privileges.privileges|first %}
+                                                                <div class="col-sm-2">
+                                                                    <label>
+                                                                    <input data-off-text="{% trans %}No{% endtrans %}"
+                                                                           data-on-text="{% trans %}Yes{% endtrans %}"
+                                                                           type="checkbox"
+                                                                           data-action="togglePrivilegesColumn"
+                                                                           data-holder-type="{{ privilege_type.action_type }}"
+                                                                           name="toggleAll{{ privilege_type.action_type }}"
+                                                                           data-type="bchackbox" {% apply spaceless %}
+                                                                        value="1"
+                                                                    {% endapply %}/></label>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% for name,privilege_group in privileges.privileges %}
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-3 control-label">{{ privilege_group[0].entity_code }}</label>
+                                                                {% for action in privilege_group %}
+                                                                    <div class="col-sm-2">
+                                                                        <label>
+                                                                            <input data-off-text="{% trans %}No{% endtrans %}"
+                                                                                   data-on-text="{% trans %}Yes{% endtrans %}"
+                                                                                   type="checkbox"
+                                                                                   class="sp-checbox-large"
+                                                                                   data-action-type="{{ action.action_type }}"
+                                                                                   name="privilege[{{ action.action_code }}][{{ action.action_type }}]"
+                                                                                   {#data-type="bchackbox"#} {% apply spaceless %}
+                                                                                {% if data.entity_privileges[action.action_code][action.action_type] is defined or data.id is empty %}checked="checked"{% endif %}
+                                                                                value="1"
+                                                                                    {% endapply %}/></label>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endfor %}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {#</div>#}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-footer hidden">
+            <div class="row">
+                <div class="col-sm-7 col-sm-offset-2">
+                    <div class="btn-toolbar">
+                        {{ get_page_buttons(data)|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,8 @@
+.qr-code-wrapper{
+    text-align: center;
+}
+.qr-code-wrapper img{
+    width: 280px;
+    height: auto;
+    max-width: 100%;
+}

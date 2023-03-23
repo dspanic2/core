@@ -1,0 +1,64 @@
+<div class="sp-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <fieldset class="form-group-wrapper attribute-fields">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-xs-4">
+                                    {% trans %}Add new attribute rule{% endtrans %}:
+                                </label>
+                                <div class="col-sm-6 col-xs-6">
+                                    <select class="form-control"
+                                            name="attribute_id">
+                                        <option value="">{% trans %}Select attribute{% endtrans %}</option>
+                                        {% for a in data.filtered_attributes %}
+                                            <option value="{{ a.id }}">{{ a.name|trans }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <button type="button"
+                                            class="btn btn-xs btn-success"
+                                            data-url="{{ path('product_attribute_filter_form_field') }}"
+                                            data-add="add_product_attribute_filter"
+                                            data-new-id="0"><i
+                                                class="glyphicon glyphicon-plus"></i> {% trans %}Add{% endtrans %}
+                                    </button>
+                                </div>
+                            </div>
+                            {% if data.existing_attribute_fields is not empty %}
+                                {% for f in data.existing_attribute_fields %}
+                                    {{ f|raw }}
+                                {% endfor %}
+                            {% endif %}
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <button type="button"
+                                class="btn btn-xs btn-success pull-right"
+                                data-action="reload_product_filter_results"
+                                >{% trans %}Refresh results{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

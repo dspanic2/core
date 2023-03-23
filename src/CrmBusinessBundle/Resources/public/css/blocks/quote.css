@@ -1,0 +1,13 @@
+form.quote_item_update .form-group-wrapper .form-group{
+    float: left;
+    width: 100%;
+}
+.btn-disabled{
+    background-color: #6a6970!important;
+    border-color: #6a6970!important;
+    cursor: not-allowed!important;
+}
+
+.uid_627112b5edd26575801978 .modal-dialog{
+    width: 100%!important;
+}

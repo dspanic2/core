@@ -1,0 +1,5 @@
+{% if data is not empty %}
+    {% for d in data %}
+        <option value="{{ d.value }}" {% if selected_value is defined and d.value == selected_value %}selected="selected"{% endif %}>{{ d.text }}</option>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,63 @@
+services:
+
+    entity_default_listener:
+        class: AppBundle\EventListener\EntityListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+         - { name: kernel.event_listener, event: entity.created, method: onEntityCreated }
+
+    entity_log_listener:
+        class: AppBundle\EventListener\EntityLogListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: entity.created, method: onEntityCreated }
+            - { name: kernel.event_listener, event: entity.updated, method: onEntityUpdated }
+            - { name: kernel.event_listener, event: entity.deleted, method: onEntityDeleted }
+
+    application_settings_listener:
+        class: AppBundle\EventListener\ApplicationSettingsListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: entity.precreated, method: onEntityPreCreated }
+            - { name: kernel.event_listener, event: entity.updated, method: onEntityUpdated }
+
+    user_listener:
+        class: AppBundle\EventListener\UserListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: entity.preupdated, method: onUserPreUpdated }
+            - { name: kernel.event_listener, event: entity.precreated, method: onUserPreCreated }
+
+    doctrine_listener:
+        class: AppBundle\EventListener\DoctrineListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            # - { name: doctrine.event_listener, event: onFlush, method: onFlush}
+            #- { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+
+    entity_cache_invalidate_listener:
+        class: AppBundle\EventListener\CacheInvalidateListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: entity.updated, method: onEntityUpdated }
+            - { name: kernel.event_listener, event: entity.created, method: onEntityCreated }
+
+    import_manual_listener:
+        class: AppBundle\EventListener\ImportManualListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: entity.precreated, method: onImportManualPreCreated }
+
+        #listener.requestresponse:
+        #  class:  AppBundle\EventListener\KernelListener
+        # calls:
+        #   - [ setContainer,[ "@service_container" ] ]
+        # tags:
+        #   - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

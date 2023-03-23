@@ -1,0 +1,293 @@
+{% set product = data.page %}
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} product-details {{ data.block.class }}"
+     data-pid="{{ product.id }}"
+     itemtype="http://schema.org/Product" itemscope {{ data.block.dataAttributes }}>
+    {% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+    {% set description_title = get_entity_store_attribute(current_store_id,product,"description_title") %}
+    {% set video_title = get_entity_store_attribute(current_store_id,product,"video_title") %}
+    {% set url = get_entity_store_attribute(current_store_id,data.page,"url") %}
+
+    <meta itemprop="url" content="{{ data.site_base_data.site_base_url_language }}{{ url }}"/>
+    <meta itemprop="sku" content="{{ product.code }}"/>
+
+    <div class="product-relative-container">
+        <div class="row product-main-info">
+            {% apply spaceless %}
+                <div class="col-xs-12 col-sm-6">
+
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:gallery.html.twig', 'data': {
+                        'product': product,
+                    }}, {})) }}
+                </div>
+            {% endapply %}
+            <div class="col-xs-12 col-sm-6">
+                <div class="product-information">
+                    <h1 class="product-title" itemprop="name">{{ product_title }}</h1>
+
+                    {% set partnerCode = product.code %}
+                    {% if partnerCode is not empty %}
+                        <div class="code"><small>{% trans into current_language %}Product code{% endtrans %}: {{ partnerCode }}</small></div>
+                    {% endif %}
+
+                    <div class="social-share">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:addthis.html.twig', 'data': {}}, {})) }}
+                    </div>
+
+                    {% set shortDesctiption = get_entity_store_attribute(current_store_id,product,"short_description") %}
+                    {% if shortDesctiption is not empty %}
+                        <div class="short-description" itemprop="abstract">
+                            {{ shortDesctiption|striptags("<strong>,<a>")|raw }}
+                        </div>
+                    {% endif %}
+
+                    <div class="inline-data">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:prices.html.twig', 'data': {
+                            'data': data,
+                            'product': product,
+                        }}, {})) }}
+
+                        <div class="item product-availability">
+                            <div class="left">{% trans into current_language %}Availability{% endtrans %}:</div>
+                            <div class="right">
+                                {% if get_product_is_saleable(product) %}
+                                    <strong class="green">{% trans into current_language %}available{% endtrans %}</strong>
+                                {% elseif product.active %}
+                                    <strong class="orange">{% trans into current_language %}on request{% endtrans %}</strong>
+                                {% else %}
+                                    <strong class="red">{% trans into current_language %}not available{% endtrans %}</strong>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="product-cart-wrapper">
+                            {% if get_product_is_saleable(product) %}
+                                {% apply spaceless %}
+                                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:add_to_cart_form.html.twig', 'data': {
+                                        'product': product,
+                                    }}, {})) }}
+                                {% endapply %}
+                            {% else %}
+                                <div class="not-available-actions">
+                                    <button class="send-inquiry local-overlay-toggle button btn-type-1"
+                                            data-pid="{{ product.id }}">{% trans into current_language %}Send inquiry{% endtrans %}</button>
+                                    {% if get_env("SHOW_AVAILABILITY_REMINDER")|default(0) %}
+                                        <button class="remind-me-available local-overlay-toggle button btn-type-1"
+                                                data-pid="{{ product.id }}">{% trans into current_language %}Remind me when available{% endtrans %}</button>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {# {% if data.model.prepared_attributes is defined and data.model.prepared_attributes is not empty %} #}
+                    {# <div class="row"> #}
+                    {# <div class="col-xs-12 col-sm-6"> #}
+                    {# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Type:configurable.html.twig', 'data': { #}
+                    {# 'prepared_attributes': data.model.prepared_attributes #}
+                    {# }}, {})) }} #}
+                    {# </div> #}
+                    {# </div> #}
+                    {# {% endif %} #}
+                </div>
+                {#                <div class="product-prices-note"><small>Za sve narudžbe iznad 1000,00 {{ get_env("CURRENT_CURRENCY_CODE") }} (s PDV-om) dostava je BESPLATNA.</small></div> #}
+            </div>
+        </div>
+
+        {% if product.productConfigurations is defined and product.productConfigurations is not empty %}
+            <div class="row product-data">
+                <div class="col-xs-12 col-sm-6">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Type:configurable_bundle.html.twig', 'data': {
+                        'product': product,
+                        'editable': true
+                    }}, {})) }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% set description = get_entity_store_attribute(current_store_id,product,"description") %}
+        {% if description is defined and description is not empty %}
+            {% apply spaceless %}
+                <div class="row description section product-data">
+                    <div class="col-xs-12" itemprop="description">
+                        <h2 class="section-title"><strong>Opis</strong>
+                            za {% if description_title is not empty %}{{ description_title }}{% else %}{{ product_title }}{% endif %}
+                        </h2>
+                        <div class="data">
+                            {# <h2 id="product-full-description">{% trans into current_language %}Description{% endtrans %}</h2> #}
+                            <p>{{ description|raw }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endapply %}
+        {% endif %}
+
+        {% set specs_title = get_entity_store_attribute(current_store_id,product,"specs_title") %}
+        {% if product.getPreparedProductAttributes is not empty %}
+            <div class="row specification section product-data">
+                <div class="col-xs-12">
+                    <h2 class="section-title"><strong>Tehnički</strong> podaci
+                        za {% if specs_title is not empty %}{{ specs_title }}{% else %}{{ product_title }}{% endif %}
+                    </h2>
+                    <div class="data">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:specification.html.twig', 'data': {
+                            'show_title': false,
+                            'skip_attributes_with_images': true,
+                            'product': product
+                        }}, {})) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if product.getYoutubeVideos is not empty %}
+            <div class="row youtube section product-data">
+                <div class="col-xs-12">
+                    <h2 class="section-title">Video prezentacija
+                        za {% if video_title is not empty %}{{ video_title }}{% else %}{{ product_title }}{% endif %}</h2>
+                    <div class="data">
+                        {% for video in product.getYoutubeVideos %}
+                            {% if 'v=' in video.url %}
+                                {% set videoId = video.url|split('v=') %}
+                                {% set videoId = videoId[1]|split('&') %}
+                                {% set videoUrl = "http://www.youtube.com/embed/" ~  videoId[0] %}
+                            {% elseif 'embed' in video.url %}
+                                {% set videoUrl = video.url %}
+                            {% elseif 'youtu.be' in video.url %}
+                                {% set videoId = video.url|split('youtu.be/') %}
+                                {% set videoUrl = "http://www.youtube.com/embed/" ~  videoId[1] %}
+                            {% endif %}
+                            {% if videoUrl is defined %}
+                                <div class="row youtube-item">
+                                    <div class="col-xs-12 text-center">
+                                        <iframe src="{{ videoUrl }}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% set productDocuments = get_product_documents(product) %}
+        {% if productDocuments is not empty %}
+            <div class="row documents">
+                <div class="col-xs-12">
+                    <h2 class="section-title">Dokumenti
+                        za {% if video_title is not empty %}{{ video_title }}{% else %}{{ product_title }}{% endif %}</h2>
+                    <div class="data">
+                        {% for documents in productDocuments %}
+                            <div class="item">
+                                <div class="data">
+                                    {% for document in documents["documents"] %}
+                                        {% set fileName = document.name|replace({'_': ' '})|capitalize %}
+                                        {% if fileName is empty %}
+                                            {% set fileName = document.file %}
+                                        {% endif %}
+                                        <a target="_blank" class="file {{ document.fileType }}"
+                                           href="/Documents/product_document/{{ document.file }}">{{ fileName }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% set parentProduct = is_bundle(product) %}
+        {% if parentProduct is not empty %}
+            <div class="row section">
+                <div class="col-xs-12">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Type:bundle.html.twig', 'data': {
+                        'product': parentProduct,
+                    }}, {})) }}
+                </div>
+            </div>
+        {% endif %}
+
+        {# <div class="row product-detailed"> #}
+        {# <div class="col-xs-12 col-sm-6"> #}
+        {# <div class="tabs"> #}
+        {# <ul> #}
+        {# {% if product.getPreparedProductAttributes is not empty %} #}
+        {# <li> #}
+        {# <a href="#specification" class="item">Karakteristike</a> #}
+        {# </li> #}
+        {# {% endif %} #}
+        {# <li> #}
+        {# <a href="#description" class="item item-bordered icon-horizontal">Opis</a> #}
+        {# </li> #}
+        {# </ul> #}
+        {# {% if product.getPreparedProductAttributes is not empty %} #}
+        {# <div id="specification"> #}
+        {# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:specification.html.twig', 'data': { #}
+        {# 'show_title': false, #}
+        {# 'skip_attributes_with_images': true, #}
+        {# 'product': product #}
+        {# }}, {})) }} #}
+        {# </div> #}
+        {# {% endif %} #}
+        {# <div id="description"> #}
+        {# {% set description = get_entity_store_attribute(current_store_id,product,"description") %} #}
+        {# <p>{{ description|raw }}</p> #}
+        {# </div> #}
+        {# </div> #}
+        {# </div> #}
+        {# <div class="col-xs-12 col-sm-6"> #}
+        {# {{ render(controller('AppBundle:FrontTemplate:block', {'block_id': 81, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }} #}
+        {# </div> #}
+        {# </div> #}
+    </div>
+</div>
+
+{% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':data.configurable_bundle|default({})}, {}))|json_decode %}
+{% set brand = get_product_attribute_value_by_key(product, "brand") %}
+{% set brandName = "" %}
+{% if brand is not empty %}
+    {% set brandName = brand.values[0].value %}
+{% endif %}
+{% set trackingData %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'ecommerce': {
+                'detail': {
+                    'products': [{
+                        'name': '{{ product_title|striptags }}',
+                        'id': '{{ product.getId }}',
+                        'price': {{ prices.final_price }},
+                        'brand': '{{ brandName }}',
+                        'category': '{{ get_menu_tree_for_product(product)|default([])|last|default("")|striptags }}'
+                    }]
+                }
+            }
+        });
+    </script>
+{% endset %}
+{{ set_global_tracking_data(trackingData) }}
+<script>
+    {% if get_env('SEND_GTAG_EVENTS') == 1 %}
+    if (typeof gtag != 'undefined') {
+        gtag('event', 'view_item', {
+            'id': '{{ product.getId }}',
+            'name': '{{ product_title }}',
+            'brand': '{{ brandName }}',
+            'category': '{{ get_menu_tree_for_product(product)|default([])|last|default("")|striptags }}',
+            'price': '{{ prices.final_price }}'
+        });
+    }
+    {% endif %}
+    {% if get_env('SEND_FBQ_EVENTS') == 1 %}
+    if (typeof fbq != 'undefined') {
+        fbq('track', 'ViewContent', {
+            content_name: '{{ product_title }}',
+            content_category: '{{ get_menu_tree_for_product(product)|default([])|last|default("")|striptags }}',
+            content_ids: ['{{ product.getId }}'],
+            content_type: 'product',
+            value: {{ prices.final_price }},
+            currency: '{{ prices.currency_code }}'
+        });
+    }
+    {% endif %}
+</script>

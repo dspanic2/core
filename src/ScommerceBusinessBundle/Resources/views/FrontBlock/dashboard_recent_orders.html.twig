@@ -1,0 +1,51 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-recent-orders {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="col-xs-6">
+            <h2>{% trans into current_language %}Recent orders{% endtrans %}</h2>
+        </div>
+        {% if data.model.orders is defined and data.model.orders is not empty and data.model.go_to_all %}
+            <div class="col-xs-6 text-right">
+                <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,61,"s_page") }}" class="show-all">{% trans into current_language %}Show all{% endtrans %}</a>
+            </div>
+        {% endif %}
+    </div>
+    {% if data.model.orders is defined and data.model.orders is not empty %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="orders-table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th><input name="increment_id" class="order-number"
+                                       placeholder="{% trans into current_language %}Order number{% endtrans %}"></th>
+                            <th style="display: flex;">
+                                <input name="created_from" class="order-date datetimepicker"
+                                       placeholder="{% trans %}Date from{% endtrans %}">
+                                <input name="created_to" class="order-date datetimepicker"
+                                       placeholder="{% trans %}Date to{% endtrans %}">
+                            </th>
+                            <th>
+                                {% if data.model.order_states is defined and data.model.order_states is not empty %}
+                                    <select class="form-control" name="order_state">
+                                        <option value="0" selected>{% trans %}Order state{% endtrans %}</option>
+                                        {% for state in data.model.order_states %}
+                                            <option value="{{ state.id }}">{{ (state.name)|trans }}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% else %}
+                                    {% trans into current_language %}State{% endtrans %}
+                                {% endif %}
+                            <th>{% trans into current_language %}Total amount{% endtrans %}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Dashboard:dashboard_recent_orders_tbody.html.twig', 'data': {'orders': data.model.orders}}, {})) }}
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>{% trans into current_language %}You have no orders at this time.{% endtrans %}</p>
+    {% endif %}
+</div>

@@ -1,0 +1,38 @@
+<h5>{% trans %}List of matched attributes{% endtrans %}</h5>
+<table class="table table-striped table-bordered">
+    {% for attribute in attributesList %}
+        <tr>
+            <th>{{ attribute.label }}</th>
+            {% if attribute.attribute is not empty %}
+                {% if attribute.related_attributes is not empty %}
+                    <td>{% trans %}Please select matching attribute{% endtrans %}</td>
+                    <td>
+                        <select name="matched[]" class="form-control">
+                            {% for relatedAttribute in attribute.related_attributes %}
+                                <option value="{{ attribute.attribute.attributeCode }}.{{ relatedAttribute.attributeCode }}" {% if relatedAttribute.attributeCode == "name" %}selected="selected"{% endif %}>{{ relatedAttribute.frontendLabel|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                {% else %}
+                    <td>{% trans %}Matched with{% endtrans %} {{ attribute.attribute.attributeCode }}</td>
+                    <td><input type="hidden" name="matched[]" value="{{ attribute.attribute.attributeCode }}"/></td>
+                {% endif %}
+            {% else %}
+                <td>{% trans %}Not matched{% endtrans %}</td>
+                <td></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+<div class="form-group row">
+    <label class="col-sm-4 col-xs-4 control-label">{% trans %}Select primary identified{% endtrans %}</label>
+    <div class="col-sm-8 col-xs-8">
+        <select class="form-control" name="primary">
+            {% for attribute in attributesList %}
+                {% if attribute.attribute is not empty and attribute.related_attributes is empty %}
+                    <option value="{{ attribute.attribute.attributeCode }}" {% if attribute.attribute.attributeCode == "id" %}selected="selected"{% endif %}>{{ attribute.attribute.frontendLabel|trans }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>

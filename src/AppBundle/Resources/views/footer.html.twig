@@ -1,0 +1,28 @@
+<div id="footer">
+    <footer role="contentinfo">
+        <div class="clearfix">
+            <ul class="list-unstyled list-inline pull-left">
+                <li>Shape CRM &copy; {{ "now"|date("Y") }}. v: <strong>{{ get_env("CORE_VERSION") }}</strong></li>
+                <li class="env-mode">{% if get_env('IS_PRODUCTION')|default(0) == 1 %}<span class="env-production">PRODUCTION</span>{% else %}<span class="env-development">DEVELOPMENT</span>{% endif %}</li>
+            </ul>
+            <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
+        </div>
+        <div id="modal-container"></div>
+        <div id="pie-hover"></div>
+    </footer>
+
+    <div class="hidden">
+        <div id="sp-filter-buttons-template">
+            <div class="sp-buttons-wrapper">
+                <button type="submit" data-action="filter-submit" class="btn-primary btn-green btn btn-filter">{% trans %}Submit{% endtrans %}</button>
+                <button type="button" data-action="filter-reset" class="btn btn-default btn-red btn-filter">{% trans %}Reset{% endtrans %}</button>
+            </div>
+        </div>
+
+        {#<div id="sp-filter-button-reset-template">
+            <div class="sp-buttons-wrapper">
+                <button type="button" data-action="filter-reset" class="btn btn-default btn-red btn-filter"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>#}
+    </div>
+</div>

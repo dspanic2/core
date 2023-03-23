@@ -1,0 +1,6 @@
+{
+  "index": {
+    "notification_entity": "type_id",
+    "notification_type_entity": "icon_id"
+  }
+}

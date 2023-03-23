@@ -1,0 +1,77 @@
+.sp-workflow-toolbox {
+    background: #ffffff;
+    height: 100%;
+    border-right: 1px solid #d2d3d6;
+    padding: 5px;
+}
+
+.sp-workflow-toolbox ul{
+    list-style: none;
+    padding: 0px;
+}
+
+.sp-workflow-toolbox li{
+    margin-bottom: 10px;
+    color: #464646;
+    background-color: white;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 18px;
+}
+.sp-designer-body {
+    min-height: 800px;
+    height: auto;
+    display: flex;
+    flex-flow: row;
+}
+
+.sp-workflow-card {
+    border: 1px solid #edeef0;
+}
+
+.sp-workflow-card-header {
+    padding: 5px;
+    background-color: #edeef0;
+    font-size: 18px;
+}
+
+.sp-workflow-card-body {
+    padding: 5px;
+    min-height: 50px;
+}
+
+.sp-workflow-action {
+    border-left: 1px solid grey;
+    padding: 5px;
+}
+
+.sp-workflow-action {
+    border-left: 1px solid grey;
+    padding: 5px;
+}
+
+.sp-workflow-action-body {
+    font-size: 16px;
+}
+
+.sp-icon-component-edit {
+    float: right;
+    margin-left: 20px;
+    margin: 0px 30px;
+}
+
+.sp-wf-container {
+    min-height: 50px;
+}
+
+.sp-wf-container-droparea {
+    border: 1px dotted #aeafb1;
+    text-align: center;
+    padding-top: 10px;
+    color: silver;
+}
+
+.sp-nolist{
+    list-style: none;
+}
+

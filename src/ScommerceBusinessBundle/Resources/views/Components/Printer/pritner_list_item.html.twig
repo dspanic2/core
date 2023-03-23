@@ -1,0 +1,22 @@
+<div class="product-display-grid item">
+    <a class="product-display-grid-image" href="/{{ get_entity_store_attribute(current_store_id,printer,"url") }}">
+        {% if printer.getSelectedImage() is not empty %}
+            {% set image_url = "/Documents/Products/"  ~ printer.getSelectedImage().file %}
+            {% set image_style_url = image_url|image_style('product_list_item') %}
+            {% if image_style_url %}
+                {% set image_url = image_style_url %}
+            {% endif %}
+        {% else %}
+            {% set image_url = "/frontend/images/image-placeholder.png" %}
+        {% endif %}
+        <img class="b-lazy"
+             src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+             data-src="{{ image_url }}"/>
+    </a>
+    <div class="product-info">
+        <h3>
+            <a class="product-click" href="/{{ get_entity_store_attribute(current_store_id,printer,"url") }}"
+               title="{{ get_entity_store_attribute(current_store_id,printer,"name") }}">{{ get_entity_store_attribute(current_store_id,printer,"name") }}</a>
+        </h3>
+    </div>
+</div>

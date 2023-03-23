@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="CrmBusinessBundle\Entity\ProductGroupEntity" table="product_group_entity">
+        ###CLASS_START
+        <one-to-many field="images" target-entity="CrmBusinessBundle\Entity\ProductGroupImagesEntity"  mapped-by="productGroup">   <cascade>
+                <cascade-all/>
+            </cascade>
+            <order-by>
+                <order-by-field name="ord" direction="ASC" />
+            </order-by>
+        </one-to-many>
+
+        <one-to-many field="productsProductGroupLinks" target-entity="CrmBusinessBundle\Entity\ProductProductGroupLinkEntity"  mapped-by="productGroup">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="childProductGroups" target-entity="CrmBusinessBundle\Entity\ProductGroupEntity"  mapped-by="productGroup">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

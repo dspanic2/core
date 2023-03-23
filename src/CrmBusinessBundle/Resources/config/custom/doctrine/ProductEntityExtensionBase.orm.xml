@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="CrmBusinessBundle\Entity\ProductEntity" table="product_entity">
+    ###CLASS_START
+
+        <one-to-many field="images" target-entity="CrmBusinessBundle\Entity\ProductImagesEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        <order-by>
+                        <order-by-field name="ord" direction="ASC" />
+                    </order-by>
+        </one-to-many>
+
+<!--        <one-to-many field="productGroups" target-entity="CrmBusinessBundle\Entity\ProductProductGroupLinkEntity"  mapped-by="product">   <cascade>-->
+<!--                <cascade-all/>-->
+<!--            </cascade>-->
+<!--        </one-to-many>-->
+
+        <one-to-many field="productAttributes" target-entity="ScommerceBusinessBundle\Entity\SProductAttributesLinkEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="productWarehouses" target-entity="CrmBusinessBundle\Entity\ProductWarehouseLinkEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="accountPrices" target-entity="CrmBusinessBundle\Entity\ProductAccountPriceEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="discountCatalogPrices" target-entity="CrmBusinessBundle\Entity\ProductDiscountCatalogPriceEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="accountGroupPrices" target-entity="CrmBusinessBundle\Entity\ProductAccountGroupPriceEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="relatedProducts" target-entity="CrmBusinessBundle\Entity\ProductProductLinkEntity"  mapped-by="parentProduct">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="youtubeVideos" target-entity="CrmBusinessBundle\Entity\YoutubeEmbedEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        <order-by>
+                        <order-by-field name="id" direction="ASC" />
+                    </order-by>
+        </one-to-many>
+
+        <one-to-many field="productConfigurations" target-entity="CrmBusinessBundle\Entity\ProductConfigurationProductLinkEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+            <order-by>
+                        <order-by-field name="ord" direction="DESC" />
+                    </order-by>
+        </one-to-many>
+
+        <one-to-many field="configurableProductAttributes" target-entity="CrmBusinessBundle\Entity\ProductConfigurableAttributeEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="productDocuments" target-entity="CrmBusinessBundle\Entity\ProductDocumentEntity"  mapped-by="product">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="parentProducts" target-entity="CrmBusinessBundle\Entity\ProductConfigurationProductLinkEntity"  mapped-by="childProduct">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

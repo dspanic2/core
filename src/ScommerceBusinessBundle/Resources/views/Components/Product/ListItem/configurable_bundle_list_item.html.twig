@@ -1,0 +1,69 @@
+{% if product is defined and product is not empty %}
+    {% set product_name = get_entity_store_attribute(current_store_id,product,"name") %}
+    {% set product_url = get_entity_store_attribute(current_store_id,product,"url") %}
+    <div class="product-display-grid item" data-product-id="{{ product.id }}">
+        {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+        <span class="add-to-favorite {% if app.session.get('favorites_product_ids') is defined and app.session.get('favorites_product_ids') is not empty and product.id in app.session.get('favorites_product_ids') %}active{% endif %}"
+              data-pid="{{ product.id }}"></span>
+        <span class="add-to-compare {% if app.session.get('compare') is defined and app.session.get('compare') is not empty and product.id in app.session.get('compare') %}active{% endif %}"
+              data-pid="{{ product.id }}"></span>
+        {% if prices.discount_percentage is defined and prices.discount_percentage is not empty and prices.discount_percentage > 0 %}
+            <span class="product-discount">-{{ prices.discount_percentage|number_format(0, '', '') }}<span class="percentage">%</span></span>
+        {% endif %}
+        <a class="product-display-grid-image" href="{{ current_language_url }}/{{ product_url }}">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                'image': product.getSelectedImage,
+                'directory':'Products',
+                'image_style': 'product_list_item',
+                'alt_default': product_name
+            }}, {})) }}
+        </a>
+
+        <div class="product-info">
+            <h3>
+                <a class="product-click" href="{{ current_language_url }}/{{ product_url }}" title="{{ product_name }}">{{ product_name }}</a>
+            </h3>
+        </div>
+
+        {% if product.productConfigurations is defined and product.productConfigurations is not empty %}
+            <div class="row">
+                <div class="col-xs-12">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Type:configurable_bundle.html.twig', 'data': {
+                        'product': product,
+                        'editable': false
+                    }}, {})) }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="prices {% if prices.discount_price is not empty %}with-discount{% endif %}">
+            {% if prices.price is not empty %}
+                {% set class = "" %}
+                {% if prices.discount_price is not empty %}
+                    {% set class = "invalid" %}
+                {% endif %}
+                {% if prices.discount_price is not empty %}
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': prices.discount_price, 'currency': prices.currency_code }}, {})) }}
+                {% endif %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': prices.price, 'currency': prices.currency_code, 'class': class }}, {})) }}
+            {% endif %}
+        </div>
+        {% if get_product_is_saleable(product) %}
+            <div class="text-center">
+                <div class="item-cart">
+                    <button class="configurable-modal local-overlay-toggle button btn-type-1" data-pid="{{ product.id }}" title="{% trans into current_language %}Add to cart{% endtrans %}">
+                        {% trans into current_language %}Add{% endtrans %}<i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center">
+                <div class="item-cart">
+                    <button class="send-inquiry local-overlay-toggle button btn-type-1" data-pid="{{ product.id }}">
+                        {% trans into current_language %}Send inqury{% endtrans %}
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

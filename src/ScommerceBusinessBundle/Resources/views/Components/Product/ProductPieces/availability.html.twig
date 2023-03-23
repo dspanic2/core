@@ -1,0 +1,13 @@
+{% set product = get_real_product(product, get_query_parameters()) %}
+<div class="product-availability">
+    <div class="availability-label">
+        {% trans into current_language %}Availability{% endtrans %}:
+        {% if get_product_is_saleable(product) %}
+            <strong class="green">{% trans into current_language %}available{% endtrans %}</strong>
+        {% elseif product.active %}
+            <strong class="orange">{% trans into current_language %}suppliable{% endtrans %}</strong>
+        {% else %}
+            <strong class="red">{% trans into current_language %}not available{% endtrans %}</strong>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .hub-3a {
+            position: relative;
+        }
+
+        .hub-3a span {
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+<div class="hub-3a">
+    <img class="barcode"
+         src="data:image/png;base64,{{ barcode({code: barcode_data, type: barcode_type, format: 'png', parameters: [ 3, 4 ]}) }}"/>
+</div>
+</body>
+</html>

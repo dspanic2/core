@@ -1,0 +1,96 @@
+{% if product is defined %}
+    {# Atributi za JS tracking #}
+    {% set boja = "N/A" %} {# 10 #}
+    {% set boja_ispisa = "N/A" %} {# 129 #}
+    {% set kapacitet_ispisa = "N/A" %} {# 188 #}
+    {% set tip_tonera = "N/A" %} {# 185 #}
+    {% set dimenzije = "N/A" %} {# 112 #}
+    {% set gramaza = "N/A" %} {# 111 #}
+    {% set materijal = "N/A" %} {# 118 #}
+    {% set format = "N/A" %} {# 113 #}
+    {% set tip_uredaja = "N/A" %} {# 17 #}
+    {% set velicina_ekrana = "N/A" %} {# 67 #}
+    {% set processor_model = "N/A" %} {# 81 #}
+    {% for attribute in product.getPreparedProductAttributes("specs") %}
+        {% set attrConfig = attribute.attribute %}
+        {% if attrConfig.id == 10 %}
+            {% set boja = "" %}
+            {% for value in attribute.values %}
+                {% set boja = boja ~ value.value %}
+                {% if not loop.last %}{% set boja = boja ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 129 %}
+            {% set boja_ispisa = "" %}
+            {% for value in attribute.values %}
+                {% set boja_ispisa = boja_ispisa ~ value.value %}
+                {% if not loop.last %}{% set boja_ispisa = boja_ispisa ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 188 %}
+            {% set kapacitet_ispisa = "" %}
+            {% for value in attribute.values %}
+                {% set kapacitet_ispisa = kapacitet_ispisa ~ value.value %}
+                {% if not loop.last %}{% set kapacitet_ispisa = kapacitet_ispisa ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 185 %}
+            {% set tip_tonera = "" %}
+            {% for value in attribute.values %}
+                {% set tip_tonera = tip_tonera ~ value.value %}
+                {% if not loop.last %}{% set tip_tonera = tip_tonera ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 112 %}
+            {% set dimenzije = "" %}
+            {% for value in attribute.values %}
+                {% set dimenzije = dimenzije ~ value.value %}
+                {% if not loop.last %}{% set dimenzije = dimenzije ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 111 %}
+            {% set gramaza = "" %}
+            {% for value in attribute.values %}
+                {% set gramaza = gramaza ~ value.value %}
+                {% if not loop.last %}{% set gramaza = gramaza ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 118 %}
+            {% set materijal = "" %}
+            {% for value in attribute.values %}
+                {% set materijal = materijal ~ value.value %}
+                {% if not loop.last %}{% set materijal = materijal ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 113 %}
+            {% set format = "" %}
+            {% for value in attribute.values %}
+                {% set format = format ~ value.value %}
+                {% if not loop.last %}{% set format = format ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 17 %}
+            {% set tip_uredaja = "" %}
+            {% for value in attribute.values %}
+                {% set tip_uredaja = tip_uredaja ~ value.value %}
+                {% if not loop.last %}{% set tip_uredaja = tip_uredaja ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 67 %}
+            {% set velicina_ekrana = "" %}
+            {% for value in attribute.values %}
+                {% set velicina_ekrana = velicina_ekrana ~ value.value %}
+                {% if not loop.last %}{% set velicina_ekrana = velicina_ekrana ~ "," %}{% endif %}
+            {% endfor %}
+        {% elseif attrConfig.id == 81 %}
+            {% set processor_model = "" %}
+            {% for value in attribute.values %}
+                {% set processor_model = processor_model ~ value.value %}
+                {% if not loop.last %}{% set processor_model = processor_model ~ "," %}{% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    <div class="dimensions hidden"
+         data-boja="{{ boja }}"
+         data-boja_ispisa="{{ boja_ispisa }}"
+         data-kapacitet_ispisa="{{ kapacitet_ispisa }}"
+         data-tip_tonera="{{ tip_tonera }}"
+         data-dimenzije="{{ dimenzije }}"
+         data-gramaza="{{ gramaza }}"
+         data-materijal="{{ materijal }}"
+         data-format="{{ format }}"
+         data-tip_uredaja="{{ tip_uredaja }}"
+         data-velicina_ekrana="{{ velicina_ekrana }}"
+         data-processor_model="{{ processor_model }}"></div>
+{% endif %}

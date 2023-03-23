@@ -1,0 +1,16 @@
+{% if data is defined %}
+    {% apply spaceless %}
+        {% set trackingCode %}
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'generate_lead',
+                    'eventCategory': 'contact',
+                    'eventAction': 'form',
+                    'eventLabel': '{{ current_entity.getUrl()[current_store_id]|default(current_entity.getUrl) }}'
+                });
+            </script>
+        {% endset %}
+        {{ trackingCode|striptags|raw }}
+    {% endapply %}
+{% endif %}

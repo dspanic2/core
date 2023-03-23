@@ -1,0 +1,18 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} builder-blocks row">
+    {% if current_entity.getLayout is defined %}
+        {% set renderRow = false %}
+        {% set blockRowHtml %}
+            {% for block in current_entity.getLayout|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+                {% set blockHtml = render(controller('AppBundle:FrontTemplate:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) %}
+                {% if blockHtml is not empty %}
+                    {% set renderRow = true %}
+                    <div class="col-xs-12 col-sm-{{ block.width|default(12) }} col-md-{{ block.width|default(12) }}" data-block-id="{{ block.id }}" data-block-type="{{ block.type }}">{{ blockHtml|raw }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endset %}
+
+        {% if renderRow %}{{ blockRowHtml|raw }}{% endif %}
+    {% else %}
+        <div class="">Page builder not supported. Missing layout attribute!</div>
+    {% endif %}
+</div>

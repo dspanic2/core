@@ -1,0 +1,28 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    <label class="col-sm-4 col-xs-4 control-label">{% if is_granted('ROLE_ADMIN') %}<a href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+        {% if attribute.note is not empty %}
+            <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}" rel="popover" data-html="true" data-placement="bottom"></span>
+        {% endif %}
+    </label>
+
+    <div class="col-sm-8 col-xs-8">
+        <label>
+            <input type="hidden" data-action="checkbox-value" name="{{ attribute.attributeCode }}" value="{% if value is not empty and value == 1 %}1{% else %}0{% endif %}"/>
+            <input {% if formType == "view" or attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                   data-off-text="{% trans %}No{% endtrans %}"
+                   data-on-text="{% trans %}Yes{% endtrans %}"
+                   type="checkbox"
+                   name="{{ attribute.attributeCode }}_checkbox"
+                   data-type="bchackbox"
+                   {% if value is not empty and value == 1 %}checked="checked"{% endif %}
+                   {% if(attribute.validator is not empty) %}
+                        {% set validators = attribute.validator | json_decode %}
+                        {% for validator in validators %}
+                            {{ include('AppBundle:Form/Validators:' ~ validator.type ~ '.html.twig') }}
+                        {% endfor %}
+                   {% endif %}
+                   value="1"
+            /></label>
+    </div>
+</div>

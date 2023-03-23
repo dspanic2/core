@@ -1,0 +1,7 @@
+<div class="rating rate-entity" data-entity-id="{{ current_entity.id }}" data-entity-type-id="{{ current_entity.entityType.id }}">
+    <span class="rate rate-1 {% if average is defined and average > 0 %}active{% endif %}" data-rate="1">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+    <span class="rate rate-2 {% if average is defined and average > 1.5 %}active{% endif %}" data-rate="2">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+    <span class="rate rate-3 {% if average is defined and average > 2.5 %}active{% endif %}" data-rate="3">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+    <span class="rate rate-4 {% if average is defined and average > 3.5 %}active{% endif %}" data-rate="4">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+    <span class="rate rate-5 {% if average is defined and average > 4.5 %}active{% endif %}" data-rate="5">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Icons:rate.html.twig', 'data': {}}, {})) }}</span>
+</div>

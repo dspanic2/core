@@ -1,0 +1,1004 @@
+Contact Information: Kontakt informacije
+Additional Information: Dodatne informacije
+Home phone is your phone at home: Domači telefon je Vaš telefon doma
+Lead details: Podrobnosti o potencialni stranki
+Legal entity: Pravna oseba
+Last contact date: Datum zadnjega kontakta
+Next contact date: Datum naslednjega kontakta
+Owner: Odgovorna oseba
+Lead source: Vir potencialne stranke
+Lead status: Status potencialne stranke
+Created: Kreirano
+Active: Aktiven
+Delayed: Preloženo
+In testing: V testiranju
+On hold: Zaustavljen
+Last offer sent: Zadnja poslana ponudba
+All Leads: Vse potencialne stranke
+Employees: Zaposleni
+Annual revenue: Letni prihodki
+Industry: Industrija
+Shipping address: Naslov za dostavo
+Billing address: Naslov za izstavitev računa
+Billing country: Država za izstavitev računa
+Billing code: Poštna številka za izstavitev računa
+Billing state: Regija za izstavitev računa
+Billing city: Mesto za izstavitev računa
+Contact: Kontakt
+Account: Stranka
+Department: Oddelek
+Totaly qty: Skupna količina
+Base price: Osnovna cena
+Quantity: Količina
+Fixed discount: Fiksni popust
+Percent discount: Procent popusta
+VAT: DDV
+Total with VAT: Skupaj z DDV
+Currency: Valuta
+Total quantity: Skupna količina
+Total price: Skupna cena
+Secret key is missing or not correct: Skrivni ključ manjka ali je napačen
+Fingerprint is missing: Manjka prstni odtis
+Email is missing: E-pošta manjka
+First name is missing: Ime manjka
+Last name is missing: Priimek manjka
+Message is missing: Sporočilo manjka
+Product is missing: Izdelek manjka
+There has been an error.</br>Pleas try again.: Prišlo je do namake. </br> Prosim poskusit ponovno.
+Your inquiry has been submitted.</br>We will contact you shortly.: Vaše povpraševanje je poslano. </br> Kmalu vas bomo kontaktirali.
+Your message has been successfully submitted: Vaše sporočilo je bilo uspešno poslano
+Your order has been successfully submitted: Naročilo je bilo uspešno poslano
+Item is missing: Predmet manjka
+is_favorite is missing: Manjka priljubljen
+Item does no exist: Predmet ne obstaja
+You have successfully added: Uspešno ste dodali
+to favourites.: v priljubljene.
+You have successfully removed: Uspešno ste odstranili
+
+from favourites.: od priljubljenih.
+Invalid order hash: Neveljaven hash naročila
+Product ids are missing: Manjkajo ID -ji izdelkov
+Parent product is not defined: Nadrejeni izdelek ni opredeljen
+Product relations successfully added: Odnosi z izdelki so uspešno dodani
+Related product id is not defined: Sorodni ID izdelek ni definiran
+Related product does not exist: Sorodni izdelek ne obstaja
+Product relation successfully added: Odnos med izdelki je bil uspešno dodan
+Product relations successfully deleted: Odnosi med izdelki so bili uspešni izbrisani
+Relation id is not defined: ID odnos ni določen
+Relation does no exist: Odnos ne obstaja
+Product relation successfully deleted: Odnos med izdelki je bil uspešno izbrisan
+Invalid quote hash: Neveljavna hash ponudbe
+id not received: id ni prejet
+This quote doesnt exist anymore: Ta ponudba ne obstaja več
+Quote accepted: Ponudba sprejeta
+Quote successfully accepted: Ponudba uspešno sprejeta
+Quote accept failed: Sprejem ponudbe ni uspel
+Quote canceled: Ponudba je bila preklicana
+Quote successfully canceled: Ponudba je bila uspešno preklicana
+Invalid quote id: Neveljaven ID ponudbe
+Email sent: E-pošta poslana
+Email sent to : E-pošta poslana uporabniku
+Failed to send email: Pošiljanje e-pošte ni uspelo
+Quote cancelation failed: Preklic ponudbe ni uspel
+Update failed: Posodobitev ni uspela
+Updated: Posodobljeno
+Items updated: Košarica je posodobljena
+Item updated: Postavka je posodobljena
+Error updating: Napaka pri posodabljanju
+parent_page_id not received: ID domače strani ni bil prejet
+Items added: Dodane postavke
+Selected items added: Dodane so izbrane postavke
+parent_id not set: ID starša ni nastavljen
+item_type not set: Vrsta predmeta ni nastavljena
+Succes: Uspeh
+Deleted: Izbrisano
+Item removed: Postavka je bila odstranjena
+items not set: Postavke niso nastavljene
+price_attr not set: Cena ni nastavljena
+id not set: ID ni nastavljen
+Product added: Izdelek dodan
+Base Price: Osnovna cena
+Percent discount(%): Procent popusta (%)
+Total: Skupaj
+VAT(%): DDV(%)
+Total tax: Skupni davek
+Preview: Predogled
+Download: Prenos datoteke
+Download quote PDF: PDF ponudba
+Use another entity type instead : Uporabite drugo vrsto entitete
+Select entity type that is linked with products to be used for descriptions and preview.: Izberite vrsto entitete, povezane z izdelki, ki jih želite uporabiti za opis in pregled.
+Secondary entity: Sekundarni entitet
+Secondary entity description attribute: Atribut opisa sekundarne entitete
+Select attribute: Izberite atribut
+Price per items: Cena po izdelku
+R.br.: R.br.
+Date of issue\:: Datum izdaje \:
+Table of contents: Vsebina
+Total price no tax: Skupna cena brez davka
+Tax: Davek
+Quote status\:: Status ponudbe \:
+Order status\:: Stanje naročila\:
+Quote is canceled: Ponudba je preklicana
+Description: Opis
+Fax: Faks
+Please enter the phone number in format 385914584804: Vnesite telefonsko številko v formatu 38641458480
+Lead Source: Vir potencialne stranke
+Lead Status: Status potencialne stranke
+MBR: MBR
+Rating: Ocena
+Secondary Email: Druga E-pošta
+Web: Spletna stran
+My New Leads: Moje nove potencialne stranke
+Suppliers: Dobavitelji
+Basic Information: Osnovni podatki
+Billing Address: Naslov za pošiljanje računa
+Shipping Address: Naslov za dostavo
+Supplier details: Podrobnosti o dobavitelju
+Account type: Vrsta računa
+account_type details: Podrobnosti o vrsti plačila
+business_type details: Podrobnosti o vrsti poslovanja
+Date of Birth: Datum rojstva
+LinkedIn: LinkedIn
+Profile image: Slika profila
+Skype ID: Skype ID
+Reports to: Poroča
+Twitter: Twitter
+Account contacts: Kontakti iz računa
+Image: Slika
+Main address: Glavni naslov
+Second Address: Drugi naslov
+Social: Socialni
+industry_type details: Podrobnosti tipa industrije
+lead_source details: Podrobnosti vira potencialne stranke
+lead_status details: Podrobnosti o statusu potencialne stranke
+EAN: EAN
+Retail price: Maloprodajna cena
+Cash price retail: Maloprodajna cena za gotovino
+Cash price base: Osnovna cena za gotovino
+Number of installments: Število obrokov
+Cash percentage: % popusta na gotovino
+Product: Izdelek
+Qty: Kol
+Remote id: Oddaljeni ID
+Short description: Kratek opis
+Supplier: Dobavitelj
+Tax percent: Procent davka
+Product list: Seznam izdelkov
+Select related products: Izberite sorodne izdelke
+Other information: Ostale informacije
+Prices: Cena
+Parent product group: Skupina nadrejenih izdelkov
+Product_group: Skupina izdelkov
+State: Država
+Street: Ulica
+Delivery type: Vrsta dostave
+Increment id: Identifikator
+Payment type: Način plačila
+Order: Naročilo
+Number: Številka
+Orders: Naročila
+order details: Podrobnosti naročila
+Payment and delivery: Plačilo in dostava
+Payment information: Informacije o plačilu
+Price total: Skupna cena
+Order items: Naročeni izdelki
+order_item details: Podrobnosti izdelka naročila
+currency details: Podatki o valuti
+order_state details: Podrobnosti stanja naročila
+Delivery_type: Vrsta dostave
+Payment_type: Način plačila
+payment_type details: podrobnosti plačila
+Percent: Odstotek
+Tax_type: Vrsta davka
+tax_type details: Podrobnosti davka
+Enable sale: Omogoči prodajo
+HTML after items: HTML za postavkami
+HTML before items: HTML pred postavkami
+Quotes: Ponudbe
+Account details: Podrobnosti kupca
+Price information: Informacije o cenah
+description: Opis
+Item description: Opis izdelka
+Quote_item: Ponudba
+quote_item details: Podrobnosti ponudbe
+Block ID: ID bloka
+Color: Barva
+Column settings: Nastavitve stolpca
+kanban_column details: Podrobnosti o stolpcih kanbana
+Quote_status: Status ponudbe
+quote_status details: Podrobnosti stanja ponudbe
+Location: Lokacija
+Result: Rezultat
+Billing first name: Ime za izdajo račun
+Billing last name: Priimek za izdajo računa
+Billing street: Ulica za izdajo računa
+Invoice: Račun
+Invoice number: Številka računa
+Parent payment: Glavno plačilo
+Transaction number: Številka transakcije
+Payment: Plačilo
+Billing: Račun
+payment details: Podrobnosti plačila
+Payment_status: Status plačila
+payment_status details: podrobnosti statusa plačila
+invoice details: Podrobnosti računa
+product_images details: Podrobnosti slike izdalka
+Child product: Pomožni izdelki
+Parent product: Glavni izdelki
+Related products: Povezani izdelki
+product_product_link details: Podrobnosti povezave izdelkov
+Fingerprint: Odtis prsta
+tracking details: Podrobnosti o sledenju
+Due date: Datum zapadlosti
+Installments: Obroki
+Meeting: Sestanek
+Datetime to: Datum do
+Datetime from: Datum od
+Details: Podrobnosti
+meeting_contact_link details: Podrobnosti o povezavi sestanka
+Call date: Datum klica
+Subject: Predmet
+Call: Klic
+Account calls: Klici na račun
+call details: Podrobnosti klica
+Contract: Pogodba
+contract details: Podrobnosti pogodbe
+No installments defined: Niso definirate obresti
+This order has been canceled.: To naročilo je preklicano.
+This order has been reversed.: To naročilo je preklicano.
+Payment has been refused.: Plačilo je zavrnjeno.
+You have canceled your payment, please try again.: Preklicali ste plačilo. Poskusite ponovno.
+This quote has been canceled.: Ta ponudba je preklicana.
+This quote has been accepted: Ta ponudba je sprejeta.
+Lead Form: Obrazec potencialne stranke
+Account Form: Obrazec za subjekt
+Account types: Vrste subjekta
+Contact Form: Obrazec kontakta
+Lead_status Form: Obrazec statusa potencialne stranke
+Product Form: Obrazec izdelka
+Product_group Form: Obrazec kategorije izdelka
+Order Form: Obrazec za naročilo
+Order items List: Seznam izdelkov naročila
+Tax_type Form: Davčni obrazec
+Quote Form: Obrazec ponudbe
+Quote preview: Pregled ponudbe
+POS: POS
+Quote_status List: Seznam statusa ponudbe
+Payment List: Seznam plačil
+Payment_status List: Seznam statusa plačila
+Meeting Form: Obrazec sestanka
+Call Form: Obrazec klica
+Contract Form: Obrazec pogodbe
+Product groups: Kategorije izdelka
+Currencies: Valute
+Delivery types: Vrste dostave
+Payment types: Vrste plačila
+Tax types: Vrste davka
+Quote items: Postavke ponudbe
+Error validating captcha: Napaka v potrditvi captche
+Missing captcha response: Manjka captcha odgovor
+Captcha response is empty.: Captcha odgovor je prazen
+Quote item has been removed: Ponudba izdelka je umaknjena
+Quote items are not defined: Ponudba izdelka ni definirana
+Quote items has been updated: Ponudba izdelka je posodobljena
+Description is empty: Opis je prazen
+Quote activity saved: Aktivnost ponudbe je shranjena
+Quote id is not defined: ID ponudbe ni definirana
+Qty is not defined: Količina ni definirana
+Qty cannot be lower than 1: Količina ne more biti manj kot 1
+Quote does not exist: Ponudba ne obstaja
+Product added to cart: Izdelek dodan u košarico
+Error creating user, please try again: Napaka v kreiranju uporabnika, prosimo poskusite ponovno
+New account: Novi uporabniški račun
+Error updating user, please try again: Napaka v posodobitvi uporabnika, prosimo poskusite ponovno
+Discount percent is not defined: Odstotek popusta ni definiran
+Price item is not defined: Cena izdelka ni definirana
+Fixed discount is not defined: Fiksni popust ni definiran
+Discount percent cannot be higher than 100%: Odstotek popusta ne more biti večji od 100%
+Discount percent cannot be negative: Odstotek popusta ne more biti negativen
+Qty cannot be negative: Količina ne more biti negativna
+Price cannot be negative: Cena ne more biti negativna
+Fixed discount cannot be negative: Fiksni popust ne može biti negativen
+Fixed discount cannot be higher than total price of items: Fiksni popust ne more biti večji od skupne cene izdelkov.
+Add items: Dodaj izdelek
+Remove: Odstrani
+Total price without tax: Skupna cena brez davka
+Item descriptions: Opisi izdelka
+Edit quote: Uredi ponudbo
+View order: Poglej ponudbo
+Create order: Naredi ponudbo
+Account Types: Vrste subjekta
+Full legal entity name: Poln pravni naziv
+Disable discounts: Onemogoči popuste
+Disable rebate: Onemogoči rabat
+Home phone: Domači telefon
+Owner ERP: Lasntik ERP-a
+Parent account: Starš računa
+Other phone: Drugi telefon
+All accounts: Vsi subjekti
+Catalog code: Dobaviteljeva šifra
+CTR: Razmerje med prikazi in kliki
+Discount from: Popust od
+Discount to: Popust do
+Date synced: Datum synca
+Discount percentage: Odstotek popusta
+Discount price base: Osnovna cena s popustom
+Discount price retail: Maloprodajna cena s popustom
+Guarantee:  Garancija
+Visible: Vidno
+Da li je proizvod vidljiv samostalno: Ali je izdelek viden samostojno
+Manufacturer remote id: Proizvajalec na daljavo ID
+ID proizvodjaca iz WAND-a: ID proizvajalec iz WAND-a
+Measure: mere
+Meta description: Meta opis
+Meta keywords: Meta ključne besede
+Meta title: Meta naslov
+Old code: Stara koda
+Stara sifra iz Stublić: Stara koda iz Stublića
+Old url: Stari url
+Printers failed: Neuspeh tiskalnikov
+Da li je popis printera neispravan: Ali je seznam tiskalnikov napačen
+Printers processed: Obdelani tiskalniki
+Da li je popis printera rasparcan na modele printera: Ali je seznam tiskalnikov razdeljen na modele tiskalnikov
+Product type: Vrsta izdelka
+Template type: Predloga
+Remote source: Oddaljeni vir
+Show on wizzard product: Prikaži izdelek v wizzardu
+Synced: Sinhroniziran
+Wand description: Opis v wand-u
+Basic details: Osnovne podrobnosti
+SEO: Optimizacija iskanja
+Visak: Presežek
+Auto generate url: Avtomatično generiraj URL
+Canonical: Kanonično
+Intermediary sequencing: Zaporedje pri določeni skupini
+Keep url: Ohrani url
+Show menu item: Pokaži postavko menija
+Automatski dodaj u odabrani menu: Samodejno dodaj v izbrani meni
+Homepage sequencing: Zaporedje na začetni strani
+Products in group: Izdelki v skupini
+Total number of products in group: Skupno število izdelkov v skupini
+Product group code: Šifra skupine izdelkov
+Show as action: Prikaži kot akcijo
+Da li se prikazuje kao kategorija u Wizzadru akcije: Ali je prikazan kot kategorija v Wizzadru akcije
+Show as bundle: Prikaži kot bundle
+Prikazi u wizzadu akcija kao bundle:  Prikaži v wizzardu akcija kot bundle
+Show on homepage: Prikaži na domači strani
+Store: Shrani
+Template: Predlog
+Product group details: Podrobnosti skupine izdelkov
+SEO data: SEO podatki
+Account billing address: Naslov za račun
+Account billing city: Mesto za račun
+Account shipping address: Naslov za dostavo
+Account shipping city: Mesto za dostavo
+Base price delivery tax: Davek na osnovno ceno dostave
+Base price delivery total: Osnovno ceno dostave
+Base price delivery without tax: Osnovno ceno dostave brez davka
+Base price items tax: Davek na osnovno ceno izdelka
+Base price items total: Skupna osnovna cena izdelka
+Base price items without tax: Osnovna cena izdelka brez davka
+Base price tax: Davek na osnovno ceno
+Base price total: Skupna osnovna cena
+Base price without tax: Skupna vena brez davka
+Currency rate: tečaj
+Date sent to wand: Podatki poslani wand-u
+Preview hash: UID
+Price delivery tax: Davek na ceno dostave
+Price delivery total: Skupna cena dostave
+Price delivery without tax: Vena dostave brez davka
+Price items tax: Davek na ceno izdelka
+Price items total: Skupna cena izdelkov
+Price items without tax: Cena izdelkov brez davka
+Price tax: Davek na ceno
+Price without tax: Cena brez davka
+Sent to wand: Poslano wandu
+Total left to pay: Skupno ostalo za plačilo
+Total paid: Skupno plačano
+Base price fixed discount: Fiksen popust na osnovno ceno
+Base price item: Osnovna cena izdelka
+Base price item tax: Davek na osnovno ceno izdelka
+Base price item without tax: Osnovna cena proizvoda brez davka
+Price fixed discount: Fiksen popust na ceno
+Price item: Cena izdelka
+Price item tax: Davek na ceno izdelka
+Price item without tax: Cena izdelka brez davka
+Rate: Stopnja
+Sign: znak
+delivery_type details: Podrobnosti načina dostave
+Enable installments: Omogoči obresti
+Provider code: Koda ponudnika
+Account billing street: Naslov za nakazilo
+Account name: Ime uporabnika
+Account shipping_address: Naslov za dostavo
+Account shipping street: Ulica za dostavo
+Message: Sporočilo
+Session_id: ID sesije
+All day: Celi dan
+Billable: Plačljivo
+End time: Čas zaključka
+Host: Gostitelj
+Start time: Čas začetka
+activity details: Podrobnosti aktivnosti
+quote_activity details: Podrobnosti aktivnosti ponudbe
+Filename hash: Hash ime datoteke
+File hash: Hash datoteke
+Is optimised: Je optimizirano
+Sort order: Zaporedje
+Selected: Izbran
+Customer: Kupec
+Is paid: Je plačano
+Order preview hash: Hash pregleda naročila
+Is payer: Je plačnik
+order_customer details: Podrobnosti naročila kupca
+Total value: Skupna vrednost
+Valid to: Velja do
+Account Type: Vrsta računa
+account_type_link details: Podrobnosti o vrsti povezave z računom
+quote_customer details: Podrobnosti ponudbe kupca
+Product group :  Skupina izdelka
+product group images details: Podrobnosti slike skupine izdelkov
+product group link details: Podrobnosti povezav skupine izdelkov
+Address: Naslov
+Warehouse: Skladišče
+warehouse details: Podrobnosti skladišča
+Product warehouse link: Povezava za skladišče izdelkov
+product warehouse link details: Podrobnosti  o povezavi s skladiščem izdelkov
+country details: Podrobnosti države
+Date valid from: Datum velja od
+Date valid to: Datum velja do
+Price base: Osnovna cena
+Price retail: Maloprodajna cena
+Rebate: Rabat
+Product account price: Cena računa izdelka
+product account price details: Podrobnosti cene računa izdelka
+Date unfavored: Neugoden datum
+
+Favorite: Priljubljen
+favorite details: Podrobnosti priljubljenega
+Last update: Zadnja posodobitev
+Gdpr: Gdpr
+gdpr details: Gdpr podrobnosti
+Closed: Zaprto
+General question: Povpraševanje
+general question details: Podrobnosti povpraševanja
+#Adresa dostave računa: Naslov za dostavo računa
+Headquarters: Sedež
+address details: Podrobnosti naslova
+Contact addres details: Podrobnosti naslova kontakta
+IBAN: IBAN
+Bank name: Ime banke
+SWIFT: SWIFT
+Account bank: Račun banke
+account bank details: Podrobnosti računa banke
+Contact title: Naziv kontakta
+contact title details: Podrobnosti naziva kontakta
+quote activity details: Podrobnosti aktivnosti ponudbe
+My Leads: Moje potencialne stranke
+Leads: Potencialne stranke
+Lead List: Seznam potencialnih strank
+Search results: Rezultati iskanja
+Quote_customer: Ponudba kupca
+Quote_customer Form: Obrazec ponudbe kupca
+Warehouse form: Obrazec skladišča
+Product warehouse link form: Povezava za obrazec skladišča izdelkov
+Countries: Države
+Country form: Obrazec države
+Product account price form: Obrazec cene računa izdelka
+Note user like form: Obrazec za beležko uporabnika
+Favorites: Priljubljeni
+Favorite form: Obrazec priljubljenih
+Gdpr form: Gdpr obrazec
+General question form: Obrazec za splošna vprašanja
+Address form: Obrazec za naslov
+Address contact form: Obrazec za naslov kontakta
+Account bank form: Obrazec računa banke
+Contact titles: Naziv kontakta
+Contact title form: Obrazec naziva kontakta
+Quote confirmation: Potrditev ponudbe
+This coupon does not exist or is not active: vnesen kupon ne obstaja ali ni aktiviran
+Coupon successfully applied: Kupon je bil uspešno uporabljen
+This coupon cannot be applied: Vneseni kupon ne more biti uporabljen
+Coupon has been successfully removed: Kupon je uspešno odstranjen
+My open deals: Moje odprte možnosti
+Deal stage: Stopnja priložnosti
+Campaign: Kampanja
+Probability: Verjetnost
+New accounts: Novi subjekti
+Customers: Stranke
+Accounts: Subjekti
+All items: Vse postavke
+Campaigns: Kampanije
+Sales: Prodaja
+Closing date: Datum zaprtja
+Company type: Vrsta podjetja
+Company status: Status podjetja
+Date founded: Datum ustanovitve
+Date closed: Datum zaprtja
+
+Related contacts: Povezani kontakti
+Addresses: Naslovi
+Documents: Dokumenti
+Overview: Pregled
+Completion(%): Dokončanje(%)
+
+Related company: Povezano podjetje
+Related contact: Povezani kontakt
+Relationship: Zveza
+Bank accounts: Bančni računi
+Duration: Trajanje
+Time start: Čas začetka
+Time end: Čas konca
+Call type: Vrsta klica
+Call purpose: Namen klica
+Unit: enota
+Date start: Datum začetka
+Date end: Datum konca
+GDPR anonymize: Anonimiziraj podatke (GDPR)
+Remove from newsletter: Odstrani iz vseh newsletterjev
+Contact already has user account: Kontakt že uma uporabniški račun
+Error creating user account for contact: Napaka med kreiranjem uporabniškega računa
+User account created for contact: Uspešno kreiran uporabniški račun
+Password must be at least 6 characters long: Geslo mora imeti vsaj 6 znakov
+Password is not defined: Geslo ni definirano
+Open user account for contact: Kreiraj uporabniški račun za kontakt
+Insert password: Vnesi geslo
+Contact removed from newsletter: Kontakt je bil odstranjen iz vseh prijav na newsletter
+Contact anonymized and removed from newsletter: Kontakt je anonimiziran in odstranjen iz vseh prijav na newsletter
+Deal id is empty: Id priložnost je prazna
+Deal stage id is empty: Id stopnja priložnosti je prazna
+Deal id is invalid: Id priložnost je neveljavna
+Deal stage id is invalid: Id stopnja priložnosti je neveljavna
+Error setting deal stage: Napaka pri postavitvi stopnje priložnosti
+Deal stage successfully changed: Stopnja priložnosti je uspešno spremenjena
+Order document: Dokumenti naročila
+Sales per months: Prodaja po mesecih
+Sales per product category: Prodaja po kategoriji
+Contacts: Kontakti
+Contracts: Pogodbe
+Additional information: Dodatne informacije
+Is active: Aktivno
+report_view_statistics_0: Skupno število naročil
+Successful orders: Uspešna naročila
+report_view_statistics_1: Število uspešnih naročil
+Canceled orders: Preklicana naročila
+report_view_statistics_2: Število preklicanih naročil
+Unprocessed orders: Naročila v obdelavi
+report_view_statistics_3: Število naročil v obdelavi
+Num. of carts: Številko košaric
+report_view_statistics_4: Število nedokončanih košaric kreiranih v določenemu obdobju
+Carts to purchases: Razmerje košaric in naročil
+report_view_statistics_5: Razmerje skupnega števila košaric in skupnega števila naročil
+Total revenue: Skupen promet
+report_view_statistics_6: Skupen znesek vseh naročil
+Successful orders revenue: Znesek uspešnih naročil
+report_view_statistics_7: Skupni znesek uspešnih naročil
+Canceled orders revenue: Znesek preklicanih naročil
+report_view_statistics_8: Skupni znesek preklicanih naročil
+Unprocessed orders revenue: Znesek naročil v obdelavi
+report_view_statistics_9: Skupni znesek naročil v obdelavi
+Revenue in carts: Znesek v košaricah
+report_view_statistics_10: Skušni znesek nedokončanih košaric kreiranih v določenem obdobju
+Carts to purchases revenue: Razmerje zneska košaric in naročil
+report_view_statistics_11: Razmerje skupnega zneska košaric in naročil
+Global overview: Splošni pregled
+Product performance: Učinkovitost izdelka
+Revenue includes all taxes and delivery costs: Promet vključuje davek in dostavo
+Phows data regarding to selected dates and store: Prikazuje podatke glede na zgoraj definiranemu časovnem obdobju in store-ji
+Revenue per month past 3 years: Skupne promet po mesecih v zadnjih 3 letih
+Orders per month by status (table): Število naročil po mesecih in status naročila
+Canceled: Preklicano
+In process: V obdelavi
+Orders per month by status (stacked bar chart): BŠtevilo naročil po mesecih in status naročila
+Total number of orders per month: Skupno število naročil po mesecu
+Avg order amount per month: Povprečen znesek naročil po mesecu
+All stores in website: Vse trgovine na spletnem mestu
+All stores: Vsi store-ovi
+Include in custom statistics: Vključi v custom statistiko
+Exclude from product group statistics: Odstrani iz statistike
+Show on store: Prikaži na store-ju
+Displays data year back from the current month: Prikazuje podatke leto dni nazaj od trenutnega meseca
+Displays data back 3 years: Prikazuje podatke nazaj 3 leta
+Revenue per month including taxes and delivery costs: Skupen promet po mesecih (vključuje davke in dostavo)
+
+Search perfomance: Iskanja
+Search with no results: Iskanja brez rezultata
+List of top 50 search queries without any results: Seznam top 50 najpogostejših iskanj brez rezultata
+Please check product descriptions or add synonyms: Prosimo preverite nazive/opise izdelkov ali dodajte sinonime
+No.: Št.
+Search query: Iskanje
+Times used: Število uporabe
+Last search date: Zadnji datum iskanja
+Search most used: Najpogosteje uporabljena iskanja
+Number of results: Število rezultatov
+Most searched items: Najpogosteje uporabljena iskanja na vizualnem zaslonu
+List of top 50 most used search queries: Seznam 50 najpogosteje uporabljenih iskalnih poizvedb
+Red items have no results, please check product descriptions or add synonyms: Rdeči elementi nimajo rezultatov, preverite imena / opise izdelkov ali dodajte sopomenke
+No results: Ni rezultatov
+Product group performance: Kategorije
+Orders per month by category (chart): Skupen promet na mesec po kategorijah (grafikon)
+Orders per month by category (table): Skupen promet na mesec po kategorijah (tabela)
+Orders per month by selected category (chart): Skupen promet na mesec po izbrani kategorijah (grafikon)
+Orders per month by selected category (table): Skupen promet na mesec po izbrani kategorijah (tabela)
+Customers performance: Kupci
+Orders by location: Število naročil po lokaciji
+Orders per month by customer type (chart): Skupen promet po vrsti kupcev mesečno (grafikon)
+Orders per month by customer type (table): Skupen promet po vrsti kupcev mesečno (tabela)
+Number of new registered users: Število novo registriranih uporabnikov po brsti kupca in mesecu
+Customer type: Vrsta kupca
+
+Last 3 months: Zadnja 3 meseca
+Last 6 months: Zadnjih 6 mesecev
+Last 12 months: Zadnjih 12 mesecev
+Custom dates: Prilagojeni datumi
+
+Best selling products: Najbolje prodajani izdelki
+List of top 100 best selling products: Seznam 100 najbolj prodanih izdelkov v določenem časovnem razponu in store-ju
+Shows data regarding to selected dates and store: Prikazuje podatke v izbranem časovnem obdobju in store-ju
+General statistics: Analitika
+Orders per month by payment type (chart): Skupen promet mesečno po načinu plačila (grafikon)
+Orders per month by payment type (table): Skupen promet mesečno po načinu plačila (tabela)
+Orders per month by delivery type (chart): Skupen promet mesečno po načinu dostave (grafikon)
+Orders per month by delivery type (table): Skupen promet mesečno po načinu dostave (tabela)
+Account sales per month: Prodaja po kupcu mesečno
+Account group: Skupina kupcev
+Current month: Trenutni M
+Diff: Razlika
+Current -1: M -1
+Current -2: M -2
+Current -3: M -3
+Current -4: M -4
+Current -5: M -5
+Current -6: M -6
+Product sales per month: Prodaja po izdelku mesečno
+Is saleable: Dostopno za nakup
+Payment transaction status: Statusi transakcij
+Invoice device identifier: Plačilni sistem
+Invoice business place: Plačilna mesta
+Dpd parcel type: Vrste DPD paketa
+Fiscal invoices: Davčni račun
+Invoices: Računi
+Discount coupon type: Vrste kupona
+Account groups: Skupine kupcev
+Regions: Regije
+Date new from: Novo od
+Date new to: Novo do
+Description title: Naslov opisa
+Video title: Naslov videja
+Specs title: Naslov specifikacije
+Price inquiry: Povpraševanje po ceni
+Person title: Naziv
+Create user account: Kreirajte uporabniški račun
+Missing city: Manjka mesto
+Location description: Opis lokacije
+Number of products: Število izdelkov
+Humidor location: Slika lokacije
+humidor: Humidor
+Products on humidor: Izdelki v humidoru
+Minimum amount: Predvidena količina
+Date of setup: Datum namestitve
+My upcoming tasks: Moje prihajajoče naloge
+Wiki topic: Wiki tema
+Wiki page: Wiki stran
+Wiki redirect type: Wiki vrsta preusmeritve
+Project owner: Lastnik projekta
+Deal: Dogovor
+Contact addresses: Naslov kontakta
+Contact notes: Opombe kontakta
+Date unsubscribed: Datum odjave
+Mail date: Datum maila
+Save attachments: Shrani priloge
+Create ticket: Ustvari ticket
+Default ticket user: Določen uporabnik ticketa
+Reply notification type: Vrsta obvestila o dogovoru
+Last message number: Številka zadnjega sporočila
+Product group display: Prikaz skupine izdelkov
+Product group configuration: Konfiguracija skupine izdelkov
+Product group attributes: Atributi skupine izdelkov
+Budget: Proračun
+Actual cost: Dejanski strošek
+Expected revenue: Pričakovani prihodek
+Start date: Datum začetka
+End date: Datum konca
+Client Number: Številka stranke
+Client Reference: Referenca stranke
+CODAmount: Znesek COD (po povzetju)
+Parcel Number: Številka parcele
+COD Reference: referenca COD (po povzetju)
+Provider: Ponudnik storitev
+Transaction identifier: Identifikator transakcije
+Transaction status: Status transakcije
+Fiscal invoice identifier: Identifikator davčnega računa
+Fiscal invoice identifier received on: Identifikator davčnega računa je bil prejet dne
+Security_code: Varnostna koda
+Last service response status: Stanje zadnjega odziva na storitev
+Blocked ips: Blokirani ip-ji
+Product configuration bundle option: Možnoast konfiguracije paketa izdelka
+Product document type: Tip dokumenta izdelka
+Project owners: Lastniki projekta
+All projects: Vsi projekti
+Workplace: Mesto zaposlitve
+Residence: Mesto prebivališča
+Whereabout: Mesto bivanja
+Id valid from: Osebna izkaznica velja od
+Fire Extinguisher Calibration UP: Umerjanje gasilnega aparata
+Date of application: Datum aplikacije
+Currency from code: Valuta iz kode
+Currency from: Valuta
+Buying rate: Stopnja nakupa
+Median rate: Srednja stopanja
+Selling rate: Prodajna stopnja
+Currency to code: Valuta za kodiranje
+Exchange rate id: ID tečaj
+Critical route errors: Kritične napake rute
+404 redirects: 404 preusmeritve
+Offline items with default redirects: Postavke brez povezave s privzetimi preusmeritvami
+Routes in sitemap: Poti za sitemap
+Custom entity list: Custom seznam entiteta
+Redirects leading to nowhere: Preusmeritve, ki vodijo nikamor
+Routes leading to nowhere: Poti, ki vodijo nikamor
+Url desyncronisation: Url Desinhronizacija
+Date started: Datum začetka
+Date finished: Datum konca
+Is running: Vklopljeno
+Has error: Ima napako
+Original query: Izviran poizvedba
+Used query: Uporabljena poizvedba
+Last regenerate date: Zadnji datum regeneracije
+List of results: Seznam rezultata
+Product documents: Dokumenti izdelkov
+Configurable options: Nastavljive možnosti
+Used in configuration: Uporablja se v konfiguraciji
+Brand: Brand
+CPU clock speed: Hitrost procesorja
+CPU model: Model procesorja
+GPU: Grafična kartica
+GPU model: Model grafične kartice
+HDD capacity: Velikost HDD-a
+SSD capacity: Velikost SSD-a
+Warranty: Garancija
+Additional sort options: Opcije dodatne vrste
+Default sort order: Privzeti vrstni red razvrščanja
+Yestarday: Včeraj
+Enable edit: Omogoči urejanje
+Do not index: Ne indeksiraj
+Wand attribute id: Id wand atributi
+Synonym for: Sinonim za
+Synonym: Sinonim
+Remote code: Koda na daljavo
+Postal code from: Poštna številka od
+Postal code to: Poštna številka do
+Exclude postal codes: Izključi poštne ševilke
+Size from: Velikost od
+Size to: Velikost do
+Delivery days: Dnevi za dostavo
+Step starts at: Korak se začne na
+For every next size: Za vsak naslednji korak
+Price base step: Korak osnovne cene
+Employment statuses: Status zaposlitve
+Color not approved: Barva ni odobrena
+Deduct from year: Odbitek od leta
+Cities: Mesta
+Projects: Projekti
+Newsletter signup: Prijava na newsletter
+Marketing signup: Prijava na marketing
+Lat: Geografska širina
+Lng: Geografska dolžina
+IP address: IP naslob
+Quote: Ponudna
+amount: Znesek
+original rebate: Izvorni rabat
+original base price item: Izvorna cena izdelka
+original base price item tax: davek na izvorno ceno izdelka
+original base price item without tax: Izvorna cena izdelka brez davka
+original price item: prvotna cena izdelka
+original price item tax: davek na prvotno cena izdelka
+original price item without tax: prvotna cena izdelka brez davka
+Price discount total: Skupen popust na ceno
+Tax type: Vrsta davka
+Base price discount total: Skupen popust na osnovno ceno
+Request identifier: Identifikator zahtev
+Xml request raw body:
+Signed xml request body:
+Total request attempts:
+Last service response body:
+Available configurable products: Artikli na voljo za konfiguracijo
+Selected attributes: Izbrani atributi za konfiguraciju
+Available attributes: Dostopni atributi za konfiguraciju
+Applied discounts: Uporabljeni popusti
+Discount percentage base: Odstotek popusta VPC
+Margin rule: Pravila za postavljanje marže
+Is applied: Uporabljeno
+Margin percent: Odstotek marže
+Margin rules: Dodatni filtri za postavljanje marže
+Products that match criteria: Izdelki, ki ustrezajo kriterijem
+Recalculate margin rules: Preračunaj marže
+Discount catalog: Popusti na katalogu
+Recalculate discounts: Preračunaj popuste
+Product label: Oznake proizvoda
+Exclude from discounts: Onemogoči popust
+Product successfully excluded from discounts: Izdelkom je uspešno onemogočen popust
+Exclusion from discounts successfully removed: Onemogočanje popusta je bilo uspešno odstranjeno
+Remove exclusion from discounts: Odstrani onemogočanje popusta
+Create attribute: Dodaj novi atribut
+Update attribute: Osveži atribut
+Bulk price: Cena po količini
+Bulk price option: Odstotek popusta za količino
+bulk price: Cena po količini
+Bulk prices rules: Pravila za pridobivanje izdelkov
+Products that match criteria for bulk prices: Izdelki, ki ustrezajo kriterijem
+Min qty: Količina od
+Add new attribute rule: Dodaj novi atribut
+Refresh results: Osveži rezultate
+Margin history: Zgodovina marže
+Bulk price rule product history: Zgodovina cene po količini
+Bulk price history: Cena po količini
+Date from: Datum od
+Bulk price rule: Pravilo cene po količini
+Recalculate bulk prices: Preračunaj cene po količini
+Recalculate loyalty earning configuration: Preračunaj pravila programa zvestobe
+Loyalty earnings configuration: Konfiguracija zbranih točk
+loyalty earnings configuration: Konfiguracija zbiranja točk
+Loyalty earning rules: Pravila programa zvestobe
+Products that match criteria for loyalty earnings: Izdelki, ki ustrezajo kriterijem
+Points multiplier: Multiplikator točk
+Loyalty earning configuration product history: Zgodovina konfiguracija zbiranja točk
+New: Novo
+Completed: Dokončano
+Account details short: Podrobnosti subjekta
+Account Form short: Obrazec za vnos subjekta
+Select products for product groups: Izberite artikle
+Add to product group: Dodaj izdelek v skupino
+Price per item: Cena na kos
+Discount price: Cena a popustom
+Product contact remind me: Prijavite se za obvestila o spremembah stanja
+Delivery requests: Dostavne službe (pošiljke)
+Show product in menu: Prikaži izdelek ob skupini
+s Product configuration product group: Privzeti atributi v skupini
+Configurable bundle: Konfiguracija bundle
+Configurations on product: Konfiguracije na izdelku
+Available configurations: Dostopne konfiguracije
+Selected configurable products: Izbrani preprosti izdelki
+Gift: Darilo
+Steps in unit: Količine, ki jih je treba kupiti v merski enoti
+Is gift: Uporabi kot darilo
+Bulk price display type: Vrsta prikaza cene po količini
+Coupon code has expired: Kupon je potekel
+Update cart: Posodobi košarico
+Remove all products: Odstrani vse izdelke
+
+# Ovo je dobar prijevod!
+Your cart is empty: Tvoja košarica je prazna
+
+Amount: Znesek
+Narudžba: Naročilo
+Continue: Nadaljuj
+My account: Moj račun
+My profile: Moj profil
+Logout: Odjava
+Uredi podatke: Uredi podatke
+Delete account: Izbriši naslov
+Product code or name: Izdelek koda ali ime
+We are sorry! We couldn't find any results matching your search: Žal nam je! Nismo našli nobenega rezultata, ki bi ustrezal vašemu iskanju
+Prvo najnovije: Prvo najnovejše
+Prvo najstarije: Prvo najstarejše
+Cijena od najniže prema najvišoj: Cena od najnižje do najvišje
+Cijena od najviše prema najnižoj: Cena od najvišje do najnižje
+Price: Cena
+Show all: Pokaži vse
+We process personal data in accordance with: Osebne podatke obdelujemo v skladu z
+Your selected products: Izbrani izdelki
+Proceed to checkout: Nadaljuj z nakupom
+Related posts: Sorodni objave
+Try searching for product using the search bar: Poskusi iskati izdelek z iskalno vrstico
+Coupon code: Kupon koda
+Šifra artikla: Koda izdelka
+Artikl: Izdelek
+Ukupno: Skupna cena
+Jed. cijena: Cena
+Način plaćanja: Način plačila
+Vrsta dostave:
+Adresa dostave: Naslov Dostave
+Navedeni iznos možete uplatiti na: Naveden znesek lahko plačate na
+Skeniraj kod za uplatu putem e-banking mobilne aplikacije ili upiši sljedeće podatke na uplatnicu: Skenirajte kod za plaćanje putem mobilne aplikacije za e-bankarstvo ili upišite sljedeće podatke na uplatnicu
+Need R1?: Potrebujete račun na podjetje?
+Vaša narudžba broj: Vaše naročilo številka
+Your order with number: Vaše naročilo številka
+je spremna za preuzimanje na adresi: je pripravljeno za preuzem na naslovu
+Cart overview: Pregled košarice
+Printer brand: Znamka tiskalnika
+printer brand details: Podrobnosti znamke tiskalnika
+Printer type: Tip tiskalnika
+Series: Serija
+Printer model: Model tiskalnika
+printer model details: Podrobnosti modela tiskalnika
+Printer model product link details: Podrobnostilinka modela proizvoda
+Printer type details: Podrobnosti tipa tiskalnika
+printer model image details: Podrobnosti slike modela tiskalnika
+Catalog: Katalog
+catalog details: podrobnosti kataloga
+catalog image details: podrobnosti slike kataloga
+catalog pdf details: podrobnosti pdf kataloga
+Printer brand form: Znamka tiskalnika
+Printer model form: Model tiskalnika
+Printer type form: Tip tiskalnika
+Catalog form: Kataloški obrazec
+Meeting request form: Prošnja za sestanek
+Selected products: Izbrani izdelki
+Office note: Napomena
+Repeat: Ponovi
+Total saved: Skupni prihranek
+Return price: Vračila
+Role: Vloga
+tax included: vključen DDV
+Order is confirmed: Naročilo je potrjeno
+Order sent in process: Naročilo je poslano v obdelavo
+Please contact your key account manager: Prosimo obrnite se na prodajnega zastopinika
+Show only: Prikaži samo
+Price (from to): Cena (od do)
+VATID is missing: Manjka davčna številka
+Company name is missing: Manjka naziv podjetja
+Select account: Izberite račun
+Inks and toners: Črnila in tonerji
+Cart: Košarica
+Product categories: Kategorije izdelkov
+Categories: Kategorije
+and receive info about: in prejemaj informacije o
+discounts: popustih
+View full description: Oglejte si celoten opis
+#Availability in stores: Razpoložljivost v poslovalnicah
+Availability in stores: Naroči iz poslovalnice
+Order by email: Naroči
+Product code: Šifra izdelka
+Catalouge code: Kataloška številka
+Measure unit: Enota mere
+Delivery time: Čas dobave
+Valuta: Default price
+Privzet cena: Base price
+Osnovna cena: Retail price
+Maloprodajna cena: Wholesale price
+Veleprodajna cena: Tax percent
+Odstotek davka: Product websites
+Vrste povezav v kategorijah: related link type details
+Vrste izdelkov: Product type form
+Tip kofiguracije atributa izdelka: S product attribute configuration type form
+Please fill out this field: Prosimo, izpolnite to polje
+If you want larger quantity contact us on: V kolikor želite večjo količino nas kontaktirajte na
+Please check entered data and submit again: Preverite vnesene podatke in poskusite ponovno
+Proizvodi: Izdelki
+Selected homepage products: Domača stran izpostavljeno
+Selected homepage discounts: Domača stran akcije
+Selected homepage new: Domača stran novo
+Active products: Aktivni izdelki
+Inactive products: Neaktivni izdelki
+Product not available: Izdelek ni na voljo
+Enter at least : Vnesi vsaj
+characters : znakov
+Add products: Dodaj izdelke
+Select product: Izberi izdelek
+Add <span class='extra'>to cart</span>: Dodaj <span class='extra'>v košarico</span>
+Email address: E-poštni naslov
+Email address is not valid: E-poštni naslov ni pravilen
+Enter valid email address: Vnesite pravilen e-poštni naslov
+Quantity too big: Iskana količina ni na voljo
+Products: Izdelki
+Add coupon: Dodaj kodo
+Add to cart: Dodaj v košarico
+Adresa isporuke: Naslov dostave
+Adresa dostave računa: Naslov za račun
+Mjesto i datum: Mesto in datum
+Valuta plaćanja: Valuta plačila
+Podaci za plaćanje: Podatki za plačilo
+Kao model navedite: Pri sklicu navedite
+a u pozivu na broj unesite broj vaše narudžbe: in številko naročilo
+Iznos: Znesek
+Vrijeme izdavanja: Datum naročila
+Opis proizvoda: Opis izdelka
+JM: Merska enota
+Cijena s popustom: Cena s popustom
+Cijena: Cena
+PDV: DDV
+Napomene: Opombe
+Remark: Opombe
+Informacije o tvrtki: Podatki o podjetju
+Load more: Naložite več

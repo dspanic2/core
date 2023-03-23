@@ -1,0 +1,18 @@
+<div class="sp-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="alert alert-warning">
+                <strong>{% trans %}You do not have the permission to open this ListView, please contact the administrator. Block{% endtrans %}: {{ data.block.id }}</strong>
+            </div>
+        </div>
+    </div>
+</div>

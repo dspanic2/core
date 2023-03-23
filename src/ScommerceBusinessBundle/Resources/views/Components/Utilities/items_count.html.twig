@@ -1,0 +1,5 @@
+{% if count is not defined or count is empty or count == 0 %}
+    <span class="amount" style="display: none;">0</span>
+{% else %}
+    <span class="amount">{{ prepare_qty(count) }}</span>
+{% endif %}

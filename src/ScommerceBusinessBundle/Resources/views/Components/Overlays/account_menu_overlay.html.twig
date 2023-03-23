@@ -1,0 +1,34 @@
+{% if is_user_logged_in() and app.session.get('contact') is defined and app.session.get('contact') is not empty %}
+    <div id="account-display" class="overlay">
+        <div class="account-inner">
+            <ul class="links">
+                <li>
+                    <div class="account-email">
+                        <div class="account-name">{{ app.session.get('contact').getFirstName }} {{ app.session.get('contact').getLastName }}</div>
+                    </div>
+                </li>
+                <li>
+                    <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,60,"s_page") }}"
+                       class="user-link user-account-link">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:user.html.twig', 'data': {}}, {})) }}{% trans into current_language %}My account{% endtrans %}</a>
+                </li>
+                {# <li> #}
+                {# <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,170,"s_page") }}" #}
+                {# class="user-link user-account-link">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:loyalty.html.twig', 'data': {}}, {})) }}{{ get_page_title(current_store_id,170,"s_page") }}</a> #}
+                {# </li> #}
+                <li>
+                    <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,64,"s_page") }}"
+                       class="user-link user-profile-link">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:settings.html.twig', 'data': {}}, {})) }}{% trans into current_language %}My profile{% endtrans %}</a>
+                </li>
+                <li>
+                    <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,61,"s_page") }}"
+                       class="user-link user-orders-link">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:list.html.twig', 'data': {}}, {})) }}{% trans into current_language %}Orders{% endtrans %}</a>
+                </li>
+                <li>
+                    <a href="#" data-action="logout-customer"
+                       data-url="/logout_customer"
+                       class="user-link user-logout-link link-logout-customer">{% trans into current_language %}Logout{% endtrans %}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endif %}

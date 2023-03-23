@@ -1,0 +1,54 @@
+{% if orders is defined %}
+    <tbody>
+    {% for order in orders %}
+        <tr>
+            <td class="order-images">
+                {% set items = order.orderItems %}
+                {% if items[0] is defined and items[0] is not empty %}
+                    <span class="product-image">
+                                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                                'image': items[0].product.getSelectedImage,
+                                                'directory':'Products',
+                                                'image_style': 'product_list_item',
+                                                'alt_default': ""
+                                            }}, {})) }}
+                                        </span>
+                {% endif %}
+                {% if items[1] is defined and items[1] is not empty %}
+                    <span class="product-image">
+                                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                                'image': items[1].product.getSelectedImage,
+                                                'directory':'Products',
+                                                'image_style': 'product_list_item',
+                                                'alt_default': ""
+                                            }}, {})) }}
+                                        </span>
+                {% endif %}
+                {% if items|length > 2 %}
+                    <span class="product-image">
+                                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                                'image': items[2].product.getSelectedImage,
+                                                'directory':'Products',
+                                                'image_style': 'product_list_item',
+                                                'alt_default': ""
+                                            }}, {})) }}
+                        {% set left = items|length-2 %}
+                                            <span class="product-image-total">+{{ left }}</span>
+                                        </span>
+                {% endif %}
+            </td>
+            <td class="order-number">#{{ order.incrementId }}</td>
+            <td class="order-date">{{ order.created|date("d.m.Y.") }}</td>
+            <td class="order-status status-1">{{ order.orderState.name|trans }}</td>
+{#            {% if order.account.isLegalEntity %}#}
+{#                <td class="order-amount">{{ order.priceWithoutTax|number_format(2, ',', '.') }} {{ order.currency.sign }}</td>#}
+{#            {% else %}#}
+                <td class="order-amount">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': order.priceTotal, 'currency': order.currency.sign} }, {})) }}
+                </td>
+{#            {% endif %}#}
+            <td class="order-action"><a href="{{ current_language_url }}/{{ get_page_url(current_store_id,70,"s_page") }}?order={{ order.id|stringEncrypt }}">{% trans into current_language %}Show details{% endtrans %}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endif %}

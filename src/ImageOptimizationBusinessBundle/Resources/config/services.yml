@@ -1,0 +1,19 @@
+services:
+
+  optimize_image_manager:
+    class: ImageOptimizationBusinessBundle\Managers\OptimizeImageManager
+    calls:
+      - [setContainer, ["@service_container"]]
+      - [initialize]
+
+  image_style_manager:
+    class: ImageOptimizationBusinessBundle\Managers\ImageStyleManager
+    calls:
+      - [setContainer, ["@service_container"]]
+      - [initialize]
+
+  image_style_extension:
+    class:  ImageOptimizationBusinessBundle\Extensions\ImageStyleExtension
+    arguments: ['@image_style_manager']
+    tags:
+      - { name: twig.extension }

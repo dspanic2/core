@@ -1,0 +1,66 @@
+services:
+
+    payment_transaction_manager:
+        class: PaymentProvidersBusinessBundle\Managers\PaymentTransactionManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    wspay_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\WspayProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    corvuspay_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\CorvuspayProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    payway_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\PaywayProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    paypal_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\PayPalProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    monri_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\MonriProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    kekspay_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\KeksPayProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    paycek_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\PayCekProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    bankart_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\BankartProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    mstart_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\MstartProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+    leanpay_provider:
+        class: PaymentProvidersBusinessBundle\PaymentProviders\LeanpayProvider
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]

@@ -1,0 +1,12 @@
+{% apply spaceless %}
+    {% set trackingCode %}
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'no_results'
+            });
+        </script>
+    {% endset %}
+    {# Cisto da se kod formatira u phpstormu, ali za execute ne trebaju script tagovi #}
+    {{ trackingCode|striptags|raw }}
+{% endapply %}

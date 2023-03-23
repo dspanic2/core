@@ -1,0 +1,18 @@
+<div class="sp-block {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="alert alert-danger">
+                <strong>{% trans into current_language %}Error in block{% endtrans %}: {{ data.block.id }}</strong>
+            </div>
+        </div>
+    </div>
+</div>

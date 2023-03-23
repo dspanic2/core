@@ -1,0 +1,8 @@
+<form class="label-hidden coupon-apply-form ajax-submit"
+      action="/api/apply_coupon"
+      data-trigger-action="global:page-reload"
+      method="POST">
+    <input type="text" name="discount_coupon_name" placeholder="{% trans into current_language %}Coupon code{% endtrans %}" value="{% if data.model.quote.getDiscountCoupon is defined and data.model.quote.getDiscountCoupon is not empty %}{{ data.model.quote.getDiscountCoupon.getCouponCode }}{% endif %}">
+    <input class="button btn-type-1" type="submit" value="{% trans into current_language %}Add coupon{% endtrans %}"/>
+</form>
+<span class="coupon-note">*{% trans into current_language %}discounts do not add up{% endtrans %}</span>

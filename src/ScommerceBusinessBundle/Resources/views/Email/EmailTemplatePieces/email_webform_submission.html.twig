@@ -1,0 +1,27 @@
+{% set webform = entity.getWebform %}
+<table width="100%" border="0" cellpadding="0"
+       cellspacing="0">
+    <tbody>
+    <tr>
+        <td valign="top" align="left" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+            {% for group in webform.getGroups() %}
+                {{ include('ScommerceBusinessBundle:Components/Webform:webform_group.html.twig', {
+                    'group': group,
+                    'submission': entity
+                }) }}
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td
+                style="line-height:30px">
+            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                 width="800" alt=" "
+                 height="30"
+                 border="0"
+                 style="display:block"
+                 class="transparent_img">
+        </td>
+    </tr>
+    </tbody>
+</table>

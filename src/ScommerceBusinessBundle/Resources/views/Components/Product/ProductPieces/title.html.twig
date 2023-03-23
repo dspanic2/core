@@ -1,0 +1,5 @@
+{% set queryParams = get_query_parameters() %}
+
+{% set productTitle = get_product_title(product, queryParams) %}
+
+<h1 class="product-title" itemprop="name">{{ productTitle }}</h1>

@@ -1,0 +1,28 @@
+{% if message is defined and message is not empty %}
+    {% set floatersShown = app.request.cookies.get('floaters_shown')|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+    {% if message.getId not in floatersShown %}
+        {% set image = get_entity_store_attribute(current_store_id,message,"image") %}
+        <div id="marketing-message-floater-display"
+             class="overlay marketing-floater"
+             data-delay="{{ message.getDelay|default(0)*1000 }}"
+             data-id="{{ message.getId }}">
+            <div class="inner {% if image is not empty %}white{% endif %}"
+                 {% if image is not empty %}style="background-image: url('{{ ('/Documents/marketing_message_image/' ~ image)|image_style("image_767") }}')"{% endif %}>
+                <span class="overlay-close">×</span>
+                {% set name = get_entity_store_attribute(current_store_id,message,"name") %}
+                <div class="block-data">
+                    <div class="title">{{ name|raw }}</div>
+
+                    {% set editor = get_entity_store_attribute(current_store_id,message,"content") %}
+                    <div class="content">{{ editor|default("")|raw }}</div>
+
+                    {% set url = get_entity_store_attribute(current_store_id,message,"url") %}
+                    {% set urlText = get_entity_store_attribute(current_store_id,message,"url_text") %}
+                    {% if url is not empty and urlText is not empty %}
+                        <div class="link"><a href="{{ url }}" class="button {% if image is not empty %}btn-type-2{% endif %}" title="{{ name|striptags }}">{{ urlText }}</a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

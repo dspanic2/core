@@ -1,0 +1,27 @@
+{% if (main_button is not empty or dropdown_buttons is not empty) and (entity.locked == null) %}
+    <td class="sp-actions-td sp-select2-cell" tabindex="-1">
+        <span class="sp-actions-td-inner">
+            <span class="sp-options-text sp-hover btn-danger sp-row-btn" data-confirm="true"
+                  data-action="standard_grid_action"
+                  title="{% trans %}Delete{% endtrans %}"
+                  data-id="{{ entity.id }}"
+                  data-url="{{ path('core_api_delete_entity', {'type': entity.attributeSet.attributeSetCode, 'id': entity.id}) }}">
+                    <i class="fa fa-trash"></i>
+            </span>
+             <span class="sp-options-text sp-save-row hidden"
+                   data-confirm="false"
+                   hidden
+                   data-action="row_edited"
+                   title="{% trans %}Saving{% endtrans %}"
+                   data-url="{{ path('core_api_save_entity', {'type': entity.attributeSet.attributeSetCode, 'id':  entity.id}) }}">
+                <i class="fa fa-spinner fa-spin sp-saving-row"></i>
+             </span>
+        </span>
+    </td>
+{% else %}
+    <td class="sp-actions-td">
+        <span title="{% trans %}Item is locked{% endtrans %}">
+            <i class="fa fa-lock"></i>
+        </span>
+    </td>
+{% endif %}

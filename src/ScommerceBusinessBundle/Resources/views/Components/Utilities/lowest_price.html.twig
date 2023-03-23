@@ -1,0 +1,10 @@
+{% if prices.lowest_price is not empty %}
+    <div class="lowest-price">
+        <span class="lowest-label">{% trans into current_language %}Lowest price in last 30 days{% endtrans %}:</span>
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {
+            'separator': separator|default(""),
+            'price': prices.lowest_price,
+            'currency': prices.currency_code
+        }}, {})) }}
+    </div>
+{% endif %}

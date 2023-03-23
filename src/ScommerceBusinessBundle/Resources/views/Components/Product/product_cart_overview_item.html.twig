@@ -1,0 +1,180 @@
+{% set product = quoteItem.product %}
+{% if product is defined and product is not empty and not product.getIsGift %}
+    {% set productTitle = get_entity_store_attribute(current_store_id,product,"name") %}
+    {% set mainQuoteId = quoteItem.id %}
+    {% if is_configurable(product) and quoteItem.getChildItems is not empty %}
+        {% set quoteItem = quoteItem.getChildItems[0] %}
+        {% set productTitle = get_entity_store_attribute(current_store_id,quoteItem.getProduct,"name") %}
+    {% endif %}
+    <div class="product-display-grid item" data-product-id="{{ quoteItem.product.id }}">
+        {% if editable %}
+            {% set url %}{{ current_language_url }}/{{ get_entity_store_attribute(current_store_id,product,"url") }}?qi={{ mainQuoteId }}{% endset %}
+        {% else %}
+            {% set url %}{{ current_language_url }}/{{ get_entity_store_attribute(current_store_id,product,"url") }}{% endset %}
+        {% endif %}
+        <a class="product-display-grid-image"
+           href="{{ url }}">
+            {% if quoteItem.getChildItems is not empty %}
+                <span class="expand"><i class="fas fa-plus-square"></i></span>
+            {% endif %}
+            {% if quoteItem.product.getSelectedImage() is not empty %}
+                {% set image_url = "/Documents/Products/"  ~ quoteItem.product.getSelectedImage().file %}
+                {% set image_style_url = image_url|image_style('product_list_item') %}
+                {% if image_style_url %}
+                    {% set image_url = image_style_url %}
+                {% endif %}
+            {% else %}
+                {% set image_url = "/frontend/images/image-placeholder.png" %}
+            {% endif %}
+            <img src="{{ image_url }}"
+                 alt="{% if quoteItem.product.getSelectedImage.alt is defined and quoteItem.product.getSelectedImage.alt is not empty %}{{ quoteItem.product.getSelectedImage.alt }}{% else %}{{ productTitle }}{% endif %}"
+                 title="{% if quoteItem.product.getSelectedImage.title is defined and quoteItem.product.getSelectedImage.title is not empty %}{{ quoteItem.product.getSelectedImage.title }}{% else %}{{ productTitle }}{% endif %}"/>
+        </a>
+        <div class="product-info">
+            <h3>
+                {% if editable %}
+                    <div>
+                        <a class="product-click"
+                           href="{{ current_language_url }}/{{ get_entity_store_attribute(current_store_id,product,"url") }}?qi={{ mainQuoteId }}"
+                           title="{{ productTitle }}">{{ productTitle }}</a>
+                    </div>
+
+                    {% set itemBulkOptions = get_quote_item_bulk_price_options(quoteItem) %}
+                    {% if itemBulkOptions is not empty and itemBulkOptions.next_bulk_qty is defined %}
+                        <div class="item-bulk-option local-overlay-toggle" data-to-add="{{ itemBulkOptions.next_bulk_qty }}">Dodaj još {{ itemBulkOptions.next_bulk_qty }} komad/a i kupi ih po
+                            cijeni {{ itemBulkOptions.next_bulk_price|number_format(2,",",".") }}{{ itemBulkOptions.currency_code }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ productTitle }}
+                {% endif %}
+                {% if is_configurable_bundle(product) and product.productConfigurations is defined and product.productConfigurations is not empty %}
+                    <div class="configurable-icons">
+                        {% for conf in product.productConfigurations %}
+                            {% set title = get_entity_store_attribute(current_store_id,conf.configurableBundleOption,"title_for_web") %}
+                            {% if conf.configurableBundleOption.getSelectedImage() is not empty %}
+                                {% set image_url = "/Documents/product_configuration_bundle_option_image/"  ~ conf.configurableBundleOption.getSelectedImage().file %}
+                                <img class="icon"
+                                     src="{{ image_url }}"
+                                     alt="{% if conf.configurableBundleOption.getSelectedImage().alt is defined and conf.configurableBundleOption.getSelectedImage().alt is not empty %}{{ conf.configurableBundleOption.getSelectedImage().alt }}{% else %}{{ title }}{% endif %}"
+                                     title="{% if conf.configurableBundleOption.getSelectedImage().title is defined and conf.configurableBundleOption.getSelectedImage().title is not empty %}{{ conf.configurableBundleOption.getSelectedImage().title }}{% else %}{{ title }}{% endif %}">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </h3>
+        </div>
+        <div class="prices">
+            {% set price = quoteItem.getItemPriceByAttribute("price_item", true) %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': price, 'currency': data.model.quote.currency.sign}}, {})) }}
+        </div>
+        {% set unit = get_product_attribute_value_by_key(product,get_env("PRODUCT_UNIT_ATTRIBUTE_CODE")) %}
+        {% if unit is not empty %}
+            {% if product.getWeights() is empty %}
+                {% set unit = "kom" %}
+            {% else %}
+                {% set unit = unit.values[0].value %}
+            {% endif %}
+        {% endif %}
+        {% if editable %}
+            <div class="checkout-cart">
+                <form class="item-cart {% if unit is not empty %}by-unit{% endif %}" action="#">
+                    <input type="hidden" value="{{ mainQuoteId }}" name="quote_item_id">
+                    <span class="qty-minus"></span>
+                    <input type="number" value="{{ prepare_qty(quoteItem.qty,quoteItem.product.qtyStep) }}"
+                           data-step="{{ prepare_qty(quoteItem.product.qtyStep,quoteItem.product.qtyStep) }}" name="qty" class="qty"
+                           min="{{ prepare_qty(quoteItem.product.qtyStep,quoteItem.product.qtyStep) }}"
+                           max="{{ prepare_qty(quoteItem.product.qty,quoteItem.product.qtyStep) }}">
+                    <span class="qty-plus"></span>
+                </form>
+                {% if unit is not empty %}
+                    <span class="unit">{{ unit }}</span>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="text-center item-cart pieces">{{ prepare_qty(quoteItem.qty,quoteItem.product.qtyStep) }} {% if unit is not empty %}{{ unit }}{% endif %}</div>
+        {% endif %}
+        <div class="prices text-right">
+            <div class="price-regular">
+                {% set price = quoteItem.getItemPriceByAttribute("price_total", true) %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': price, 'currency': data.model.quote.currency.sign}}, {})) }}
+            </div>
+        </div>
+        <div class="actions">
+            {% if editable %}
+                <span class="cart-remove-item local-overlay-toggle" data-product-id="{{ quoteItem.productId }}" data-quote-item-id="{{ quoteItem.getId }}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:delete.html.twig', 'data': {}}, {})) }}</span>
+            {% else %}
+                {% if is_return is defined and is_return == 1 and order_item_return_enabled(quoteItem) is not empty %}
+                    {% set returnParams = order_item_return_enabled(quoteItem) %}
+                    {% if returnParams["max_return_qty"] is defined and returnParams["max_return_qty"] > 0 and returnParams["is_return_enabled"] is defined and returnParams["is_return_enabled"] %}
+                        <label class="plain smaller-responsive force-visible label-checkbox" title="{% trans into current_language %}Return item{% endtrans %}">
+                            <input type="checkbox" name="return" data-quote-item="{{ quoteItem.id }}"/>
+                        </label>
+
+                        <div class="return-amount" style="display: none">
+                            <input type="button" value="-" class="qty-minus">
+                            <input type="number"
+                                   value="{{ returnParams["max_return_qty"] }}"
+                                   data-step="{{ prepare_qty(quoteItem.product.qtyStep,quoteItem.product.qtyStep) }}"
+                                   name="qty_return"
+                                   class="qty qty-return"
+                                   min="{{ prepare_qty(quoteItem.product.qtyStep,quoteItem.product.qtyStep) }}"
+                                   max="{{ returnParams["max_return_qty"] }}">
+                            <input type="button" value="+" class="qty-plus">
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {# CONF BUNDLE #}
+    {% if quoteItem.getChildItems is not empty %}
+        <div class="child-items">
+            {% set items = [quoteItem] %}
+            {% set items = items|merge(quoteItem.getChildItems) %}
+            {% for childQuoteItem in items %}
+                {% set childProduct = childQuoteItem.product %}
+                {% set childProductTitle = get_entity_store_attribute(current_store_id,childProduct,"name") %}
+                <div class="product-display-grid item" data-product-id="{{ childProduct.id }}">
+                    {% if childProduct.getSelectedImage() is not empty %}
+                        {% set image_url = "/Documents/Products/"  ~ childProduct.getSelectedImage().file %}
+                        {% set image_style_url = image_url|image_style('product_list_item') %}
+                        {% if image_style_url %}
+                            {% set image_url = image_style_url %}
+                        {% endif %}
+                    {% else %}
+                        {% set image_url = "/frontend/images/image-placeholder.png" %}
+                    {% endif %}
+                    <span class="product-display-grid-image">
+                        <img src="{{ image_url }}"
+                             alt="{% if childProduct.getSelectedImage.alt is defined and childProduct.getSelectedImage.alt is not empty %}{{ childProduct.getSelectedImage.alt }}{% else %}{{ childProductTitle }}{% endif %}"
+                             title="{% if childProduct.getSelectedImage.title is defined and childProduct.getSelectedImage.title is not empty %}{{ childProduct.getSelectedImage.title }}{% else %}{{ childProductTitle }}{% endif %}"/>
+                    </span>
+                    <div class="product-info">
+                        <h3>{{ childProductTitle }}</h3>
+                    </div>
+                    <div class="prices">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': childQuoteItem.getItemPriceByAttribute('price_item'), 'currency': data.model.quote.currency.sign }}, {})) }}
+                    </div>
+                    <form class="item-cart" action="#">
+                        <input type="number" value="{{ prepare_qty(childQuoteItem.qty) }}" name="qty" class="qty" min="1"
+                               max="{{ prepare_qty(childProduct.qty) }}">
+                        {% if not editable %}
+                            <span class="pieces">{% trans into current_language %}pcs{% endtrans %}</span>
+                        {% endif %}
+                    </form>
+                    <div class="prices">
+                        <div class="price-regular">
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': childQuoteItem.priceTotal, 'currency': data.model.quote.currency.sign}}, {})) }}
+                        </div>
+                    </div>
+                    TODO QTY
+                    <span>
+                        {% if is_return is defined and is_return == 1 and order_item_return_enabled(quoteItem) %}
+                            <input type="checkbox" name="return" data-quote-item="{{ childQuoteItem.id }}"/>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="ScommerceBusinessBundle\Entity\SMenuItemEntity" table="s_menu_item_entity">
+        ###CLASS_START
+         <one-to-many field="childMenuItems" target-entity="ScommerceBusinessBundle\Entity\SmenuItemEntity"  mapped-by="menuItem">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+
+         <one-to-many field="menuItemProducts" target-entity="ScommerceBusinessBundle\Entity\SProductMenuLinkEntity"  mapped-by="menuItem">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

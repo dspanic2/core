@@ -1,0 +1,39 @@
+.treeview .list-group-item:nth-child(odd) {
+    background-color: #f7f8fa;
+}
+
+.treeview .list-group-item {
+    border-radius: 0;
+    border: 1px solid #d4d5d6;
+}
+
+.treeview .list-group-item:hover {
+    background-color: #f3f8fe;
+}
+
+.treeview .list-group {
+    margin: 20px 0;
+    padding: 0;
+}
+
+.wiki-footer {
+    color: #999;
+}
+
+.wiki-header, .wiki-content {
+    border-bottom: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+.wiki-content {
+    /*min-height: 500px;*/
+    padding-top: 7px;
+}
+
+.wiki-content img {
+    max-width: 100%;
+}
+
+.wiki-block .col-sm-12 {
+    float: none;
+}

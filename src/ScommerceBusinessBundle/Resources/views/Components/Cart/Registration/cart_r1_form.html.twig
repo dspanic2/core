@@ -1,0 +1,90 @@
+<div class="form-section private-r1 form">
+    <div class="row form-row">
+        <div class="form-group col-xs-12">
+            <label class="plain smaller-responsive force-visible label-checkbox">
+                <input data-toggle="toggle-private-r1"
+                       type="checkbox"
+                       {% if (is_user_logged_in() and data.model.account is defined and data.model.account is not empty and data.model.account.isLegalEntity) or (data.model.quote is defined and data.model.quote.accountOib is not empty) %}checked="checked"{% endif %}
+                        {% if is_user_logged_in() and data.model.account is defined and data.model.account is not empty and data.model.account.isLegalEntity %}disabled{% endif %}
+                       name="is_private_r1"
+                       value="1"> {% trans into current_language %}Require R1 invoice{% endtrans %}
+            </label>
+        </div>
+    </div>
+</div>
+<div class="private-r1-information optional"
+     id="toggle-private-r1"
+     style="{% if (is_user_logged_in() and data.model.account is defined and data.model.account is not empty and data.model.account.isLegalEntity) or (data.model.quote is defined and data.model.quote.accountOib is not empty) %}display:block;{% else %}display:none;{% endif %}">
+    {% if not is_user_logged_in() %}
+        <div class="form-section">
+            <div class="row">
+                <div class="form-row full-width form-group company col-xs-12 col-sm-6">
+                    <label><span class="label-text">{% trans into current_language %}Company name{% endtrans %}*</span>
+                        <input type="text"
+                               placeholder="{% trans into current_language %}Company name{% endtrans %}*"
+                               data-label="{% trans into current_language %}Company name{% endtrans %}"
+                               name="company_name"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                               required
+                               {% if data.model.quote is defined and data.model.quote is not empty and data.model.quote.accountOib is not empty %}value="{{ data.model.quote.accountName }}"{% endif %}>
+                    </label>
+                </div>
+                <div class="form-row full-width form-group oib col-xs-12 col-sm-6">
+                    <label><span class="label-text">{% trans into current_language %}Identification number{% endtrans %}*</span>
+                        <input type="text"
+                               placeholder="{% trans into current_language %}Identification number{% endtrans %}*"
+                               name="oib"
+                               data-label="{% trans into current_language %}Identification number{% endtrans %}"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                               required
+                               {% if data.model.quote is defined and data.model.quote is not empty and data.model.quote.accountOib is not empty %}value="{{ data.model.quote.accountOib }}"{% endif %}>
+                    </label>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% if data.model.account is defined and data.model.account is not empty and data.model.account.isLegalEntity %}
+            <div class="r1-info">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <span class="label">{% trans into current_language %}Company name{% endtrans %}:</span>
+                        <p>{{ data.model.account.name }}</p>
+                    </div>
+                    <div class="oib col-xs-12 col-sm-6">
+                        <span class="label">{% trans into current_language %}Identification number{% endtrans %}:</span>
+                        <p>{{ data.model.account.oib }}</p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="form-section">
+                <div class="row">
+                    <div class="form-row full-width form-group company col-xs-12 col-sm-6">
+                        <label><span class="label-text">{% trans into current_language %}Company name{% endtrans %}*</span>
+                            <input type="text"
+                                   placeholder="{% trans into current_language %}Company name{% endtrans %}*"
+                                   data-label="{% trans into current_language %}Company name{% endtrans %}"
+                                   name="company_name"
+                                   oninput="this.setCustomValidity('')"
+                                   oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                                   required>
+                        </label>
+                    </div>
+                    <div class="form-row full-width form-group oib col-xs-12 col-sm-6">
+                        <label><span class="label-text">{% trans into current_language %}Identification number{% endtrans %}*</span>
+                            <input type="text"
+                                   placeholder="{% trans into current_language %}Identification number{% endtrans %}*"
+                                   data-label="{% trans into current_language %}Identification number{% endtrans %}"
+                                   name="oib"
+                                   oninput="this.setCustomValidity('')"
+                                   oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                                   required>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

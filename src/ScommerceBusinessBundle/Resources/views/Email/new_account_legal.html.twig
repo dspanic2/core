@@ -1,0 +1,85 @@
+{% extends 'ScommerceBusinessBundle:Email:base.html.twig' %}
+
+{% block header %}{% include 'ScommerceBusinessBundle:Email/Components:header_image.html.twig' %}{% endblock %}
+
+{% block body %}
+    <table width="100%" border="0" cellpadding="0"
+           cellspacing="0">
+        <tbody>
+        <tr>
+            <td valign="top" align="left">
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left"
+                            style="font-family:'Open Sans',sans-serif;font-size:14px;color:#000000;line-height:normal;font-weight:400;padding:0px 30px">
+                            <strong style="font-size:20px;">{% trans into data.current_language %}You have been successfully registered{% endtrans %}</strong><br>
+                            <br><br>
+                            {% trans into data.current_language %}Thank you for your registration{% endtrans %}.
+                            <br><br>
+                            <strong>{% trans into data.current_language %}Your login information{% endtrans %}:</strong><br><br>
+                            {% trans into data.current_language %}Username{% endtrans %}: {{ data.user.email }}
+                            {% if data.send_password is defined and data.send_password == 1 %}<br>{% trans into data.current_language %}Password{% endtrans %}: {{ data.password }}{% endif %}
+                            <br><br>
+                            {% trans into data.current_language %}You can log in with the password you entered during registration, and in case you forgot it, reset it{% endtrans %} <a href="{{ data.site_base_data.site_base_url_language }}{{ get_page_url(data.current_store_id,68,"s_page") }}">{% trans into data.current_language %}here{% endtrans %}</a>.<br><br><br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

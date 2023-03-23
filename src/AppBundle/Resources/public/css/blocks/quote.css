@@ -1,0 +1,42 @@
+.quote-product-calculate-table {
+    background: #D2D3D6;
+    max-width: 100%;
+    margin: 0;
+}
+.quote-product-calculate-table>div {
+    padding: 15px;
+}
+#quotepreview table{
+    width: 100%;
+}
+#quotepreview h1:not(.main-title){
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+}
+#quotepreview .item {
+    clear: both;
+    float: right;
+}
+#quotepreview .item.item>* {
+    display: inline-block;
+    float: left;
+    width: 250px;
+}
+#quotepreview .item.item>label {
+    text-align: right;
+    margin-right: 15px;
+}
+#quotepreview #quotepreview-user-actions {
+    margin: 15px 0;
+}
+#quote-preview-content {
+    padding: 30px;
+    background: white;
+    border: 1px solid #ddd;
+}
+#quote-preview-content #quote-html a {
+    display: inline-block;
+    padding: 2px;
+    border-bottom: 1px dotted;
+}

@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    {% block main_actions %}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id="{{ managed_entity_type }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="panel panel-midnightblue">
+                            <div class="panel-heading master-panel-heading">
+                                <h4>{% trans %}Menu{% endtrans %}</h4>
+                            </div>
+                            <div class="panel-body collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-6">
+                                        <ul id="menuEditor" class="sortableLists list-group"></ul>
+                                        <div class="form-group hidden">
+                                            <button id="btnOut" type="button" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Output before save</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-6">
+                                        <form id="frmEdit" class="form-horizontal">
+                                            <input type="hidden" class="form-control item-menu" id="id" name="id"/>
+                                            <fieldset class="form-group-wrapper">
+                                                <div class="form-group row">
+                                                    <label for="text" class="col-sm-2 control-label">Text</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control item-menu" id="text" name="text" placeholder="Text">
+                                                            <div class="input-group-btn">
+                                                                <button id="myEditor_icon" class="btn btn-default" data-iconset="fontawesome" data-icon="" type="button"></button>
+                                                            </div>
+                                                            <input type="hidden" name="icon" class="item-menu">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="mnu_href" class="col-sm-2 control-label">Url</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control item-menu" id="url" name="url" placeholder="URL">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="mnu_href" class="col-sm-2 control-label">Page</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="page" id="page" class="form-control item-menu">
+                                                            <option value="">No page</option>
+                                                            {% for page in pages %}
+                                                                <option value="{{ page.id }}">{{ page.title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="target" class="col-sm-2 control-label">Target</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="target" id="target" class="form-control item-menu">
+                                                            <option value="_self">Self</option>
+                                                            <option value="_blank">Blank</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                {# <div class="form-group">
+                                            <label for="title" class="col-sm-2 control-label">Tooltip</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control item-menu" id="title" name="title" placeholder="Text">
+                                            </div>
+                                        </div> #}
+                                                <div class="form-group row">
+                                                    <label for="cssClass" class="col-sm-2 control-label">Css class</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control item-menu" id="cssClass" name="cssClass" placeholder="Css class">
+                                                        <small><a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">https://fontawesome.com/icons</a></small>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="cssClass" class="col-sm-2 control-label">Show</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="show" id="show" class="form-control item-menu">
+                                                            <option value="1">Yes</option>
+                                                            <option value="0">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                        <div class="form-group">
+                                            <button type="button" id="btnAdd" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add</button>
+                                            <button type="button" id="btnUpdate" class="btn btn-primary pull-right" disabled><i class="fa fa-refresh"></i> Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-7 col-sm-offset-2">
+                            <div class="btn-toolbar">
+                                <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}" accept-charset="UTF-8"
+                                      data-callback=''
+                                      data-type="{{ managed_entity_type }}"
+                                      data-presave='["exportMenuToJson"]'
+                                      class="form-horizontal row-border">
+                                    <input type="hidden" name="id" value="{{ pages[0].id }}"/>
+                                    <textarea class="hidden" name="navigation_json">{{ navigation_json|raw }}</textarea>
+                                    {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

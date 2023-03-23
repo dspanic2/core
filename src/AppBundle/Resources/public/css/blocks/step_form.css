@@ -1,0 +1,41 @@
+/* Hide all steps by default: */
+.sp-step {
+    display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.sp-step-dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #4f8edc;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+/* Mark the active step: */
+.sp-step-dot.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.sp-step-dot.finish {
+    background-color: #4CAF50;
+}
+
+.sp-step-progress
+{
+    float: left;
+    margin-left: 50%;
+    margin-top: 10px;
+}
+
+.sp-step-btns{
+    float: right;
+}
+
+.sp-main-panel{
+    margin-right: 10px;
+}

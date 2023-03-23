@@ -1,0 +1,61 @@
+services:
+
+  menu_block:
+    class: ScommerceBusinessBundle\Blocks\MenuBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  grid_stack_block:
+    class: ScommerceBusinessBundle\Blocks\GridStackBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  s_product_attributes_block:
+    class: ScommerceBusinessBundle\Blocks\SProductAttributesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  report_filter_block:
+    class: ScommerceBusinessBundle\Blocks\ReportFilterBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  facet_attribute_configuration_block:
+    class: ScommerceBusinessBundle\Blocks\FacetAttributeConfigurationBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  webform_builder_block:
+    class: ScommerceBusinessBundle\Blocks\WebformBuilderBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  front_product_rules_block:
+    class: ScommerceBusinessBundle\Blocks\FrontProductRulesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_description_product_rules_block:
+    class: ScommerceBusinessBundle\Blocks\ProductDescriptionProductRulesBlock
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  campaign_controlled_entities_block:
+    class: ScommerceBusinessBundle\Blocks\CampaignControlledEntitiesBlock
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  facet_url_list_block:
+    class: ScommerceBusinessBundle\Blocks\FacetUrlListBlock
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]

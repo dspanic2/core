@@ -1,0 +1,393 @@
+services:
+
+  static_content_extension:
+    class: ScommerceBusinessBundle\Extensions\StaticContentExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  stores_extension:
+    class: ScommerceBusinessBundle\Extensions\StoresExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  performance_extension:
+    class: ScommerceBusinessBundle\Extensions\PerformanceExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  menu_extension:
+    class: ScommerceBusinessBundle\Extensions\MenuExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  debug_extension:
+    class: ScommerceBusinessBundle\Extensions\DebugExtension
+    tags:
+      - { name: twig.extension }
+
+  get_page_url_extension:
+    class: ScommerceBusinessBundle\Extensions\GetPageUrlExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  get_env_extension:
+    class: ScommerceBusinessBundle\Extensions\GetEnvVariableExtension
+    tags:
+      - { name: twig.extension }
+
+  twig_helper_extension:
+    class: ScommerceBusinessBundle\Extensions\TwigHelperExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  commerce_helper_extension:
+    class: ScommerceBusinessBundle\Extensions\CommerceHelperExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  product_attributes_extension:
+    class: ScommerceBusinessBundle\Extensions\ProductAttributesExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  static_content_manager:
+    class: ScommerceBusinessBundle\Managers\StaticContentManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  route_manager:
+    class: ScommerceBusinessBundle\Managers\RouteManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  menu_manager:
+    class: ScommerceBusinessBundle\Managers\MenuManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  template_manager:
+    class: ScommerceBusinessBundle\Managers\TemplateManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  s_menu_manager:
+    class: ScommerceBusinessBundle\Managers\SmenuManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  s_template_type_manager:
+    class: ScommerceBusinessBundle\Managers\StemplateTypeManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  parent_product_group_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\ParentProductGroupAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_group_tree_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\ProductGroupTreeAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  canonical_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\CanonicalAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  menu_item_product_group_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\MenuItemProductGroupAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  menu_item_spage_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\MenuItemSpageAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  show_menu_item_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\ShowMenuItemAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  menu_item_parent_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\MenuItemParentAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  webform_group_autocomplete_manager:
+    class: ScommerceBusinessBundle\Managers\WebformGroupAutocompleteManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  testimonials_manager:
+    class: ScommerceBusinessBundle\Managers\TestimonialsManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  brands_manager:
+    class: ScommerceBusinessBundle\Managers\BrandsManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  product_group_manager:
+    class: ScommerceBusinessBundle\Managers\ProductGroupManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  blog_manager:
+    class: ScommerceBusinessBundle\Managers\BlogManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  breadcrumbs_manager:
+    class: ScommerceBusinessBundle\Managers\BreadcrumbsManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  s_product_manager:
+    class: ScommerceBusinessBundle\Managers\SproductManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  faq_manager:
+    class: ScommerceBusinessBundle\Managers\FaqManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  s_search_manager:
+    class: ScommerceBusinessBundle\Managers\SsearchManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  scommerce_helper_manager:
+    class: ScommerceBusinessBundle\Managers\ScommerceHelperManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  slider_manager:
+    class: ScommerceBusinessBundle\Managers\SliderManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  test_manager:
+    class: ScommerceBusinessBundle\Managers\TestManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  sitemap_manager:
+    class: ScommerceBusinessBundle\Managers\SitemapManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  export_core_manager:
+    class: ScommerceBusinessBundle\Managers\ExportCoreManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  export_nabava_manager:
+    class: ScommerceBusinessBundle\Managers\ExportNabavaManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  export_jeftinije_manager:
+    class: ScommerceBusinessBundle\Managers\ExportJeftinijeManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  export_google_manager:
+    class: ScommerceBusinessBundle\Managers\ExportGoogleManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  export_google_xml_manager:
+    class: ScommerceBusinessBundle\Managers\ExportGoogleXmlManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  export_shopguru_manager:
+    class: ScommerceBusinessBundle\Managers\ExportShopguruManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  s_page_manager:
+    class: ScommerceBusinessBundle\Managers\SpageManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  api_mobile_manager:
+    class: ScommerceBusinessBundle\Managers\ApiMobileManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  tracking_manager:
+    class: ScommerceBusinessBundle\Managers\TrackingManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  statistics_manager:
+    class: ScommerceBusinessBundle\Managers\StatisticsManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  algolia_manager:
+    class: ScommerceBusinessBundle\Managers\AlgoliaManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  webform_manager:
+    class: ScommerceBusinessBundle\Managers\WebformManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  comments_manager:
+    class: ScommerceBusinessBundle\Managers\CommentsManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  comments_extension:
+    class: ScommerceBusinessBundle\Extensions\CommentsExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  page_builder_extension:
+    class: ScommerceBusinessBundle\Extensions\PageBuilderExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  product_rules_extension:
+    class: ScommerceBusinessBundle\Extensions\ProductRulesExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  third_party_manager:
+    class: ScommerceBusinessBundle\Managers\ThirdPartyManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  elastic_search_manager:
+    class: ScommerceBusinessBundle\Managers\ElasticSearchManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  front_product_rules_manager:
+    class: ScommerceBusinessBundle\Managers\FrontProductsRulesManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  bundle_products_extension:
+    class: ScommerceBusinessBundle\Extensions\GetBundleProductsExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  campaign_extension:
+    class: ScommerceBusinessBundle\Extensions\CampaignExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  marketing_message_manager:
+    class: ScommerceBusinessBundle\Managers\MarketingMessageManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  marketing_message_extension:
+    class: ScommerceBusinessBundle\Extensions\MarketingMessageExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  s_route_not_found_buttons:
+    class: ScommerceBusinessBundle\Buttons\SRouteNotFoundButtons
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  facet_manager:
+    class: ScommerceBusinessBundle\Managers\FacetManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  leanpay_extension:
+    class: ScommerceBusinessBundle\Extensions\LeanpayExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }
+
+  loyalty_extension:
+    class: ScommerceBusinessBundle\Extensions\LoyaltyExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }

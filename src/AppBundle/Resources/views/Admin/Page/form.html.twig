@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ generate_admin_title(entity, managed_entity_type|trans) }}{% endblock %}
+
+{% block header %}
+    {% block main_actions %}
+        {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+<div id="page-content" class="sp-admin-gridstack">
+    <div id="{{ managed_entity_type }}">
+        <div class="container">
+            <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}" accept-charset="UTF-8"
+                  data-callback=''
+                  data-type="{{ managed_entity_type }}"
+                  class="form-horizontal row-border">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="panel panel-midnightblue">
+                            <div class="panel-heading master-panel-heading">
+                                <h4>{% trans %}General information{% endtrans %}</h4>
+                            </div>
+                            <div class="panel-body collapse in">
+                                <fieldset class="form-group-wrapper">
+                                    <div class="form-group row hidden">
+                                        <div class="col-sm-6">
+                                            <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="hidden" name="content" class="form-control" {% if entity is not empty and entity.content is defined %}value="{{ entity.content }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="title" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Url{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="url" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.url }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <select {% if entity is not empty %}disabled="disabled"{% endif %} name="type" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" class="form-control">
+                                                <option value="">{% trans %}Please select{% endtrans %}</option>
+                                                {% for key,page_type in page_types %}
+                                                    <option {% if entity is not empty and entity.type == key %}selected="selected"{% endif %} value="{{ key }}" {% apply spaceless %}
+                                                            {% for data_value_key,data_value in page_type %}
+                                                                data-{{ data_value_key }}="{{ data_value }}"
+                                                            {% endfor %}
+                                                    {% endapply %}>{{ key }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Attribute set{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            {% if entity is not empty %}
+                                                <input disabled="disabled" type="text" class="form-control" value="{{ entity.attributeSet.attributeSetName }}"/>
+                                            {% else %}
+                                                <select data-url="{{ path('remote_get_related_id') }}" name="attributeSet" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}">
+                                                    <option value="">{% trans %}Please select{% endtrans %}</option>
+                                                    {% for attribute_set in attribute_sets %}
+                                                        <option {% if entity is not empty and entity.attributeSet.id == attribute_set.id %}selected="selected"{% endif %} value="{{ attribute_set.id }}">{{ attribute_set.attributeSetName }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="class" class="form-control" {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="dataAttributes" class="form-control" {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Is custom{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="checkbox" checked="checked" name="isCustom" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        {% set entity_id = 0 %}
+                        {% if entity is not empty %}
+                            {% set entity_id = entity.uid %}
+                        {% endif %}
+                        {{ render(controller('AppBundle:AdministratorController/Role:getEntityRolePrivileges', {'type': managed_entity_type, 'entity': entity_id })) }}
+                    </div>
+                </div>
+                {% if entity.id is defined and entity.id is not empty %}
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="sp-new-block-wrapper">
+                            <div class="sp-add-block-button">
+                                <span data-action="add-block" data-url="{{ path('page_block_update_form', {'form_type':'modal','parent_id':entity.id, 'parent_type':'page' }) }}" class="btn btn-primary"><i class="fa fa-plus"></i> {% trans %}Add new block{% endtrans %}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div data-wrapper="content" class="row sp-grid-wrapper">
+                    <div class="col-xs-12 sp-main-actions-wrapper">
+                        <div class="container">
+                            <div class="options">
+                                <span class="sp-options-text sp-options-text-attribute-group sp-admin-button sp-padding-top-10" data-action="drop-block" style="display: none;">
+                                    <i class="sp-icon sp-icon-anchor sp-hover"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 sp-grid-wrapper-inner">
+                        <div data-action="grid_stack" class="grid-stack" data-url="{{ path('page_block_get') }}">
+                            {% if entity.content is defined and entity.content is not empty %}
+                                {% set content = entity.content|json_decode %}
+                                {% for key,block in content %}
+                                    {{ render(controller('AppBundle:AdministratorController/Block:adminBlock', {'block_id': block.id, 'x': block.x, 'y': block.y, 'width': block.width, 'height': block.height }))}}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-7 col-sm-offset-2">
+                            <div class="btn-toolbar">
+                                {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
+{% endblock %}

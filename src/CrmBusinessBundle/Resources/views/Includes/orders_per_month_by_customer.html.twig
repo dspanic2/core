@@ -1,0 +1,43 @@
+<fieldset class="form-group-wrapper sp-table-mark sp-remove-zero sp-move-arrows">
+    <p>Ovdje dodje opis</p>
+    <table class="sp_report_view_table table">
+        <thead>
+        <tr>
+            <th>{% trans %}No.{% endtrans %}</th>
+            <th>{% trans %}Name{% endtrans %}</th>
+            <th>{% trans %}Jan{% endtrans %}</th>
+            <th>{% trans %}Feb{% endtrans %}</th>
+            <th>{% trans %}Mar{% endtrans %}</th>
+            <th>{% trans %}Apr{% endtrans %}</th>
+            <th>{% trans %}May{% endtrans %}</th>
+            <th>{% trans %}Jun{% endtrans %}</th>
+            <th>{% trans %}Jul{% endtrans %}</th>
+            <th>{% trans %}Aug{% endtrans %}</th>
+            <th>{% trans %}Sep{% endtrans %}</th>
+            <th>{% trans %}Oct{% endtrans %}</th>
+            <th>{% trans %}Nov{% endtrans %}</th>
+            <th>{% trans %}Dec{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data.items %}
+            <tr>
+                <td class="sp_bold">{{ loop.index }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.Jan|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Feb|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Mar|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Apr|number_format(0, ',', '.') }}</td>
+                <td>{{ item.May|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Jun|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Jul|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Aug|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Sep|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Oct|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Nov|number_format(0, ',', '.') }}</td>
+                <td>{{ item.Decm|number_format(0, ',', '.') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</fieldset>

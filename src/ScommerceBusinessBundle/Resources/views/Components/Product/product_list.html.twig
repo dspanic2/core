@@ -1,0 +1,5 @@
+{% if products is defined and products is not empty %}
+    {% for product in products %}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_list_item.html.twig', 'data': {'product': product, 'data': data}}, {})) }}
+    {% endfor %}
+{% endif %}

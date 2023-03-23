@@ -1,0 +1,70 @@
+<div class="sp-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}
+     data-entity_type_code="{{ data.block.entityType.entityTypeCode }}"
+     data-selected_url="{{ path('gallery_set_selected') }}"
+     data-sortable_url="{{ path('gallery_set_sort') }}"
+     data-parent_attribute_id="{{ data.parentAttribute.id }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}{% if data.tooltip is defined and data.tooltip is not empty %}<span class="fa fa-question-circle sp-question-circle" data-content="{{ data.tooltip|trans }}" rel="popover" data-html="true" data-placement="bottom" data-original-title="" title=""></span>{% endif %}
+                    {% if is_granted('ROLE_ADMIN') or data.subtype != 'view' %}
+                        {% set showButtons = 0 %}
+                        {% if data.entities is defined and data.entities is not empty and ((app.user.hasPrivilege(4, data.entities[0].attributeSet.uid)) or is_granted('ROLE_ADMIN')) %}
+                            {% set showButtons = 1 %}
+                        {% endif %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                            <span class="sp-options-text sp-hover pull-right {% if data.subtype == 'view' or showButtons != 1 %}hidden{% endif %}"
+                                  title="{% trans %}Upload files{% endtrans %}"
+                                  data-action="toggle-library-dropzone"><i
+                                        class="sp-icon sp-icon-upload"></i></span>
+                            {% if showButtons == 1 %}
+                                <span class="sp-options-text sp-hover pull-right {% if data.subtype == 'view' %}hidden{% endif %}"
+                                      title="{% trans %}Download all{% endtrans %}"
+                                      data-action="download-files"
+                                      data-entity_type_code="{{ data.entityTypeCode }}"
+                                      data-parent_attribute_id="{{ data.parentAttribute.id }}"
+                                      data-parent_id="{{ data.id }}"
+                                      data-related_entity_type="{{ data.page.entityType.entityTypeCode }}"
+                                      data-url="{{ path('download_files') }}"><i
+                                            class="sp-icon sp-icon-folder"></i></span>
+                                <span class="sp-options-text sp-hover pull-right {% if data.subtype == 'view' %}hidden{% endif %}"
+                                      title="{% trans %}Remove all{% endtrans %}"
+                                      data-action="remove-all-items"
+                                      data-entity_type_code="{{ data.entityTypeCode }}"
+                                      data-confirm="true"
+                                      data-url="{{ path('delete_all_files') }}"><i
+                                            class="sp-icon sp-icon-disable"></i></span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="hidden sp-document-list"></div>
+            <div {% if data.subtype != 'view' %}data-action="toggle-hidden"{% endif %}
+                 class="row {% if data.entities is empty %}hidden{% endif %}">
+                <div class="panel-body collapse in table-panel-body">
+                    <div class="row sp-gallery {% if data.order is defined and data.order is not empty %}sortable-gallery{% endif %}">
+                        {% set fileAttributeFolder = data.fileAttributeFolder %}
+                        {% for entity in data.entities %}
+                            {{ include('AppBundle:Includes:gallery_item.html.twig') }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% if data.subtype != 'view' %}
+                <div class="dropzone-wrapper {% if data.entities is not empty %}hidden{% endif %}"
+                     data-action="toggle-hidden">
+                    <div class="panel-body collapse in sp-hide-subpanel sp-dropzone-container">
+                        <span class="dropzone"
+                              data-url="{{ path('file_create', {'attribute_id': data.fileAttributeId, 'related_entity_type': data.page.entityType.entityTypeCode, 'related_entity_id': data.id }) }}"
+                              data-limit="{% if data.dropzoneSettings.limit is defined %}{{ data.dropzoneSettings.limit }}{% else %}20{% endif %}"
+                              data-acceptedFiles="{% if data.dropzoneSettings.file_types is defined %}{{ data.dropzoneSettings.file_types }}{% else %}audio/*,image/*,.psd,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.txt,.csv,.glb{% endif %}"></span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

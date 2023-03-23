@@ -1,0 +1,7 @@
+{
+  "name": "shipshapesolutions/financebusinessbundle",
+  "type": "shipshape-core-bundle",
+  "extra": {
+    "install-directory": "./src/FinanceBusinessBundle"
+  }
+}

@@ -1,0 +1,7 @@
+{% embed 'base.html.twig' %}
+    {% block main_actions %}
+        {{parent()}}
+        <a class="btn-primary btn-blue btn" title="{% trans %}Create new{% endtrans %}" href="{{ path('page_view', {'url': data.block.entityType, 'type': 'form'}) }}">{% trans %}Create new{% endtrans %}</a>
+    {% endblock %}
+{% endembed %}
+

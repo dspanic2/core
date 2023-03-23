@@ -1,0 +1,16 @@
+services:
+    #    core_business.example:
+    #        class: AppBundle\Example
+    #        arguments: ["@service_id", "plain_value", %parameter%]
+
+    google_api_settings_block:
+        class: IntegrationBusinessBundle\Blocks\GoogleApiSettingsBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    google_search_console_sitemap_block:
+        class: IntegrationBusinessBundle\Blocks\GoogleSearchConsoleSitemapBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]

@@ -1,0 +1,23 @@
+{% if data.notifications is defined and data.notifications is not empty %}
+    <li class="dropdown">
+        <a href="#" class="hasnotifications dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i></a>
+        <ul class="dropdown-menu notifications arrow">
+            <li class="dd-header">
+                <span>{% trans %}You have{% endtrans %} <span class="sp-unread-number">{{ data.total_unread }}</span> {% trans %}new message(s){% endtrans %}</span>
+                <span class="sp-hover" data-action="mark_all_read" data-url="{{ path('mark_all_read') }}">{% trans %}Mark all Read{% endtrans %}</span>
+            </li>
+            <div class="scrollthis">
+                {% for notification in data.notifications %}
+                    <li>
+                        <{% if notification.url is not empty %}a{% else %}span{% endif %} {% if notification.url is not empty %}href="{{ notification.url }}"{% endif %} data-id="{{ notification.id }}" {% if notification.isRead == 0 %}data-action="mark_as_read" data-url="{{ path('mark_as_read') }}"{% endif %} class="sp-notification {% if notification.isRead == 0 %}active{% endif %}">
+                            <span class="time">{{ notification.sufixText }}</span>
+                            <i style="background-color: {{ notification.type.color }};" class="fa {{ notification.type.icon.class }}"></i>
+                            <span class="msg">{{ notification.name }}</span>
+                        </{% if notification.url is not empty %}a{% else %}span{% endif %}>
+                    </li>
+                {% endfor %}
+            </div>
+            <li class="dd-footer"><a href="{{ path('page_view',{'type':'list','url':'notification'}) }}">{% trans %}View all notifications{% endtrans %}</a></li>
+        </ul>
+    </li>
+{% endif %}

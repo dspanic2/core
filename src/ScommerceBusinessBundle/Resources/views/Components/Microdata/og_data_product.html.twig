@@ -1,0 +1,34 @@
+<meta property="og:site_name" content="{{ site_base_data.site_base_name }}" />
+<meta property="og:type" content="product" />
+<meta property="og:url" content="{{ site_base_data.site_base_url_language }}{{ url }}" />
+<meta property="og:title" content="{{ meta_title }} | {{ site_base_data.site_base_name }}" />
+<meta property="og:description" content="{{ meta_description }}"/>
+<meta property="og:locale" content="{{ current_language|lower }}_{{ current_language|upper }}" />
+{% if languages is not empty %}
+    {% for key,language_id in languages %}
+        {% if key != current_language %}
+            <meta property="og:locale:alternate" content="{{ key|lower }}_{{ key|upper }}" />
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<meta property="og:updated_time" content="{{ page.modified|date("Y-m-d\\Th:i:sP") }}" />
+{% if page.productTypeId == 2 and page.getImages() is empty %}
+    {% set page = get_real_product(page,[]) %}
+{% endif %}
+{% if page.getImages() is not empty %}
+    {% for key,image in page.getImages() %}
+        <meta property="og:image" content="{{ site_base_data.site_base_url }}Documents/Products/{{ image.file }}" />
+        <meta property="og:image:secure_url" content="{{ site_base_data.site_base_url }}Documents/Products/{{ image.file }}" />
+        <meta property="og:image:type" content="image/{{ image.fileType }}" />
+        <meta property="og:image:alt" content="{{ get_entity_store_attribute(current_store_id,page,"name") }}-{{ key }}" />
+    {% endfor %}
+    {#<meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="767" />#}
+{% else %}
+    <meta property="og:image" content="{{ site_base_data.site_base_url }}{{ site_base_data.site_base_image }}" />
+    <meta property="og:image:secure_url" content="{{ site_base_data.site_base_url }}{{ site_base_data.site_base_image }}" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:alt" content="{{ meta_title }}" />
+{% endif %}
+{#<meta property="og:image:width" content="1024" />
+<meta property="og:image:height" content="767" />#}

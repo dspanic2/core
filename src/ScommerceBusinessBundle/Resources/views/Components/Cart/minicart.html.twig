@@ -1,0 +1,152 @@
+<div id="cart-display" class="cart-items overlay">
+    <div class="minicart-inner">
+        {% if quote is not defined or quote is empty or quote.quoteItems is empty %}
+            <div class="cart-empty">{% trans into current_language %}Your cart is empty{% endtrans %}</div>
+        {% else %}
+            <div class="minicart-section minicart-items items-grid list-view simple-list-view">
+                <div class="items-label">
+                    <div class="items-count">{% trans into current_language %}Products{% endtrans %} <strong>{{ quote.quoteItems|length }}</strong></div>
+                    <div class="items-remove-all text-right">{% trans into current_language %}Remove all products{% endtrans %} {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:remove.html.twig', 'data': {}}, {})) }}</div>
+                </div>
+                <div class="items">
+                    {% set gifts = [] %}
+                    {% for quoteItem in quote.quoteItems %}
+                        {% set product = quoteItem.product %}
+                        {% if product.getIsGift %}
+                            {% set gifts = gifts|merge([quoteItem]) %}
+                        {% else %}
+                            {% if quoteItem.parentItem is empty %}
+                                {% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+                                <div class="item">
+                                <span class="cart-remove-item"
+                                      data-quote-item-id="{{ quoteItem.getId }}"
+                                      data-product-id="{{ quoteItem.productId }}">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:remove.html.twig', 'data': {}}, {})) }}</span>
+                                    <div class="image">
+                                        <a title="{{ product_title }}"
+                                           href="{{ current_language_url }}/{{ get_entity_store_attribute(current_store_id,product,"url") }}?qi={{ quoteItem.id }}">
+                                            {% if product.getImages() is not empty %}
+                                                {% set image_url = "/Documents/Products/" ~ product.getSelectedImage().file %}
+                                                {% set image_style_url = image_url|image_style('product_list_item') %}
+                                                {% if image_style_url %}
+                                                    {% set image_url = image_style_url %}
+                                                {% endif %}
+                                            {% else %}
+                                                {% set image_url = "/frontend/images/image-placeholder.png" %}
+                                            {% endif %}
+                                            <img src="{{ image_url }}"
+                                                 alt="{% if product.getSelectedImage.alt is defined and product.getSelectedImage.alt is not empty %}{{ product.getSelectedImage.alt }}{% else %}{{ product_title }}{% endif %}"
+                                                 title="{% if product.getSelectedImage.title is defined and product.getSelectedImage.title is not empty %}{{ product.getSelectedImage.title }}{% else %}{{ product_title }}{% endif %}"/>
+                                        </a>
+                                    </div>
+                                    <div class="info">
+
+                                        {% set brandName = get_product_attribute_value_by_key(product,"brand") %}
+                                        {% if brandName %}
+                                            {% set brandName = brandName.values[0].value %}
+                                            <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,51,"s_page") }}?s=1&brand={{ brandName|url_encode }}"
+                                               class="product-brand"
+                                               title="{{ brandName }}">{{ brandName }}</a>
+                                        {% endif %}
+
+                                        <a title="{{ product_title }}"
+                                           class="title"
+                                           href="{{ current_language_url }}/{{ get_entity_store_attribute(current_store_id,product,"url") }}?qi={{ quoteItem.id }}">{{ product_title }}</a>
+
+                                        <div class="cart">
+                                            {% if not product.getIsGift %}
+                                                {% set unit = get_product_attribute_value_by_key(product,get_env("PRODUCT_UNIT_ATTRIBUTE_CODE")) %}
+                                                <form class="item-cart {% if unit is not empty %}by-unit{% endif %}" action="#">
+                                                    <div class="left">
+                                                        <input type="hidden" value="{{ quoteItem.id }}" name="quote_item_id">
+                                                        <span class="qty-minus"></span>
+                                                        <input readonly type="number"
+                                                               value="{{ prepare_qty(quoteItem.getQty,quoteItem.product.getQtyStep) }}"
+                                                               data-step="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                                               step="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                                               name="qty"
+                                                               class="qty"
+                                                               min="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                                               max="{{ get_product_qty(product)|number_format(0,"","") }}">
+                                                        <span class="qty-plus"></span>
+                                                    </div>
+                                                    {% if unit is not empty %}
+                                                        {% if product.getWeights() is empty %}
+                                                            {% set unit = "kom" %}
+                                                        {% else %}
+                                                            {% set unit = unit.values[0].value %}
+                                                        {% endif %}
+                                                        <span class="unit">{{ unit }}</span>
+                                                    {% endif %}
+                                                </form>
+                                                <div class="price">
+                                                    {% set price = quoteItem.getItemPriceByAttribute("price_total", true) %}
+                                                    <span class="price-value">{{ price|number_format(2, ',', '.') }}<span class="currency">{{ quote.currency.sign }}</span></span>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if gifts is not empty %}
+                        {% for giftQuoteItem in gifts %}
+                            {% set product = giftQuoteItem.product %}
+                            {% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+                            <div class="item">
+                                <div class="image">
+                                    <span title="{{ product_title }}">
+                                        {% if product.getImages() is not empty %}
+                                            {% set image_url = "/Documents/Products/" ~ product.getSelectedImage().file %}
+                                            {% set image_style_url = image_url|image_style('product_list_item') %}
+                                            {% if image_style_url %}
+                                                {% set image_url = image_style_url %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set image_url = "/frontend/images/image-placeholder.png" %}
+                                        {% endif %}
+                                        <img src="{{ image_url }}"
+                                             alt="{% if product.getSelectedImage.alt is defined and product.getSelectedImage.alt is not empty %}{{ product.getSelectedImage.alt }}{% else %}{{ product_title }}{% endif %}"
+                                             title="{% if product.getSelectedImage.title is defined and product.getSelectedImage.title is not empty %}{{ product.getSelectedImage.title }}{% else %}{{ product_title }}{% endif %}"/>
+                                    </span>
+                                </div>
+                                <div class="info">
+
+                                    <span class="is-gift">{% trans into current_language %}Gift{% endtrans %}</span>
+
+                                    <span title="{{ product_title }}" class="title">{{ product_title }}</span>
+
+                                    <span></span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+
+            {# SUMMARY #}
+            <div class="minicart-section minicart-summary">
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_totals.html.twig', 'data': {
+                    'data': {
+                        'model': {
+                            'quote': quote
+                        }
+                    },
+                    'show_delivery': true
+                }}, {})) }}
+            </div>
+
+            {# ACTIONS #}
+            <div class="minicart-actions">
+                <div class="update">
+                    <span class="minicart-update-cart button btn-type-2">{% trans into current_language %}Update cart{% endtrans %}</span>
+                </div>
+                <div class="go-to-checkout">
+                    <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,56,"s_page") }}"
+                       class="button btn-type-1 minicart-checkout"> {% trans into current_language %}Go to cart{% endtrans %}{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:right_arrow.html.twig', 'data': {}}, {})) }}</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

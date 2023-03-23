@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div id="page-content">
+    <div id='wrap'>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-heading">
+                            <h4>{{ managed_entity_type|trans }} {% trans %}view{% endtrans %}</h4>
+                            <div class="options">
+                                {% if entities[0].action != "deleted" %}
+                                    {% set data = {'type': entities[0].attributeSetCode, 'form_type': "view_form", 'id': entities[0].entityId, 'is_view': false, 'parent_id': null}  %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="panel-body collapse in">
+                            {% for key,entity in entities %}
+                                <div class="row form-horizontal row-border bottom-devider overflow-hidden">
+                                    <div class="col-sm-5 col-xs-12">
+                                        <fieldset class="form-group-wrapper exclude-border-remove">
+                                            <div class="form-group row">
+                                                <label class="col-sm-6 control-label">{% trans %}Date{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="username" readonly="readonly" class="form-control" value="{{ entity.eventTime|date("d/m/Y H:i:s") }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-6 control-label">{% trans %}Action{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="username" readonly="readonly" class="form-control" value="{{ entity.action }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-6 control-label">{% trans %}User{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="username" readonly="readonly" class="form-control" value="{{ entity.username }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-6 control-label">{% trans %}Entity type code{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="username" readonly="readonly" class="form-control" value="{{ entity.entityTypeCode }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-6 control-label">{% trans %}Attribute set code{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="username" readonly="readonly" class="form-control" value="{{ entity.attributeSetCode }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-6 control-label">{% trans %}Entity id{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="username" readonly="readonly" class="form-control" value="{{ entity.entityId }}"/>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm-5 col-xs-12">
+                                        {% if entity.content is not empty %}
+                                            <fieldset class="form-group-wrapper exclude-border-remove">
+                                                {% set content = entity.content|json_decode_array %}
+                                                {% for key, value in content %}
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-6 control-label">{{ key|trans }}</label>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" name="username" readonly="readonly" class="form-control" value="{% apply spaceless %}
+                                                            {% if value is iterable %}
+                                                                {% for va in value %}
+                                                                    {% if value is iterable %}
+                                                                        {% for v in va %}
+                                                                            {{ v }},
+                                                                        {% endfor %}
+                                                                    {% else %}
+                                                                        {{ va }},
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                {{ value }}
+                                                            {% endif %}
+                                                            {% endapply %}"/>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </fieldset>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-2 col-xs-12">
+                                        {% if (key > 0 or entity.action == "deleted") and entity.content is not empty %}
+                                            <span data-action="restore" data-url="{{ path(managed_entity_type ~ '_restore') }}" class="btn btn-primary btn-red sp-btn-small" data-confirm="{% trans %}Are you sure?{% endtrans %}" data-id="{{ entity.id }}">{% trans %}Restore{% endtrans %}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-7 col-sm-offset-2">
+                                    <div class="btn-toolbar">
+                                        <a href="/" class="sp-btn btn-default btn-red btn" data-action="back">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
+{% endblock %}

@@ -1,0 +1,25 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-recent-notices {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{% trans into current_language %}Notifications{% endtrans %}</h2>
+            {% if data.model.notifications is defined and data.model.notifications is not empty %}
+                <div class="notifications">
+                    {% for notification in data.model.notifications %}
+                        <div class="notification">
+                            <span class="created"><strong>{{ notification.created|date('d.m.Y.') }}</strong></span>
+                            <div class="title">{{ notification.name }}</div>
+                            {% if notification.content is not empty %}
+                                <div class="notification-content">{{ notification.content|raw }}</div>{% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if data.model.go_to_all %}
+                    <br>
+                    <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,63,"s_page") }}" class="show-all">{% trans into current_language %}Show all{% endtrans %}</a>
+                {% endif %}
+            {% else %}
+                <p>{% trans into current_language %}You have no notifications at this time.{% endtrans %}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>

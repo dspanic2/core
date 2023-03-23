@@ -1,0 +1,42 @@
+<div class="sp-block sp-block-task_agile_kanban {{ data.block.class }}" data-current-user-id="{{ app.user.getId }}">
+    {% if data.model.users is not empty %}
+        {% for user in data.model.users %}
+            <div class="panel panel-midnightblue">
+                <div class="panel-body collapse in">
+                    <div class="panel-heading">
+                        <h5>{{ user.getFullName }}</h5>
+                    </div>
+                    <div class="row">
+                        {% if data.model.kanban[user.getId] is defined and data.model.kanban[user.getId] is not empty %}
+                            <div class="col-sm-12 sp-block-user_agile_kanban" style="{% if app.request.cookies.get("kanban_list_hidden_"~user.getId) == "1" %}display:none;{% endif %} grid-template-columns: repeat({{ data.model.priorities|length }},minmax(0,1fr))" data-user-id="{{ user.getId }}">
+                                {% for priority in data.model.priorities %}
+                                    <div class="kanban-column" data-priority-id="{{ priority.getId }}">
+                                        {{ include('TaskBusinessBundle:Includes:task_agile_agile_kanban_priority_header.html.twig', {
+                                            "priority": priority,
+                                        }) }}
+                                        <div class="items">
+                                            {% for task in data.model.kanban[user.getId]["tasks"][priority.getId]["items"]|default([]) %}
+                                                {{ include('TaskBusinessBundle:Includes:task_agile_kanban_item.html.twig', {
+                                                    "task": task,
+                                                    "current_activity": data.model.current_activity,
+                                                }) }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="col-sm-12 sp-block-user_agile_kanban_empty">
+                                <i>{% trans into current_language %}No tasks{% endtrans %}</i>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ include('TaskBusinessBundle:Includes:task_agile_kanban_filters.html.twig', {
+            "projects": data.model.projects|default([]),
+        }) }}
+    {% endif %}
+</div>

@@ -1,0 +1,49 @@
+<div {% if attribute.id is defined %}data-id="{{ attribute.id }}"{% endif %} data-attribute-id="{{ attribute.attribute.id }}" class="col-md-12 col-sm-12 col-xs-12 sp-sortable-group">
+    <div class="sp-sortable-group-inner sp-show-border">
+        <span class="sp-column-name">{{ attribute.attribute.id }}{% if attribute.attribute is defined %} - {{ attribute.attribute.entityType.entityTypeCode }} - {{ attribute.attribute.frontendLabel }}{% endif %}
+            <div class="options">
+                <span class="sp-hover" data-confirm="{% trans %}Are you sure?{% endtrans %}" data-action="remove_attribute"><i class="fa fa-minus"></i></span>
+                <span class="sp-hover margin-left-10" data-action="toggle-column"><i class="fa fa-arrow-down"></i></span>
+            </div>
+        </span>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Label{% endtrans %}</label>
+            <div class="col-sm-6">
+                <input type="hidden" name="attribute[{{ attribute.attribute.id }}][list_view_id]" class="hidden form-control" {% if attribute.id is defined %}value="{{ attribute.id }}"{% endif %}/>
+                <input type="text" name="attribute[{{ attribute.attribute.id }}][label]" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" value="{% if attribute.label is defined %}{{ attribute.label }}{% else %}{{ attribute.attribute.frontendLabel }}{% endif %}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Display{% endtrans %}</label>
+            <div class="col-sm-6">
+                <label>
+                    <input data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" type="checkbox" name="attribute[{{ attribute.attribute.id }}][display]" data-type="bchackbox" {% apply spaceless %}
+                           {% if attribute.display is defined and attribute.display == 0 %}{% else %}checked="checked"{% endif %}
+                        value="1"
+                            {% endapply %}/></label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Field{% endtrans %}</label>
+            <div class="col-sm-6">
+                <input type="text" name="attribute[{{ attribute.attribute.id }}][field]" class="form-control" {% if attribute.field is defined %}value="{{ attribute.field }}{% endif %}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Width{% endtrans %}</label>
+            <div class="col-sm-6">
+                <input type="text" name="attribute[{{ attribute.attribute.id }}][column_width]" class="form-control" {% if attribute.columnWidth is defined %}value="{{ attribute.columnWidth }}{% endif %}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 control-label">{% trans %}Inline editing{% endtrans %}</label>
+            <div class="col-sm-6">
+                <label>
+                    <input data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" type="checkbox" name="attribute[{{ attribute.attribute.id }}][enable_inline_editing]" data-type="bchackbox" {% apply spaceless %}
+                           {% if attribute.enableInlineEditing is defined and attribute.enableInlineEditing == 0 %}{% else %}checked="checked"{% endif %}
+                        value="1"
+                            {% endapply %}/></label>
+            </div>
+        </div>
+    </div>
+</div>

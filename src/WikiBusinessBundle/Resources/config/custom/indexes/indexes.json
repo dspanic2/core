@@ -1,0 +1,7 @@
+{
+  "index": {
+    "wiki_page_entity": "parent_topic_id,parent_page_id,tags",
+    "wiki_page_tag_entity": "wiki_page_id,wiki_tag_id",
+    "wiki_route_entity": "redirect_type_id"
+  }
+}

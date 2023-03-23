@@ -1,0 +1,22 @@
+<div id="kanban-filters">
+    {% if projects is not empty %}
+        <div class="kanban-filters-item">
+            <div class="kanban-filter-title-wrapper">
+                <div class="kanban-filter-title">{% trans %}Projects{% endtrans %}</div>
+                <label title="{% trans %}Toggle{% endtrans %}">
+                    <input type="checkbox" name="kanban_filter_projects_show_all" class="show-all" checked="checked"/>
+                </label>
+            </div>
+            <ul>
+                {% for project in projects %}
+                    <li>
+                        <label title="{{ project.getName }}">
+                            <input type="checkbox" name="kanban_filter_projects" value="{{ project.getId }}" checked="checked"/>
+                            <span class="label">{{ project.getName }}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>

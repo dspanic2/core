@@ -1,0 +1,7 @@
+services:
+
+    email_view_block:
+        class: SharedInboxBusinessBundle\Blocks\EmailViewBlock
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]

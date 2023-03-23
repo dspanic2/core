@@ -1,0 +1,15 @@
+{% if orderItems is defined and orderItems is not empty %}
+    <div class="items-grid order-view">
+        {% set index = 1 %}
+        {% for orderItem in orderItems %}
+            {% if orderItem.parentItem is empty %}
+                {{ include('ScommerceBusinessBundle:Components/Product:product_cart_overview_item.html.twig', {
+                    'data': data|default({}),
+                    'quoteItem': orderItem,
+                    'editable': 0
+                }) }}
+                {% set index = index + 1 %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,47 @@
+body.login {
+  .min-100vh {
+    min-height: 100vh !important;
+  }
+
+  body {
+    background-color: #f5f8fa;
+    overflow: hidden;
+  }
+
+  .login-bg {
+    background-image: url($login-pattern-image);
+    background-repeat: repeat-x;
+    background-size: cover;
+    @media(max-width: 767px) {
+      display: none;
+    }
+  }
+
+  .login-main {
+    background-color: #f5f8fa;
+  }
+
+  .focusedform {
+    background: #e6e7e8;
+    padding: 0;
+
+    .panel {
+      width: 400px;
+      text-align: center;
+    }
+
+    .verticalcenter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .brand {
+      display: block;
+      padding-bottom: 40px;
+      margin: 0 auto;
+      width: 224px;
+    }
+  }
+}

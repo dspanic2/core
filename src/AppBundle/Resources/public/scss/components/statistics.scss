@@ -1,0 +1,49 @@
+.statistics-unit {
+  font-size: calculateRem(12px);
+}
+
+.statistics-card-wrapper {
+  color: #fff;
+  font-size: calculateRem(14px);
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.statistics-card {
+  border-radius: 5px;
+}
+
+.statistics-title {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.statistics-data {
+  font-size: calculateRem(30px);
+  font-weight: 600;
+}
+
+.statistics-data-bottom {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.statistics-small {
+  font-size: calculateRem(11px);
+  margin-top: 2px;
+}
+
+.statistics-positive {
+  color: #128b3c;
+}
+
+.statistics-negative {
+  color: #B22424;
+}
+
+.statistics-neutral {
+  color: #ab8d3e;
+}

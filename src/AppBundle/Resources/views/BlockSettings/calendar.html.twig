@@ -1,0 +1,190 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper calendar-settings">
+            <div class="form-group row hidden">
+                <div class="col-sm-6">
+                    <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="title" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %} name="type" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        <option  selected="selected"  value="calendar">calendar</option>
+                    </select>
+                </div>
+            </div>
+            {% if entity is not empty and entity.content is not null %}
+                {% set object = entity.content|json_decode %}
+                {% if object.list_view is defined and object.list_view is not empty %}
+                    {% set entity_content = object %}
+                {% endif %}
+                {% if object is defined and object is not empty %}
+                    {% set entity_content = object %}
+                {% endif %}
+            {% endif %}
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}List view{% endtrans %}</label>
+                <div class="col-sm-9 sp-multiselect cursor-normal">
+                    <ul class="ul-no-style ul-no-padding dependant-select">
+                        {% for list_view in list_views %}
+                            <li>
+                                <input id="list-view-{{ loop.index }}"
+                                       type="checkbox"
+                                       name="listView[]"
+                                       value="{{ list_view.id }}"
+                                       {% if entity_content is defined and entity_content.list_view is defined and list_view.uid in entity_content.list_view %}checked{% endif %}>
+                                <label for="list-view-{{ loop.index }}">{{ list_view.name }}</label>
+                                <div class="options">
+                                    <div class="form-group">
+                                        {% trans %}Use as title{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.uid }}-attribute" name="titleListView{{ list_view.uid }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.uid }}"
+                                                        {% if (entity_content is defined and attribute(entity_content.list_view_attributes, "titleListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "titleListView"~list_view.uid~"Attribute") == attribute.uid) or (entity_content is defined and attribute(entity_content.list_view_attributes, "titleListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "titleListView"~list_view.uid~"Attribute") == attribute.id) %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as title 2{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.uid }}-attribute" name="title2ListView{{ list_view.uid }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.uid }}"
+                                                        {% if (entity_content is defined and attribute(entity_content.list_view_attributes, "title2ListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "title2ListView"~list_view.uid~"Attribute") == attribute.uid) or (entity_content is defined and attribute(entity_content.list_view_attributes, "title2ListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "title2ListView"~list_view.uid~"Attribute") == attribute.id) %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as title 3{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.uid }}-attribute" name="title3ListView{{ list_view.uid }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.uid }}"
+                                                        {% if (entity_content is defined and attribute(entity_content.list_view_attributes, "title3ListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "title3ListView"~list_view.uid~"Attribute") == attribute.uid) or (entity_content is defined and attribute(entity_content.list_view_attributes, "title3ListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "title3ListView"~list_view.uid~"Attribute") == attribute.id) %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as tooltip{% endtrans %}
+                                        <select id="title-list-view-{{ list_view.uid }}-attribute" name="descriptionListView{{ list_view.uid }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.uid }}"
+                                                        {% if (entity_content is defined and attribute(entity_content.list_view_attributes, "descriptionListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "descriptionListView"~list_view.uid~"Attribute") == attribute.uid) or (entity_content is defined and attribute(entity_content.list_view_attributes, "descriptionListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "descriptionListView"~list_view.uid~"Attribute") == attribute.id) %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as start datetime{% endtrans %}
+                                        <select id="start-list-view-{{ list_view.uid }}-attribute" name="startListView{{ list_view.uid }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.uid }}"
+                                                        {% if (entity_content is defined and attribute(entity_content.list_view_attributes, "startListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "startListView"~list_view.uid~"Attribute") == attribute.uid) or (entity_content is defined and attribute(entity_content.list_view_attributes, "startListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "startListView"~list_view.uid~"Attribute") == attribute.id) %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as end datetime{% endtrans %}
+                                        <select id="end-list-view-{{ list_view.uid }}-attribute" name="endListView{{ list_view.uid }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.uid }}"
+                                                        {% if (entity_content is defined and attribute(entity_content.list_view_attributes, "endListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "endListView"~list_view.uid~"Attribute") == attribute.uid) or (entity_content is defined and attribute(entity_content.list_view_attributes, "endListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "endListView"~list_view.uid~"Attribute") == attribute.id) %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        {% trans %}Use as color{% endtrans %}
+                                        <select id="color-list-view-{{ list_view.uid }}-attribute" name="colorListView{{ list_view.uid }}Attribute" class="form-control">
+                                            <option value="">{% trans %}Please select{% endtrans %}</option>
+                                            {% for attribute in list_view.allAttributes %}
+                                                <option value="{{ attribute.uid }}"
+                                                        {% if (entity_content is defined and attribute(entity_content.list_view_attributes, "colorListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "colorListView"~list_view.uid~"Attribute") == attribute.uid) or (entity_content is defined and attribute(entity_content.list_view_attributes, "colorListView"~list_view.uid~"Attribute") is defined and attribute(entity_content.list_view_attributes, "colorListView"~list_view.uid~"Attribute") == attribute.id) %}selected="selected"{% endif %}>{{ attribute.entityType.entityTypeCode }} - {{ attribute.frontendLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Open in modal{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <select id="open_modal" name="open_modal" class="form-control">
+                        <option value="0" {% if entity_content is defined and entity_content.open_modal is defined and entity_content.open_modal == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                        <option value="1" {% if entity_content is defined and entity_content.open_modal is defined and entity_content.open_modal == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Form type{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <select id="form_type" name="form_type" class="form-control">
+                        <option value="0" {% if entity_content is defined and entity_content.form_type is defined and entity_content.form_type == 0 %}selected="selected"{% endif %}>{% trans %}Form{% endtrans %}</option>
+                        <option value="1" {% if entity_content is defined and entity_content.form_type is defined and entity_content.form_type == 1 %}selected="selected"{% endif %}>{% trans %}View{% endtrans %}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Enable drag and drop{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <select id="drag_and_drop" name="drag_and_drop" class="form-control">
+                        <option value="0" {% if entity_content is defined and entity_content.drag_and_drop is defined and entity_content.drag_and_drop == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                        <option value="1" {% if entity_content is defined and entity_content.drag_and_drop is defined and entity_content.drag_and_drop == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Enable print{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <select id="enable_print" name="enable_print" class="form-control">
+                        <option value="0" {% if entity_content is defined and entity_content.enable_print is defined and entity_content.enable_print == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                        <option value="1" {% if entity_content is defined and entity_content.enable_print is defined and entity_content.enable_print == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}First day{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <select id="first_day" name="first_day" class="form-control">
+                        <option value="1" {% if entity_content is defined and entity_content.first_day is defined and entity_content.first_day == 1 %}selected="selected"{% endif %}>{% trans %}Monday{% endtrans %}</option>
+                        <option value="2" {% if entity_content is defined and entity_content.first_day is defined and entity_content.first_day == 2 %}selected="selected"{% endif %}>{% trans %}Tuesday{% endtrans %}</option>
+                        <option value="3" {% if entity_content is defined and entity_content.first_day is defined and entity_content.first_day == 3 %}selected="selected"{% endif %}>{% trans %}Wednesday{% endtrans %}</option>
+                        <option value="4" {% if entity_content is defined and entity_content.first_day is defined and entity_content.first_day == 4 %}selected="selected"{% endif %}>{% trans %}Thursday{% endtrans %}</option>
+                        <option value="5" {% if entity_content is defined and entity_content.first_day is defined and entity_content.first_day == 5 %}selected="selected"{% endif %}>{% trans %}Friday{% endtrans %}</option>
+                        <option value="6" {% if entity_content is defined and entity_content.first_day is defined and entity_content.first_day == 6 %}selected="selected"{% endif %}>{% trans %}Saturday{% endtrans %}</option>
+                        <option value="0" {% if entity_content is defined and entity_content.first_day is defined and entity_content.first_day == 0 %}selected="selected"{% endif %}>{% trans %}Sunday{% endtrans %}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="class" class="form-control" {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <input type="text" name="dataAttributes" class="form-control" {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

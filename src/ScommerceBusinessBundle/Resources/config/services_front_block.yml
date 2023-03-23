@@ -1,0 +1,427 @@
+services:
+
+  html_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\HtmlBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  header_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\HeaderBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  container_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ContainerBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  selected_brands_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SelectedBrandsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  all_brands_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\AllBrandsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  filtered_brands_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\FilteredBrandsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  newsletter_signup_horizontal_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\NewsletterSignupHorizontalBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  home_products_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\HomeProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  filtered_products_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\FilteredProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  selected_products_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SelectedProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  home_categories_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\HomeCategoriesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  page_content_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\PageContentBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  page_title_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\PageTitleBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  block_title_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BlockTitleBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  footer_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\FooterBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  testimonials_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\TestimonialsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_filter_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ProductFilterBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  breadcrumbs_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BreadcrumbsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_grid_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ProductGridBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_details_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ProductDetailsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  faq_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\FaqBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  random_products_in_category_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\RandomProductsInCategoryBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  recently_viewed_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\RecentlyViewedBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  category_description_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\CategoryDescriptionBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  search_result_header_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SearchResultHeaderBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  search_result_empty_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SearchResultEmptyBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  register_form_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\RegisterFormBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  login_form_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\LoginFormBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  reset_password_form_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ResetPasswordFormBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  reset_password_new_password_form_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ResetPasswordNewPasswordFormBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  compare_products_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\CompareProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  content_404_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\Content404Block
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  content_success_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ContentSuccessBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  content_failure_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ContentFailureBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  cart_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\CartBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  blog_post_grid_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BlogPostGridBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  favorites_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\FavoritesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_menu_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardMenuBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_recent_orders_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardRecentOrdersBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_returns_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardReturnsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_favorites_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardFavoritesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_recent_notices_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardRecentNoticesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_mini_profile_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardMiniProfileBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_most_sold_products_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardMostSoldProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_profile_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardProfileBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_order_preview_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardOrderPreviewBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  dashboard_loyalty_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\DashboardLoyaltyBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  quote_preview_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\QuotePreviewBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  sitemap_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SitemapBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  custom_product_grid_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\CustomProductGridBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  newsletter_unsubscribe_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\NewsletterUnsubscribeBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  filtered_blog_posts_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\FilteredBlogPostsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  subcategory_grid_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SubcategoryGridBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  banner_large_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BannerLargeBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  banner_medium_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BannerMediumBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  related_products_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\RelatedProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  side_menu_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SideMenuBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  general_contact_form_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\GeneralContactFormBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  blog_category_grid_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BlogCategoryGridBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  slider_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SliderBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  blog_post_products_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BlogPostProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  webform_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\WebformBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  tabs_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\TabsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  comments_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\CommentsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  cart_gifts_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\CartGiftsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  quick_order_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\QuickOrderBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  system_messages_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\SystemMessagesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_related_articles_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\ProductRelatedArticlesBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  blog_post_related_blog_posts_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\BlogPostRelatedBlogPostsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  most_viewed_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\MostViewedBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  page_builder_front_block:
+    class: ScommerceBusinessBundle\FrontBlocks\PageBuilderBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

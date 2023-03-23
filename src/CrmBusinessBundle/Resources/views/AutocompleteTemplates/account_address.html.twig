@@ -1,0 +1,1 @@
+{% if field_data.city is not empty %}{{ field_data.city.postalCode }} {{ field_data.city.name }}{% else %}{% trans %}Missing city{% endtrans %}{% endif %}, {{ field_data.street }}{% if field_data.firstName is defined and field_data.firstName is not empty %}, {{ field_data.firstName }} {{ field_data.lastName }}{% endif %}

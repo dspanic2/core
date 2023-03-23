@@ -1,0 +1,12 @@
+.sp .sp-product-calculation-block .form-control-small{
+    height: 20px!important;
+    line-height: 20px!important;
+    padding: 0!important;
+    font-size: 14px!important;
+}
+.sp .sp-product-calculation-block .sp-btn.btn-primary.btn{
+    line-height: 18px!important;
+}
+.sp .sp-product-calculation-block tr .sp-options-text{
+    margin: 0;
+}

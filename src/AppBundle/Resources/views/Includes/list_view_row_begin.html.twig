@@ -1,0 +1,15 @@
+<tr data-row-id="{{ entity.id }}" class="{{ index }} sp-row-clickable {% if row_action is not empty and row_action.action is defined %}sp-hover{% endif %} {% if row_action.class is defined %}{{ row_action.class }}{% endif %}" {% apply spaceless %}
+        {% set form_type = "view" %}
+        {% if row_action.form_type is defined and row_action.form_type is not empty %}
+            {% set form_type = row_action.form_type %}
+        {% endif %}
+    {% if row_action is not empty and row_action.action is defined %}
+        {% if row_action.type is not defined or row_action.type == "button" %}
+            data-action="{{ row_action.action }}" data-id="{{ entity.id }}"
+            data-url="{{ path(row_action.url, {'id': entity.id, 'url': entity.attributeSet.attributeSetCode, 'type': form_type}) }}" {% if row_action.callback is defined and row_action.callback is not empty %}data-callback='{{ row_action.callback }}'{% endif %} {% if row_action.confirm is defined and row_action.confirm is not empty %}data-confirm="{{ row_action.confirm }}"{% endif %}
+        {% elseif row_action.type == "custom_link" %}
+            data-action="{{ row_action.action }}" data-id="{{ entity.id }}"
+            data-url="{{ app.request.getBaseURL() }}{{ row_action.url }}{{ form_type }}/{{ entity.id }}" {% if row_action.callback is defined and row_action.callback is not empty %}data-callback='{{ row_action.callback }}'{% endif %} {% if row_action.confirm is defined and row_action.confirm is not empty %}data-confirm="{{ row_action.confirm }}"{% endif %}
+        {% endif %}
+    {% endif %}
+{% endapply %}>

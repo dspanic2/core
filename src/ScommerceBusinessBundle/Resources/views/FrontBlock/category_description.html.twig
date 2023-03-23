@@ -1,0 +1,30 @@
+{% if data.page.description is defined and data.page.description is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} section category-description {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="row">
+            <div class="col-xs-12">
+                {% set title = get_entity_store_attribute(current_store_id,data.page,"name") %}
+                {% if facet_title is defined and facet_title is not empty %}
+                    <h1 data-original="{{ title }}">{{ facet_title }}</h1>
+                {% else %}
+                    <h1>{{ title }}</h1>
+                {% endif %}
+
+                {% if data.page.getSelectedImage() is not empty %}
+                    <div class="category-image">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                            'image': data.page.getSelectedImage,
+                            'directory':'product_group_images',
+                            'image_style': 'category_item',
+                            'alt_default': title
+                        }}, {})) }}
+                    </div>
+                {% endif %}
+
+                {% set description = get_entity_store_attribute(current_store_id,data.page,"description") %}
+                {% if description is defined and description is not empty %}
+                    {{ description|raw }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,15 @@
+<div class="modal fade {% if class is defined and class is not empty %}{{ class }}{% endif %}" id="default_modal" role="dialog" aria-labelledby="label"
+     {% if app.request.query.all is not empty %}data-parameters="{% for key,value in app.request.query.all %}{{ key }}={{ value }}{% if not loop.last %};{% endif %}{% endfor %}"{% endif %}>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">{{ title|trans }}</h5>
+            </div>
+            <div class="modal-body">
+                {{ html|raw }}
+            </div>
+        </div>
+    </div>
+</div>

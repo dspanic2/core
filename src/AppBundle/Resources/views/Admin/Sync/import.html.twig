@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    {% block main_actions %}
+
+    {% endblock %}
+    {% block main_title %}
+        Import from JSON file
+    {% endblock %}
+{% endblock %}
+
+{% block extrajavascripts %}
+    {% javascripts '@AppBundle/Resources/public/js/views/administrator/import_entity_types_form.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <form data-validate="true" method="post" action="{{ path('administrator_import_json') }}"
+                      data-callback=''
+                      class="form-horizontal row-border">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">{% trans %}Select file{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="file"
+                                                       id="json_file"
+                                                       class="form-control" data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please select the export JSON file{% endtrans %}"/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">{% trans %}Export content{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <textarea
+                                                        readonly
+                                                        placeholder="Please select a file."
+                                                        style="min-height: 400px"
+                                                        id="json_content"
+                                                        name="export_content"
+                                                        class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <button type="submit" class="btn-primary btn btn-blue run_sync" data-action="stay"
+                                                data-url="{{ path('administrator_import_json') }}">Import
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

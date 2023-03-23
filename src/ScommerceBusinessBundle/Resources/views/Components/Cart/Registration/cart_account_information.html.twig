@@ -1,0 +1,48 @@
+{% if data.model.account is defined and data.model.account is not empty %}
+    <div class="basic-information">
+        <div class="row">
+            <div class="first-name col-xs-12 col-sm-6">
+                <span class="label force-visible">{% trans into current_language %}Name{% endtrans %}:</span>
+                <p>{{ data.model.account.name }}</p>
+            </div>
+        </div>
+        {% if data.model.account.getBillingAddress is not empty %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="label force-visible">{% trans into current_language %}Billing address{% endtrans %}:</span>
+                    {% set street = data.model.account.getBillingAddress.street %}
+                    {% set city = data.model.account.getBillingAddress.city.name %}
+                    {% set postalCode = data.model.account.getBillingAddress.city.postalCode %}
+                    {% set country = get_entity_store_attribute(current_store_id,data.model.account.getBillingAddress.city.country,"name") %}
+                    <div class="address"><p>{{ street }}, {{ city }} {{ postalCode }}, {{ country }}</p></div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="dashboard-add-new optional">
+                        <button class="button btn-type-1 add-new-button-missing-address local-overlay">{% trans into current_language %}Add address{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <span class="label force-visible">{% trans into current_language %}Email{% endtrans %}:</span>
+                <p>{{ data.model.contact.email }}</p>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <span class="label force-visible">{% trans into current_language %}Phone{% endtrans %}:</span>
+                <p>{{ data.model.contact.phone }}</p>
+            </div>
+        </div>
+        {% if data.model.account.isLegalEntity %}
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <span class="label force-visible">{% trans into current_language %}Customer{% endtrans %}:</span>
+                    <p>{{ data.model.contact.fullName }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

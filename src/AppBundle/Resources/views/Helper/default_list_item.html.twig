@@ -1,0 +1,7 @@
+<div class="item-list row" data-type="{{ data.entity.entityType.entityTypeCode }}" data-attribute-set="{{ data.entity.attributeSet.attributeSetCode }}" data-discount-price-attribute="{% if data.definition.discount_price_attribute is defined %}{{ data.definition.discount_price_attribute }}{% else %}price_discount{% endif %}" data-price-attribute="{% if data.definition.price_attribute is defined %}{{ data.definition.price_attribute }}{% else %}price_retail{% endif %}">
+    <div class="col-sm-1">{{ data.entity.code }}</div>
+    <div class="col-sm-6"><span class="title1">{{ data.entity.name }}</span></div>
+    <div class="col-sm-3"><span class="price">{{ data.entity.priceRetail|number_format(2, '.', ',') }} {{ data.entity.currency.code }}</span></div>
+    <div class="col-sm-1"><input type="number" class="form-control form-control-small no-icon" name="qty" value="1"/></div>
+    <div class="col-sm-1"><button class="sp-btn sp-btn-small btn-primary btn-blue btn" data-id="{{ data.entity.id }}" data-action="{{ data.definition.action }}" data-url="{{ path(data.definition.url) }}" data-callback="{{ data.definition.callback }}">{% trans %}Add{% endtrans %}</button></div>
+</div>

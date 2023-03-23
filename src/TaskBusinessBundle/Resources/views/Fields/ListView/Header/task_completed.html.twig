@@ -1,0 +1,4 @@
+<th data-col-name="{{ field }}" data-col-search="true" data-col-sort="true" data-search-type="tt"
+    {% if show_filter == 0 %}data-col-filter="false" {% else %}data-col-filter="true" data-filter-type="select"
+    data-list='[{"value":"true","label":"{% trans %}Yes{% endtrans %}"},{"value":"false","label":"{% trans %}No{% endtrans %}"}]'
+    data-search-type="tt"{% endif %}>{{ label|trans }}</th>

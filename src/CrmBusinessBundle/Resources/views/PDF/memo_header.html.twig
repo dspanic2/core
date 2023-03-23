@@ -1,0 +1,42 @@
+{% set money_transfer_payment_slip = get_env("MONEY_TRANSFER_PAYMENT_SLIP")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set site_base_data = get_env("SITE_BASE_DATA")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+
+{% set storeId = get_env("DEFAULT_STORE_ID") %}
+{% set websiteId = get_env("DEFAULT_WEBSITE_ID") %}
+{% if data.order is defined %}
+    {% set storeId = data.order.storeId %}
+    {% set websiteId = data.order.getStore.getWebsiteId %}
+{% elseif data.quote is defined %}
+    {% set storeId = data.quote.storeId %}
+    {% set websiteId = data.quote.getStore.getWebsiteId %}
+{% endif %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ get_env('WEB_PATH') ~ asset('backend/AppBundle/css/pdf.css') }}">
+    {% endblock %}
+    <meta charset="UTF-8">
+</head>
+<body style="padding-top:15px;">
+<div class="header">
+    <div class="logo">
+        <img src="{{ get_env('WEB_PATH') }}/logo.png"/>
+    </div>
+    <div class="info">
+        <p>
+            <strong>{{ site_base_data[websiteId].site_base_companyName }}</strong><br/>
+            {{ site_base_data[websiteId].site_base_streetAddress }},
+            {{ site_base_data[websiteId].site_base_addressLocality }}<br/>
+            Email: <a href="{{site_base_data[websiteId].site_base_contact}}"> {{ site_base_data[websiteId].site_base_contact }}</a><br/>
+            IBAN: {{ money_transfer_payment_slip[storeId].recipient_iban_or_account }}<br/>
+            OIB: {{ money_transfer_payment_slip[storeId].recipient_oib }}
+        </p>
+    </div>
+    <div class="divider">
+        <hr>
+    </div>
+</div>
+</body>
+</html>

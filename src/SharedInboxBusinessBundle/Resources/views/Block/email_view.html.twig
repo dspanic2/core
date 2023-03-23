@@ -1,0 +1,88 @@
+<div class="sp-block sp-block-{{ data.block.type }} {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-heading">
+            <h5>{{ data.block.title|trans }}
+                {% if data.subtype == 'view' or is_granted('ROLE_ADMIN') %}
+                    <div class="options">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </h5>
+        </div>
+    </div>
+    {% if data.model.emails is not empty %}
+        <div class="sp-block-group-wrapper">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 sp-block-wrapper">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-heading">
+                            <h5>{% trans %}Info{% endtrans %}<span class="email-reply-button"
+                                                                   data-email-id="{{ data.model.emails.email.id }}"
+                                                                   data-action="email_reply"
+                                                                   data-url="{{ path('email_reply_form') }}"><i
+                                            class="fas fa-reply"></i>&nbsp;{% trans %}Reply{% endtrans %}</span></h5>
+                        </div>
+                        <div class="panel-body collapse in">
+                            {{ include('SharedInboxBusinessBundle:Includes:email_detailed.html.twig', {"email": data.model.emails.email }) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 sp-block-wrapper">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-heading">
+                            <h5>{% trans %}Correspondence{% endtrans %}</h5>
+                        </div>
+                        <div class="panel-body collapse in">
+                            {% macro renderEmailReply(e,show_replay) %}
+                                <div class="email-item">
+                                    {{ include('SharedInboxBusinessBundle:Includes:email_single.html.twig', {"email": e.email, "show_replay": show_replay, "parent": "accordion-" ~ e.email.getId }) }}
+                                    {% if e.replies is not empty %}
+                                        {% set tmp = e.replies|last %}
+                                        {% set show_replay = 0 %}
+                                        <div class="email-replies">
+                                            {% for reply in e.replies %}
+                                                {% if tmp.email.getId == reply.email.getId  %}
+                                                    {% set show_replay = 1 %}
+                                                {% endif %}
+                                                {{ _self.renderEmailReply(reply,show_replay) }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endmacro %}
+                            {% if data.model.emails.replies %}
+                                <div class="items accordion" id="accordion-{{ data.model.entity.getId }}">
+                                    {% set tmp = data.model.emails.replies|last %}
+                                    {% set show_replay = 0 %}
+                                    {% for e in data.model.emails.replies %}
+                                        {% if tmp.email.getId == e.email.getId  %}
+                                            {% set show_replay = 1 %}
+                                        {% endif %}
+                                        {{ include('SharedInboxBusinessBundle:Includes:email_single.html.twig', {"email": e.email, "show_replay": show_replay, "parent": "accordion-" ~ e.email.getId }) }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 sp-block-wrapper">
+                <div class="panel panel-midnightblue">
+                    <div class="panel-heading">
+                        <h5>{% trans %}Correspondence{% endtrans %}</h5>
+                    </div>
+                    <div class="panel-body collapse in">
+                        <div style="text-align: center;">
+                            <p><i class="fas fa-info-circle"></i>&nbsp;{% trans %}No emails found.{% endtrans %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

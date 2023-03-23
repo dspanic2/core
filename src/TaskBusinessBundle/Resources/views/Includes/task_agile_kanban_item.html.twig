@@ -1,0 +1,48 @@
+<div class="task-item" data-task-id="{{ task.getId }}" data-project-id="{{ task.getProject.getId }}" title="{{ task.getSubject|striptags }}">
+    <div class="subject-wrapper">
+        <div class="subject">{% if task.getProject is not empty %}<strong>{{ task.getProject.getName|raw }}</strong> - {% endif %}{{ task.getSubject|raw }}</div>
+        <div class="actions">
+            <ul>
+                <li data-action='kanban_activity_tracking_start'
+                    class="{% if current_activity|default(null) is not empty and current_activity.getTaskId == task.getId %}active{% endif %}"
+                    aria-hidden="true"
+                    title="Start"
+                    data-activity-id="{{ task.id }}"
+                    data-url="/task/start/{{ task.id }}">
+                    <i class="fa fa-play-circle sp-true"></i>
+                </li>
+                <li data-action='kanban_activity_tracking_stop'
+                    aria-hidden="true"
+                    title="Stop"
+                    data-activity-id="{{ task.id }}"
+                    data-url="/task/stop/{{ task.id }}">
+                    <i class="fa fa-stop"></i>
+                </li>
+                <li title="Preview"
+                    data-url="{{ path('block_modal_view', {
+                        'id': task.id,
+                        'block_id':'3edd154fe7252e5d36eee451eb01e2d1'
+                    }) }}"
+                    data-action="modal_add">
+                    <i class="fa fa-eye"></i>
+                </li>
+                <li title="Complete"
+                    data-url="{{ path('change_completed', {'id': task.id }) }}"
+                    data-callback='["removeTaskItem"]'
+                    data-action="standard_action">
+                    <i class="fa fa-check"></i>
+                </li>
+                <li title="Copy"
+                    onclick="$.copyToClipboard('https://{{ get_env("FRONTEND_URL") }}/page/task/form/{{ task.id }}');"
+                >
+                    <i class="fa fa-copy"></i>
+                </li>
+                <li title="https://{{ get_env("FRONTEND_URL") }}/page/task/form/{{ task.id }}">
+                    <a href="https://{{ get_env("FRONTEND_URL") }}/page/task/form/{{ task.id }}" target="_blank"><i class="fa fa-link"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="body-wrapper">
+    </div>
+</div>

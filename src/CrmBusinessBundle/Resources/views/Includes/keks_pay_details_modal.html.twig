@@ -1,0 +1,70 @@
+<form data-validate="true" method="post" action="{{ path('keks_pay_refund') }}" accept-charset="UTF-8"
+      data-callback='["custom"]'
+      data-custom-callback='["reloadPage"]'
+      data-type="keks_pay_details_modal"
+      data-attribute-set-code="keks_pay_details_modal"
+      class="form-horizontal row-border">
+    <div class="sp-block-group-wrapper">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 sp-block-wrapper">
+                <div class="sp-block">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-body collapse in">
+                            <div class="panel-heading">
+                                <h5>{% trans %}KeksPay details{% endtrans %}</h5>
+                            </div>
+                            <fieldset class="form-group-wrapper">
+                                <div class="form-group hidden" data-form-group="order_id">
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input data-type="integer" class="form-control" type="text" name="order_id" value="{{ data.payment_transaction.order.id }}"/>
+                                        <input data-type="integer" class="form-control" type="text" name="payment_transaction_id" value="{{ data.payment_transaction.id }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-form-group="card_number">
+                                    <label class="col-sm-4 col-xs-4 control-label">{% trans %}Total paid amount{% endtrans %}</label>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input type="text" disabled="disabled" readonly="readonly" class="form-control" name="amount" value="{{ data.payment_transaction.amount|number_format(2, ',', '.') }}">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group-wrapper">
+                                <div class="form-group" data-form-group="card_number">
+                                    <label class="col-sm-4 col-xs-4 control-label">{% trans %}Total refunded amount{% endtrans %}</label>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input type="text" disabled="disabled" readonly="readonly" class="form-control" name="refund_amount" value="{{ data.payment_transaction.refundAmount|number_format(2, ',', '.') }}">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group-wrapper">
+                                <div class="form-group" data-form-group="card_number">
+                                    <label class="col-sm-4 col-xs-4 control-label">{% trans %}Total left amount{% endtrans %}</label>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input type="text" disabled="disabled" readonly="readonly" class="form-control" name="left_amount" value="{{ (data.payment_transaction.amount - data.payment_transaction.refundAmount)|number_format(2, ',', '.') }}">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group-wrapper">
+                                <div class="form-group" data-form-group="card_number">
+                                    <label class="col-sm-4 col-xs-4 control-label">{% trans %}Refund{% endtrans %}</label>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input type="text" class="form-control" name="amount_to_refund" value="">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7 col-sm-offset-2">
+                <div class="btn-toolbar">
+                    <button type="submit" class="sp-btn btn-primary btn-blue btn" data-action="close-modal" data-url="">{% trans %}Refund{% endtrans %}</button>
+                    <button type="button" class="btn-default btn pull-right btn-red" data-dismiss="modal"><span aria-hidden="true">{% trans %}Close{% endtrans %}</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

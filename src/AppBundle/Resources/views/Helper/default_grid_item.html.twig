@@ -1,0 +1,18 @@
+{% set imageUrl = "" %}
+{% if data.entity.getSelectedImage() is not empty %}
+    {% set imageUrl = data.entity.getSelectedImage().file %}
+{% endif %}
+<div class="item {% if data.definition.class is defined and data.definition.class is not empty %}{{ data.definition.class }}{% endif %}"
+     {% if data.definition.callback is defined and data.definition.callback is not empty %}data-callback="{{ data.definition.callback }}"{% endif %}
+     data-id="{{ data.entity.id }}"
+     data-type="{{ data.entity.entityType.entityTypeCode }}"
+     data-attribute-set="{{ data.entity.attributeSet.attributeSetCode }}"
+     data-action="{{ data.definition.action }}"
+     data-url="{{ path(data.definition.url) }}"
+     data-discount-price-attribute="{% if data.definition.discount_price_attribute is defined %}{{ data.definition.discount_price_attribute }}{% else %}price_discount{% endif %}"
+     data-price-attribute="{% if data.definition.price_attribute is defined %}{{ data.definition.price_attribute }}{% else %}price_retail{% endif %}"
+        {% if imageUrl is not empty %}style="background:url('{{ data.definition.folder }}{{ imageUrl }}')"{% endif %}>
+    {#<span class="overlay"><i class="fa fa-check"></i></span>#}
+    <div class="title1">{{ data.entity.name }}</div>
+    <div class="price">{{ data.entity.priceRetail }}</div>
+</div>

@@ -1,0 +1,183 @@
+Approve: Odobriti
+Absence is already approveed: Odsutnost je već odobrena
+Approved: Odobreno
+Absence is approved: Odsutnost je odobrena
+Report item is approved: Stavka izvješća je odobrena
+Disapprove: Odbiti
+Absence is already disapproved: Odsutnost je već neodobrena
+Disapproved: Neodobreno
+Absence is disapproved: Odsutnost nije odobrena
+Report item is disapproved: Stavka izvješća nije odobrena
+Absence status: Status odsutnosti
+This user is not connected to any employee: Ovaj korisnik nije povezan ni s jednim zaposlenikom
+Number of vacation days left from: Broj preostalih dana odmora
+This year: Ove godine
+Request new absence: Zatražite novu odsutnost
+Citizenship: Državljanstvo
+City of residence: Grad prebivališta
+City of whereabout: Grad boravišta
+Contact person: Kontakt osoba
+Date of birth: Datum rođenja
+Total days in lockout: Ukupno dana u kazni
+Total days in strike: Ukupno dana u štrajku
+Department: Odjel
+Employed as: Zaposlen kao
+End date: Datum završetka
+Start date: Početni datum
+Termination reason: Razlog prekida
+Expiration of residence date: Istek datuma boravka
+Foreign citizen: Strani državljanin
+Full_name: Puno ime
+Highest school: Najviša škola
+ID number: ID broj
+Mobile phone: Mobitel
+Please enter the phone number in format 385914584804: Unesite telefonski broj u formatu 385914584804
+Night shift: Noćna smjena
+Parent name: Ime roditelja
+Permission Expiring: Dozvola istječe
+Sistematski pregled: Sistematski pregled
+Personal number: Osobni broj
+HZMO: HZMO
+Public transport card: Pokaz javnog prijevoza
+Datum isteka godišnjeg pokaza: Datum isteka godišnjeg pokaza
+Qualification: Kvalifikacija
+Remark: Napomena
+Sex: Spol
+Street of residence: Ulica prebivališta
+Street of whereabout: Ulica boravišta
+Substitute: Zamjena
+Work experience years: Godine radnog iskustva
+Please enter the number of years for total previous work experience.: Unesite broj godina za ukupno prethodno radno iskustvo.
+Superior: Pretpostavljena osoba
+Working hours type: Vrsta radnog vremena
+Working hours contracted: Ugovoreno radno vrijeme
+Contracted working hours in week: Ugovoreno radno vrijeme u tjednu
+Workplace city: Mjesto rada
+Work on holidays: Rad praznicima
+Work in shifts: Radi u smjenama
+Employee contact details: Podaci za kontakt zaposlenika
+Employee personal details: Osobni podaci zaposlenika
+Employee work details: Pojedinosti o radu zaposlenika
+Employment details: Pojedinosti o zaposlenju
+sex details: Spol
+Employment_status: Status zaposlenosti
+employment_status details: Detalji o zaposlenju
+department details: Pojedinosti odjela
+Absence employee year: Godina odsutnosti zaposlenika
+Absence type: Vrsta odsutnosti
+Color: Boja
+From date: Od datuma
+Number od days: Broj dana
+To date: Do datuma
+Absence: Odsutnost
+absence details: Detalji odsutnosti
+Deduct this type of absence from employee year vacation days: Oduzmi ovu vrstu izostanka od dana godišnjih odmora zaposlenika
+Absence_type: Vrsta odsutnosti
+absence_type details: Detalji odsutnosti
+citizenship details: Detalji državljanstva
+city details: Detalji grada
+Employee documents: Dokumenti zaposlenika
+employee_document details: Detalji dokumenta zaposlenika
+Date of issue: Datum izdavanja
+Valid to: Vrijedi do
+Certificate: Certifikat
+Certificates (ZNR): Certifikati (ZNR)
+certificate details: Detalji certifikata
+Days in strike: Dani u štrajku
+Days in lockout: Dani u kazni
+Free days: Slobodni dani
+Night hours: Noćni sati
+Non working days: Neradni dani
+Overtime hours: Prekovremeni sati
+Working hours: Radni sati
+Year: Godina
+Report_month: Mjesečni izvještaj
+Month report: Mjesečni izvještaj
+report_month details: Detalji mjesečnog izvještaja
+Working_hours_type: Vrsta radnog vremena
+working_hours_type details: Detalji radnog vremena
+Basic insurance expires: Datum isteka osnovnog osiguranja
+Ownership: Vlasništvo
+Casco insurance expires: Datum isteka kasko osiguranja
+Date of first registration: Datum prve registracije
+Fire extinguisher calibration PP: Umjeravanje vatrogasnog alata PP
+Leasing expiration date: Datum isteka leasinga
+Mark and model: Oznaka i model
+Motor type: Vrsta motora
+Registration: Registracija
+Serial number: Serijski broj
+Dimensions of summer tires: Dimenzije ljetnih guma
+Dimensions of winter tires: Dimenzije zimskih guma
+Model year: Godina modela
+Cars: Automobili
+Basic details: Osnovni detalji
+Car_ownership: Vlasništvo automobila
+car_ownership details: Detalji vlasništva automobila
+Car_motor_type: Tip automobila
+car_motor_type details: Detalji motora automobila
+Car_type: Vrsta automobila
+car_type details: Detalji vrste automobila
+Employed_as: Zaposlen kao
+employed_as details: Detalji vrste zaposlenosti
+Approved days: Odobreni dani
+Days from last year: Dani od prošle godine
+Days left from last year: Preostali dani od prošle godine
+Requested days: Zatraženi dani
+Days from this year: Dani od ove godine
+Days Left From This Year: Dani preostali od ove godine
+Absence_employee_year: Dani godišnjih odmora zaposlenika
+Days from last year left: Preostali dani od prošle godine
+This year days left: Dani preostali od ove godine
+absence_employee_year details: Detalji godine godišnjih odmora
+Holidays: Praznici
+holidays details: Detalji praznika
+Car: Automobil
+Damage description: Opis oštećenja
+Date of damage: Datum oštećenja
+Casco damages: Kasko šteta
+car_insurance details: Detalji osiguranja automobila
+Employee List: Popis zaposlenika
+Employee Form: Obrazac zaposlenika
+Employment_status List: Popis radnog statusa
+Absence List: Popis izostanaka
+Absence calendar: Kalendar odsutnosti
+Citizenship Form: Obrazac za državljanstvo
+City Form: Obrazac grada
+Employee_document: Dokument zaposlenika
+Employee_document Form: Obrazac dokumenta zaposlenika
+Certificate Form: Obrazac certifikata
+Report_month Form: Obrazac mjesečnog izvještaja
+Working_hours_type Form: Obrazac vrste radnog vremena
+Car_ownership Form: Obrazac vlasništva automobila
+Car_motor_type Form: Obrazac vrste motora automobila
+Car_type Form: Obrazac tipa automobila
+Employed_as Form: Obrazac vrste zaposlenosti
+Absence_employee_year Form: Obrazac odsutnosti zaposlenika
+Holidays Form: Obrazac za praznike
+Car_insurance: Auto osiguranje
+Car_insurance Form: Obrazac osiguranja automobila
+Employees: Zaposlenici
+Departments: Odjeli
+Absence types: Vrste izostanaka
+Absence list: Popis izostanaka
+Citizenship list: Popis državljanstava
+Certificate list: Popis certifikata
+Report months: Mjesečna izvješća
+Working hours types: Vrste radnih sati
+Car Form: Obrazac automobila
+Car ownership: Vlasništvo automobila
+Car motor type: Tip automobila
+Car type: Vrsta automobila
+Id valid from: 
+Residence: 
+Whereabout: 
+Workplace: 
+employee details: 
+Color not approved: 
+Deduct from year:
+Fire Extinguisher Calibration UP : 
+Postal code: 
+Employment statuses:
+Cities: Gradovi
+In time postal code: In time poštanski broj
+In time name: In time naziv

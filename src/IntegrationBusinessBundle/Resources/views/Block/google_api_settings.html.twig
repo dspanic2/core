@@ -1,0 +1,76 @@
+<div class="sp-block">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="panel-heading">
+                    <h5>{{ data.block.title|trans }}
+                        <div class="options">
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        </div>
+                    </h5>
+                </div>
+            {% endif %}
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#tab_google_api_settings_1" role="tab" data-toggle="tab">{% trans %}Google API settings{% endtrans %}</a></li>
+                <li><a href="#tab_google_api_settings_2" role="tab" data-toggle="tab">{% trans %}Google API detail instructions{% endtrans %}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade row active in" id="tab_google_api_settings_1">
+                    <div class="col-xs-12 col-sm-12 col-md-12 sp-block-wrapper" data-block-id="tab_google_api_settings_1">
+                        {% if data.settings is empty %}
+                            <h3>{% trans %}Please insert Google API json configuration to settings and authenticate access token using the 'Authenticate google token' button{% endtrans %}</h3>
+                        {% elseif data.refresh_token is empty %}
+                            <h3>{% trans %}Please authenticate access token using the 'Authenticate google token' button{% endtrans %}</h3>
+                        {% else %}
+                            <h3>{% trans %}You are all set up{% endtrans %}</h3>
+                            <p>{% trans %}Daily limit left{% endtrans %} <strong>{{ data.limit }}</strong></p>
+
+                            <h3>{% trans %}To configure cron jobs check the following settings or add manually in{% endtrans %} <a href="/page/cron_job/list" target="_blank">{% trans %}cron job settings{% endtrans %}</a></h3>
+                            {% if data.cron_jobs.refresh_limit is empty %}
+                                <p>{% trans %}You need to add a cron job{% endtrans %} <strong>google_search_console:cmd type:reset_google_api_limit</strong>: <button style="margin-left: 20px;" class="sp-btn btn-primary btn-red btn-custom-green btn" data-id="google_search_console:cmd type:reset_google_api_limit" data-action="button_default" data-url="{{ path('google_api_add_cron_job') }}">{% trans %}Add cron job{% endtrans %}</button></p>
+                            {% elseif data.cron_jobs.refresh_limit.isActive == 0 %}
+                                <p>{% trans %}You need to add activate cron job{% endtrans %} <strong>google_search_console:cmd type:reset_google_api_limit</strong>: <button style="margin-left: 20px;" class="sp-btn btn-primary btn-red btn-custom-green btn" data-id="{{ data.cron_jobs.refresh_limit.id }}" data-action="button_default" data-url="{{ path('activate_cron_job') }}">{% trans %}Activate cron job{% endtrans %}</button></p>
+                            {% else %}
+                                <p>{% trans %}Cron job{% endtrans %} <strong>google_search_console:cmd type:reset_google_api_limit</strong> configured successfully</p>
+                            {% endif %}
+
+                            {% if data.cron_jobs.run_s_route_not_found is empty %}
+                                <p>{% trans %}You need to add a cron job{% endtrans %} <strong>google_search_console:cmd type:run_s_route_not_found_indexed</strong>: <button style="margin-left: 20px;" class="sp-btn btn-primary btn-red btn-custom-green btn" data-id="google_search_console:cmd type:run_s_route_not_found_indexed" data-action="button_default" data-url="{{ path('google_api_add_cron_job') }}">{% trans %}Add cron job{% endtrans %}</button></p>
+                            {% elseif data.cron_jobs.run_s_route_not_found.isActive == 0 %}
+                                <p>{% trans %}You need to add activate cron job{% endtrans %} <strong>google_search_console:cmd type:run_s_route_not_found_indexed</strong>: <button style="margin-left: 20px;" class="sp-btn btn-primary btn-red btn-custom-green btn" data-id="{{ data.cron_jobs.run_s_route_not_found.id }}" data-action="button_default" data-url="{{ path('activate_cron_job') }}">{% trans %}Activate cron job{% endtrans %}</button></p>
+                            {% else %}
+                                <p>{% trans %}Cron job{% endtrans %} <strong>google_search_console:cmd type:run_s_route_not_found_indexed</strong> configured successfully</p>
+                            {% endif %}
+
+                            {% if data.cron_jobs.run_s_route_indexed is empty %}
+                                <p>{% trans %}You need to add a cron job{% endtrans %} <strong>google_search_console:cmd type:run_s_route_indexed</strong>: <button style="margin-left: 20px;" class="sp-btn btn-primary btn-red btn-custom-green btn" data-id="google_search_console:cmd type:run_s_route_indexed" data-action="button_default" data-url="{{ path('google_api_add_cron_job') }}">{% trans %}Add cron job{% endtrans %}</button></p>
+                            {% elseif data.cron_jobs.run_s_route_indexed.isActive == 0 %}
+                                <p>{% trans %}You need to add activate cron job{% endtrans %} <strong>google_search_console:cmd type:run_s_route_indexed</strong>: <button style="margin-left: 20px;" class="sp-btn btn-primary btn-red btn-custom-green btn" data-id="{{ data.cron_jobs.run_s_route_indexed.id }}" data-action="button_default" data-url="{{ path('activate_cron_job') }}">{% trans %}Activate cron job{% endtrans %}</button></p>
+                            {% else %}
+                                <p>{% trans %}Cron job{% endtrans %} <strong>google_search_console:cmd type:run_s_route_indexed</strong> configured successfully</p>
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="tab-pane fade row" id="tab_google_api_settings_2">
+                    <div class="col-xs-12 col-sm-12 col-md-12 sp-block-wrapper" data-block-id="tab_google_api_settings_2">
+                        <h3>{% trans %}Opening google cloud account{% endtrans %}</h3>
+                        <ol>
+                            <li>{% trans %}In the Google cloud console{% endtrans %} <a href="https://console.cloud.google.com/" target="_blank">https://console.cloud.google.com/</a> {% trans %}open an account and add a new project{% endtrans %}</li>
+                            <li>{% trans %}In the Enabled APIs & services section enable Google Search Console API{% endtrans %}</li>
+                            <li>{% trans %}In the credential section add new OAuth 2.0 Client ID{% endtrans %}</li>
+                            <li>{% trans %}Open the new client id and download Client secret json{% endtrans %}</li>
+                            <li>{% trans %}Add{% endtrans %} <strong>{{ get_env("SSL") }}://{{ get_env("BACKEND_URL") }}/google_oauth2</strong> {% trans %}to Authorized redirect URIs{% endtrans %}</li>
+                            <li>{% trans %}In the OAuth consent screen section add your account email under the Test users subsection{% endtrans %}</li>
+                            <li>{% trans %}Finally you need to do the domain verification in the Google search console{% endtrans %}</li>
+                        </ol>
+                        <h3>{% trans %}Revoking token privileges{% endtrans %}</h3>
+                        <p>{% trans %}To revoke token privileges please visit{% endtrans %} <a href="https://myaccount.google.com/u/0/permissions" target="_blank">https://myaccount.google.com/u/0/permissions</a> {% trans %}and remove the token{% endtrans %}.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+parameters:
+#    parameter_name: value
+
+services:
+  hr_manager:
+    class:  HrBusinessBundle\Managers\HrManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

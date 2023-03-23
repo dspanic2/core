@@ -1,0 +1,866 @@
+Contact Information: Kontaktinformationen
+Additional Information: Weitere Informationen
+Home phone is your phone at home: Das Telefon zu Hause ist Ihr Telefon zu Hause
+Lead details: Lead-Details
+Legal entity: Juristische Person
+Last contact date: Letztes Kontaktdatum
+Next contact date: Nächster Kontakttermin
+Owner: Eigentümer
+Lead source: Hauptquelle
+Lead status: Lead-Status
+Created: Erstellt
+Active: Aktiv
+Delayed: Verspätet
+In testing: Im Test
+On hold: In Wartestellung
+Last offer sent: Letztes Angebot gesendet
+All Leads: Alle Leads
+Employees: Mitarbeiter
+Annual revenue: Jahresumsatz
+Industry: Industrie
+Shipping address: Lieferanschrift
+Billing address: Rechnungsadresse
+Billing country: Land der Rechnungsadresse
+Billing code: Abrechnungscode
+Billing state: Abrechnungs Zustand
+Billing city: Abrechnungsstadt
+Contact: Kontakt
+Account: Konto
+Department: Abteilung
+Totaly qty: Gesamtmenge
+Base price: Grundpreis
+Quantity: Menge
+Fixed discount: Fester Rabatt
+Percent discount: Prozent Rabatt
+VAT: MwSt.
+Total with VAT: Gesamt mit MwSt.
+Currency: Währung
+Total quantity: Gesamtstückzahl
+Total price: Gesamtpreis
+Secret key is missing or not correct: Geheimschlüssel fehlt oder ist nicht korrekt
+Fingerprint is missing: Fingerabdruck fehlt
+Email is missing: E-Mail fehlt
+First name is missing: Vorname fehlt
+Last name is missing: Nachname fehlt
+Message is missing: Nachricht fehlt
+Product is missing: Produkt fehlt
+There has been an error.</br>Pleas try again.: Es ist ein Fehler aufgetreten.</br>Bitte versuchen Sie es erneut.
+Your inquiry has been submitted.</br>We will contact you shortly.: Ihre Anfrage wurde übermittelt.</br>Wir werden uns in Kürze mit Ihnen in Verbindung setzen.
+Your message has been successfully submitted: Ihre Nachricht wurde erfolgreich übermittelt
+Your order has been successfully submitted: Ihre Bestellung wurde erfolgreich abgeschickt
+Item is missing: Artikel fehlt
+is_favorite is missing: is_favorite fehlt
+Item does no exist: Artikel existiert nicht
+You have successfully added: Sie haben erfolgreich hinzugefügt
+to favourites.: zu Favoriten.
+You have successfully removed: Sie haben erfolgreich entfernt
+from favourites.: aus Favoriten.
+Invalid order hash: Ungültiger Bestell-Hash
+Product ids are missing: Produkt-IDs fehlen
+Parent product is not defined: Übergeordnetes Produkt ist nicht definiert
+Product relations successfully added: Produktbeziehungen erfolgreich hinzugefügt
+Related product id is not defined: Zugehörige Produkt-ID ist nicht definiert
+Related product does not exist: Verwandtes Produkt existiert nicht
+Product relation successfully added: Produktbeziehung erfolgreich hinzugefügt
+Product relations successfully deleted: Produktbeziehungen erfolgreich gelöscht
+Relation id is not defined: Beziehungs-ID ist nicht definiert
+Relation does no exist: Beziehung existiert nicht
+Product relation successfully deleted: Produktbeziehung erfolgreich gelöscht
+Invalid quote hash: Ungültiger Zitat-Hash
+id not received: ID nicht erhalten
+This quote doesnt exist anymore: Dieses Zitat existiert nicht mehr
+Quote accepted: Angebot angenommen
+Quote successfully accepted: Angebot erfolgreich angenommen
+Quote accept failed: Angebot annehmen fehlgeschlagen
+Quote canceled: Angebot storniert
+Quote successfully canceled: Angebot erfolgreich storniert
+Invalid quote id: Ungültige Angebots-ID
+Email sent: E-Mail gesendet
+Email sent to : Email an gesendet
+Failed to send email: E-Mail konnte nicht gesendet werden
+Quote cancelation failed: Angebotsstornierung fehlgeschlagen
+Update failed: Update fehlgeschlagen
+Updated: Aktualisiert
+Items updated: Artikel aktualisiert
+Item updated: Artikel aktualisiert
+Error updating: Fehler beim Aktualisieren
+parent_page_id not received: parent_page_id nicht erhalten
+Items added: Artikel hinzugefügt
+Selected items added: Ausgewählte Elemente hinzugefügt
+parent_id not set: parent_id nicht festgelegt
+item_type not set: item_type nicht festgelegt
+Succes: Erfolg
+Deleted: Gelöscht
+Item removed: Artikel entfernt
+items not set: Elemente nicht eingestellt
+price_attr not set: price_attr nicht festgelegt
+id not set: id nicht gesetzt
+Product added: Produkt hinzugefügt
+Base Price: Grundpreis
+Percent discount(%): Prozent Rabatt (%)
+Total: Gesamt
+VAT(%): Mehrwertsteuer (%)
+Total tax: Gesamtsteuer
+Preview: Vorschau
+Download: Herunterladen
+Download quote PDF: Angebots-PDF herunterladen
+Use another entity type instead : Verwenden Sie stattdessen einen anderen Entitätstyp
+Select entity type that is linked with products to be used for descriptions and preview.: Wählen Sie den Entitätstyp aus, der mit Produkten verknüpft ist, die für Beschreibungen und Vorschau verwendet werden sollen.
+Secondary entity: Sekundäre Entität
+Secondary entity description attribute: Beschreibungsattribut der sekundären Entität
+Select attribute: Attribut auswählen
+Price per items: Preis pro Artikel
+R.br.: R.br.
+Date of issue\:: Ausgabedatum\:
+Table of contents: Inhaltsverzeichnis
+Total price no tax: Gesamtpreis ohne Steuern
+Tax: Steuer
+Quote status\:: Angebotsstatus\:
+Order status\:: Bestellstatus\:
+Quote is canceled: Angebot wurde storniert
+Description: Beschreibung
+Fax: Fax
+Please enter the phone number in format 385914584804: Bitte geben Sie die Telefonnummer im Format 385914584804 ein
+Lead Source: Hauptquelle
+Lead Status: Lead-Status
+MBR: MBR
+Rating: Bewertung
+Secondary Email: Alternative Email
+Web: Netz
+My New Leads: Meine neuen Leads
+Suppliers: Lieferanten
+Basic Information: Grundinformation
+Billing Address: Rechnungsadresse
+Shipping Address: Lieferanschrift
+Supplier details: Lieferantendetails
+Account type: Konto Typ
+account_type details: Kontotypdetails
+business_type details: business_type-Details
+Date of Birth: Geburtsdatum
+LinkedIn: LinkedIn
+Profile image: Profilbild
+Skype ID: Skype ID
+Reports to: Berichte an
+Twitter: Twitter
+Account contacts: Kontokontakte
+Image: Bild
+Main address: Hauptadresse
+Second Address: Zweite Adresse
+Social: Sozial
+industry_type details: branchentypdetails
+lead_source details: Lead_Source-Details
+lead_status details: Lead_status-Details
+EAN: EAN
+Retail price: Endverbraucherpreis
+Cash price retail: Barpreis Einzelhandel
+Cash price base: Barpreisbasis
+Number of installments: Anzahl der Raten
+Cash percentage: Bargeld-Prozentsatz
+Product: Produkt
+Qty: Menge
+Remote id: Remote-ID
+Short description: Kurze Beschreibung
+Supplier: Anbieter
+Tax percent: Steuerprozentsatz
+Product list: Produktliste
+Select related products: Verwandte Produkte auswählen
+Other information: Andere Informationen
+Prices: Preise
+Parent product group: Übergeordnete Produktgruppe
+Product_group: Produktgruppe
+State: Bundesland
+Street: Straße
+Delivery type: Lieferart
+Increment id: Inkrement-ID
+Payment type: Zahlungsart
+Order: Befehl
+Number: Nummer
+Orders: Aufträge
+order details: Bestelldetails
+Payment and delivery: Zahlungs-und Lieferbedingungen
+Payment information: Zahlungsinformationen
+Price total: Gesamtpreis
+Order items: Auftragspositionen
+order_item details: order_item-details
+currency details: Währungsdetails
+order_state details: Bestellstatusdetails
+Delivery_type: Lieferart
+Payment_type: Zahlungsart
+payment_type details: Zahlungstypdetails
+Percent: Prozent
+Tax_type: Steuertyp
+tax_type details: Steuertypdetails
+Enable sale: Verkauf aktivieren
+HTML after items: HTML nach Artikeln
+HTML before items: HTML vor Artikeln
+Quotes: Zitate
+Account details: Kontodetails
+Price information: Preisinformationen
+description: Bezeichnung
+Item description: Artikelbeschreibung
+Quote_item: Quote_item
+quote_item details: quote_item-Details
+Block ID: Block-ID
+Color: Farbe
+Column settings: Spalteneinstellungen
+kanban_column details: Kanban_Spaltendetails
+Quote_status: Angebotsstatus
+quote_status details: Angebotsstatusdetails
+Location: Standort
+Result: Ergebnis
+Billing first name: Rechnungsvorname
+Billing last name: Rechnungsnachname
+Billing street: Rechnungsstraße
+Invoice: Rechnung
+Invoice number: Rechnungsnummer
+Parent payment: Elternzahlung
+Transaction number: Transaktionsnummer
+Payment: Zahlung
+Billing: Abrechnung
+payment details: Zahlungsdetails
+Payment_status: Zahlungsstatus
+payment_status details: Zahlungsstatusdetails
+invoice details: Rechnungs-Details
+product_images details: product_images-Details
+Child product: Kinderprodukt
+Parent product: Übergeordnetes Produkt
+Related products: Verwandte Produkte
+product_product_link details: product_product_link-Details
+Fingerprint: Fingerabdruck
+tracking details: Verfolgungsdetails
+Due date: Geburtstermin
+Installments: Ratenzahlung
+Meeting: Treffen
+Datetime to: Datum/Uhrzeit bis
+Datetime from: Datum/Uhrzeit von
+Details: Einzelheiten
+meeting_contact_link details: meeting_contact_link-Details
+Call date: Anrufdatum
+Subject: Gegenstand
+Call: Anruf
+Account calls: Kontoanrufe
+call details: Anrufdetails
+Contract: Vertrag
+contract details: Vertragsdetails
+No installments defined: Keine Raten definiert
+This order has been canceled.: Diese Bestellung wurde storniert.
+This order has been reversed.: Diese Reihenfolge wurde umgekehrt.
+Payment has been refused.: Die Zahlung wurde abgelehnt.
+You have canceled your payment, please try again.: Sie haben Ihre Zahlung storniert, bitte versuchen Sie es erneut.
+This quote has been canceled.: Dieses Angebot wurde storniert.
+This quote has been accepted: Dieses Angebot wurde akzeptiert
+Lead Form: Lead-Formular
+Account Form: Kontoformular
+Account types: Kontotypen
+Contact Form: Kontakt Formular
+Lead_status Form: Lead_status-Formular
+Product Form: Produkt Form
+Product_group Form: Produktgruppenformular
+Order Form: Bestellformular
+Order items List: Artikelliste bestellen
+Tax_type Form: Steuertyp-Formular
+Quote Form: Angebotsformular
+Quote preview: Angebotsvorschau
+POS: POS
+Quote_status List: Angebotsstatusliste
+Payment List: Zahlungsliste
+Payment_status List: Zahlungsstatusliste
+Meeting Form: Besprechungsformular
+Call Form: Anrufformular
+Contract Form: Vertragsformular
+Product groups: Produktgruppen
+Currencies: Währungen
+Delivery types: Lieferarten
+Payment types: Bezahlmöglichkeiten
+Tax types: Steuerarten
+Quote items: Angebotsartikel
+Error validating captcha: Fehler bei der Captcha-Validierung
+Missing captcha response: Captcha-Antwort fehlt
+Captcha response is empty.: Captcha-Antwort ist leer.
+Quote item has been removed: Angebotselement wurde entfernt
+Quote items are not defined: Angebotspositionen sind nicht definiert
+Quote items has been updated: Angebotsartikel wurde aktualisiert
+Description is empty: Beschreibung ist leer
+Quote activity saved: Angebotsaktivität gespeichert
+Quote id is not defined: Angebots-ID ist nicht definiert
+Qty is not defined: Menge ist nicht definiert
+Qty cannot be lower than 1: Menge darf nicht kleiner als 1 . sein
+Quote does not exist: Angebot existiert nicht
+Product added to cart: Produkt in den Warenkorb gelegt
+Error creating user, please try again: Fehler beim Erstellen des Benutzers, bitte versuchen Sie es erneut
+New account: Neues Konto
+Error updating user, please try again: Fehler beim Aktualisieren des Benutzers. Bitte versuchen Sie es erneut
+Discount percent is not defined: Rabattprozentsatz ist nicht definiert
+Price item is not defined: Preisposition ist nicht definiert
+Fixed discount is not defined: Fester Rabatt ist nicht definiert
+Discount percent cannot be higher than 100%: Rabattprozentsatz kann nicht höher als 100 % sein
+Discount percent cannot be negative: Rabattprozentsatz darf nicht negativ sein
+Qty cannot be negative: Menge darf nicht negativ sein
+Price cannot be negative: Preis darf nicht negativ sein
+Fixed discount cannot be negative: Fester Rabatt darf nicht negativ sein
+Fixed discount cannot be higher than total price of items: Der feste Rabatt kann nicht höher sein als der Gesamtpreis der Artikel
+Add items: Füge Sachen hinzu
+Remove: Entfernen
+Total price without tax: Gesamtpreis ohne Steuern
+Item descriptions: Artikelbeschreibungen
+Edit quote: Angebot bearbeiten
+View order: Bestellung ansehen
+Create order: Bestellung anlegen
+Account Types: Kontotypen
+Full legal entity name: Vollständiger Name der juristischen Person
+Disable discounts: Rabatte deaktivieren
+Disable rebate: Rabatt deaktivieren
+Home phone: Festnetztelefon
+Owner ERP: Inhaber ERP
+Parent account: Eltern Account
+Other phone: Anderes Handy
+All accounts: Alle Konten
+Catalog code: Katalogcode
+CTR: CTR
+Discount from: Rabatt ab
+Discount to: Rabatt auf
+Date synced: Datum synchronisiert
+Discount percentage: Rabattprozentsatz
+Discount price base: Rabattpreisbasis
+Discount price retail: Discountpreis Einzelhandel
+Guarantee: Garantie
+Visible: Sichtbar
+Da li je proizvod vidljiv samostalno: Da li je proizvod vidljiv samostalno
+Manufacturer remote id: Hersteller-Fernbedienungs-ID
+ID proizvodjaca iz WAND-a: ID proizvodjaca iz WAND-a
+Measure: Messen
+Meta description: Meta-Beschreibung
+Meta keywords: Meta-Keywords
+Meta title: Meta-Titel
+Old code: Alter Code
+Stara sifra iz Stubli─ç: Stara sifra iz Stubli─ç
+Old url: Alte URL
+Printers failed: Drucker ausgefallen
+Da li je popis printera neispravan: Da li je popis printera neispravan
+Printers processed: Drucker verarbeitet
+Da li je popis printera rasparcan na modele printera: Da li je popis printera rasparcan na modele printera
+Product type: Produktart
+Template type: Vorlagentyp
+Remote source: Remote-Quelle
+Show on wizzard product: Auf Wizzard-Produkt anzeigen
+Synced: Synchronisiert
+Wand description: Zauberstab Beschreibung
+Basic details: Grundlegende Angaben
+SEO: SEO
+Visak: Visak
+Auto generate url: URL automatisch generieren
+Canonical: Kanonisch
+Intermediary sequencing: Zwischensequenzierung
+Keep url: URL behalten
+Show menu item: Menüpunkt anzeigen
+Automatski dodaj u odabrani menu: Automatski dodaj u odabrani Menü
+Homepage sequencing: Homepage-Sequenzierung
+Products in group: Produkte in der Gruppe
+Total number of products in group: Gesamtzahl der Produkte in der Gruppe
+Product group code: Produktgruppencode
+Show as action: Als Aktion anzeigen
+Da li se prikazuje kao kategorija u Wizzadru akcije: Da li se prikazuje kao kategorija u Wizzadru akcije
+Show as bundle: Als Bundle anzeigen
+Prikazi u wizzadu akcija kao bundle: Prikazi u wizzadu akcija kao Bundle
+Show on homepage: Auf Startseite anzeigen
+Store: Geschäft
+Template: Vorlage
+Product group details: Produktgruppendetails
+SEO data: SEO-Daten
+Account billing address: Rechnungsadresse des Kontos
+Account billing city: Stadt der Kontoabrechnung
+Account shipping address: Konto-Lieferadresse
+Account shipping city: Konto Versandstadt
+Base price delivery tax: Grundpreis Liefersteuer
+Base price delivery total: Grundpreis Liefersumme
+Base price delivery without tax: Grundpreis Lieferung ohne MwSt.
+Base price items tax: Grundpreis Artikelsteuer
+Base price items total: Grundpreis Artikel insgesamt
+Base price items without tax: Grundpreisartikel ohne MwSt.
+Base price tax: Grundpreissteuer
+Base price total: Grundpreis gesamt
+Base price without tax: Grundpreis ohne Steuern
+Currency rate: Wechselkurs
+Date sent to wand: Datum an Zauberstab gesendet
+Preview hash: Vorschau-Hash
+Price delivery tax: Preis Liefersteuer
+Price delivery total: Preis Lieferung gesamt
+Price delivery without tax: Preis Lieferung ohne MwSt.
+Price items tax: Preis Artikel Steuer
+Price items total: Preis Artikel insgesamt
+Price items without tax: Preisartikel ohne MwSt.
+Price tax: Preissteuer
+Price without tax: Preis ohne Steuern
+Sent to wand: An Zauberstab gesendet
+Total left to pay: Gesamtbetrag zu zahlen
+Total paid: Ganz bezahlt
+Base price fixed discount: Grundpreis Festrabatt
+Base price item: Grundpreisartikel
+Base price item tax: Grundpreis Artikelsteuer
+Base price item without tax: Grundpreisartikel ohne MwSt.
+Price fixed discount: Preis Festrabatt
+Price item: Preisartikel
+Price item tax: Preis Artikelsteuer
+Price item without tax: Preisartikel ohne MwSt.
+Rate: Rate
+Sign: Unterschrift
+delivery_type details: Liefertypdetails
+Enable installments: Raten aktivieren
+Provider code: Anbietercode
+Account billing street: Straße der Kontoabrechnung
+Account name: Kontobezeichnung
+Account shipping_address: Konto Versandadresse
+Account shipping street: Konto Versandstraße
+Message: Nachricht
+Session_id: Session-ID
+All day: Den ganzen Tag
+Billable: Abrechenbar
+End time: Endzeit
+Host: Gastgeber
+Start time: Startzeit
+activity details: Aktivitätsdetails
+quote_activity details: quote_aktivitätsdetails
+Filename hash: Dateinamen-Hash
+File hash: Datei-Hash
+Is optimised: Ist optimiert
+Sort order: Sortierreihenfolge
+Selected: Ausgewählt
+Customer: Kunde
+Is paid: Ist bezahlt
+Order preview hash: Vorschau-Hash bestellen
+Is payer: Ist Zahler
+order_customer details: order_kundendetails
+Total value: Gesamtwert
+Valid to: Gültig bis
+Account Type: Konto Typ
+account_type_link details: account_type_link-Details
+quote_customer details: quote_Kundendaten
+Product group : Produktgruppe
+product group images details: Produktgruppenbilder Details
+product group link details: Produktgruppen-Linkdetails
+Address: Die Anschrift
+Warehouse: Lagerhaus
+warehouse details: Lagerdetails
+Product warehouse link: Link zum Produktlager
+product warehouse link details: Details zum Produktlager-Link
+country details: Länderdetails
+Date valid from: Datum gültig ab
+Date valid to: Datum gültig bis
+Price base: Preisbasis
+Price retail: Preis Einzelhandel
+Rebate: Abzug
+Product account price: Produktkontopreis
+product account price details: Preisdetails für Produktkonto
+Date unfavored: Datum ungünstig
+Favorite: Favorit
+favorite details: Lieblingsdetails
+Last update: Letztes Update
+Gdpr: Danzig
+gdpr details: DSGVO-Details
+Closed: Abgeschlossen
+General question: Allgemeine Frage
+general question details: allgemeine Fragendetails
+Adresa dostave ra─Źuna: Adresa dostave ra─Źuna
+Headquarters: Hauptquartier
+address details: Adressen Details
+Contact addres details: Kontaktdaten zur Kontaktadresse
+IBAN: IBAN
+Bank name: Bank Name
+SWIFT: SCHNELL
+Account bank: Kontobank
+account bank details: Konto Bankverbindung
+Contact title: Kontakttitel
+contact title details: Kontakttiteldetails
+quote activity details: Details zur Angebotsaktivität
+My Leads: Meine Leads
+Leads: Führt
+Lead List: Lead-Liste
+Search results: Suchergebnisse
+Quote_customer: Angebot_Kunde
+Quote_customer Form: Angebot_Kundenformular
+Warehouse form: Lagerformular
+Product warehouse link form: Formular für Produktlager-Link
+Countries: Länder
+Country form: Länderformular
+Product account price form: Preisformular für Produktkonto
+Note user like form: Hinweis Benutzer wie Formular
+Favorites: Favoriten
+Favorite form: Lieblingsform
+Gdpr form: DSGVO-Formular
+General question form: Allgemeines Frageformular
+Address form: Adressformular
+Address contact form: Adress-Kontaktformular
+Account bank form: Konto Bankformular
+Contact titles: Kontakttitel
+Contact title form: Kontakttitelformular
+Quote confirmation: Angebotsbestätigung
+This coupon does not exist or is not active: Dieser Gutschein existiert nicht oder ist nicht aktiv
+Coupon successfully applied: Gutschein erfolgreich angewendet
+This coupon cannot be applied: Dieser Gutschein kann nicht eingelöst werden
+Coupon has been successfully removed: Gutschein wurde erfolgreich entfernt
+My open deals: Meine offenen Angebote
+Deal stage: Deal-Phase
+Campaign: Kampagne
+Probability: Wahrscheinlichkeit
+New accounts: Neue Konten
+Customers: Kunden
+Accounts: Konten
+Products: Produkte
+All items: Alle Elemente
+Campaigns: Kampagnen
+Sales: Der Umsatz
+Closing date: Einsendeschluss
+Company type: Unternehmenstyp
+Company status: Unternehmensstatus
+Date founded: Datum gefunden
+Date closed: Datum geschlossen
+  :
+Related contacts: Verwandte Kontakte
+Addresses: Adressen
+Documents: Unterlagen
+Overview: Überblick
+Completion(%): Fertigstellung(%)
+
+Related company: Dazugehörende Firma
+Related contact: Verwandter Kontakt
+Relationship: Beziehung
+Bank accounts: Bankkonten
+Duration: Dauer
+Time start: Mal starten
+Time end: Zeitende
+Call type: Anrufart
+Call purpose: Anrufzweck
+Unit: Einheit
+Date start: Start Datum
+Date end: Datum Ende
+GDPR anonymize: DSGVO anonymisieren
+Remove from newsletter: Aus Newsletter entfernen
+Contact already has user account: Kontakt hat bereits Benutzerkonto
+Error creating user account for contact: Fehler beim Erstellen des Benutzerkontos für Kontakt
+User account created for contact: Benutzerkonto für Kontakt erstellt
+Password must be at least 6 characters long: Das Passwort muss mindestens 6 Zeichen lang sein
+Password is not defined: Passwort ist nicht definiert
+Open user account for contact: Benutzerkonto für Kontakt öffnen
+Insert password: Passwort eingeben
+Contact removed from newsletter: Kontakt aus Newsletter entfernt
+Contact anonymized and removed from newsletter: Kontakt anonymisiert und aus Newsletter entfernt
+
+Deal id is empty: Deal-ID ist leer
+Deal stage id is empty: Deal-Phasen-ID ist leer
+Deal id is invalid: Deal-ID ist ungültig
+Deal stage id is invalid: Deal-Phasen-ID ist ungültig
+Error setting deal stage: Fehler beim Festlegen der Dealphase
+Deal stage successfully changed: Deal-Phase erfolgreich geändert
+Order document: Bestelldokument
+Sales per months: Umsatz pro Monat
+Sales per product category: Umsatz pro Produktkategorie
+Contacts: Kontakte
+Contracts: Verträge
+Additional information: Weitere Informationen
+Is active: Ist aktiv
+report_view_statistics_0: report_view_statistics_0
+Successful orders: Erfolgreiche Bestellungen
+report_view_statistics_1: report_view_statistics_1
+Canceled orders: Stornierte Bestellungen
+report_view_statistics_2: report_view_statistics_2
+Unprocessed orders: Unbearbeitete Bestellungen
+report_view_statistics_3: report_view_statistics_3
+Num. of carts: Anzahl von Karren
+report_view_statistics_4: report_view_statistics_4
+Carts to purchases: Einkaufswagen zu Einkäufen
+report_view_statistics_5: report_view_statistics_5
+Total revenue: Gesamtumsatz
+report_view_statistics_6: report_view_statistics_6
+Successful orders revenue: Umsatz erfolgreicher Bestellungen
+report_view_statistics_7: report_view_statistics_7
+Canceled orders revenue: Umsatz mit stornierten Bestellungen
+report_view_statistics_8: report_view_statistics_8
+Unprocessed orders revenue: Umsatz mit unbearbeiteten Bestellungen
+report_view_statistics_9: report_view_statistics_9
+Revenue in carts: Umsatz in Warenkörben
+report_view_statistics_10: report_view_statistics_10
+Carts to purchases revenue: Warenkörbe zu Einkäufen Umsatz
+report_view_statistics_11: report_view_statistics_11
+
+Global overview: Globale Übersicht
+Product performance: Produktleistung
+Revenue includes all taxes and delivery costs: Der Umsatz beinhaltet alle Steuern und Versandkosten
+Phows data regarding to selected dates and store: Phows-Daten zu ausgewählten Terminen und Store
+Revenue per month past 3 years: Umsatz pro Monat in den letzten 3 Jahren
+Orders per month by status (table): Bestellungen pro Monat nach Status (Tabelle)
+Canceled: Abgesagt
+In process: In Bearbeitung
+Orders per month by status (stacked bar chart): Bestellungen pro Monat nach Status (gestapeltes Balkendiagramm)
+Total number of orders per month: Gesamtzahl der Bestellungen pro Monat
+Avg order amount per month: Durchschnittlicher Bestellbetrag pro Monat
+All stores in website: Alle Geschäfte auf der Website
+All stores: Alle Geschäfte
+Include in custom statistics: In benutzerdefinierte Statistiken aufnehmen
+Exclude from product group statistics: Aus Produktgruppenstatistiken ausschließen
+Show on store: Im Laden anzeigen
+Displays data year back from the current month: Zeigt das Datenjahr zurück vom aktuellen Monat an
+Displays data back 3 years: Zeigt Daten 3 Jahre zurück
+Revenue per month including taxes and delivery costs: Umsatz pro Monat inklusive Steuern und Versandkosten
+
+Search perfomance: Suchleistung
+Search with no results: Suche ohne Ergebnisse
+List of top 50 search queries without any results: Liste der Top 50 Suchanfragen ohne Ergebnisse
+Please check product descriptions or add synonyms: Bitte überprüfen Sie die Produktbeschreibungen oder fügen Sie Synonyme hinzu
+No.: Nein.
+Search query: Suchanfrage
+Times used: Verwendete Zeiten
+Last search date: Letztes Suchdatum
+Search most used: Am häufigsten suchen
+Number of results: Anzahl der Ergebnisse
+Most searched items: Meistgesuchte Artikel
+List of top 50 most used search queries: Liste der 50 am häufigsten verwendeten Suchanfragen
+Red items have no results, please check product descriptions or add synonyms: Rote Artikel haben keine Ergebnisse, bitte überprüfen Sie die Produktbeschreibungen oder fügen Sie Synonyme hinzu
+No results: Keine Ergebnisse
+Product group performance: Produktgruppenleistung
+Orders per month by category (chart): Bestellungen pro Monat nach Kategorie (Diagramm)
+Orders per month by category (table): Bestellungen pro Monat nach Kategorie (Tabelle)
+Orders per month by selected category (chart): Bestellungen pro Monat nach ausgewählter Kategorie (Grafik)
+Orders per month by selected category (table): Bestellungen pro Monat nach ausgewählter Kategorie (Tabelle)
+Customers performance: Kundenleistung
+Orders by location: Bestellungen nach Standort
+Orders per month by customer type (chart): Bestellungen pro Monat nach Kundentyp (Diagramm)
+Orders per month by customer type (table): Bestellungen pro Monat nach Kundentyp (Tabelle)
+Number of new registered users: Anzahl neu registrierter Benutzer
+Customer type: Kundentyp
+
+Last 3 months: Letzte 3 Monate
+Last 6 months: Letzte 6 Monate
+Last 12 months: Letzte 12 Monate
+Custom dates: Benutzerdefinierte Daten
+
+Best selling products: Meistverkaufte Produkte
+List of top 100 best selling products: Liste der 100 meistverkauften Produkte
+Shows data regarding to selected dates and store: Zeigt Daten zu ausgewählten Daten und Geschäften an
+General statistics: Allgemeine Statistiken
+Orders per month by payment type (chart): Bestellungen pro Monat nach Zahlungsart (Diagramm)
+Orders per month by payment type (table): Bestellungen pro Monat nach Zahlungsart (Tabelle)
+Orders per month by delivery type (chart): Bestellungen pro Monat nach Lieferart (Grafik)
+Orders per month by delivery type (table): Bestellungen pro Monat nach Lieferart (Tabelle)
+Account sales per month: Kontoumsatz pro Monat
+Account group: Kontengruppe
+Current month: Aktueller Monat
+Diff: Unterschied
+Current -1: Strom -1
+Current -2: Strom -2
+Current -3: Strom -3
+Current -4: Strom -4
+Current -5: Strom -5
+Current -6: Strom -6
+Product sales per month: Produktverkäufe pro Monat
+Is saleable: Ist verkaufbar
+Payment transaction status: Zahlungsvorgangsstatus
+Invoice device identifier: Gerätekennung der Rechnung
+Invoice business place: Rechnung Geschäftsstelle
+Dpd parcel type: Dpd-Pakettyp
+Fiscal invoices: Steuerrechnungen
+Invoices: Rechnungen
+Discount coupon type: Rabattgutscheintyp
+Account groups: Kontogruppen
+Regions: Regionen
+Date new from: Datum neu von
+Date new to: Datum neu zu
+Description title: Beschreibungstitel
+Video title: Videotitel
+Specs title: Titel der Spezifikationen
+Price inquiry: Preisanfrage
+Person title: Personentitel
+Create user account: Benutzerkonto erstellen
+Missing city: Fehlende Stadt
+Location description: Ortsbeschreibung
+Number of products: Anzahl der Produkte
+Humidor location: Humidor-Standort
+humidor: Humidor
+Products on humidor: Produkte auf Humidor
+Minimum amount: Mindestbetrag
+Date of setup: Datum der Einrichtung
+My upcoming tasks: Meine anstehenden Aufgaben
+Wiki topic: Wiki-Thema
+Wiki page: Wiki-Seite
+Wiki redirect type: Wiki-Weiterleitungstyp
+Project owner: Projekteigentümer
+Deal: Austeilen
+Contact addresses: Kontaktadressen
+Contact notes: Kontakthinweise
+Date unsubscribed: Datum der Abmeldung
+Mail date: Maildatum
+Save attachments: Anhänge speichern
+Create ticket: Ticket erstellen
+Default ticket user: Standard-Ticketbenutzer
+Reply notification type: Antwortbenachrichtigungstyp
+Last message number: Letzte Nachrichtennummer
+Product group display: Produktgruppenanzeige
+Product group configuration: Produktgruppenkonfiguration
+Product group attributes: Produktgruppenattribute
+Budget: Budget
+Actual cost: Tatsächliche Kosten
+Expected revenue: Erwartete Einnahmen
+Start date: Startdatum
+End date: Endtermin
+Client Number: Kundennummer
+Client Reference: Kundenreferenz
+CODAmount: CODA-Betrag
+Parcel Number: Paketnummer
+COD Reference: COD-Referenz
+Provider: Anbieter
+Transaction identifier: Transaktionskennung
+Transaction status: Transaktionsstatus
+Fiscal invoice identifier: Steuerliche Rechnungskennung
+Fiscal invoice identifier received on: Steuerliche Rechnungskennung erhalten am
+Security_code: Sicherheitscode
+Last service response status: Letzter Status der Serviceantwort
+Blocked ips: Blockierte IPS
+Product configuration bundle option: Produktkonfigurations-Bundle-Option
+Product document type: Produktdokumenttyp
+Project owners: Projektinhaber
+All projects: Alle Projekte
+Workplace: Arbeitsplatz
+Residence: Residenz
+Whereabout: Aufenthaltsort
+Id valid from: Ausweis gültig ab
+Fire Extinguisher Calibration UP: Feuerlöscher-Kalibrierung UP
+Date of application: Datum der Bewerbung
+Currency from code: Währung aus Code
+Currency from: Währung von
+Buying rate: Kaufrate
+Median rate: Medianrate
+Selling rate: Verkaufsrate
+Currency to code: Währung zu Code
+Exchange rate id: Wechselkurs-ID
+Critical route errors: Kritische Routenfehler
+404 redirects: 404 Weiterleitungen
+Offline items with default redirects: Offline-Elemente mit Standardumleitungen
+Routes in sitemap: Routen in Sitemap
+Custom entity list: Liste der benutzerdefinierten Entitäten
+Redirects leading to nowhere: Weiterleitungen führen ins Nirgendwo
+Routes leading to nowhere: Routen, die ins Nirgendwo führen
+Url desyncronisation: URL-Desynchronisierung
+Date started: Datum gestartet
+Date finished: Datum fertig
+Is running: Läuft
+Has error: Hat Fehler
+Original query: Ursprüngliche Anfrage
+Used query: Verwendete Abfrage
+Last regenerate date: Letztes Regenerationsdatum
+List of results: Ergebnisliste
+Product documents: Produktdokumente
+Configurable options: Konfigurierbare Optionen
+Used in configuration: Wird in der Konfiguration verwendet
+Brand: Marke
+CPU clock speed: CPU-Taktgeschwindigkeit
+CPU model: CPU-Modell
+GPU: GPU
+GPU model: GPU-Modell
+HDD capacity: Festplattenkapazität
+SSD capacity: SSD-Kapazität
+Warranty: Garantie
+Additional sort options: Zusätzliche Sortieroptionen
+Default sort order: Standard-Sortierreihenfolge
+Yestarday: Gestern
+Enable edit: Bearbeiten aktivieren
+Do not index: Nicht indizieren
+Wand attribute id: Zauberstab-Attribut-ID
+Synonym for: Synonym für
+Synonym: Synonym
+Remote code: Fernbedienungscode
+Postal code from: Postleitzahl von
+Postal code to: Postleitzahl nach
+Exclude postal codes: Postleitzahlen ausschließen
+Size from: Größe von
+Size to: Größe bis
+Delivery days: Liefertage
+Step starts at: Schritt beginnt bei
+For every next size: Für jede nächste Größe
+Price base step: Preisbasisschritt
+Employment statuses: Beschäftigungsstatus
+Color not approved: Farbe nicht freigegeben
+Deduct from year: Abzug vom Jahr
+Cities: Städte
+Projects: Projekte
+Newsletter signup: Newsletter abonnieren
+Marketing signup: Marketing-Anmeldung
+Lat: Lat
+Lng: Lng
+IP address: IP Adresse
+Quote: Zitieren
+amount: betragen
+original rebate: Originalrabatt
+original base price item: ursprünglicher Grundpreisartikel
+original base price item tax: ursprünglicher Grundpreis Artikelsteuer
+original base price item without tax: Original Grundpreis Artikel ohne MwSt.
+original price item:: Originalpreis Artikel:
+original price item tax:: Originalpreis Artikelsteuer:
+original price item without tax:: Neupreis Artikel ohne MwSt.:
+Price discount total: Preisnachlass insgesamt
+Tax type: Steuerart
+Base price discount total: Grundpreis-Rabatt-Gesamtbetrag
+Request identifier: Anforderungskennung
+Xml request raw body:: Rohtext der XML-Anfrage:
+Signed xml request body:: Signierter XML-Anfragetext:
+Total request attempts:: Anfrageversuche insgesamt:
+Last service response body:: Letzter Antworttext des Dienstes:
+Available configurable products: Verfügbare konfigurierbare Produkte
+Selected attributes: Ausgewählte Attribute
+Available attributes: Verfügbare Attribute
+Applied discounts: Angewendete Rabatte
+Discount percentage base: Rabattprozentsatzbasis
+Margin rule: Randregel
+Is applied: Wird angewandt
+Margin percent: Marge in Prozent
+Margin rules: Margin-Regeln
+Products that match criteria: Produkte, die den Kriterien entsprechen
+Recalculate margin rules: Margin-Regeln neu berechnen
+Discount catalog: Rabattkatalog
+Recalculate discounts: Rabatte neu berechnen
+Product label: Produktetikett
+Exclude from discounts: Von Rabatten ausschließen
+Product successfully excluded from discounts: Produkt erfolgreich von Rabatten ausgeschlossen
+Exclusion from discounts successfully removed: Ausschluss von Rabatten erfolgreich entfernt
+Remove exclusion from discounts: Ausschluss von Rabatten entfernen
+Create attribute: Attribut erstellen
+Update attribute: Attribut aktualisieren
+Bulk price: Mengenpreis
+Bulk price option: Option zum Massenpreis
+bulk price: Mengenpreis
+Bulk prices rules: Regeln für Massenpreise
+Products that match criteria for bulk prices: Produkte, die den Kriterien für Massenpreise entsprechen
+Min qty: Mindestmenge
+Add new attribute rule: Neue Attributregel hinzufügen
+Refresh results: Ergebnisse aktualisieren
+Margin history: Margenverlauf
+Bulk price rule product history: Produkthistorie der Massenpreisregel
+Bulk price history: Bulk-Preisverlauf
+Date from: Stammen aus
+Bulk price rule: Mengenpreisregel
+Recalculate bulk prices: Mengenpreise neu berechnen
+Recalculate loyalty earning configuration: Konfiguration für Treuepunkte neu berechnen
+Loyalty earnings configuration: Konfiguration der Treueeinnahmen
+loyalty earnings configuration: Konfiguration der Loyalty-Einnahmen
+Loyalty earning rules: Regeln für das Sammeln von Loyalitäten
+Products that match criteria for loyalty earnings: Produkte, die den Kriterien für Treuepunkte entsprechen
+Points multiplier: Punktemultiplikator
+Loyalty earning configuration product history: Produkthistorie der Konfiguration der Treuepunkte
+New: Neu
+Completed: Vollendet
+Account details short: Kontodaten kurz
+Account Form short: Kontoformular kurz
+Select products for product groups: Produkte für Produktgruppen auswählen
+Add to product group: Zur Produktgruppe hinzufügen
+Price per item: Preis pro Artikel
+Discount price: Reduzierter Preis
+Product contact remind me: Produktkontakt erinnert mich
+Delivery requests: Lieferanfragen
+Show product in menu: Produkt im Menü anzeigen
+s Product configuration product group: s Produktkonfiguration Produktgruppe
+Configurable bundle: Konfigurierbares Paket
+Configurations on product: Konfigurationen am Produkt
+Available configurations: Verfügbare Konfigurationen
+Selected configurable products: Ausgewählte konfigurierbare Produkte
+Gift: Geschenk
+Steps in unit: Schritte in Einheit
+Is gift: Ist Geschenk
+Bulk price display type: Anzeigetyp für den Massenpreis

@@ -1,0 +1,11 @@
+.sp-btn-unlink-dependency {
+    border: none;
+    background-color: white;
+    color: red;
+}
+
+.sp-project-task-dependency {
+    margin-bottom: 10px;
+    display: inline-flex;
+    width: 100%;
+}

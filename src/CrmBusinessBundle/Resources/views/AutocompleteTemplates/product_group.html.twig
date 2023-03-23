@@ -1,0 +1,8 @@
+{% set parentProductGroups = field_data.getParentProductGroupTree() %}
+{% set tree = "" %}
+{% if parentProductGroups is defined and parentProductGroups is not empty %}
+    {% for productGroup in parentProductGroups %}
+        {% set tree = tree~" "~get_entity_store_attribute(current_store_id,productGroup,"name")~" -" %}
+    {% endfor %}
+{% endif %}
+{{ tree }} {{ get_entity_store_attribute(current_store_id,field_data,"name") }}

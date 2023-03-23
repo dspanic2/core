@@ -1,0 +1,3 @@
+{% if is_mobile() %}
+    <a href="{{ data.url }}" class="button btn-type-1 kekspay-button" data-id="{{ data.data.hash }}" data-keks-hash="{{ hash }}">{% trans into current_language %}Open KEKS Pay{% endtrans %}</a>
+{% endif %}

@@ -1,0 +1,157 @@
+<form class="ajax-submit {{ classes }}"
+      action="/dashboard/insert_update_address_data"
+      method="post"
+      novalidate
+      data-trigger-action="{{ triggerAction }}">
+    <input type="text" name="im_not_a_human" style="display: none!important;">
+    <input type="hidden" name="id" value="{{ address.id|default(null) }}">
+    <input type="hidden" name="remove" value="0">
+
+    {% if (show_first_last_input is defined and show_first_last_input == 1) or (address.firstName is defined and address.firstName is not empty or address.lastName is defined and address.lastName is not empty) %}
+        <div class="row form-row full-width margin-bottom-0">
+            <div class="form-group first-name col-xs-12 col-sm-4">
+                <label>{% trans %}First name{% endtrans %}</label>
+                <input type="text"
+                       name="first_name"
+                       placeholder="{% trans %}First name{% endtrans %}"
+                       {% if address.firstName is defined and address.firstName is not empty %}value="{{ address.firstName }}"{% endif %}>
+            </div>
+            <div class="form-group last-name col-xs-12 col-sm-4">
+                <label>{% trans %}Last name{% endtrans %}</label>
+                <input type="text"
+                       placeholder="{% trans %}Last name{% endtrans %}"
+                       name="last_name"
+                       {% if address.lastName is defined and address.lastName is not empty %}value="{{ address.lastName }}"{% endif %}>
+            </div>
+            <div class="form-group last-name col-xs-12 col-sm-4">
+                <label>{% trans %}Phone{% endtrans %}</label>
+                <input type="text"
+                       placeholder="{% trans %}Phone{% endtrans %}"
+                       name="phone"
+                       {% if address.phone is defined and address.phone is not empty %}value="{{ address.phone }}"{% endif %}>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row form-row full-width margin-bottom-0">
+        <div class="form-group state col-xs-12 {% if horizontal is defined and horizontal == 1 %}col-sm-4{% endif %} {% if get_env("USE_SIMPLE_SELECT") != 1 %}has-select2{% endif %}">
+            <label for="state">{% trans %}Country{% endtrans %}*</label>
+            {% if get_env("USE_SIMPLE_SELECT") == 1 %}
+                {% set countries = get_available_countries() %}
+                <select data-dependent-field="city_id"
+                        class="form-control"
+                        name="country_id"
+                        required>
+                    <option value="" selected="selected">{% trans into current_language %}Select country{% endtrans %}</option>
+                    {% for country in countries %}
+                        <option value="{{ country.id }}"
+                                {% if address is not null and address.city is not empty and address.city.country is not empty and address.city.country.id == country.id %}selected{% endif %}>{{ get_entity_store_attribute(current_store_id,country,"name") }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <select data-template="default"
+                        data-type="lookup"
+                        data-search-url="/register/get_country_autocomplete"
+                        data-dependent-field="city_id"
+                        class="form-control"
+                        data-min-len="0"
+                        data-single="true"
+                        name="country_id"
+                        data-allow-clear="true"
+                        data-placeholder="{% trans %}Select country{% endtrans %}"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        {# oninput="this.setCustomValidity('')" #}
+                        {# oninvalid="this.setCustomValidity('{% trans %}Please select value from the list.{% endtrans %}')" #}
+                        required>
+                    {% if address is not null and address.city is not empty and address.city.country is not empty %}
+                        {% set country = get_entity_store_attribute(current_store_id,address.city.country,"name") %}
+                        <option value="{{ address.city.country.id }}" selected="selected">{{ country }}</option>
+                    {% else %}
+                        <option value="1" title="Hrvatska" selected>Hrvatska</option>
+                    {% endif %}
+                </select>
+            {% endif %}
+        </div>
+        {% if get_env("SHOW_CITY_AS_DROPDOWN")|default(0) %}
+            <div class="form-group city col-xs-12 {% if horizontal is defined and horizontal == 1 %}col-sm-8{% endif %}">
+                <label>{% trans into current_language %}City{% endtrans %}*</label>
+                <select data-template="default"
+                        data-type="lookup"
+                        data-search-url="/register/get_city_autocomplete"
+                        data-preselect-id=""
+                        data-preselect-text=""
+                        class="form-control"
+                        data-min-len="0"
+                        data-single="true"
+                        name="city_id"
+                        data-allow-clear="true"
+                        data-placeholder="{% trans %}Select city{% endtrans %}"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        {# oninput="this.setCustomValidity('')" #}
+                        {# oninvalid="this.setCustomValidity('{% trans %}Please select value from the list.{% endtrans %}')" #}
+                        required>
+                    {% if address is not null and address.city is not empty %}
+                        <option value="{{ address.city.id }}">{{ address.city.postalCode }}{{ get_entity_store_attribute(current_store_id,address.city,"name") }}</option>
+                    {% endif %}
+                </select>
+            </div>
+        {% else %}
+            <div class="form-group city col-xs-12 {% if horizontal is defined and horizontal == 1 %}col-sm-4{% endif %}">
+                <label>{% trans into current_language %}City{% endtrans %}*</label>
+                <input type="text"
+                       name="city_name"
+                       placeholder="{% trans into current_language %}City{% endtrans %}*"
+                       {% if address is not null and address.city is not empty %}value="{{ get_entity_store_attribute(current_store_id,address.city,"name") }}"{% endif %}
+                       required>
+            </div>
+            <div class="form-group postal_code col-xs-12 {% if horizontal is defined and horizontal == 1 %}col-sm-4{% endif %}">
+                <label>{% trans into current_language %}Postal code{% endtrans %}*</label>
+                <input type="text"
+                       name="postal_code"
+                       placeholder="{% trans into current_language %}Postal code{% endtrans %}*"
+                       {% if get_env("VALIDATE_POSTAL_CODE")|default(0) == 1 %}pattern="([1-9][0-9]{3,9})"{% endif %}
+                       minlength="4" maxlength="12"
+                        {% if address is not null and address.city is not empty %}value="{{ address.city.postalCode }}"{% endif %}
+                       required>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row form-row full-width margin-bottom-0">
+        <div class="form-group col-xs-12 {% if horizontal is defined and horizontal == 1 %}col-sm-12{% endif %}">
+            <label for="street">{% trans %}Street{% endtrans %}*</label>
+            <input type="text" name="street" required
+                   placeholder="{% trans %}Street{% endtrans %}*"
+                    {# oninput="this.setCustomValidity('')" #}
+                    {# oninvalid="this.setCustomValidity('{% trans %}Please fill out this field.{% endtrans %}')" #}
+                   value="{{ address.street|default('') }}">
+        </div>
+    </div>
+
+    <div class="row form-row margin-bottom-0">
+        <div class="form-group col-xs-12">
+            <label class="plain smaller-responsive force-visible text-left label-checkbox">
+                <input type="checkbox" name="default_shipping_address" {% if address.defaultShippingAddress is defined and address.defaultShippingAddress %}readonly checked="checked"{% endif %}> {% trans into current_language %}Use as default delivery address{% endtrans %}
+            </label>
+        </div>
+    </div>
+
+    <div class="row form-row margin-bottom-0">
+        <div class="form-group col-xs-12">
+            <label class="plain smaller-responsive force-visible text-left label-checkbox">
+                <input type="checkbox" name="address_billable" {% if address.billing is defined and address.billing %}readonly checked="checked"{% endif %}> {% trans into current_language %}Use as billable address{% endtrans %}
+            </label>
+        </div>
+    </div>
+    
+    <div class="form-group submit text-left">
+        <button type="submit" class="button btn-type-1">{% trans %}Save{% endtrans %}</button>
+        {% if enable_cancel is defined and enable_cancel == 1 %}
+            <button class="form-cancel-item cancel-new-address button btn-type-3">{% trans %}Cancel{% endtrans %}</button>
+        {% endif %}
+        {% if enable_remove is defined and enable_remove == 1 %}
+            <button class="form-remove-item button btn-type-2">{% trans %}Remove{% endtrans %}</button>
+        {% endif %}
+    </div>
+</form>

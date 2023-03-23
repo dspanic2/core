@@ -1,0 +1,13 @@
+Transaction failed. Please try again or use a different payment method.: Transakcija ni uspela. Poskusite znova ali uporabite drugo plačilno sredstvo.
+
+Payment transaction id is missing: ID plačilne transakcije je prazen
+Payment transaction does not exist: Plačilna transakcija ne obstaja
+This transaction is already completed: Ta transakcija je že zaključena
+Transaction cannot be charged, please contact the payment provider: Transakcije ni mogoče zaračunati, obrnite se na ponudnika plačila
+Transaction successfully charged: Transakcija uspešno bremenjena
+This transaction cannot be refunded: Te transakcije ni mogoče vrniti
+Transaction cannot be refunded, please contact the payment provider: Transakcije ni mogoče vrniti, obrnite se na ponudnika plačila
+Transaction successfully refunded: Transakcija je uspešno vrnjena
+This transaction cannot be canceled: Te transakcije ni mogoče preklicati
+Transaction cannot be canceled, please contact the payment provider: Transakcije ni mogoče preklicati, obrnite se na ponudnika plačila
+Transaction successfully canceled: Transakcija je bila uspešno preklicana

@@ -1,0 +1,23 @@
+<div class="sp-search-wrapper {% if hasSelectedValues %}sp-search-wrapper-active{% endif %}">
+    <form data-validate="true" method="post" action="#" accept-charset="UTF-8" data-callback='' class="form-horizontal row-border sp-advanced-search">
+        <fieldset class="form-group-wrapper">
+            <div class="row">
+                {% for searchAttribute in searchAttributes %}
+                    {% if searchAttribute.type == "attribute" %}
+                        {{ render(controller('AppBundle:Forms:advancedSearchField', {'attribute': searchAttribute.attribute, 'value': searchAttribute.selectedValue })) }}
+                    {% elseif searchAttribute.type == "s_attribute" %}
+                        {{ render(controller('CrmBusinessBundle:Product:sAttributeSearchField', {'attribute': searchAttribute.attribute, 'value': searchAttribute.selectedValue, 'search_type': searchAttribute.search_type })) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row sp-margin-top-20">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <button class="sp-btn btn-primary btn-blue btn" data-action="advanced_search_use">{% trans %}Search{% endtrans %}</button>
+                        <button class="sp-btn btn-primary btn-red btn" data-action="advanced_search_reset">{% trans %}Reset{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

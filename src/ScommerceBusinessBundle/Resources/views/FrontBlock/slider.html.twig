@@ -1,0 +1,25 @@
+{% if data.model.slider is defined and data.model.slider.getImages() is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+        <div class="slider">
+            {% for slide in data.model.slider.getImages() %}
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-info">
+                            <div class="slide-info-inner">
+                                {{ slide.content|raw }}
+                            </div>
+                        </div>
+                        <div class="slide-image">
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                'image': slide,
+                                'directory':'slider_image',
+                                'image_style': '',
+                                'alt_default': slide.name
+                            }}, {})) }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

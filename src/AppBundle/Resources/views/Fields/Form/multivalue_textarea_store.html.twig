@@ -1,0 +1,157 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}"
+     data-form-group="{{ attribute.attributeCode }}">
+    {% if stores is defined and stores is not empty %}
+        <div class="col-xs-12">
+            <div class="row">
+                <label class="col-sm-4 col-xs-4 control-label">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>
+                    {% else %}
+                        {{ attribute.frontendLabel|trans }}
+                    {% endif %}
+                    {% if attribute.note is not empty %}
+                        <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}"
+                              rel="popover" data-html="true" data-placement="bottom"></span>
+                    {% endif %}
+                </label>
+            </div>
+            {# {{ value|die }} #}
+            {% for store in stores %}
+                <div class="form-group row" data-store="{{ store.store_id }}" data-wrapper="store_value">
+                    <label class="col-xs-12 control-label">
+                        <span>{{ store.store_name }}</span>
+                    </label>
+                    <div class="col-xs-12">
+                        {% if value[store.store_id] is defined and value[store.store_id] is not empty %}
+                            {% for group in value[store.store_id] %}
+                                {% set groupIndex = loop.index %}
+                                {% apply spaceless %}
+                                    <div class="form-group row multivalue-group">
+                                        <label class="col-sm-2 col-xs-4 control-label">
+                                            <span>{% trans %}Group title{% endtrans %}</span>
+                                        </label>
+                                        <div class="col-sm-10 col-xs-8">
+                                            <div class="form-group row">
+                                                <div class="col-xs-12">
+                                                    <input data-type="text" data-multivalue="1"
+                                                           {% if (formType == "view" and attribute.attributeCode != "id") or attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                                                           class="form-control group-title"
+                                                           data-lpignore="true"
+                                                           type="text"
+                                                           data-name="{{ attribute.attributeCode }}[{{ store.store_id }}]"
+                                                           data-index="{{ groupIndex }}"
+                                                           name="{{ attribute.attributeCode }}[{{ store.store_id }}][{{ groupIndex }}][title]"
+                                                           value="{{ group.title|default("") }}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-xs-12 control-label">
+                                                    <span>{% trans %}Items{% endtrans %}</span>
+                                                </label>
+                                                <div class="col-xs-12">
+                                                    {% if group.items is defined and group.items is not empty %}
+                                                        {% for item in group.items %}
+                                                            {% set itemIndex = loop.index %}
+                                                            <div class="form-group row multivalue-item">
+                                                                <div class="col-xs-12">
+                                                                    <input data-type="text" data-multivalue="1"
+                                                                           {% if (formType == "view" and attribute.attributeCode != "id") or attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                                                                           class="form-control" data-lpignore="true"
+                                                                           type="text"
+                                                                           data-name="{{ attribute.attributeCode }}[{{ store.store_id }}]" [{{ groupIndex }}][items]
+                                                                           data-index="{{ itemIndex }}"
+                                                                           name="{{ attribute.attributeCode }}[{{ store.store_id }}][{{ groupIndex }}][items][{{ itemIndex }}]"
+                                                                           value="{{ item }}"/>
+                                                                </div>
+                                                            </div>
+                                                            {% if loop.last %}
+                                                                <button class="sp-btn btn-primary btn-blue btn"
+                                                                        data-action="multivalue_new_item">{% trans %}New item{% endtrans %}</button>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <div class="form-group row multivalue-item">
+                                                            <div class="col-xs-12">
+                                                                <input data-type="text" data-multivalue="1"
+                                                                       {% if (formType == "view" and attribute.attributeCode != "id") or attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                                                                       class="form-control" data-lpignore="true"
+                                                                       type="text"
+                                                                       data-name="{{ attribute.attributeCode }}[{{ store.store_id }}][{{ groupIndex }}][items]"
+                                                                       data-index="1"
+                                                                       name="{{ attribute.attributeCode }}[{{ store.store_id }}][{{ groupIndex }}][items][1]"
+                                                                       value=""/>
+                                                            </div>
+                                                        </div>
+                                                        {% if loop.last %}
+                                                            <button class="sp-btn btn-primary btn-blue btn"
+                                                                    data-action="multivalue_new_item">{% trans %}New item{% endtrans %}</button>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endapply %}
+                                {% if loop.last %}
+                                    <button class="sp-btn btn-primary btn-blue btn"
+                                            data-action="multivalue_new_group">{% trans %}New group{% endtrans %}</button>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% apply spaceless %}
+                                <div class="form-group row multivalue-group">
+                                    <label class="col-sm-2 col-xs-4 control-label">
+                                        <span>{% trans %}Group title{% endtrans %}</span>
+                                    </label>
+                                    <div class="col-sm-10 col-xs-8">
+                                        <div class="form-group row">
+                                            <div class="col-xs-12">
+                                                <input data-type="text" data-multivalue="1"
+                                                       {% if (formType == "view" and attribute.attributeCode != "id") or attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                                                       class="form-control group-title"
+                                                       data-lpignore="true"
+                                                       type="text"
+                                                       data-name="{{ attribute.attributeCode }}[{{ store.store_id }}]"
+                                                       data-index="1"
+                                                       name="{{ attribute.attributeCode }}[{{ store.store_id }}][1][title]"
+                                                       value=""/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-xs-12 control-label">
+                                                <span>{% trans %}Items{% endtrans %}</span>
+                                            </label>
+                                            <div class="col-xs-12">
+                                                <div class="form-group row multivalue-item">
+                                                    <div class="col-xs-12">
+                                                        <input data-type="text" data-multivalue="1"
+                                                               {% if (formType == "view" and attribute.attributeCode != "id") or attribute.readOnly %}readonly="readonly"{% endif %} {% if attribute.readOnly %}data-readonly="force"{% endif %}
+                                                               class="form-control" data-lpignore="true" type="text"
+                                                               data-name="{{ attribute.attributeCode }}[{{ store.store_id }}]"
+                                                               data-index="1"
+                                                               name="{{ attribute.attributeCode }}[{{ store.store_id }}][1][items][1]"
+                                                               value=""/>
+                                                    </div>
+                                                </div>
+                                                {% if loop.last %}
+                                                    <button class="sp-btn btn-primary btn-blue btn"
+                                                            data-action="multivalue_new_item">{% trans %}New item{% endtrans %}</button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endapply %}
+                            {% if loop.last %}
+                                <button class="sp-btn btn-primary btn-blue btn"
+                                        data-action="multivalue_new_group">{% trans %}New group{% endtrans %}</button>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

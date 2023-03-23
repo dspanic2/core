@@ -1,0 +1,14 @@
+services:
+
+  notification_manager:
+    class: NotificationsAndAlertsBusinessBundle\Managers\NotificationManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+# DECLARE PUSH PROVIDER IN SERVICES YML
+#  push_provider:
+#    class: NotificationsAndAlertsBusinessBundle\PushProviders\Firebase
+#    calls:
+#      - [ setContainer,[ "@service_container" ] ]
+#      - [ initialize ]

@@ -1,0 +1,25 @@
+<div class="sp-block {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{{ data.block.title|trans }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row-fluid">
+                {# TODO: implement search bar #}
+                <div class="col-sm-12">
+                    <div id="treeview" class="{% if not data.model.tree %}hidden{% endif %}" data-content="{{ data.model.tree }}"></div>
+                    <div class="sp-empty-list-content {% if data.model.tree %}hidden{% endif %}">
+                        <i class="fa fa-comment-o fa-3x" aria-hidden="true"></i><br/>
+                        <label>{% trans %}No topics/pages available{% endtrans %}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

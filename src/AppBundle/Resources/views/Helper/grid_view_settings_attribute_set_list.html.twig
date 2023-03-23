@@ -1,0 +1,8 @@
+{% if attributeSets is defined %}
+    {% for attributeSet in attributeSets %}
+        <div class="col-sm-12">
+            <textarea data-size="autosize" name="attribute_set_definition[{{ attributeSet.attributeSetCode }}]" class="form-control border-important">[{"item_template":"AppBundle:Helper:default_grid_item.html.twig","action":"add_simple_to_cart","callback":"","folder":"/Documents/Products","url":"get_product"}]</textarea>
+            <p><small>{{ attributeSet.attributeSetCode }}</small></p>
+        </div>
+    {% endfor %}
+{% endif %}

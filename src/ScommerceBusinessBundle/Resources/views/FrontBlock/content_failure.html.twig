@@ -1,0 +1,21 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="container cart-failure" id="cart">
+        <div class="row step-links">
+            <div class="col-xs-12">
+                <div class="section cart-steps">
+                    <ul class="links">
+                        <li id="cart-step-1-title" class="cart-step-title cart-overview active"><span
+                                    class="icon"></span>{% trans into current_language %}Cart overview{% endtrans %}</li>
+                        <li id="cart-step-3-title" class="cart-step-title cart-order-check active"><span
+                                    class="icon"></span>{% trans into current_language %}Delivery & payment{% endtrans %}</li>
+                        <li id="cart-step-4-title" class="cart-step-title cart-confirmation active current"><span
+                                    class="icon"></span>{% trans into current_language %}Order confirmation{% endtrans %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="cart-step-4" class="cart-step active" data-step="4">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_failure.html.twig', 'data': {'data': data}}, {})) }}
+        </div>
+    </div>
+</div>

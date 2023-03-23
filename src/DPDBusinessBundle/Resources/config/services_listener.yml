@@ -1,0 +1,8 @@
+services:
+
+  dpd_parcel_listener:
+     class: DPDBusinessBundle\EventListener\DPDParcelListener
+     calls:
+        - [ setContainer,[ "@service_container" ] ]
+     tags:
+      - { name: kernel.event_listener, event: entity.precreated, method: onDpdParcelPreCreated }

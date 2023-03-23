@@ -1,0 +1,27 @@
+<div data-locale="{{ app.session.get('_locale') }}" class="sp-block {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="panel-heading main-panel-heading">
+                    <h5>{% trans %}Export to ical{% endtrans %}
+                        <div class="options">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    </h5>
+                </div>
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <p>{% trans %}Instructions for iCal import{% endtrans %}:</p>
+                        <ul>
+                            <li><a href="https://support.office.com/en-us/article/import-or-subscribe-to-a-calendar-in-outlook-com-cff1429c-5af6-41ec-a5b4-74f2c278e98c" target="_blank">{% trans %}Import to{% endtrans %} Outlook</a></li>
+                            <li><a href="https://help.sportlyzer.com/hc/en-us/articles/207593579-Add-iCal-to-Google-Calendar" target="_blank">{% trans %}Import to{% endtrans %} Google</a></li>
+                        </ul>
+                        <p>{% trans %}Your personal export url{% endtrans %}:<br><strong>{{ data.export_url }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

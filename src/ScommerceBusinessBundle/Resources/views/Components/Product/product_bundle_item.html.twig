@@ -1,0 +1,54 @@
+{% set prices = product_prices %}
+{% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+{% set url = get_entity_store_attribute(current_store_id,product,"url") %}
+<div class="product-display-grid item">
+    <a class="product-display-grid-image" href="/{{ current_language_url }}/{{ url }}">
+        {% if product.getSelectedImage() is not empty %}
+            {% set image_url = "/Documents/Products/"  ~ product.getSelectedImage().file %}
+            {% set image_style_url = image_url|image_style('product_list_item') %}
+            {% if image_style_url %}
+                {% set image_url = image_style_url %}
+            {% endif %}
+        {% else %}
+            {% set image_url = "/frontend/images/image-placeholder.png" %}
+        {% endif %}
+        <img class="b-lazy"
+             alt="{% if image.alt is defined and image.alt is not empty %}{{ image.alt }}{% else %}{{ product_title }}{% endif %}"
+             title="{% if image.title is defined and image.title is not empty %}{{ image.title }}{% else %}{{ product_title }}{% endif %}"
+             src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+             data-src="{{ image_url }}"/>
+        {% if is_legal_account() == 0 %}
+            {# PRIVATE #}
+            {% if prices.discount_percentage is defined and prices.discount_percentage is not empty %}
+                <span class="discount-mark">{% trans %}Save up{% endtrans %} {{ prices.discount_percentage }}</span>
+            {% endif %}
+        {% else %}
+            {# LEGAL #}
+            {% if prices.discount_percentage_base is defined and prices.discount_percentage_base is not empty %}
+                <span class="discount-mark">{% trans %}Save up{% endtrans %} {{ prices.discount_percentage_base }}</span>
+            {% endif %}
+        {% endif %}
+
+        {% if is_current is defined and is_current %}
+            <span class="current">{% trans %}Currently viewing{% endtrans %}</span>
+        {% endif %}
+    </a>
+    <div class="product-info">
+        <h3>
+            <a class="product-click" href="/{{ current_language_url }}/{{ url }}"
+               title="{{ product_title }}">{{ product_title }} (x{{ qty }})</a>
+        </h3>
+    </div>
+    <div class="prices {% if prices.discount_price is not empty %}with-discount{% endif %}">
+        {% if prices.price is not empty %}
+            {% set class = "" %}
+            {% if prices.discount_price is not empty %}
+                {% set class = "invalid" %}
+            {% endif %}
+            {% if prices.discount_price is not empty %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': prices.discount_price, 'currency': prices.currency_code }}, {})) }}
+            {% endif %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': prices.price, 'currency': prices.currency_code, 'class': class }}, {})) }}
+        {% endif %}
+    </div>
+</div>

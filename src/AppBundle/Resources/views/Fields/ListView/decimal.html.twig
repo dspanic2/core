@@ -1,0 +1,22 @@
+{% if field.listMode == "edit" and not attribute.readOnly and field.listViewAttribute.enableInlineEditing == 1 %}
+    <td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+        <input data-type="decimal"
+               {% if width is not empty %}style="width: {{ width }}px;"{% endif %}
+               class="inline-edit-field form-control"
+               type="text"
+               name="{{ attribute.attributeCode }}"
+                {% apply spaceless %}
+                    {% if(attribute.validator is not empty) %}
+                        {% set validators = attribute.validator | json_decode %}
+                        {% for validator in validators %}
+                            {{ include('AppBundle:Form/Validators:' ~ validator.type ~ '.html.twig') }}
+                        {% endfor %}
+                    {% endif %}
+                    value="{{ value }}"
+                {% endapply %} />
+    </td>
+{% else %}
+    <td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+        <span {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>{{ value }}</span>
+    </td>
+{% endif %}

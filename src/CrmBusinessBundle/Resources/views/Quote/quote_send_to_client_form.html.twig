@@ -1,0 +1,49 @@
+<div class="modal fade" id="default_modal" role="dialog" aria-labelledby="label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{% trans %}Send email to client{% endtrans %}</h4>
+            </div>
+            <div class="modal-body" style="overflow:hidden;">
+                <form data-validate="true"
+                      id="quote-send-email"
+                      method="post"
+                      action=""
+                      accept-charset="UTF-8"
+                      class="form-horizontal row-border">
+
+                    <input type="hidden" name="quote_id" value="{{ quote_id }}"/>
+
+                    <div class="sp-multiselect-wrapper modal-header">
+                        <div class="row sp-margin-bottom-15">
+                            <div class="col-sm-12">
+                                <textarea data-type="ckeditor" name="email_message"
+                                          placeholder="Add email message">{{ email_template|default("")|raw }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    <button type="button"
+                                            data-url="{{ path('quote_send_email') }}"
+                                            class="btn-primary btn btn-blue"
+                                            data-action="quote_send_client_email">{% trans %}Send{% endtrans %}</button>
+                                    <button type="button"
+                                            class="btn-default btn pull-right btn-red"
+                                            data-dismiss="modal">
+                                        <span aria-hidden="true">{% trans %}Close{% endtrans %}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

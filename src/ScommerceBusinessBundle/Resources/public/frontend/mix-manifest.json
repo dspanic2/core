@@ -1,0 +1,15 @@
+{
+    "/js/accessibility.min.js": "/js/accessibility.min.js",
+    "/js/cart.min.js": "/js/cart.min.js",
+    "/js/checkout.min.js": "/js/checkout.min.js",
+    "/js/comparison.min.js": "/js/comparison.min.js",
+    "/js/customFunctions.min.js": "/js/customFunctions.min.js",
+    "/js/dashboard.min.js": "/js/dashboard.min.js",
+    "/js/formHandler.min.js": "/js/formHandler.min.js",
+    "/js/general.min.js": "/js/general.min.js",
+    "/js/newsList.min.js": "/js/newsList.min.js",
+    "/js/pageBuilder.min.js": "/js/pageBuilder.min.js",
+    "/js/product.min.js": "/js/product.min.js",
+    "/js/productList.min.js": "/js/productList.min.js",
+    "/js/tracking.min.js": "/js/tracking.min.js"
+}

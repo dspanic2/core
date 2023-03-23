@@ -1,0 +1,30 @@
+<div class="{% if get_is_admin(app.user) %}is-admin{% endif %} sp-block-outer sp-block-outer-{{ data.block.type }} section banner-large {{ data.block.class }} {% if not data.block.getActiveIncludingDates %}inactive{% endif %}" {{ data.block.dataAttributes }}>
+    {% if get_is_admin(app.user) %}
+        <div class="panel-heading sp-frontend-edit-block-wrapper">
+            <div class="options">
+                <a href="{{ get_env("SSL") }}://{{ get_env("BACKEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/page/s_front_block/form/{{ data.block.id }}" target="_blank">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:edit.html.twig', 'data': {}}, {})) }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="item banner-main">
+                {% if data.block.getSelectedImage() is not empty %}
+                    {% set image_url = "/Documents/s_front_block_images/"  ~ data.block.getSelectedImage().file %}
+                    {% set image_style_url = image_url|image_style('banner_full_width') %}
+                    {% if image_style_url %}
+                        {% set image_url = image_style_url %}
+                    {% endif %}
+                    {% if data.block.url is defined and data.block.url is not empty %}
+                        <a href="{{ data.block.url }}"><img src="{{ image_url }}"></a>
+                    {% else %}
+                        <img src="{{ image_url }}">
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+{% if list.aboveListActions is not empty %}
+    {% set aboveListActions = list.aboveListActions|json_decode %}
+    {% for aboveListAction in aboveListActions %}
+        {#{% if (aboveListAction.show_on_new is defined and aboveListAction.show_on_new == 1 and disableAddNew == 1) or disableAddNew == 0 %}#}
+        {% if is_granted('ROLE_ADMIN') or app.user.hasPrivilege(aboveListAction.actionType,data.block.attributeSet.uid) %}
+            {# LINK #}
+            {% if aboveListAction.type == "link" %}
+                {% set form_type = "form" %}
+                {% if aboveListAction.form_type is defined and aboveListAction.form_type is not empty %}
+                    {% set form_type = aboveListAction.form_type %}
+                {% endif %}
+                <a class="sp-options-text {% if aboveListAction.class is defined %}{{ aboveListAction.class }}{% endif %}"
+                   href="{{ path(aboveListAction.url, {'id': null, 'url': attributeSetCode, 'type': form_type, 'pid': parent_id, 'ptype': parent_entity_type }) }}"
+                   data-tooltip="true" data-placement="bottom"
+                   title="{{ aboveListAction.name|trans }}"><i
+                            class="sp-icon sp-icon-{% if aboveListAction.spIcon is defined %}{{ aboveListAction.spIcon }}{% else %}add{% endif %}"></i><span
+                            class="sp-icon-text">{{ aboveListAction.name|trans }}</span></a>
+                {# BUTTONS #}
+            {% elseif aboveListAction.type == "button" %}
+                {% set block_id = "" %}
+                {% if aboveListAction.block_id is defined %}
+                    {% if aboveListAction.block_id is not empty %}
+                        {% set block_id = aboveListAction.block_id %}
+                    {% endif %}
+                {% endif %}
+
+                <span class="sp-options-text sp-hover {% if aboveListAction.class is defined %}{{ aboveListAction.class }}{% endif %}"
+                      {% if aboveListAction.confirm is defined and aboveListAction.confirm is not empty %}data-confirm="{{ aboveListAction.confirm }}"{% endif %}
+                          data-action="{{ aboveListAction.action }}"
+                      title="{{ aboveListAction.name|trans }}"
+                            {% if aboveListAction.url is defined and aboveListAction.url is not empty %}data-url="{{ path(aboveListAction.url, {'pid': parent_id, 'ptype': parent_entity_type, 'action': aboveListAction.returnAction, 'attribute_set_code':attributeSetCode,'block_id':block_id }) }}"{% endif %}
+                        {% if aboveListAction.callback is defined and aboveListAction.callback is not empty %}data-callback='{{ aboveListAction.callback }}'{% endif %}
+                          data-pid="{{ parent_id }}" data-ptype="{{ parent_entity_type }}"><i
+                            class="sp-icon sp-icon-{% if aboveListAction.spIcon is defined %}{{ aboveListAction.spIcon }}{% else %}add{% endif %}"></i><span
+                            class="sp-icon-text">{{ aboveListAction.name|trans }}</span></span>
+            {% endif %}
+            {#  {% endif %}#}
+        {% endif %}
+    {% endfor %}
+{% endif %}

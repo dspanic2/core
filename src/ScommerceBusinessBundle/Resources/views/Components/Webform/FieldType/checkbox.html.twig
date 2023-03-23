@@ -1,0 +1,61 @@
+{% set label = get_entity_store_attribute(current_store_id,field,"name") %}
+{% apply spaceless %}
+    {% set options = field.getFieldOptions %}
+    {% if options is not empty %}
+        {% if label is not empty %}
+            <div class="checkbox-label">{{ label }}{% if field.getRequired %}*{% endif %}</div>
+        {% endif %}
+        <div class="checkbox-options {{ field.getClass|default("") }}">
+            {% set submissionFiledValues = [] %}
+            {% if submission is not empty %}
+                {% set submissionValues = submission.getValues %}
+                {% for submissionValue in submissionValues %}
+                    {% if submissionValue.getField.getId == field.id and submissionValue.getFieldOption is not empty %}
+                        {% set submissionFiledValues = submissionFiledValues|merge([submissionValue.getFieldOption.getId]) %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% set addNewLine = false %}
+            {% for option in options %}
+                {% if submissionFiledValues is not empty %}
+                    {% if submissionFiledValues is not empty and option.getId in submissionFiledValues %}
+                        <div>{{ option.getOptionValue }}<br></div>
+                        {% set addNewLine = true %}
+                    {% endif %}
+                {% else %}
+                    <label class="plain label-checkbox">
+                        <input type="checkbox"
+                               {% if field.getRequired %}required{% endif %}
+                                {% if field.getDefaultValue|default(0) == 1 %}checked{% endif %}
+                                {% if submissionFiledValues is not empty and option.getId in submissionFiledValues %}checked{% endif %}
+                                {% if submission is not empty %}readonly disabled{% endif %}
+                               name="field-{{ field.id }}[]"
+                               value="{{ option.getId }}"> {{ option.getOptionValue }}
+                    </label>
+                {% endif %}
+            {% endfor %}
+            {% if addNewLine %}<br>{% endif %}
+        </div>
+    {% else %}
+        <div class="checkbox-options {{ field.getClass|default("") }}">
+            {% set submissionFiledValues = [] %}
+            {% if submission is not empty %}
+                {% set submissionValues = submission.getValues %}
+                {% for submissionValue in submissionValues %}
+                    {% if submissionValue.getField.getId == field.id and submissionValue.getFieldOption is not empty %}
+                        {% set submissionFiledValues = submissionFiledValues|merge([submissionValue.getFieldOption.getId]) %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <label class="plain label-checkbox">
+                <input type="checkbox"
+                       {% if field.getRequired %}required{% endif %}
+                        {% if field.getDefaultValue|default(0) == 1 %}checked{% endif %}
+                        {% if submissionFiledValues is not empty and 1 in submissionFiledValues %}checked{% endif %}
+                        {% if submission is not empty %}readonly disabled{% endif %}
+                       name="field-{{ field.id }}[]"
+                       value="1">{{ label }}
+            </label>
+        </div>
+    {% endif %}
+{% endapply %}

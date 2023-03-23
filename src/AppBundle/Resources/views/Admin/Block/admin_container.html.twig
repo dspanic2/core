@@ -1,0 +1,36 @@
+<div class="grid-stack-item" data-block-id="{{ data.block.id }}" data-gs-title="{% if data.block.title is defined %}{{ data.block.title }}{% endif %}" data-gs-x="{% if data.x is defined %}{{ data.x }}{% endif %}" data-gs-y="{% if data.y is defined %}{{ data.y }}{% endif %}" data-gs-id="{{ data.block.id }}" data-gs-type="{{ data.block.type }}" data-gs-min-width="2" data-gs-min-height="2" data-gs-width="{% if data.width is defined %}{{ data.width }}{% endif %}" data-gs-height="{% if data.height is defined %}{{ data.height }}{% endif %}">
+    <div class="grid-stack-item-content sp-border_{{ data.block.type }}">
+        <div class="sp-main-actions-wrapper">
+            <div class="container">
+                {% if data.block.title is defined %}<h4>{{ data.block.title }} - {{ data.block.type }}</h4>{% endif %}
+                <div class="options">
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="drop-block" style="display: none;">
+                        <i class="sp-icon sp-icon-anchor sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="move-block">
+                        <i class="sp-icon sp-icon-move sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="edit-block-modal" data-url="{{ path('page_block_update_form', {'id': data.block.id, 'form_type':'modal'}) }}">
+                        <i class="sp-icon sp-icon-settings sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="remove-block" data-url="{{ path('page_block_remove', {'id': data.block.id}) }}">
+                        <i class="sp-icon sp-icon-disable sp-hover"></i>
+                    </span>
+                    <span class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-action="add-block" data-url="{{ path('page_block_update_form', {'form_type':'modal','parent_id':data.block.id, 'parent_type':'page_block' }) }}">
+                        <i class="sp-icon sp-icon-add sp-hover"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="grid-stack-inner-wrapper">
+            <div data-action="grid_stack_inner" class="grid-stack grid-stack-inner" data-url="{{ path('page_block_get') }}">
+                {% if data.block.content is defined and data.block.content is not empty %}
+                    {% set content = data.block.content|json_decode %}
+                    {% for key,block in content %}
+                        {{ render(controller('AppBundle:AdministratorController/Block:adminBlock', {'block_id': block.id, 'x': block.x, 'y': block.y, 'width': block.width, 'height': block.height }))}}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

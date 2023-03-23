@@ -1,0 +1,57 @@
+{% extends '@App/main.html.twig' %}
+
+{% block body_class %}
+    {{ data.page.class }}
+{% endblock %}
+
+{% block title %}
+    {% if data.model.entity is defined and data.model.entity.getId is not empty %}
+        {{ generate_admin_title(data.model.entity) }}
+    {% else %}
+        {{ generate_admin_title(data.page) }}
+    {% endif %}
+{% endblock %}
+
+{% block main_title %}
+    {% if  data.model.entity.name is defined and data.model.entity.name is not iterable %}
+        {% if data.model.entity.name is not empty %}
+            {{ data.model.entity.name }}
+        {% else %}
+            {{ data.page.title|trans }}
+        {% endif %}
+    {% else %}
+        {{ data.page.title|trans }}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <span class="sp-options-text sp-options-text-attribute-group sp-options-text-attribute-group-top sp-admin-button" data-action="add-block-modal-front"
+              data-url="{{ path('page_block_update_form', {'form_type':'modal','parent_id': data.page.id, 'parent_type':'page'}) }}">
+			<i class="sp-icon sp-icon-add sp-hover"></i>
+		</span>
+        <a class="sp-options-text sp-options-text-attribute-group sp-options-text-attribute-group-top sp-admin-button" href="{{ path('page_update_form', {'id': data.page.id}) }}">
+            <i class="sp-icon sp-icon-edit sp-hover"></i>
+        </a>
+        <a class="sp-options-text sp-options-text-attribute-group sp-options-text-attribute-group-top sp-admin-button" href="{{ path('page_privilege_form', {'id': data.page.id}) }}">
+            <i class="sp-icon sp-icon-settings sp-hover"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block main_actions %}
+    {{ get_page_buttons(data)|raw }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content" id="page_{{ data.page.id }}" data-page-type="{{ data.type }}" data-page-subtype="{{ data.subtype }}" {% if data.id is not empty %}data-entity-id="{{ data.id }}"{% endif %}>
+        <div class="sp-block-group-wrapper" {% if is_granted('ROLE_ADMIN') %} data-url="{{ path('page_block_get') }}" {% endif %}>
+            {% for row in data.page.preparedContent %}
+                <div class="row">
+                    {% for block in row.blocks %}
+                        <div class="col-xs-12 col-sm-{{ block.width }} col-md-{{ block.width }}" data-block-id="{{ block.id }}" id="{{ block.id }}">
+                            {{ render(controller('AppBundle:Block:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

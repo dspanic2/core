@@ -1,0 +1,157 @@
+<div class="sp-block {{ data.block.class }}">
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+
+        {% if data.model.massActions is not empty %}
+            {% set data_order_col = 1 %}
+        {% else %}
+            {% set data_order_col = 0 %}
+        {% endif %}
+        {% set data_order_dir = "asc" %}
+        {% set data_limit = 10 %}
+        {% set data_filter = 1 %}
+        {% set data_export = 0 %}
+        {% set data_import = 0 %}
+        {% set data_search = 0 %}
+
+        {% if data.model.showAdvancedSearch is not empty %}
+            {% set data_search = data.model.showAdvancedSearch %}
+        {% endif %}
+
+        {% for key,vw_atribute in data.model.listViewAttributes if vw_atribute.attribute.id == data.model.defaultSort %}
+            {% if data.model.massActions is not empty %}
+                {% set data_order_col = key + 1 %}
+            {% else %}
+                {% set data_order_col = key %}
+            {% endif %}
+        {% endfor %}
+        {% if data.model.defaultSortType is not empty %}
+            {% set data_order_dir = data.model.defaultSortType %}
+        {% endif %}
+        {% if data.model.showLimit is not empty %}
+            {% set data_limit = data.model.showLimit %}
+        {% endif %}
+        {% if data.model.showFilter is not empty %}
+            {% set data_filter = data.model.showFilter %}
+        {% endif %}
+        {% if data.model.showExport is not empty %}
+            {% set data_export = data.model.showExport %}
+        {% endif %}
+        {% if data.model.showImport is not empty %}
+            {% set data_import = data.model.showImport %}
+        {% endif %}
+
+            <div class="panel-heading">
+            {#<div class="panel-heading main-panel-heading">#}
+                <h5>{{ data.model.displayName|trans }}
+                    {% if data_search %}
+                        {{ render(controller('AppBundle:ListView:AdvancedSearchForm', {'data': data }))}}
+                    {% endif %}
+                    <div class="options">
+                                     {% if is_granted('ROLE_ADMIN') %}
+                            <a class="sp-options-text sp-options-text-attribute-group sp-admin-button" href="{{ path('list_view_update_form', {'id': data.block.relatedId}) }}"><i class="sp-icon sp-icon-edit sp-hover"></i></a>
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') or app.user.hasPrivilege(1,data.block.attributeSet.uid) %}
+                            {% set parent_id = data.id %}
+                            {% set parent_entity_type = null %}
+                            {% if data.id is not empty %}
+                                {% set parent_entity_type = data.page.attributeSet.attributeSetCode %}
+                            {% endif %}
+                            {% set disableAddNew = 0 %}
+                            {% if data.page.type == "form" and data.id is empty %}
+                                {% set disableAddNew = 1 %}
+                            {% endif %}
+                            {% if disableAddNew == 0 %}
+                                <a class="sp-options-text" title="{% trans %}Create new{% endtrans %}" data-action-type="open_new_item" href="{{ path('page_view',
+                                    {'url': data.block.attributeSet.attributeSetCode, 'type': 'form', 'id': null, 'pid': parent_id, 'ptype': parent_entity_type }) }}">
+                                    <i class="sp-icon sp-icon-add"></i><span class="sp-icon-text">{% trans %}Create new{% endtrans %}</span></a>
+                            {% endif %}
+                        {% endif %}
+                        {% if data_filter %}<span class="sp-options-text sp-hover pull-right" title="{% trans %}Reset filter{% endtrans %}" data-action="filter-reset"><i class="sp-icon sp-icon-refresh"></i><span class="sp-icon-text">{% trans %}Reset filter{% endtrans %}</span></span>{% endif %}
+                        {% if data_export or data_import %}
+                            <div class="sp-relative sp-inline-block pull-right sp-listview-dropdown-wrapper">
+                                <span class="sp-options-text sp-hover pull-right sp-listview-dropdown-control" title="{% trans %}Export{% endtrans %}" data-toggle="dropdown-export"><i class="sp-icon sp-icon-list"></i><span class="sp-icon-text">{% trans %}Export{% endtrans %}</span></span>
+                                <ul data-menu="dropdown-export" class="dropdown-menu sp-listview-dropdown" role="menu">
+                                    {% if data_export %}<li><span><span class="menu-item" data-action="export_xls" data-url="{{ path('export_xls_config',{'type': data.model.entityType.entityTypeCode, 'view': data.block.relatedId }) }}" role="button" tabindex="0">{% trans %}Export{% endtrans %}</span></span></li>{% endif %}
+                                    {% if data_import %}<li><span><span class="menu-item" data-action="import_xls" data-url="{{ path('import_xls_config',{'type': data.model.attributeSet.attributeSetCode }) }}" role="button" tabindex="0">{% trans %}Import{% endtrans %}</span></span></li>
+                                        <li><span><span class="menu-item" data-action="import_xls_template" data-url="{{ path('import_xls_template',{'type': data.model.entityType.entityTypeCode }) }}" role="button" tabindex="0">{% trans %}Download import template{% endtrans %}</span></span></li>{% endif %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        {% if data_search %}<span class="sp-options-text sp-hover pull-right" title="{% trans %}Search{% endtrans %}" data-action="advanced_search"><i class="sp-icon sp-icon-search"></i><span class="sp-icon-text">{% trans %}Search{% endtrans %}</span></span>{% endif %}
+                        {% if data.model.massActions is not empty %}
+                            <div class="sp-relative sp-inline-block pull-right sp-listview-dropdown-wrapper">
+                                <span class="sp-options-text sp-hover pull-right sp-listview-dropdown-control" title="{% trans %}More{% endtrans %}" data-toggle="dropdown"><i class="sp-icon sp-icon-more"></i><span class="sp-icon-text">{% trans %}More{% endtrans %}</span></span>
+                                <ul data-menu="dropdown" class="dropdown-menu sp-listview-dropdown" role="menu">
+                                    {% set mass_actions = data.model.massActions|json_decode %}
+                                    {% for button in mass_actions %}
+                                        <li><span>{% apply spaceless %}
+                                        {% if button.type == "link" %}
+                                            {% if (button.actionType is defined and button.actionType is not empty and app.user.hasPrivilege(button.actionType,data.model.attributeSet.uid)) or is_granted('ROLE_ADMIN') or (button.actionType is not defined and button.actionType is empty) %}
+                                                <a href="{{ path(button.url) }}" role="button" tabindex="0">{{ button.name|trans }}</a>
+                                            {% endif %}
+                                        {% elseif button.type == "button" %}
+                                            {% if (button.actionType is defined and button.actionType is not empty and app.user.hasPrivilege(button.actionType,data.model.attributeSet.uid)) or is_granted('ROLE_ADMIN') or (button.actionType is not defined and button.actionType is empty) %}
+                                                <span class="menu-item" {% if button.confirm is defined and button.confirm is not empty %}data-confirm="true"{% endif %} data-action="{{ button.action }}" data-url="{{ path(button.url) }}" {% if button.callback is defined and button.callback is not empty %}data-callback='{{ button.callback }}'{% endif %} role="button" tabindex="0">{{ button.name|trans }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endapply %}</span></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </h5>
+            </div>
+
+            {#'parent_id':data.parent_id,'parent_entity_type_id': data.parent_entity_type_id,
+            'display_type': data.display_type,#}
+            <div class="row-fluid">
+                <div class="col-sm-12">
+                    <div class="panel-body collapse in table-panel-body {% if data.display_type is defined and data.display_type != "modal" %}sp-fixed-header{% endif %}">
+                        <table cellpadding="0" cellspacing="0" border="0"
+                               class="table table-striped table-bordered datatables fixed-columns {% if data_filter == 0 %}sp-datatable-no-filter{% endif %}"
+                               id="table_{{ data.model.id }}_{{ data.model.entityType.id }}"
+                               data-url="{{ path('get_list_data',{'type':data.model.entityType.entityTypeCode, 'view':data.block.relatedId, 'id':data.id, 'pageBlockId':data.block.id, 'ptype': parent_entity_type }) }}"
+                               data-server="true"
+                               data-limit="{{ data_limit }}"
+                               data-search="false"
+                               data-filter="{{ data_filter }}"
+                               data-export="{{ data_export }}"
+                               data-order-col="{{ data_order_col }}"
+                               data-order-dir="{{ data_order_dir }}"
+                               data-empty="false"
+                               data-callback-after='["fixedTableAfter"]'
+                               data-filter-buttons="false"
+                               {% if data_search %}data-before='["prepareAdvancedSearch"]'{% endif %}
+                               data-loader="false"
+                               data-f-columns="false"
+                               data-fl-column="0"
+                               data-fr-column="0"
+                               data-table="{{ data.model.entityType.entityTypeCode }}">
+                            <thead>
+                            {% if data.display_type is defined and data.display_type != "modal" %}
+                                <tr class="sp-table-width">
+                                    {% if data.model.massActions is not empty %}
+                                        <th class="sp-list-checkbox-td"></th>
+                                    {% endif %}
+                                    {% for vw_atribute in data.model.listViewAttributes %}
+                                        {% if vw_atribute.display and vw_atribute.attribute is defined %}
+                                            <th></th>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <th class="sp-actions-td"></th>
+                                </tr>
+                            {% endif %}
+                            {{ render(controller('AppBundle:ListView:listViewHeader', {'view': data.block.relatedId }))}}
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

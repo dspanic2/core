@@ -1,0 +1,18 @@
+<div class="title" style="background-color: {{ priority.getColor }};border:1px solid {{ priority.getColor }};">
+    <div class="priority-title">{{ priority.getName }}</div>
+    <div class="actions">
+        <ul>
+            <li title="{% trans %}Create new{% endtrans %}"
+                data-action="modal_add"
+                data-url="{{ path('block_modal_view', {
+                    'block_id':'6fe61f96c52baf36860ab1ca75e7aabd',
+                    'ptype':'task_priority',
+                    'pid':priority.getId,
+                    'callback':'"refreshPage"',
+                    'assigned_to_id':user.getId,
+                }) }}">
+                <i class="fa fa-plus"></i>
+            </li>
+        </ul>
+    </div>
+</div>

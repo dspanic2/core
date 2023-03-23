@@ -1,0 +1,25 @@
+<div class="form-group row {% if(attribute.frontendHidden) %}hidden{% endif %}" data-form-group="{{ attribute.attributeCode }}">
+    <label class="col-sm-4 col-xs-4 control-label">{% if is_granted('ROLE_ADMIN') %}<a href="{{ path('attribute_update_form', {'id': attribute.id}) }}">{{ attribute.frontendLabel|trans }}</a>{% else %}{{ attribute.frontendLabel|trans }}{% endif %}
+        {% if attribute.note is not empty %}
+            <span class="fa fa-question-circle sp-question-circle" data-content="{{ attribute.note|trans }}" rel="popover" data-html="true" data-placement="bottom"></span>
+        {% endif %}
+    </label>
+    <div class="col-sm-8 col-xs-8">
+        {% if value is not empty %}
+            {% set value = value|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+            {% if value is not empty %}
+                {% for key,val in value %}
+                    <p>{{ key }}:
+                        {% if val is iterable %}
+                            {% set val = val|json_encode %}
+                            {{ val }}
+                        {% else %}
+                            {{ val }}
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+

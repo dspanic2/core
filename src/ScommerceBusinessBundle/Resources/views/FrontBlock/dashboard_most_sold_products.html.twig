@@ -1,0 +1,18 @@
+{% if data.model.products is defined and data.model.products is not empty and data.model.products.entities is defined and data.model.products.entities is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} section dashboard-element dashboard-most-sold {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="row">
+            <div class="col-xs-6">
+                <h2>{% trans into current_language %}Najčešće naručivani proizvodi{% endtrans %}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="items-grid grid-view price-to-top col-xs-12">
+                {% apply spaceless %}
+                    {% for product in data.model.products.entities %}
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_list_item.html.twig', 'data': {'product': product}}, {})) }}
+                    {% endfor %}
+                {% endapply %}
+            </div>
+        </div>
+    </div>
+{% endif %}

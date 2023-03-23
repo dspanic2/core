@@ -1,0 +1,36 @@
+{% if message is defined and message is not empty %}
+    {% set popupsShown = app.request.cookies.get('popups_shown')|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+    {% if message.getId not in popupsShown %}
+        <div id="marketing-message-popup-display" class="overlay marketing-message" data-delay="{{ message.getDelay|default(0)*1000 }}" data-id="{{ message.getId }}">
+            <div class="inner">
+                <span class="overlay-close">×</span>
+                {% set name = get_entity_store_attribute(current_store_id,message,"name") %}
+                <div class="block-data">
+                    {% set image = get_entity_store_attribute(current_store_id,message,"image") %}
+                    {% if image is not empty %}
+                        <div class="image">
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                'image': image,
+                                'directory':'marketing_message_image',
+                                'image_style': 'image_767',
+                                'alt_default': name|striptags
+                            }}, {})) }}
+                        </div>
+                    {% endif %}
+                    <div class="content-data">
+                        <div class="title">{{ name|raw }}</div>
+
+                        {% set editor = get_entity_store_attribute(current_store_id,message,"content") %}
+                        <div class="content">{{ editor|default("")|raw }}</div>
+
+                        {% set url = get_entity_store_attribute(current_store_id,message,"url") %}
+                        {% set urlText = get_entity_store_attribute(current_store_id,message,"url_text") %}
+                        {% if url is not empty and urlText is not empty %}
+                            <div class="link"><a href="{{ url }}" class="button" title="{{ name|striptags }}">{{ urlText }}</a></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

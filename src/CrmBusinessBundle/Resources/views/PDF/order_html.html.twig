@@ -1,0 +1,144 @@
+{% set money_transfer_payment_slip = get_env("MONEY_TRANSFER_PAYMENT_SLIP")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set site_base_data = get_env("SITE_BASE_DATA")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set orderStoreId = data.order.storeId %}
+{% set orderWebsiteId = data.orderWebsiteId %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ get_env('WEB_PATH') ~ asset('backend/AppBundle/css/pdf.css') }}">
+    {% endblock %}
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="row">
+    <h1>{% trans into data.current_language %}Broj narudžbe{% endtrans %}: {{ data.order.incrementId }}</h1>
+    <div style="float:right;max-width:300px">
+        <p>
+            <strong>{% trans into data.current_language %}Adresa isporuke{% endtrans %}:</strong><br/>
+            {% if data.order.accountShippingAddress.lastName %}
+                {{ data.order.accountShippingAddress.firstName }} {{ data.order.accountShippingAddress.lastName }}<br/>
+            {% else %}
+                {{ data.order.accountName }}<br/>
+            {% endif %}
+            {{ data.order.accountShippingAddress.street }}<br/>
+            {{ data.order.accountShippingAddress.city.postalCode }}, {{ data.order.accountShippingAddress.city.name }}
+            {{ get_entity_store_attribute(data.order.storeId, data.order.accountShippingAddress.city.country, 'name') }}<br/>
+            {% if data.order.accountShippingAddress.phone is not empty %}
+                {{ data.order.accountShippingAddress.phone }}
+            {% else %}
+                {{ data.order.accountPhone }}
+            {% endif %}
+        </p>
+        <p>
+            {% if data.order.account is defined and data.order.account is not empty and data.order.account.isLegalEntity == 1 %}
+                <strong>{% trans into data.current_language %}R1{% endtrans %}:</strong><br/>
+                {{ data.order.account.name }}<br/>
+                {{ data.order.account.oib }}
+            {% else %}
+                <strong>{% trans into data.current_language %}Adresa dostave računa{% endtrans %}:</strong><br/>
+                {{ data.order.accountName }}<br/>
+                {{ data.order.accountBillingAddress.street }}<br/>
+                {{ data.order.accountBillingAddress.city.postalCode }}, {{ data.order.accountBillingAddress.city.name }}<br/>
+                {{ get_entity_store_attribute(data.order.storeId, data.order.accountBillingAddress.city.country, 'name') }}<br/>
+                {{ data.order.accountPhone }}
+            {% endif %}
+        </p>
+    </div>
+    <div style="max-width:300px">
+        <p>
+            <strong>{% trans into data.current_language %}Mjesto i datum{% endtrans %}:</strong> {{ site_base_data[orderWebsiteId].site_base_addressLocality }}, {{ data.order.quoteDate|date('d.m.Y.') }}<br/>
+            <strong>{% trans into data.current_language %}Način plaćanja{% endtrans %}:</strong> {{ get_entity_store_attribute(data.order.storeId, data.order.paymentType, 'name') }}<br/>
+            <strong>{% trans into data.current_language %}Valuta plaćanja{% endtrans %}:</strong> {{ data.order.currency.name }}<br/>
+            <strong>{% trans into data.current_language %}Način dostave{% endtrans %}:</strong> {{ get_entity_store_attribute(data.order.storeId, data.order.deliveryType, 'name') }}<br/>
+            <br/>
+            <strong>{% trans into data.current_language %}Podaci za plaćanje{% endtrans %}:</strong><br/>
+            {{ site_base_data[orderWebsiteId].site_base_companyName }}<br/>
+            {{ site_base_data[orderWebsiteId].site_base_streetAddress }}, {{ site_base_data[orderWebsiteId].site_base_addressLocality }}<br/>
+            {% trans into data.current_language %}IBAN{% endtrans %}: {{ money_transfer_payment_slip[orderStoreId].recipient_iban_or_account }}<br/>
+            {% trans into data.current_language %}Kao model navedite{% endtrans %} {{ money_transfer_payment_slip[orderStoreId].recipient_account_model }}, {% trans into data.current_language %}a u pozivu na broj unesite broj vaše narudžbe{% endtrans %}: {{ data.order.incrementId }}<br/>
+            {% trans into data.current_language %}Iznos{% endtrans %}: {{ data.order.priceTotal|number_format(2, ',', '.') }}
+        </p>
+    </div>
+</div>
+<div class="row">
+    <p>{% trans into data.current_language %}Vrijeme izdavanja{% endtrans %}: {{ 'now'|date('d.m.Y. H:i:s') }}</p>
+</div>
+<div class="row">
+    <table cellspacing="0" cellpadding="1">
+        <tr>
+            <th><strong>{% trans into data.current_language %}Rb.{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Šifra{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Opis proizvoda{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Količina{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}JM{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Cijena s popustom{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}Cijena{% endtrans %}</strong></th>
+            <th><strong>{% trans into data.current_language %}PDV{% endtrans %} %</strong></th>
+            <th><strong>{% trans into data.current_language %}Iznos{% endtrans %}</strong></th>
+        </tr>
+            {% for item in data.order.orderItems %}
+                {% if item.entityStateId == 1 and item.getIsGift() == 0 %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ item.product.code }}</td>
+                        <td>{{ item.name }}</td>
+                        <td style="text-align: right;">{{ item.qty|number_format(2, ',', '.') }}</td>
+                        <td>{% trans into data.current_language %}kom{% endtrans %}</td>
+                        <td style="text-align: right;">{{ item.basePriceItemWithoutTax|number_format(2, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ item.basePriceItem|number_format(2, ',', '.') }}</td>
+                        <td>{{ item.taxType.percent|number_format(2, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ item.basePriceWithoutTax|number_format(2, ',', '.') }}</td>
+                    <tr>
+                {% endif %}
+            {% endfor %}
+            {% for item in data.order.orderItems %}
+                {% if item.entityStateId == 1 and item.getIsGift() == 1 %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ item.product.code }}</td>
+                        <td>{% trans into data.current_language %}Gift{% endtrans %}: {{ item.name }}</td>
+                        <td style="text-align: right;">{{ item.qty|number_format(0) }}</td>
+                        <td>{% trans into data.current_language %}kom{% endtrans %}</td>
+                        <td style="text-align: right;">{{ item.basePriceItemWithoutTax|number_format(2, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ item.basePriceItem|number_format(2, ',', '.') }}</td>
+                        <td>{{ item.taxType.percent|number_format(2, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ item.basePriceWithoutTax|number_format(2, ',', '.') }}</td>
+                    <tr>
+                {% endif %}
+            {% endfor %}
+        <tr>
+            <td colspan="4"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}Ukupno{% endtrans %}:</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.order.priceWithoutTax|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}Osnovica{% endtrans %}:</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.order.basePriceWithoutTax|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}Troškovi isporuke{% endtrans %}:</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.order.priceDeliveryTotal|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}PDV{% endtrans %}:</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.order.priceTax|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td colspan="3"><strong>{% trans into data.current_language %}Sveukupno{% endtrans %} ({% if data.order.currency is defined and data.order.currency is not empty %}{{ data.order.currency.name }}{% endif %}):</strong></td>
+            <td colspan="2" style="text-align: right;"><strong>{{ data.order.priceTotal|number_format(2, ',', '.') }}</strong></td>
+        </tr>
+    </table>
+</div>
+<div class="row">
+    {% if data.order.message is defined and data.order.message is not empty %}
+        <p>{% trans into data.current_language %}Napomene{% endtrans %}: {{ data.order.message }}</p>
+    {% endif %}
+</div>
+</body>
+</html>

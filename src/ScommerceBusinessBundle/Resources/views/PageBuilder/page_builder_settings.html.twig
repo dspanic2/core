@@ -1,0 +1,27 @@
+<form id="page-builder" action="/api/page_builder_add_block" class="ajax-submit" data-replace="#page-builder" data-trigger-action="page-builder-new-block" novalidate>
+    <div class="builder-title">{% trans into current_language %}Add new block{% endtrans %}</div>
+
+    {% set blocks = page_builder_get_blocks() %}
+    {% if blocks is not empty %}
+        <div class="row form-row full-width">
+            <div class="form-group col-xs-12">
+                <label>
+                    <span class="label-text">{% trans into current_language %}Select block type{% endtrans %}</span>
+                    <select name="block_type">
+                        {% for block in blocks %}
+                            <option value="{{ block }}">{{ block }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group submit">
+            <button class="button">{% trans into current_language %}Save{% endtrans %}</button>
+        </div>
+    {% else %}
+        <div class="system-message info">
+            <span class="system-message-text">{% trans into current_language %}No available blocks{% endtrans %}</span>
+        </div>
+    {% endif %}
+</form>

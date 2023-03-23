@@ -1,0 +1,24 @@
+{
+  "name": "shipshapesolutions/appbundle",
+  "type": "shipshape-core-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ShipShape",
+      "email": "info@shipshape-solutions.com",
+      "homepage": "https://shipshape-solutions.com/"
+    }
+  ],
+  "require": {
+    "shipshapesolutions/composer-bundle-installer": "1.x-dev",
+    "shipshapesolutions/hrbusinessbundle": "1.x-dev",
+    "shipshapesolutions/taskbusinessbundle": "1.x-dev",
+    "shipshapesolutions/notificationandalertsbusinessbundle": "1.x-dev",
+    "shipshapesolutions/wikibusinessbundle": "1.x-dev",
+    "shipshapesolutions/sharedinboxbusinessbundle": "1.x-dev",
+    "shipshapesolutions/scommercebusinessbundle": "1.x-dev"
+  },
+  "extra": {
+    "install-directory": "./src/AppBundle"
+  }
+}

@@ -1,0 +1,22 @@
+{% set label = get_entity_store_attribute(current_store_id,field,"name") %}
+{% apply spaceless %}
+    <label>{{ label }}{% if field.getRequired %}*{% endif %}
+        {% if submission is not empty %}
+            {% set submissionValues = submission.getContent|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+            {% for submissionData in submissionValues %}
+                {% if submissionData.field == field.id %}
+                    <div class="submission-value">{{ submissionData.value }}<br><br></div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <textarea name="field-{{ field.id }}"
+                    {{ render_nested_twig(field.getDataAttributes|default("")) }}
+                      placeholder="{{ field.getPlaceholder|default(label) }}"
+                      {% if field.getReadOnly %}readonly="readonly"{% endif %}
+                      {% if field.getRequired %}required{% endif %}></textarea>
+            {% if field.getNote|default("") is not empty %}
+                <div class="note">{{ field.getNote|raw }}</div>
+            {% endif %}
+        {% endif %}
+    </label>
+{% endapply %}

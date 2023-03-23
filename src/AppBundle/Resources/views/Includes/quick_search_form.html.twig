@@ -1,0 +1,11 @@
+<div class="sp-quick-search-wrapper hidden">
+    <form data-validate="true" method="post" action="#" accept-charset="UTF-8" data-callback='' class="form-horizontal row-border sp-quick-search">
+        <fieldset class="form-group-wrapper">
+            <div class="row">
+                {% for searchAttribute in searchAttributes %}
+                    {{ render(controller('AppBundle:Forms:quickSearchField', {'attribute': searchAttribute.attribute, 'value': searchAttribute.selectedValue }))}}
+                {% endfor %}
+            </div>
+        </fieldset>
+    </form>
+</div>

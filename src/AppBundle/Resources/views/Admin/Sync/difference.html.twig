@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    {% block main_actions %}
+
+    {% endblock %}
+    {% block main_title %}
+        {% trans %}View differences{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="sp-block">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 main-content">
+                    <div class="panel panel-midnightblue">
+                        <div class="col-sm-6">
+                            <label>Local</label>
+                            <textarea
+                                    readonly
+                                    placeholder=""
+                                    style="min-height: 400px"
+                                    id="json_content"
+                                    name="export_content"
+                                    class="form-control">{{ results.local|json_encode(constant('JSON_PRETTY_PRINT')) }}</textarea>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Remote</label>
+                            <textarea
+                                    readonly
+                                    placeholder=""
+                                    style="min-height: 400px"
+                                    id="json_content"
+                                    name="export_content"
+                                    class="form-control">{{ results.remote|json_encode(constant('JSON_PRETTY_PRINT')) }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container -->
+{% endblock %}

@@ -1,0 +1,85 @@
+{% set money_transfer_payment_slip = get_env("MONEY_TRANSFER_PAYMENT_SLIP")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set site_base_data = get_env("SITE_BASE_DATA")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set orderStoreId = data.orderStoreId %}
+{% set orderWebsiteId = data.orderWebsiteId %}
+
+{% extends 'ScommerceBusinessBundle:Email:base.html.twig' %}
+
+{% block header %}{% include 'ScommerceBusinessBundle:Email/Components:header_image.html.twig' %}{% endblock %}
+
+{% block body %}
+    <table width="100%" border="0" cellpadding="0"
+           cellspacing="0">
+        <tbody>
+        <tr>
+            <td valign="top" align="left">
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left"
+                            style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                            {% trans into data.current_language %}Dear Sir/Madam{% endtrans %},<br>
+                            <br>
+                            {% trans into data.current_language %}Your order with number{% endtrans %} <strong><a href="{{ data.site_base_data.site_base_url_language }}{{ get_page_url(data.current_store_id,70,"s_page") }}?order={{ data.order.id|stringEncrypt }}">{{ data.order.incrementId }}</a></strong> {% trans into data.current_language %}is ready for pickup{% endtrans %} <a href="https://goo.gl/maps/xT8F1jop5putVMj37"></a>{{ site_base_data[orderWebsiteId].site_base_streetAddress }}, {{ site_base_data[orderWebsiteId].site_base_postalCode }} {{ site_base_data[orderWebsiteId].site_base_addressLocality }}.&nbsp;<br>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="100%" border="0"
+                       cellpadding="0"
+                       cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1"
+                            style="line-height:30px">
+                            <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                                 width="1" alt=" "
+                                 height="30"
+                                 border="0"
+                                 style="display:block"
+                                 class="transparent_img">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

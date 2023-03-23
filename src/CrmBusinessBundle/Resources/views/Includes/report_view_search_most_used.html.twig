@@ -1,0 +1,27 @@
+<fieldset class="form-group-wrapper sp-table-mark sp-remove-zero sp-move-arrows">
+    <p>{% trans %}List of top 50 most used search queries{% endtrans %}.<br>{% trans %}Red items have no results, please check product descriptions or add synonyms{% endtrans %} <a href="/page/s_search_synonyms/list" target="_blank">{% trans %}here{% endtrans %}</a></p>
+    <table class="sp_report_view_table table">
+        <thead>
+        <tr>
+            <th class="sp-center">{% trans %}No.{% endtrans %}</th>
+            <th class="sp-center">{% trans %}Search query{% endtrans %}</th>
+            <th class="sp-center">{% trans %}Times used{% endtrans %}</th>
+            <th class="sp-center">{% trans %}Number of results{% endtrans %}</th>
+            <th class="sp-center">{% trans %}Last search date{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data.items %}
+            <tr>
+                <td class="sp-center sp_bold">
+                    {{ loop.index }}
+                </td>
+                <td {% if item.group == 0 %}style="color: #D50000; font-weight: bold;"{% endif %}>{{ item.name }}</td>
+                <td class="sp-center">{{ item.count|number_format(0, ',', '.') }}</td>
+                <td class="sp-center" {% if item.group == 0 %}style="color: #D50000; font-weight: bold;"{% endif %}>{{ item.group|number_format(0, ',', '.') }}</td>
+                <td class="sp-center">{{ item.last_regenerate_date|date("d/m/Y") }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</fieldset>

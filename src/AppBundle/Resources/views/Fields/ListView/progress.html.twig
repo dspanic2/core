@@ -1,0 +1,8 @@
+<td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+    <div class="progress progress-list-view">
+        <div class="progress-bar progress-bar-striped " role="progressbar" aria-valuenow="{{ value }}" aria-valuemin="0" title="{{ value }} %"
+             aria-valuemax="100" style="width: {{ value }}%">
+            <span class="sr-only">45% Complete</span>
+        </div>
+    </div>
+</td>

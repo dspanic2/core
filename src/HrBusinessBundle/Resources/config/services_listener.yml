@@ -1,0 +1,29 @@
+services:
+
+ employee_listener:
+    class: HrBusinessBundle\EventListener\EmployeeListener
+    calls:
+       - [ setContainer,[ "@service_container" ] ]
+    tags:
+     - { name: kernel.event_listener, event: entity.preupdated, method: onEmployeePreUpdated}
+     - { name: kernel.event_listener, event: entity.precreated, method: onEmployeePreCreated}
+     - { name: kernel.event_listener, event: entity.created, method: onEmployeeCreated}
+
+ absence_listener:
+    class: HrBusinessBundle\EventListener\AbsenceListener
+    calls:
+       - [ setContainer,[ "@service_container" ] ]
+    tags:
+     - { name: kernel.event_listener, event: entity.preupdated, method: onAbsencePreUpdated}
+     - { name: kernel.event_listener, event: entity.precreated, method: onAbsencePreCreated}
+     - { name: kernel.event_listener, event: entity.created, method: onAbsenceCreated}
+     - { name: kernel.event_listener, event: entity.updated, method: onAbsenceUpdated}
+     - { name: kernel.event_listener, event: entity.deleted, method: onAbsenceDeleted}
+
+ absence_employee_year_listener:
+    class: HrBusinessBundle\EventListener\AbsenceEmployeeYearListener
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+    tags:
+      - { name: kernel.event_listener, event: entity.updated, method: onAbsenceEmployeeYearUpdated}
+

@@ -1,0 +1,117 @@
+<div class="send-multiple-section row">
+    <div class="col-xs-12">
+        <h2 class="styled-title">{% trans into current_language %}Send to friends{% endtrans %}</h2>
+        <div class="row form-row">
+            <div class="form-group col-xs-12">
+                <label class="plain smaller-responsive label-checkbox">
+                    <input type="checkbox"
+                           name="send_multiple"
+                           id="send_multiple"> {% trans into current_language %}Send the order to multiple addresses{% endtrans %}
+                </label>
+            </div>
+        </div>
+
+        <div class="send-multiple-form-group" style="display: none;">
+            <div class="row form-row full-width">
+                <div class="form-group first-name col-xs-12 col-sm-3">
+                    <label><span class="label-text">{% trans into current_language %}First name{% endtrans %}*</span>
+                        <input type="text" name="first_name" required data-label="{% trans into current_language %}First name{% endtrans %}"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                               value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.firstName }}{% endif %}">
+                    </label>
+                </div>
+                <div class="form-group last-name col-xs-12 col-sm-3">
+                    <label><span class="label-text">{% trans into current_language %}Last name{% endtrans %}*</span>
+                        <input type="text" name="last_name" required data-label="{% trans into current_language %}Last name{% endtrans %}"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                               value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.lastName }}{% endif %}">
+                    </label>
+                </div>
+                <div class="form-group state col-xs-12 col-sm-3 has-select2">
+                    <label><span class="label-text">{% trans into current_language %}Country{% endtrans %}*</span>
+                        <select data-template="default"
+                                data-label="{% trans into current_language %}Country{% endtrans %}"
+                                data-type="lookup"
+                                data-search-url="/register/get_country_autocomplete"
+                                data-dependent-field="city_id"
+                                class="form-control"
+                                data-min-len="0"
+                                data-single="true"
+                                name="country_id"
+                                data-allow-clear="true"
+                                data-placeholder="{% trans into current_language %}Select country{% endtrans %}*"
+                                tabindex="-1"
+                                aria-hidden="true"
+                                oninput="this.setCustomValidity('')"
+                                oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                                required>
+                            {% if data.model.billing_country is defined and data.model.billing_country is not empty %}
+                                <option value="{{ data.model.billing_country.id }}">{{ get_entity_store_attribute(current_store_id,data.model.billing_country,"name") }}</option>
+                            {% endif %}
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group city col-xs-12 col-sm-3 has-select2">
+                    <label><span class="label-text">{% trans into current_language %}City{% endtrans %}*</span>
+                        <select data-template="default"
+                                data-label="{% trans into current_language %}City{% endtrans %}"
+                                data-type="lookup"
+                                data-search-url="/register/get_city_autocomplete"
+                                class="form-control"
+                                data-min-len="0"
+                                data-single="true"
+                                name="city_id"
+                                data-allow-clear="true"
+                                data-placeholder="{% trans into current_language %}Select city{% endtrans %}*"
+                                tabindex="-1"
+                                aria-hidden="true"
+                                oninput="this.setCustomValidity('')"
+                                oninvalid="this.setCustomValidity('{% trans into current_language %}Please select value from the list.{% endtrans %}')"
+                                required>
+                            {% if data.model.billing_city is defined and data.model.billing_city is not empty %}
+                                <option value="{{ data.model.billing_city.id }}">{{ data.model.billing_city.postalCode }}{{ get_entity_store_attribute(current_store_id,data.model.billing_city,"name") }}</option>
+                            {% endif %}
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="row form-row full-width">
+                <div class="form-group address col-xs-12 col-sm-4">
+                    <label><span class="label-text">{% trans into current_language %}Address{% endtrans %}*</span>
+                        <input type="text" name="street" required data-label="{% trans into current_language %}Address{% endtrans %}"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                               value="{% if data.model.billing_address is defined and data.model.billing_address is not empty %}{{ data.model.billing_address.getStreet }}{% endif %}">
+                    </label>
+                </div>
+                <div class="form-group email col-xs-12 col-sm-4">
+                    <label><span class="label-text">{% trans into current_language %}Email address{% endtrans %}*</span>
+                        <input type="email"
+                               name="email"
+                               data-label="{% trans into current_language %}Email address{% endtrans %}"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Enter valid email address{% endtrans %}')"
+                               required
+                               value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.email }}{% endif %}">
+                    </label>
+                </div>
+                <div class="form-group phone-mobile col-xs-12 col-sm-4">
+                    <label><span class="label-text">{% trans into current_language %}Mobile phone{% endtrans %}*</span>
+                        <input type="tel"
+                               name="phone"
+                               data-label="{% trans into current_language %}Mobile phone{% endtrans %}"
+                               required
+                               pattern="[0-9]{8,12}"
+                               minlength="7" maxlength="12"
+                               oninput="this.setCustomValidity('')"
+                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please enter value in the correct format.{% endtrans %}')"
+                               value="{% if data.model.contact is defined and data.model.contact is not empty %}{{ data.model.contact.phone }}{% endif %}">
+                        <span class="form-note">{% trans into current_language %}Format{% endtrans %}: 09X1234567 {% trans into current_language %}or{% endtrans %} 00XXX1234567</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

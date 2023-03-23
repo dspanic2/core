@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="ProjectManagementBusinessBundle\Entity\ProjectEntity" table="project_entity">
+        ###CLASS_START
+         <one-to-many field="projectTasks" target-entity="TaskBusinessBundle\Entity\TaskEntity"  mapped-by="project">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+        <one-to-many field="projectContacts" target-entity="ProjectManagementBusinessBundle\Entity\ProjectContactLinkEntity"  mapped-by="project">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+        <one-to-many field="projectInstallments" target-entity="ProjectManagementBusinessBundle\Entity\ProjectInstallmentsEntity"  mapped-by="project">   <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    ###CLASS_END
+    </entity>
+</doctrine-mapping>

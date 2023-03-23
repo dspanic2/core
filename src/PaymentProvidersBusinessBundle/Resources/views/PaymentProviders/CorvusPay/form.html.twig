@@ -1,0 +1,22 @@
+<div class="hidden payment-form">
+    <form name="pay" id="corvus{{ data.cart }}" action="{{ data.action }}" method="POST">
+        <input type="hidden" name="store_id" value="{{ data.store_id }}">
+        <input type="hidden" name="order_number" value="{{ data.order_number }}">
+        <input type="hidden" name="cart" value="{{ data.cart }}">
+        <input type="hidden" name="amount" value="{{ data.amount }}">
+        <input type="hidden" name="signature" value="{{ data.signature }}">
+        <input type="hidden" name="currency" value="{{ data.currency }}"/>
+        <input type="hidden" name="require_complete" value="{{ data.require_complete }}"/>
+        <input type="hidden" name="version" value="{{ data.version }}"/>
+        <input type="hidden" name="language" value="{{ data.language }}">
+        <input type="hidden" name="cardholder_name" value="{{ data.cardholder_name }}">
+        <input type="hidden" name="cardholder_surname" value="{{ data.cardholder_surname }}">
+        <input type="hidden" name="cardholder_address" value="{{ data.cardholder_address }}">
+        <input type="hidden" name="cardholder_city" value="{{ data.cardholder_city }}">
+        <input type="hidden" name="cardholder_zip_code" value="{{ data.cardholder_zip_code }}">
+        <input type="hidden" name="cardholder_country" value="{{ data.cardholder_country }}">
+        <input type="hidden" name="cardholder_phone" value="{{ data.cardholder_phone }}">
+        <input type="hidden" name="cardholder_email" value="{{ data.cardholder_email }}">
+        <input type="hidden" name="payment_all" value="{{ data.payment_all }}">
+    </form>
+</div>

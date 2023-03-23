@@ -1,0 +1,41 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+    <div class="container">
+        {% if data.model.subtitle is defined and data.model.subtitle is not empty %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="section-title">{{ data.model.subtitle }}</div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-xs-8">
+                {% set comments = get_entity_comments(current_entity) %}
+                {% if comments is not empty %}
+                    <div class="comment-list">
+                        {% for comment in comments %}
+                            {% if loop.index == 4 %}
+                                <div class="more-comments">
+                            {% endif %}
+                            <div class="comment-item">
+                                {% set fullName = comment.firstName ~ " " ~ comment.lastName %}
+                                {% if comment.account is not empty %}
+                                    {% set fullName = comment.account.name %}
+                                {% endif %}
+                                <div class="name">{{ fullName }}</div>
+                                <div class="datetime">{{ comment.created|date("d.m.Y. / H:i") }}</div>
+                                <div class="comment">{{ comment.comment }}</div>
+                            </div>
+                            {% if loop.index > 4 and loop.last %}
+                                </div>
+                                <div class="show-more">{% trans into current_language %}Show all comments{% endtrans %} ({{ comments|length }})</div>
+                                <div class="show-less">{% trans into current_language %}Show less comments{% endtrans %}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form:comment_form.html.twig', 'data': {}}, {})) }}
+            </div>
+        </div>
+    </div>
+</div>

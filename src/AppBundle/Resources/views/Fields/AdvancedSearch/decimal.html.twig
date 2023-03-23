@@ -1,0 +1,16 @@
+<div class="col-sm-4">
+    <div class="form-group sp-search-group">
+        <div class="row">
+            <label class="col-sm-6 control-label">{{ attribute.frontendLabel|trans }} {% trans %}from{% endtrans %}</label>
+            <label class="col-sm-6 control-label">{{ attribute.frontendLabel|trans }} {% trans %}to{% endtrans %}</label>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 sp-search-item" data-search_type="ge">
+                <input data-id="{{ attribute.id }}" type="text" name="{{ attribute.attributeCode|camelize }}" class="form-control" {% if value["ge"] is defined and value["ge"] is not empty %}value="{{ value["ge"] }}"{% endif %}/>
+            </div>
+            <div class="col-sm-6 sp-search-item" data-search_type="le">
+                <input data-id="{{ attribute.id }}" type="text" name="{{ attribute.attributeCode|camelize }}" class="form-control" {% if value["le"] is defined and value["le"] is not empty %}value="{{ value["le"] }}"{% endif %}/>
+            </div>
+        </div>
+    </div>
+</div>

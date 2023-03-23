@@ -1,0 +1,20 @@
+<div class="sp-block sp-pie_chart-wrapper {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                {#<div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        <h4>{{ data.block.title|trans }}</h4>
+                        <div class="options"></div>
+                    </div>
+                </div>#}
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        {{ data.block.content|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

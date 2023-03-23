@@ -1,0 +1,7 @@
+{% apply spaceless %}
+    {% if products is defined and products is not empty %}
+        {% for product in products %}
+            {{ include('ScommerceBusinessBundle:Components/Search:product_search_autocomplete_item.html.twig', {'product': product}) }}
+        {% endfor %}
+    {% endif %}
+{% endapply %}

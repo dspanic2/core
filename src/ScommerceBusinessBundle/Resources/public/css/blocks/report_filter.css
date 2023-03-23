@@ -1,0 +1,95 @@
+.report-filter-block.fixed {
+    position: fixed;
+    top: 48px;
+    width: 100%;
+    z-index: 99;
+    min-height: unset;
+}
+
+.report-filter-block .sp-margin-bottom-15 {
+    margin-bottom: 0 !important;
+}
+
+.report-filter-block .form-group {
+    margin-bottom: 0 !important;
+}
+
+.report-filter-block .date-range-dropdown {
+    position: relative;
+}
+
+.report-filter-block .date-range-dropdown:hover .date-range-values {
+    display: block;
+    background: #ddd;
+    padding: 20px;
+    transform: translateY(100%);
+    z-index: 99;
+}
+
+.report-filter-block .date-range-dropdown .date-range-label {
+    border-color: #a2a2a2;
+    border-style: solid;
+    border-width: 0 0 1px 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    font-size: 15px;
+    padding: 6px 9px 5px 4px;
+    cursor: pointer;
+}
+
+.report-filter-block .date-range-values {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.report-filter-block .date-range-values > div {
+    margin: 5px 0;
+    padding: 10px;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.report-filter-block .date-range-values > div > span {
+    transition: all 0.2s ease;
+}
+
+.report-filter-block .date-range-values > div:hover > span {
+    color: #fff;
+}
+
+.report-filter-block .date-range-values > div.range-custom {
+    position: relative;
+}
+
+.report-filter-block .date-range-values > div.range-custom > .date-range-placeholder {
+    position: absolute;
+    right: 0;
+    transform: translateX(100%);
+    top: 0;
+    display: none;
+}
+
+.report-filter-block .date-range-values > div.range-custom:hover > .date-range-placeholder {
+    display: block;
+    padding: 20px;
+    background: #ddd;
+}
+
+.report-filter-block .date-range-values > div.range-custom:hover > .date-range-placeholder .daterangepicker {
+    position: relative;
+    left: 0 !important;
+    top: 0 !important;
+    min-width: 500px;
+}
+
+.report-filter-block .btn {
+    margin: 0;
+}

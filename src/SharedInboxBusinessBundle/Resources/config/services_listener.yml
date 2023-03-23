@@ -1,0 +1,8 @@
+services:
+
+    transaction_email_listener:
+        class: SharedInboxBusinessBundle\EventListener\TransactionEmailListener
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: transaction_email.sent, method: onTransactionEmailSent }

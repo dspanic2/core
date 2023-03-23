@@ -1,0 +1,11 @@
+<div class="sp-empty-list-content {% if data.model.notes|length %}hidden{% endif %}">
+    <i class="fa fa-comment-o fa-3x" aria-hidden="true"></i><br/>
+    <label>{% trans %}No notes found{% endtrans %}</label>
+</div>
+<div class="recent-note">
+    {% if data.model.notes|length > 0 %}
+        {% for e in data.model.notes %}
+            {{ include('AppBundle:Includes:notes_single.html.twig') }}
+        {% endfor %}
+    {% endif %}
+</div>

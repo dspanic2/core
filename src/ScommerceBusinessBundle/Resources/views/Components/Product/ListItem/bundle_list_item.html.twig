@@ -1,0 +1,52 @@
+{% if bundle_product is defined and bundle_product is not empty %}
+    {% set product = bundle_product.childProduct %}
+    {% set product_name = get_entity_store_attribute(current_store_id,product,"name") %}
+    {% set product_url = get_entity_store_attribute(current_store_id,product,"url") %}
+
+    <div class="product-display-grid item" data-product-id="{{ product.id }}">
+        {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product, 'options':null, 'parentProduct':parent_product}, {}))|json_decode %}
+        <a class="product-display-grid-image" href="{{ current_language_url }}/{{ product_url }}">
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                'image': product.getSelectedImage,
+                'directory':'Products',
+                'image_style': 'product_list_item',
+                'alt_default': product_name
+            }}, {})) }}
+
+            {% if prices.discount_percentage is defined and prices.discount_percentage is not empty %}
+                <span class="discount-mark">{% trans %}Save up{% endtrans %} {{ prices.discount_percentage|number_format(0, ',', '.') }}%</span>
+            {% endif %}
+
+            {% if is_current is defined and is_current %}
+                <span class="current">{% trans %}Currently viewing{% endtrans %}</span>
+            {% endif %}
+        </a>
+        <div class="product-info">
+            <h3>
+                <a class="product-click" href="{{ current_language_url }}/{{ product_url }}"
+                   title="{{ product_name }}">{{ product_name }} (x{{ bundle_product.minQty }})</a>
+            </h3>
+        </div>
+        <div class="prices {% if prices.discount_price is not empty %}with-discount{% endif %}">
+            {% if prices.price is not empty %}
+                {% set class = "" %}
+                {% if prices.discount_price is not empty %}
+                    {% set class = "invalid" %}
+                {% endif %}
+                {% if prices.discount_price is not empty %}
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': prices.discount_price, 'currency': prices.currency_code }}, {})) }}
+                {% endif %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': prices.price, 'currency': prices.currency_code, 'class': class }}, {})) }}
+            {% endif %}
+        </div>
+
+        <div class="select">
+            <input type="checkbox"
+                   name="product-{{ product.id }}"
+                   data-pid="{{ product.id }}"
+                   checked="checked"
+                   {% if bundle_product.minQty > 0 %}disabled{% endif %}
+                   class="local-overlay-toggle bundle-item-select {% if bundle_product.isParent %}main{% endif %}"/>
+        </div>
+    </div>
+{% endif %}

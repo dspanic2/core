@@ -1,0 +1,14 @@
+<div data-attribute-id="{{ attribute.attribute.id }}" class="col-md-12 col-sm-12 col-xs-12 sp-sortable-group">
+    <div class="sp-sortable-group-inner sp-show-border">
+        <span class="sp-column-name">{{ attribute.attribute.id }}{% if attribute.attribute is defined %} - {{ attribute.attribute.frontendLabel }}{% endif %}
+            <div class="options">
+                <span class="sp-hover" data-confirm="{% trans %}Are you sure?{% endtrans %}" data-action="remove_attribute"><i class="fa fa-minus"></i></span>
+            </div>
+        </span>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="hidden" name="attribute[]" class="hidden form-control" value="{{ attribute.attribute.id }}"/>
+            </div>
+        </div>
+    </div>
+</div>

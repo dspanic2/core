@@ -1,0 +1,175 @@
+services:
+
+    default_integration_import_manager:
+        class: IntegrationBusinessBundle\Managers\DefaultIntegrationImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    horizont_import_manager:
+        class: IntegrationBusinessBundle\Managers\HorizontImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    luceed_erp_import_manager:
+        class: IntegrationBusinessBundle\Managers\LuceedErpImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    fitting_box_api_manager:
+        class: IntegrationBusinessBundle\Managers\FittingBoxApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    mailer_lite_api_manager:
+        class: IntegrationBusinessBundle\Managers\MailerLiteApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    luceed_erp_api_manager:
+        class: IntegrationBusinessBundle\Managers\LuceedErpApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    city_import_manager:
+        class: IntegrationBusinessBundle\Managers\CityImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    mandrill_api_manager:
+        class: IntegrationBusinessBundle\Managers\MandrillApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    mailchimp_marketing_api_manager:
+        class: IntegrationBusinessBundle\Managers\MailchimpMarketingApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    mireo_api_manager:
+        class: IntegrationBusinessBundle\Managers\MireoApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    pevex_trs_import_manager:
+        class: IntegrationBusinessBundle\Managers\PevexTrsImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    pro_erp_import_manager:
+        class: IntegrationBusinessBundle\Managers\ProErpImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    squalomail_api_manager:
+        class: IntegrationBusinessBundle\Managers\SqualomailApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    princity_api_manager:
+        class: IntegrationBusinessBundle\Managers\PrincityApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    nubeprint_api_manager:
+        class: IntegrationBusinessBundle\Managers\NubeprintApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    greencell_import_manager:
+        class: IntegrationBusinessBundle\Managers\GreenCellImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    whm_api_manager:
+        class: IntegrationBusinessBundle\Managers\WhmApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    vasco_api_manager:
+        class: IntegrationBusinessBundle\Managers\VascoApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    minimax_import_manager:
+        class: IntegrationBusinessBundle\Managers\MinimaxImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    wand_import_manager:
+        class: IntegrationBusinessBundle\Managers\WandImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    recommend_integration_manager:
+        class: IntegrationBusinessBundle\Managers\RecommendIntegrationManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    tiips_import_manager:
+        class: IntegrationBusinessBundle\Managers\TiipsImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    google_api_manager:
+        class: IntegrationBusinessBundle\Managers\GoogleApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    google_api_integration_buttons:
+        class: IntegrationBusinessBundle\Buttons\GoogleApiIntegrationButtons
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    gath_import_manager:
+        class: IntegrationBusinessBundle\Managers\GathImportManager
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+
+    wand_order_manager:
+        class: IntegrationBusinessBundle\Managers\WandOrderManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    wand_api_manager:
+        class: IntegrationBusinessBundle\Managers\WandApiManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    wand_xlsx_import_manager:
+        class: IntegrationBusinessBundle\Managers\WandXlsxImportManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]
+
+    wand_to_xml_manager:
+        class: IntegrationBusinessBundle\Managers\WandToXmlManager
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ initialize ]

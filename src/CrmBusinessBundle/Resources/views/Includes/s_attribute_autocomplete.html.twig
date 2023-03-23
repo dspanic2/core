@@ -1,0 +1,33 @@
+<div class="col-sm-4">
+    <div class="form-group sp-search-group">
+        <div class="row">
+            <label class="col-sm-12 control-label">{{ attribute.name|trans }}</label>
+            <div class="col-sm-4">
+                <select name="search_type" class="form-control">
+                    <option value="in" {% if search_type is defined and search_type is not empty and search_type == "in" %}selected="selected"{% endif %}>{% trans %}search_type_in{% endtrans %}</option>
+                    <option value="ni" {% if search_type is defined and search_type is not empty and search_type == "ni" %}selected="selected"{% endif %}>{% trans %}search_type_ni{% endtrans %}</option>
+                </select>
+            </div>
+            <div class="col-sm-8 sp-search-item" data-search_type="in">
+                <select {% apply spaceless %}
+                    data-id="s_{{ attribute.id }}"
+                    data-type="lookup"
+                    data-multiple="true"
+                    data-search-url="{{ path('get_s_product_autocomplete') }}"
+                    class="form-control"
+                    data-min-len="0"
+                    name="s.{{ attribute.filterKey }}"
+                    multiple="multiple"
+                    data-allow-clear="true"
+                    data-placeholder="{% trans %}Search...{% endtrans %}"
+                        {% endapply %}>
+                    {% if value is defined and value is not empty %}
+                        {% for v in value %}
+                            <option value="{{ v.option_id }}" selected="selected">{% apply spaceless %}{{ v.value }}{% endapply %}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{% if buttons is defined %}
+    {% for button in buttons %}
+        {% if button.type == "button" %}
+            <button type="submit" class="sp-btn {{ button.class }} btn{% if locked is defined and locked > 0 %} disabled{% endif %}" {% if button.data is defined %}{% for key,val in button.data %}data-{{ key }}="{{ val }}"{% endfor %}{% endif %}{% if button.action is defined and button.action is not empty %}data-action="{{ button.action }}"{% endif %} data-url="{{ render(controller('AppBundle:Navigation:getNavigationUrlById', {'id': button.url }))}}">{{ button.name|trans }}</button>
+        {% elseif button.type == "custom" %}
+            <button type="submit" class="sp-btn {{ button.class }} btn" {% if button.action is defined and button.action is not empty %}data-action="{{ button.action }}"{% endif %} data-url="{{ button.url }}">{{ button.name|trans }}</button>
+        {% elseif button.type == "custom_link" %}
+            <a href="{{ button.url }}" target="_blank" class="sp-btn {{ button.class }} btn" {% if button.action is defined and button.action is not empty %}data-action="{{ button.action }}"{% endif %}>{{ button.name|trans }}</a>
+        {% else %}
+            <a href="{{ render(controller('AppBundle:Navigation:getNavigationUrlById', {'id': button.url }))}}" class="sp-btn {{ button.class }} btn" {% if button.action is defined and button.action is not empty %}data-action="{{ button.action }}"{% endif %}>{{ button.name|trans }}</a>
+        {% endif %}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,22 @@
+{
+  "name": "shipshapesolutions/crmbusinessbundle",
+  "type": "shipshape-core-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ShipShape",
+      "email": "info@shipshape-solutions.com",
+      "homepage": "https://shipshape-solutions.com/"
+    }
+  ],
+  "require": {
+    "shipshapesolutions/composer-bundle-installer": "1.x-dev",
+    "shipshapesolutions/appbundle": "1.x-dev",
+    "shipshapesolutions/dpdbusinessbundle": "1.x-dev",
+    "shipshapesolutions/scommercebusinessbundle": "1.x-dev",
+    "yellowskies/qr-code-bundle": "^1.2.8"
+  },
+  "extra": {
+    "install-directory": "./src/CrmBusinessBundle"
+  }
+}

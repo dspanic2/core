@@ -1,0 +1,38 @@
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  border: 1px solid $primary_color;
+  margin: 0;
+  list-style: none;
+  background: #fff;
+  padding: 0;
+  z-index: 1;
+
+  li {
+    & > a,
+    & > span {
+      color: $secondary_color;
+      background: #fff;
+      padding: 3px 5px;
+      cursor: pointer;
+      font-size: calculateRem(14px);
+      text-align: left;
+      display: block;
+      transition: all 0.2s;
+
+      &:hover {
+        color: #fff;
+        background: $secondary_color;
+      }
+    }
+  }
+}
+
+.open {
+  .dropdown-menu {
+    display: block;
+  }
+}

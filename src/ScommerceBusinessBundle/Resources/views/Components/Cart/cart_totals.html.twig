@@ -1,0 +1,78 @@
+<div class="cart-totals">
+        <div class="cart-total subtotal-without-tax">
+                <span class="total-label">{% trans into current_language %}Subtotal without tax{% endtrans %}:</span>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.getPriceItemsWithoutTax, 'currency': data.model.quote.currency.sign} }, {})) }}
+        </div>
+        <div class="cart-total total-tax">
+                <span class="total-label">{% trans into current_language %}Total tax{% endtrans %}:</span>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.getPriceItemsTax, 'currency': data.model.quote.currency.sign} }, {})) }}
+        </div>
+        {% if data.model.quote.deliveryType is defined and data.model.quote.deliveryType is not empty and data.model.quote.deliveryType.isDelivery %}
+            <div class="cart-total total-tax">
+                <span class="total-label">{% trans into current_language %}Total without delivery{% endtrans %}:</span>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.getPriceItemsTotal, 'currency': data.model.quote.currency.sign} }, {})) }}
+            </div>
+        {% endif %}
+        {% if get_env("SHOW_DISCOUNTS_AS_SUM") == 1 %}
+                {% set discountAmount = 0 %}
+                {% if data.model.quote.discountCoupon is not empty %}
+                        {% set discountAmount = discountAmount + data.model.quote.getDiscountCouponPriceTotal %}
+                {% endif %}
+                {% if data.model.quote.getLoyaltyCard is not empty %}
+                        {% set discountAmount = discountAmount + data.model.quote.getDiscountLoyaltyPriceTotal %}
+                {% endif %}
+                {% if discountAmount > 0 %}
+                        <div class="cart-total coupon">
+                                <span class="total-label">{% trans into current_language %}Discount{% endtrans %}:</span>
+                                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': discountAmount, 'currency': data.model.quote.currency.sign, 'prefix': "-"} }, {})) }}
+                        </div>
+                {% endif %}
+        {% else %}
+                {% if data.model.quote.discountCoupon is not empty and data.model.quote.getDiscountCouponPriceTotal > 0 %}
+                        <div class="cart-total coupon">
+                                <span class="total-label">{% trans into current_language %}Coupon{% endtrans %} ({{ data.model.quote.discountCoupon.getCouponCode }}):</span>
+                                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.getDiscountCouponPriceTotal, 'currency': data.model.quote.currency.sign, 'prefix': "-"} }, {})) }}
+                        </div>
+                {% endif %}
+                {% if data.model.quote.getLoyaltyCard is not empty and data.model.quote.getDiscountLoyaltyPriceTotal > 0 %}
+                        <div class="cart-total loyalty">
+                                <span class="total-label">{% trans into current_language %}Loyalty{% endtrans %}:</span>
+                                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.getDiscountLoyaltyPriceTotal, 'currency': data.model.quote.currency.sign, 'prefix': "-"} }, {})) }}
+                        </div>
+                {% endif %}
+        {% endif %}
+
+        {% if data.model.quote.deliveryType is defined and data.model.quote.deliveryType is not empty and data.model.quote.deliveryType.isDelivery %}
+            {% set deliveryPrice = data.model.quote.getPriceDeliveryTotal %}
+            {% if deliveryPrice is empty or deliveryPrice == 0 %}
+                    {% if get_env("SHOW_DELIVERY_IF_0") == 1 %}
+                        {% if data.model.quote.deliveryType is defined and data.model.quote.deliveryType is not empty and data.model.quote.deliveryType.isDelivery == 1 and data.model.quote.accountShippingCity is not empty %}
+                            <div class="cart-total delivery-no-tax">
+                                <span class="total-label">{% trans into current_language %}Delivery{% endtrans %}:</span>
+                                <span class="price"><span class="price-value">{% trans into current_language %}Free delivery{% endtrans %}</span></span>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+            {% else %}
+                    <div class="cart-total delivery-no-tax">
+                            <span class="total-label">{% trans into current_language %}Delivery{% endtrans %}:</span>
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': deliveryPrice, 'currency': data.model.quote.currency.sign} }, {})) }}
+                    </div>
+            {% endif %}
+        {% endif %}
+        {% if data.model.quote.priceFee is defined and data.model.quote.priceFee > 0 %}
+            <div class="cart-total coupon">
+                <span class="total-label">{% trans into current_language %}Handeling costs{% endtrans %}:</span>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.priceFee, 'currency': data.model.quote.currency.sign, 'prefix': ""} }, {})) }}
+            </div>
+        {% endif %}
+
+        {#    <div class="cart-total subtotal-with-tax">#}
+        {#        <span class="total-label">{% trans into current_language %}Subtotal with tax{% endtrans %}:</span>#}
+        {#        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.getPriceItemsTotal + data.model.quote.getPriceDeliveryTotal, 'currency': data.model.quote.currency.sign} }, {})) }}#}
+        {#    </div>#}
+        <div class="cart-total main-total">
+                <span class="total-label">{% trans into current_language %}Total{% endtrans %}:</span>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:price.html.twig', 'data': {'price': data.model.quote.getPriceTotal, 'currency': data.model.quote.currency.sign} }, {})) }}
+        </div>
+</div>

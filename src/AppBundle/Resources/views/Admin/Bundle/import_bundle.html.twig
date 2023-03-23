@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    {% block main_actions %}
+    {% endblock %}
+    {% block main_title %}
+        {% trans %}Import bundle{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <form action="{{ path("import_bundle_file") }}" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}Import{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}File{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <div class="fallback">
+                                                    <input name="file" type="file" multiple/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    <button type="submit"
+                                            class="sp-btn btn-primary btn">{% trans %}Import{% endtrans %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

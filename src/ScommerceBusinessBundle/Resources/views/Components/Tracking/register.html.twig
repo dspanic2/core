@@ -1,0 +1,15 @@
+{#{% apply spaceless %}#}
+{#    {% if contact is defined %}#}
+{#        {% set trackingCode %}#}
+{#            <script>#}
+{#                window.dataLayer = window.dataLayer || [];#}
+{#                window.dataLayer.push({#}
+{#                    'event': 'sign_up',#}
+{#                    {% if contact.getLoyaltyCard is not empty %}'loyalty_card': '{{ contact.getLoyaltyCard.getCardNumber }}'{% endif %}#}
+{#                });#}
+{#            </script>#}
+{#        {% endset %}#}
+{#        #}{# Cisto da se kod formatira u phpstormu, ali za execute ne trebaju script tagovi #}
+{#        {{ trackingCode|striptags|raw }}#}
+{#    {% endif %}#}
+{#{% endapply %}#}

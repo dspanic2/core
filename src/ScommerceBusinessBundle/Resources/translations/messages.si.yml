@@ -1,0 +1,1004 @@
+Specification: Specifikacija
+Customers who viewed this item also viewed: Nedavno pregledani izdelki
+No products found: Ni izdelkov, ki bi se ujemali z iskanjem.
+or: ali
+Enter a toner or a printer model: Vnesite toner ali model tiskalnika.
+Existing block: Obstoječi block
+prices for individuals who buy online: cene za fizične osebe, ki kupujejo na spletu
+prices for legal entities that buy online: cene za pravne osebe, ki kupujejo na spletu
+register to see your prices: registrirajte se in si oglejte svoje cene
+special discount on all product range: poseben popust na ves asortima izdelkov
+special discount on certain product ranges: poseben popust na določen asortiman izdelkov
+Suggestions: Predlogi
+Catalogs: Katalogi
+Notifications: Obvestila
+Recent orders: Nedavna naročila
+Show details: Prikaži podrobnosti
+Order number: Številka naročila
+State: Status
+Total amount: Celoten znesek
+Update information: Uredi podatke
+Update address: Uredi naslov
+Update bank information: Uredi bančne podatke
+My favorites: Moji priljubljeni
+Add new bank account: Dodaj novi bančni račun
+Add new address: Dodaj nov naslov
+Payment address: Naslov za plačilo
+Delivery address: Naslov za dostavo
+Select delivery address: Izberi naslov dostave
+Select payment address: Izberi naslov za plačilo
+Select payment type: Izberi način plačila
+Select delivery type first: Najprej izberite vrsto dostave
+Select delivery type: Izberi način dostave
+We are sorry! We couldn't find your cart.: Opravičujemo se! Nismo uspeli najti vašo košarico
+Try to log in if you have an account: Poskusite se prijaviti, v kolikor imate uporabniški račun
+Make sure your cart is not empty: Prepričajte se, da vaša košarica ni prazna
+Confirm order: Potrdi naročilo
+Login: Prijava
+Thank you for your order: Hvala za vaše naročilo
+Your order number is: Številka vašega naročila je
+Back to store: Nazaj v trgovino
+We are sorry, we couldn't find your order!: Opravičujemo se! Nismo uspeli najti vaše naročilo
+Missing blog category: Manjka kategorija bloga
+Blog category does not exist: Kategorija bloga ne obstaja
+Quote does not exist: Ponudna ne obstaja
+Missing billing address: Manjka naslov za izstavitev računa
+Missing shipping address: Manjka naslov za dostavo
+Billing address does not exist: Naslov za izstavitev računa ne obstaja
+Shipping address does not exist: Naslov za dostavo ne obstaja
+Addresses updated: Naslov posodobljen
+There has been an error. Please try again!: Napaka! Poskusite ponovno
+Order created: Naročilo ustvarjeno
+Missing delivery type: Manjka način dostave
+Missing payment type: Manjka način plačila
+Delivery type does not exist: Način dostave ne obstaja
+Payment type does not exist: Način prodaje ne obstaja
+Message updated: Sporočilo posodobljeno
+Error validating captcha. Missing captcha response.: Napaka pri preverjanju! Manjka odgovor captcha
+
+Error validating captcha: Napaka pri preverjanju
+Missing product id: Manjka ID izdelka
+Missing qty: Manjka količina
+Qty cannot be negative: Količina ne more biti negativna
+Product not found: Izdelek ni najden
+Product: Izdelek
+Products: Izdelki
+is added to your cart: je dodan v košarico
+Error updating items: Napaka v posodabljanju postavk
+updated: posodobljeno
+Product does not exist in quote: Izdelka ni v ponudbi
+removed from cart: umaknjen iz košarice
+Delivery type has to be selected: Način dostave mora biti izbran
+This email is allready used, please reset your password if necessary: Ta e -poštni naslov je že uporabljen, po potrebi ponastavite geslo
+This company is already registered, please contact your administrator or reset your password: To podjetje je že registrirano. Obrnite se na skrbnika ali ponastavite geslo
+Error creating city, please try again: Napaka pri dodajanju mesta. Poskusite znova
+Error creating country, please try again: Napaka pri dodajanju države. Poskusite znova
+Error creating contact, please try again: Napaka pri dodajanju kontakta. Poskusite znova
+Error creating account, please try again: Napaka pri dodajanju kupca. Poskusite znova
+Error creating address, please try again: Napaka pri dodajanju naslova. Poskusite znova
+Error creating iban, please try again: Napaka pri dodajanju IBAN-a. Poskusite znova
+Your user has been created: Vaš uporabniški račun je bil ustvarjen.
+There has been an error, please try again: Prišlo je do napake. Poskusite znova
+is_compare is missing: is_compare manjka
+Email or password incorrect: Napačna e-pošta ali geslo
+User does not exist: Uporabniški račun ne obstaja
+User does not exist or is disabled: Uporabniški račun ne obstaja ali je onemogočen
+Your user data has been updated: Vaši uporabniški podatki so posodobljeni
+Company data updated: Podatki o podjetju so posodobljeni
+Personal data updated: Osebni podatki so posodobljeni
+Address has been deleted: Naslov zbrisan
+Address has been saved: Naslov shranjen
+Address has been added: Naslov dodan
+There has been an error. Please try again.: Prišlo je do napake. Prosimo, poskusite znova.
+Bank account has been deleted: Bančni račun zbrisan
+Bank account has been saved: Bančni račun shranjen
+Bank account has been added: Bančni račun dodan
+Missing country id: Manjka ID države
+Missing email: Manjka e-pošta
+Missing password: Manjka geslo
+Missing repeat password: Manjka ponovljeno geslo
+Passwords do not match: Gesla se ne ujemata
+Missing last name: Manjka priimek
+Missing first name: Manjka ime
+Missing street: Manjka ulica
+Missing city: Manjka mesto
+Missing phone: Manjka telefonska številka
+Missing company name: Manjka naziv podjetja
+Missing company vat number: Manjka DDV podjetja
+Missing product: Manjka izdelek
+This product is allready in compare: Ta izdelek je že v primerjavi
+Only 4 products can be compared at the same time: Hkrati je mogoče primerjati le 4 izdelke
+This product is not in compare list: Ta izdelek ni na seznamu za primerjavo
+Product added to compare: Izdelek dodan za primerjavo
+Product removed from compare: Izdelek je bil odstranjen iz primerjave
+This product is not in your compare list: Ta izdelek ni na vašem seznamu za primerjavo
+Compare list is cleared: Seznam za primerjavo je izbrisan
+Missing current password: Manjka trenutno geslo
+Missing new password: Manjka novo geslo
+Missing repeated password: Manjka ponovljeno geslo
+Invalid user: Neveljaven uporabnik
+Current password not correct: Trenutno geslo je napačno
+Contact is empty: Kontakt je prazen
+Missing country: Manjka država
+This address cannot be deleted: Naslov ne more biti zbrisan
+This address does not exist: Naslov ne obstaja
+You cannot edit this address: Tega naslova ne morete urejati
+This bank account does not exist: Ta bančni račun ne obstaja
+You cannot edit this bank account: Tega bančnega računa ne morete urejati
+Invalid query: Nevažeći upit
+Empty query: Prazan upit
+Product group does not exist: Grupa proizvoda ne postoji
+Homepage: Naslovnica
+Price lowest to highest: Cijena od najniže prema najvišoj
+Price highest to lowest: Cijena od najviše prema najnižoj
+Newest to oldest: Prvo najnovije
+Oldest to newest: Prvo najstarije
+Item title: Naziv stavke
+Menu item type: Tip stavke menija
+Page: Stranica
+Product group: Skupina izdelkov
+Blog category: Kategorija bloga
+Please select blog category: Izberi kategorijo bloga
+e.g. https\://www.google.com/: npr.https\://www.google.com/
+Target: Cilj
+Back: Nazaj
+Registration: Registracija
+Addresses: Naslovi
+Confirmation e-mail is sent to: Potrdilo E-pošte je poslano na
+with order details: s podrobnostmi o naročilu
+You will be automatically redirected in: Samodejno boste preusmerjeni na stran čez
+seconds: sekund
+Street: Ulica
+Remove: Odstrani
+IBAN: IBAN
+Postojeća lozinka: Obstoječe geslo
+Nova lozinka: Novo geslo
+Ponovljena nova lozinka: Ponovljeno novo geslo
+Subject: Zadeva
+Date and time: Datum in čas
+Send: Pošlji
+Message: Sporočilo
+Clear all filters: Počisti vse filtre
+Search results for: Rezultati iskanja za
+Results: Rezultati
+Papiri: Dokumenti
+za: za
+printer: tiskalnik
+Printeri: Tisklaniki
+<strong>1. Korak</strong> - Odaberi brand printera: <strong>1. Korak</strong> - Izberi znamko tiskalnika
+<strong>2. Korak</strong> - Odaberi model printera: <strong>2. Korak</strong> - Izberi znamko tiskalnika
+Moji favoriti: Moji najljubši
+Najčešće naručivani proizvodi: Najpogosteje naročeni izdelki
+
+Bank accounts: Bančni računi
+newsletter: novičke
+Rezultati pretrage printera: Rezultati iskanja tiskalnikov
+Get a discount and find out the price: Pridobite popust in izvedite ceno
+unavailable: ni na voljo
+mj: mesec
+Destination id: ID destinacija
+Destination type: Tip destinacije
+Redirect to: Preusmeri na
+Redirect type: Vrsta preusmeritve
+Request url: Zaprosi url
+Store: Trgovina
+S route:
+s route details:
+S redirect type:
+s redirect type details:
+Base url:
+S website:
+s website details:
+Website:
+S store:
+s store details:
+Auto generate url:
+Canonical:
+Css class for page:
+Keep url:
+Keep same url even if title is changed:
+Show menu item:
+Meta description:
+Meta keywords:
+Meta title:
+Template:
+S page:
+Page information:
+SEO data:
+S template type:
+s template type details:
+S menu:
+s menu details:
+Css class:
+Level:
+Parent menu item:
+Order:
+S menu item:
+s menu item details:
+S menu item type:
+s menu item type details:
+Currency: Valuta
+Default price: Privzeta cena
+Base price: Osnovna cena
+Retail price: Maloprodajna cena
+Wholesale price: Veleprodajna cena
+Tax percent: Odstotek davka
+Product websites:
+Website product details:
+Show on category:
+S store product link:
+Product stores:
+s store product link details:
+Editor:
+Main title:
+Subtitle:
+Uid:
+Please enter relative url:
+S front block:
+Banner medium data:
+Content data:
+s front block details:
+Person:
+Testimonials:
+testimonials details:
+Remote id:
+Wand attribute value id:
+brand details:
+brand_id:
+Selected:
+brand image details:
+Front block:
+s front block images details:
+product type details:
+Additional params:
+filter_key:
+Filter template:
+Template za izgled filtera:
+List view template:
+Template za izgled atributa na listi proizvoda: Predlog za izgled atributa na listi izdelkov
+
+Prefix:
+Show in filter:
+Show in product list:
+Sufix:
+S product attribute configuration:
+remote_id:
+s product attribute configuration details:
+S product attribute configuration type:
+s product attribute configuration type details:
+Product attribute:
+Wand attribute id:
+S product attributes:
+s product attributes details:
+Show on all products:
+Faq:
+faq details:
+Faq location:
+faq spage link details:
+faq product link details:
+Custom url:
+e.g. /tinte-i-toneri:
+Related product group:
+Related links: Povezave v kategorijah
+related links details: podrobnosti o povezanih povezavah
+Related link type: Vrste povezav v kategorijah
+related link type details: Podrobnosti vrste povezav v kategorijah
+Is suggestion: Je predlog
+Is used as suggestion on quick search: Uporablja se kot predlog pri hitrem iskanju
+Last regenerate date: Zadnji datum regeneracije
+List of results: Seznam rezultatov
+Original query: Izvirna poizvedba
+Used query: Uporabljena poizvedba
+S product search results:
+s product search results details:
+Synonym: Sinonim
+Synonym for: Sinonim za
+S search synonyms:
+s search synonyms details:
+Automatski dodaj u odabrani menu: Avtomatsko dodaj v izbrani meni
+Parent blog category:
+Sequencing:
+Blog post:
+blog post details:
+Is optimised:
+blog post image details:
+Menu item:
+S product menu link:
+s product menu link details:
+Routing: Rute
+S route form:
+Redirect types: Vrste preusmeritve
+S redirect type form:
+Websites: Domene
+S website form:
+Stores: Trgovine
+S store form:
+S page form:
+S template type form:
+S menu form:
+Menu items:
+S menu item form:
+Menu item types: Vrste izdelkov v meniju
+S menu item type form:
+S website product link form:
+S store product link form:
+S front block form:
+Testimonials form:
+Brand form:
+Product types: Vrste itdelkov
+Product type form:
+Product attribute configuration: Konfiguracija atributa izdelka
+S product attribute configuration form:
+Product attribute configuration type: Vrsta konfiguracije atributa izdelka
+S product attribute configuration type form:
+Product attributes: Atributi po izdelku
+S product attributes form:
+Faq form:
+Related links form:
+Related link type form:
+S product search results form:
+S search synonyms form:
+Blog category form:
+Blog post form:
+Wiki homepage:
+Product menu link:
+S product menu link form:
+with VAT: z DDV
+Please fill out this field.: Prosimo, izpolnite to polje
+Please include an '@' in the email address: E-poštni naslov mora vsebovati '@'
+is missing an '@': ne vsebuje '@'
+Please select an item in the list: Izberite izdelek iz seznama
+No results found: Ni rezultatov
+is required: je obvezno
+Are you sure you want to remove all products from compare?: li ste prepričani, da želite odstraniti vse izdelke iz primerjave?
+An error occurred during search!: Prišlo je do napake med iskanjem!
+without VAT: brez DDV
+An error occurred while saving your selection: Prišlo je do napake med shranjevanjem izbire
+Your selection is saved: Vaš izbor je shranjen
+Comparison: Primerjava
+Add to comparison: Dodaj za primerjavo
+View full specification: Oglejte si celotno specifikacijo
+cash on delivery enabled: omogočeno gotovinsko plačilo dostave
+interest-free card payments up to a maximum of 36 installments: brez obrestno plačilo s kartico do največ 36 obrokov
+Enter keyword: Vnesite ključno besedo
+An error occurred with your order: Prišlo je do napake pri vašem naročilu
+Unfortunately, there was an error with your order. Please try again or contact us on: Žal je pri vašem naročilu prišlo do napake. Poskusite znova ali nas kontaktirajte na
+Back to cart: Nazaj v košarico
+All discounts: Vse akcije
+Discounts: Akcije
+My <strong>orders</strong>: Moja <strong>naročila</strong>
+My <strong>favorites</strong>: Moji <strong>priljubljeni</strong>
+My <strong>notifications</strong>: Moja <strong>obvestila</strong>
+Basic information: Osnovni podatki
+We are sorry, this page no longer exists: Se opravičujemo, ta stran več ne obstaja.
+Code: Šifra
+Quantity too big: Količina prevelika
+Value must be less than: Vrednost mora biti manjša od
+New password: Novo geslo
+Invalid reset link: Neveljavna povezava za ponastavitev gesla
+The provided password reset link seems to be invalid.: Povezava za ponastavitev gesla ni veljavna. Zahtevajte novo povezavo na <ahref = "/reset-passwords"> obrazcu za ponastavitev </a>.
+Password must contain at least 6 characters: Geslo mora vsebovati najmanj 6 znakov
+OIB must contain 11 numbers: DDV mora vsebovati 8 številk
+You have successfully set new password. You will be redirected to login page: Uspešno ste nastavili novo geslo.
+Form validation error: Obrazec vsebuje napake
+Please check entered data and submit again.: Preverite vnesene podatke in poskusite znova.
+Page not found: Stran ni najdena
+An email with link to reset your password has been sent to your email address: E -poštno sporočilo s povezavo za ponastavitev gesla je bilo poslano na vaš e -poštni naslov
+Description: Opis
+You have no notifications at this time.: Trenutno nimate nobenih obvestil.
+You have no orders at this time.: Trenutno nimate naročil.
+You have no returns at this time: Trenutno nimate vračil
+Page not found title: Stran ni najdena
+If you need R1 please enter here: Če potrebujete ponudbo R1, prosimo, da tukaj vnesete podatke
+The results could not be loaded.: Ni mogoče naložiti rezultatov.
+Searching…: Iskanje…
+Please enter additional characters: Vnesite več znakov
+Card payment: Plačilo s kartico
+Open KEKS Pay: Odprite KEKS Pay
+Require R1 invoice: Zahtevaj račun na podjetje
+Company name: Naziv podjetja
+R1 invoice data: Podatki za R1 račun
+Private customer: Privatna stranka
+Legal customer: Pravna oseba
+Repeat order: Ponovi naročilo
+
+# Cookie consent
+This website uses cookies to ensure you get the best experience on our website.: To spletno mesto uporablja piškotke za analizo uporabe spletnega mesta, za izboljšanje vaše uporabniške izkušnje in za ponudbo izdelkov in storitev, ki najbolje ustrezajo vašim interesom. Če želite upravljati nastavitve piškotkov, obiščite napredne nastavitve. Za podrobnosti o tem, katere piškotke uporabljamo in za kakšen namen, preberite stran <ahref = '/Privacy-'Politika zasebnosti </a>.
+Cookie Settings: Napredne nastavitve piškotkov
+Accept all cookies: Sprejmi piškotke
+Cookies are small piece of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user's browsing activity.: Naš cilj je zaščititi in ohraniti vaše osebne podatke. Na tem spletnem mestu uporabljamo različne piškotke, vključno s tistimi tretjih oseb, ki smo jih zaradi preprostosti in lažjega razumevanja razdelili v tri kategorije. Potrebnih piškotkov ni mogoče izklopiti, ker se uporabljajo za pravilno delovanje spletne strani. Funkcionalne in oglaševalske piškotke lahko izklopite tako, da v meniju izberete. Za podrobnosti o tem, katere piškotke uporabljamo in za kakšen namen, preberite stran <ahref = '/Privacy-'Politika zasebnosti </a>.
+Save current settings: Shrani trenutne nastavitve
+Accept all cookies and close: Sprejmite vse piškotke in zaprite
+Affected solutions: Storitve, ki uporabljajo te piškotke
+Learn More: Več o tem
+On: Vklopljen
+Off: Izklopljeno
+Strictly Necessary Cookies: Strogo potrebni piškotki
+Cookies that provide basic functionality of the website and basic analysis of the use of the website in order to improve the operation and efficiency of the website.: Piškotki, ki omogočajo osnovno funkcionalnost spletnega mesta in osnovno analizo uporabe spletnega mesta za izboljšanje delovanja in učinkovitosti spletnega mesta.
+Functional Cookies: Funkcionalni piškotki
+Cookies that allow us to perform more advanced analysis of the operation of the website and the behavior of the users of the website with anonymous information.: Piškotki, s katerimi izvajamo naprednejšo analizo delovanja spletnega mesta in vedenja uporabnikov spletnega mesta z anonimnimi podatki.
+Customer support: Podpora uporabnikom
+Marketing Cookies: Oglaševalni piškotki
+Cookies used to target advertising to a user (behavioural targeting). They are often served by third party companies, and track a user across websites.: Piškotki za pomoč, ki vam omogočajo prikaz prilagojenih in ustreznih oglasov.
+Smart actions: Pametne akcije v spletni trgovini
+# END Cookie consent
+
+Compatible printers: Kompatibilni tiskalniki
+Compatible cartridges and ink: Kompatibilni tonerji / črnila
+Missing quote hash: Manjkajo podatki o ponudbi
+Coupon code: Koda kupona
+Product/s have been added to cart.: Izdelki so bili dodani v košarico
+This site is protected by reCAPTCHA and the Google: To spletno mesto je zaščiteno s tehnologijo reCAPTCHA in Googlom
+and: in
+apply: ''
+Privacy Policy: Politika zasebnosti
+Terms of Service: Pogoji poslovanja
+We process personal data in accordance with: Osebne podatke obdelujemo v skladu z
+Postal code: Poštna številka
+You are logged in as: Prijavljeni ste kot
+You have successfully subscribed to our newsletter: Uspešno ste se naročili na naše novičke
+This email is already used, please reset your password if necessary: E -poštni naslov je že v uporabi
+is not available any more.: ni več na voljo.
+Quantity is not correct: Količina ni pravilna
+Current quantity in cart is not available any more: Trenutna količina v košarici ni več na voljo
+Max quantity is: Največja količina je
+This product is not available any more: Ta izdelek ni več na voljo
+Requested quantity in cart is not available any more: Zahtevana količina ni več na voljo
+You have already added max quantity: V košarico ste že dodali največjo količino
+Your cart is locked for payment.: Vaša košarica je zaklenjena. Izpolnite začeto plačilo s kartico ali izberite "vrni"
+Your cart does not have an applied coupon: Vaša košarica nima uporabljenega kupona
+Select related products: Izberite povezane izdelke
+This site is protected by reCAPTCHA and the Google <a rel="nofollow" href="https://policies.google.com/privacy?hl=hr" target="_blank">Privacy Policy</a> and <a rel="nofollow" href="https://policies.google.com/terms?hl=hr" target="_blank">Terms of Service</a> apply.: Ta spletna mesta so zaščitena s tehnologijo reCAPTCHA in so predmet Googlovih <arel = "nofollow" href = "https://policies.google.com/privacy?hl=sl" target = "_blank"> pogojev storitve </a> > in <arel = "nofollow" href = "https://policies.google.com/terms?hl=sl" target = "_blank"> Pogoji uporabe </a>.
+
+You have been successfully unsubscribed: Uspešno ste odjavljeni
+An error occurred during unsubscription: Med odjavo je prišlo do napake
+
+Locked quotes: Zaklenjene košarice
+Quote List: Ponudbe
+Send to client: Pošlji kupcu
+Accept quote: Prenos v naročilo
+Set to in process: Prenos v obdelavo
+Payment trasactions: Kartične transakcije
+Payment transaction: Kartična transakcija
+Payment trasaction: Kartična transakcija
+Complete transaction: Zaračunaj
+
+Price items without tax: Znesek postavk brez DDV
+Price items tax: Znesek DDV na postavkah
+Price items total: Skupni znesek postavk
+Price delivery without tax: Dostava brez DDV
+Price delivery tax: Dostava DDV
+Price delivery total: Dostava skupaj
+Price without tax: Skupaj brez DDV
+Price tax: Skupni DDV
+
+Account billing address: Naslov za račun
+Account shipping address: Naslov za dostavo
+
+Total paid: Skupno plačano
+Total left to pay: Preostalo za plačat
+Order date: Datum naročila
+
+Account: Uporabnik
+Additional data: Dodatni podaki
+Quote: Ponudba
+
+This site uses cookies to analyze the use of the website, to improve your user experience and to be able to offer you products and services that best suit your interests. To manage your cookie settings, visit advanced settings. For details on which cookies we use and for what purpose, read the <a href='/en/privacy-statement'>Privacy Statement page</a>.: Za pravilno delovanje te spletne strani uporabljamo piškotke. Poleg tega bi radi uporabili piškotke za analizo uporabe našega spletnega mesta, izboljšanje vaše uporabniške izkušnje in da vam lahko ponudimo izdelke in storitve, ki najbolje ustrezajo vašim interesom. Če nam želite dovoliti uporabo takšnih neobveznih piškotkov, kliknite »Sprejmi vse piškotke in zaprite«. Če želite upravljati nastavitve piškotkov, kliknite »Napredne nastavitve piškotkov«. Podrobnosti o tem, katere piškotke uporabljamo in za kakšne namene, najdete v <ahref = '/sl/privacy-statement'> pravilniku o piškotkih </a>.
+Advanced cookie settings: Napredne nastavitve piškotkov
+Accept cookies: Sprejmi vse piškotke in zapri
+Our goal is to protect and preserve your personal information. We use a variety of cookies on this website, including those of third parties, which we have divided into three categories for simplicity and ease of understanding. Necessary cookies cannot be turned off because they are used for the proper functioning of the website. You can turn off functional and advertising cookies by selecting in the menu. For details on which cookies we use and for what purpose, read the <a href='/en/privacy-statement'>Privacy Statement page</a>.: "To spletno mesto lahko uporablja različne piškotke za različne namene, vključno s piškotki tretjih oseb. Zaradi preprostosti in lažjega razumevanja smo piškotke razdelili v tri kategorije: nujne, funkcionalne in oglaševalske. V tem meniju lahko izberete, katere kategorije piškotkov dovolite nas - funkcionalno in/ali oglaševanje. Za podrobnosti o tem, katere piškotke uporabljamo in za kakšne namene, preberite <ahref = '/sl/Izjavo o zasebnosti> Politike piškotkov </a>. "
+Necessary cookies: Nujni piškotki
+Cookies that provide basic website functionality and basic analysis of website usage in order to improve the operation and efficiency of the website.: Piškotki, ki omogočajo osnovne funkcije spletnega mesta, kot so razpoložljivost, upravljanje omrežnih nastavitev, varnost in osnovna analiza uporabe spletnega mesta za izboljšanje njegovega delovanja in učinkovitosti. Te piškotke lahko onemogočite v nastavitvah spletnega brskalnika, vendar bi to lahko vplivalo na pravilno delovanje našega spletnega mesta.
+Cookies with which we conduct a more advanced analysis of the operation of the website and the behavior of website users with anonymous data.: Piškotki, ki omogočajo naprednejšo analizo delovanja spletnega mesta in vedenja njegovih uporabnikov na podlagi anonimnih podatkov za izboljšanje njegovega delovanja in učinkovitosti ter prilagoditev vaše uporabniške izkušnje. Vključite te piškotke, če nam želite dovoliti njihovo uporabo.
+
+Please select...: Prosimo izberite
+
+Use as billable address: Uporavi za naslov računa
+We are sorry!: Žal nam je
+We couldn't find your cart.: Nismo našli vaše košarice
+
+Only saleable: Prikaži samo dostopne
+Only on discount: Prikaži samo na popustu
+Only images: Prikaži samo s sliko
+
+Send inquiry: Pošlji povpraševanje
+Remind me when available: Obvesti me, ko bo na voljo
+to reminder list: na opomnik o razpoložljivosti
+Related products: Sorodni izdelki
+S product configuration product group link: Atributi kategorije
+S product attribute configuration options: Vrednosti atributov
+Menus: Meniji
+Facet attribute configuration: Možnosti fasete
+Sort option: Možnosti razvrščanja
+Image styles: Slogi slike
+Product menu links: Izdelki v menijih
+S page admin: CMS stran
+S front block admin: Bloki
+Product link type: Vrste povezovalnih izdelkov
+Templates: Predloge strani
+Discount catalog: Popusti v katalogu
+Discount coupons: Kuponi
+Product export: XML izvoz
+Newsletter subscribers: Prijava na novičke
+Search synonyms: Sinonimi
+Region: Regija
+Delivery prices: Cene dostave
+IN CASE OF QUANTITY CHANGE CLICK ON UPDATE CART IN ORDER TO UPDATE QUANTITIES: V PRIMERU SPREMEMBE KOLIČINE KLIKNITE NA POSODOBI KOŠARICO ZA PONASTAVITEV KOLIČIN
+Related posts: Sorodni članki
+Accessibility: Dostopnost
+High contrast: Visok kontrast
+Increase font: Povečaj pisavo
+Decrease font: Zmanjšaj pisavo
+Readable font: Berljiva pisava
+Underline links: Podčrtaj povezave
+Configure: Konfiguriraj
+Save up: Privarčuj
+Add all to cart: Dodaj vse v košarico
+Update in cart: Posodobi v košarici
+pcs: kos
+Year of birth: Leto rojstva
+Fill if you are a legal entity: Izpolnite, če ste pravna oseba
+
+Are you: Ali si star
+over 18?: več kot 18 let?
+Unfortunately, no: Žal ne
+Step 1: 1. korak
+Step 2: 2. korak
+Your cart: Tvoja košarica
+Create user account: Ustvarite uporabniški račun
+Minimal order is: Znesek minimalnega naročila je
+Total products: Skupaj izdelki
+Summary: Povzetek
+Free delivery in CRO: Besplatna dostava
+Go to cart: V košarico
+Order by: Razvrsti po
+Delivery is free. Minimum order amount is: Dostava je brezplačna. Preverite najmanjšo količino naročila in razpoložljiva mesta
+here: tukaj
+Already have an account?: Imaš uporabniški račun?
+Login and payment: Prijava in plačilo
+Personal data: Osebni podatki
+Need R1?: Potrebujete račun na podjetje?
+Same as in personal data: Enako kot v osebnih podatkih
+Maybe you would also like: Morda bi si želeli tudi
+Invalid email: Neveljaven e -poštni naslov
+Similar products: Podobni izdelki
+Maybe you are also interested in...: Morda te zanima tudi ..
+Enter date of birth: Vnesite datum rojstva
+I accept: Sprejmem
+terms of use: pogoji uporabe
+Excellent choice!: Odlična izbira!
+It's time to close the order: Čas je, da zaključite naročilo
+One more step: Še en korak
+And your beer will be ready to deliver: Tvoje pivo pa bo pripravljeno za dostavo
+Declaration: Deklaracija
+Send to friends: Pošlji prijatelju
+Send the order to multiple addresses: Naročilo pošlji na več lokacij
+Login to your account: Imate uporabniški račun?
+Reset your password: Ponastavi geslo
+Set new password: Nastavi novo geslo
+I want to receive promo materials: Želim prejemati trženjsko gradivo po e-mail
+Cart items: Košarica
+Your beer is on the way to your fridge: Tvoje pivo je na poti v tvoj hladilnik
+Thank you for your purchase: Hvala na nakupu
+Your beer arrives at your desired address within 24 hours. In case of failure of delivery within time, we will notify you by e-mail with the new delivery date.: Vaše pivo prihaja v 24 urah ob delavnikih, od 9. do 17. ure. Če ste naročili med vikendom, začne 24 ur teči v ponedeljek od 9. V primeru nezmožnosti dostave v roku vas bomo po e-pošti obvestili z novim datumom dostave.
+Your request has been successfully saved: Vaša zahteva je bila uspešno shranjena
+Quantity: Količina
+Log in: Prijava
+Wish list: Seznam želja
+No products found for term: Za ta izraz ni najdenega nobenega izdelka
+
+This email is allready used, please please reset your password if necessary: E -pošta je že v uporabi, po potrebi ponastavite geslo
+Product price: Cena izdelka
+This coupon does not exist or is not active: Kupon ne obstaja ali ni aktiven
+This coupon cannot be applied: Kupona ni mogoče uporabiti
+Coupon has been successfully removed: Kupon je bil uspešno odstranjen
+You can always unsubscribe by turning off this checkbox.: Vedno se lahko odjavite tako, da izklopite to potrditveno polje.
+Search: Išči
+Search here...: Išči tukaj ...
+Please enter value in the correct format.: Prosimo, vnesite vrednost v pravilni obliki.
+Please enter valid email address.: Prosimo, vnesite veljaven e -poštni naslov.
+Please select value from the list.: Prosimo, izberite vrednost s seznama.
+Customer: Stranka
+Send city request: Prijavi se
+Delivery contact person: Kontaktna oseba za dostavo
+Delivery contact phone: Telefonska številka kontaktne osebe za dostavo
+Coupon successfully applied: Kupon uspešno uporabljen
+RETURN PRICE:
+Completed orders: Dokončana naročila
+Deliver to date: Dostava do
+Delivery confirmation: Potrditev dostave
+Your invoice for order: Vaš račun za naročilo
+Warnings: Opozorila
+Maintenance: Navodila za vzdrževanje
+Surface type: Vrsta površine
+Dimensions: Dimenzije
+Guarantee: Garancija
+Size: Velikost
+Eko product: Eko izdelek
+Unit of measure: Merska enota
+Amount in measure: Znesek v merilih
+Packaging: Pakiranje
+Color: Barva
+Country of manufacture: Država porekla
+Weight: Teža
+Croatian product: Hvaški proizvod
+Assembly time (2 people): Čas montaže (2 osebi)
+Control union certificate: Potrdilo o nadzornem sindikatu
+CSE certificate: CSE certifikat
+Eco control certificate: Eco control certifikat
+Ecocert certificate: Ecocert certifikat
+Fibl certificate: Fibl certifikat
+Manufacturer's statement: Izjava proizvajalca
+Omri certificate: Omri certifikat
+Shc sohiscert certificate: Shc sohiscert certifikat
+For organic farming and ventilation: Za ekološko kmetovanje in vrtnarjenje
+10 years on metal, 2 years on the rest: 10 let za kovino, 2 leti za ostalo
+1 year: 1 leto
+2 years: 2 leti
+3 years: 3 leta
+4 years: 4 leta
+5 years: 5 let
+6 years: 6 let
+7 years: 7 let
+8 years: 8 let
+9 years: 9 let
+10 years: 10 let
+Liter: Liter
+Meter: Meter
+Square meter: Kvadratni meter
+Cublic meter: Kubični meter
+Assembly time: Čas montaže
+Apply for newsletter: Prijavi se na e-novice in prejmi informacije o popustu
+Apply: Prijavi me
+Information: Informacije
+Social connect: Povežimo se
+Price with discount: Cena s popustom
+Price for cache: Cena za gotovino
+Your cart is on the way: Vaša košarica je na poti
+Enter at least 4 characters: Vnesite najmanj 4 znake
+Ready for webshop: Pripravljeno za spletno trgovino
+Set ready for web: Označi pripravljeno za splet
+Show more attributes: Prikaži več atributov
+Show less attributes: Pokaži manj atributov
+Order now: Naroči zdaj
+An error occurred while checking status: Pri preverjanju stanja je prišlo do napake
+Missing service code: Manjka koda storitve
+Disable free delivery: Onemogoči brezplačno dostavo
+Work order not found: Delovni nalog ni najden
+Product/s that you had been waiting for are now available in the store: Izdelki, ki ste jih čakali, so na voljo v spletni trgovini na
+By clicking on the product name you will be redirected to our online shop: S klikom na ime izdelka boste preusmerjeni na našo spletno trgovina
+If you have any general questions or questions relating to your order, feel free to contact us via: Če imate kakršna koli vprašanja v zvezi z vašim naručilom, nas kontaktirajte prek
+or phone: ali telefona
+contact form: kontaktnega obrazca
+Requested products are available for purchase: Vaši izdelki so na voljo za nakup
+Respected Mr/Mrs: Spoštovani
+Thank you: Hvala Vam
+Order ready for pickup: Naročilo pripravljeno za prevzem
+Please select mandatory configurations: Prosimo, izberite obvezne konfiguracije
+Select option: Izberite možnost
+Buy together and save: Kupite v paketu in prihranite
+Currently viewing: Trenutno odprto
+Minumum quantity: Najmanjša količina
+Product quantity has dropped below minimum allowed quantity on the: Količina na naslednjih izdelkih je padla pod minimalno dovoljeno količino na
+Save comment: Shrani komentar
+Your rating has been saved: Vaša ocena je shranjena
+Your comment has been saved: Vaš komentar je bil posnet in bo objavljen po odobritvi skrbnika
+Your comment: Vaš komentar
+Quote not found: Ponudbe ni mogoče najti
+No results found for term: Za izraz ni najdenih rezultatov
+Missing comment: Manjka komentar
+Order state: Status
+Failed to add products: Dodajanje izdelkov ni uspelo
+Products added to cart: Izdelki, dodani v košarico
+Date to: Datum do
+Your cart is already empty.: Vaša košarica je prazna
+All products were removed from cart: Vsi izdelki so bili odstranjeni iz košarice
+
+January: Januar
+February: Februar
+March: Marec
+April: April
+May: Maj
+June: Junij
+July: Julij
+August: Avgust
+September: September
+October: Oktober
+November: November
+December: December
+Jan: Jan
+Feb: Feb
+Mar: Mar
+Apr: Apr
+Mays: Maj
+Jun: Jun
+Jul: Jul
+Aug: Aug
+Sep: Sep
+Oct: Okt
+Nov: nov
+Dec: Dec
+
+Free: Brezplačna
+gifts: darila
+
+Total without delivery: Skupaj brez dostave
+Delivery: Dostava
+Return items: Vračilo
+Subtotal without tax: Znesek postavk (brez DDV)
+Delivery without tax: Dostava (brez DDV)
+Total tax: Skupen DDV
+Subtotal with tax: Skupen znesek (z DDV)
+Coupon: Kupon
+Loyalty: Zvestoba
+Discount: Znesek popust
+Total: Skupaj za plačilo
+Free delivery: Brezplačna dostava
+You already rated: Ste že oceili
+You already commented: Ste že komentirali
+Webshop created by: Izdelava spletne trgovine
+Tehnical: Tehnični
+data for: podatki za
+Add coupon: Dodaj kupon
+Currently showing: Trenutno prikazano
+Thank you for your request: Hvala za zahtevo
+with request details: s podrobnostmi zahteve
+on request: na zahtevo
+
+You have been successfully registered: Uspešno ste registrirani
+Thank you for your registration: Zahvaljujemo se za Vašo registracijo
+Your login information: Vaši uporabniški podatki za prijavo
+Username: Uporabniško ime
+Password: Geslo
+You can log in with the password you entered during registration, and in case you forgot it, reset it: Lahko se prijavite z geslom, ki ste ga vnesli med registracijo, in če ste ga pozabili, ga ponastavite
+
+Dear Sir/Madam: Spoštovani
+Your order was received: Vaše naročilo je bilo prejeto
+Thank you for your trust: Hvala za zaupanje
+You will be informed about the status of your order and delivery by e-mail and SMS to GLS: O statusu vašega naročila in dostavi boste obveščeni po e-pošti in SMS-om iz strani GLS
+You will be notified by e-mail about the status of your order and delivery: O statusu vašega naročila in dostavi boste obveščeni po e-pošti
+If you want to add embrodiery to individual products click: Če želite dodati vezao individualno na izdelek kliknite
+User information: Podatki uporabnika
+Price per unit: Cena na enoto
+VAT base: Osnova za DDV
+Delivery to the address: Dostava na naslov
+VAT: DDV
+Total (VAT included): Skupaj (vključen DDV)
+Delivery tyle: Način dostave
+Contact person: Kontakta oseba
+Contact phone: Kontakti telefon
+We will notify you when the items are ready to be picked up: Ko bodo artikli pripravljeni za prevzem, vas bomo obvestili
+You can pay the specified amount at: Naveden znesek lahko plačate na
+Note: Opomba
+Your emrodiery entry is saved: Vaš vnos vezenin je shranjen
+On the following: Na naslednjem
+link: link
+you can see individual values of embrodieries: lahko vidite posamezne vrednosti vezenin, ki ste jih vnesli
+Your: Vaš
+team: tim
+Phone: Telefon
+Product information: Informacije o izdelku
+Name: Naziv
+Inquiry: Poizvedba
+thank you for your interest: zahvaljujemo se za tvoje povpraševanje
+Your request has been successfully received: Vaša zahteva je bila uspešno prejeta
+Date: Datum
+Your order with number: Vaše naročilo s številko
+is ready for pickup: je pripravljeno za prevzem na naslovu
+Your request was received: Vaša zahteva je bila prejeta
+you received a new inquiry about a product: prejeli ste novo povpraševanje o izdelku
+You can check the inquiry: Povpraševanje lahko preverite
+HERE: TUKAJ
+We have received your request to change your password: Prejeli smo vašo zahtevo za spremembo gesla
+If you have not requested a password change, please let us know at: Če niste zahtevali spremembe gesla nam to sporočite na
+and ignore this email: in zanemarite to e-pošto
+You can change your password by clicking on this: Geslo lahko spremenite s klikom na
+or by copying this path: ali s kopiranjem
+to your browser: v vaš brskalnik
+Existing password: Obstoječe geslo
+Repeat new password: Ponovite novo geslo
+Your favorites are empty: Tvoji priljubljeni so prazni
+Click the heart icon to add a product to your favorites: Klikni ikono srca, če želiš izdelek dodati med priljubljene
+Confirm: Potrdite
+Suglasan sam za korištenje danih podataka u svrhu primanja obavijesti o posebnim ponudama i akcijama.: Strinjam se z uporabo danih podatkov za namene prejemanja obvestil o posebnih ponudbah in akcijah.
+Last name: Priimek
+First name: Ime
+Repeat password: Ponovi geslo
+Create account: Ustvari račun
+Forgot password: Pozabljeno geslo
+Select country: Izberi državo
+City: Mesto
+Country: Država
+Month: Mesec
+Year: Leto
+Day: Dan
+Select city: Izberi mesto
+Date of birth: Datum rojstva
+I want to receive newsletters: Želim prejemati e-novice
+You can always unsubscribe via unsubscribe link in email: Se vedno možete odjaviti preko odližne povezave po e-pošti
+Date of birth (day-month-year): Datum rojstva (dan-mesec-leta)
+Save: Shrani
+Are you sure you want to delete your account?: Ali ste prepričani, da želite izbrisati svoj račun?
+Yes: Da
+No: Ne
+Cancel: Prekliči
+Use as default delivery address: Uporabi kot privzeti naslov za dostavo
+Obavijesti: Obvestila
+Mobile phone: Mobilni telefon
+Personal information: Osebne informacije
+User account: Uporabniški račun
+Sign in: Prijava
+Username or email address: Uporabniško ime ali e-poštni naslov
+Company information: Podatki o podjetju
+Identification number: ID za DDV
+Privatnost i sigurnost: Zasebnost in varnost
+Complete registration: Popolna registracija
+Send request: Pošlji zahtevo
+Reset lozinke: Ponastavitev gesla
+Edit profile: Uredi profil
+email: e-pošta
+Edit: Uredi
+Customer information: Podatki o kupcu
+Payment type and delivery: Način plačila in dostava
+for help: za pomoč
+
+
+User with this email does not exist. Please register.: Uporabnik s tem e-poštnim naslovom ne obstaja. Prosimo registriraj se.
+
+#KEKS pay
+Pay with KEKS pay: Plačaj z KEKS Pay
+Open KEKS pay: Odpri KEKS Pay
+Press: Pritisni
+icon: ikona
+Press scan QR code: Pritisni Skeniraj QR kodo
+Scan QR code: Skeniraj QR kodo
+
+Log in with Facebook: Facebook prijava
+Sign in with Google: Google prijava
+
+New: Novo
+In process: V teku
+Completed: Dokončano
+Canceled: Preklicano
+Reversal: Vrnitev
+
+Search result for: Išči rezultat za
+selected: izbrano
+Editing options: Uredi opcije
+Type name of a product: Napiši ime izdelka
+Product code or name: Izdelek koda ali ime
+Recently viewed products: Nazadnje ogledani izdelki
+Try searching for product using the search bar: Poskusi iskati izdelek z iskalno vrstico
+
+Meeting request has been sent to your KAM: Zahtevek za sestanek je poslan KAM-u
+Missing meeting date: Manjka datum sestanka
+Missing subject: Manjka naslov
+Latitude: Geografska širina
+Longitude: Geografska dolžina
+Worktime: Delovni čas
+Office: Poslovalnica
+office details: Podrobnosti poslovalnice
+Job opening: Odprto delovno mesto
+job opening details: Podrobnosti odprtega delovnega mesta
+Meeting date: Datum sastanka
+Meeting request: Prošnja za sestanek
+meeting request details: Podrobnosti prošnje za sestanek
+First and last name: Ime in priimek
+Personal details: Osebni podatki
+Company details: Podatki o podjetju
+Offices: Poslovalnice
+Office form: Poslovalnice
+Job openings: Odprta delovna mesta
+Job opening form: Odprto delovno mesto
+Your email address: Vaš email naslov
+Your phone number: Vaša številka telefona
+Add new user: Dodaj novega uporabnika
+User successfully updated: Uporabnik je posodobljen
+User successfully deleted: Uporabnik je izbrisan
+User successfully created: Uporabnik je ustvarjen
+Customer role admin: Administrator
+Customer role customer: Naročilo brez potrditve
+Customer role preorder: Naročilo s potrditvijo skrbnika
+There are currently no open positions: Trenutno ni odprtih postavk
+Open positions: Odprte postavke
+Subscribe to the: Prijavi se na
+Subscribe: Naročite se
+Business hours: Delovni čas
+The provided password reset link seems to be invalid: Povezava za ponastavitev gesla izgleda neveljavna. Zahtevajte novo povezavo na <a href="/reset-gesla">formi za resetiranje</a>
+This site is protected by reCAPTCHA and the Google <a rel="nofollow" href="https: To mesto je zaščiteno z reCAPTCHA in Googlom<a rel="nofollow" href="https
+Terms of use: pogoji uporabe
+You can always unsubscribe by turning off this checkbox: Vedno se lahko odjavite, če izklopite to potrditveno polje
+Please enter value in the correct format: Prosimo vnesite vrednost v pravilni obliki
+Please enter valid email address: Prosimo vnesite veljaven email naslov
+Please select value from the list: Prosimo izberite vrednost iz seznama
+10 years on metal: 10 let za kovino
+2 years on the rest: 2 leti za ostalo
+If you have any general questions or questions relating to your order, feel free to contact us via contact form or phone: V primeru kakršnihkoli vprašanj glede vašega računa ali splošnih vprašanj nas kontaktirajte preko kontaktnega obrazca ali telefona
+Send inqury: Pošljite povpraševanje
+Lozinka: Geslo
+Poštovani/a: Spoštovani
+zahvaljujemo na Vašem interesu: zahvaljujemo se na Vašemu zanimanju
+Vaš upit je uspješno zaprimljen: Vaše povpraševanje je uspešno sprejeto
+Broj narudžbe: Številka naročila
+Datum narudžbe: Datum naročila
+zaprimili ste novi upit za proizvod: prejeli ste novo povpraševanje za izdelek
+Upit možete vidjeti: Povpraševanje lahko vidite
+Upit: Povpraševanje
+Novi korisnički račun: Nov uporabniški račun
+Reset password: Ponastavitev gesla
+Pošalji poruku: Pošlji sporočilo
+Narudžba je zaprimljena: Naročilo je sprejeto
+Informacije o korisniku: Podatki o kupcu
+Informacije o proizvodu: Podatki o izdelku
+E-mail: E-pošti
+Tvoja narudžba je zaprimljena: Vaša narudžba je primljena
+Poziv na broj: Pokliči za številko
+Iznos za uplatu: Znesek za plačilo
+Napomena: Remark
+Pogledaj narudžbu: Poglej naročilo
+Zaprimili smo Vaš zahtjev za promjenom Vaše lozinke: Prejeli smo vašo zahtevo za spremembo gesla
+te zanemarite ovaj e-mail: in prezrite to e-pošto
+Lozinku možete promijeniti klikom na ovaj: Geslo lahko spremenite s klikom na
+ili kopiranjem ove putanje:  ali s kopiranjem
+u vaš preglednik: v brskalnik
+Vaši proizvodi su dostupni za kupovinu: Vaši izdelki so na voljo za nakup
+OIB: ID za DDV
+Your account has been removed: Uporabniški račun je odstranjen
+Default shipping address: Privzeti naslov za dostavo
+News: Vijesti
+About us: O nas
+Contact: Kontakt
+Add to favorite: Dodaj k priljubljenim
+Add to favorites: Dodaj k priljubljenim
+Register here: Registriraj se tukaj
+Gift: Darilo
+Products in menu: Izdelki v meniju
+Extra: Gratis
+Card number: Številka kartice
+Phone number: Številka mobitela
+User and card information: Podatki o uporabniku in kartici
+Thank You for Your newsletter subscription: Hvala ti na Vaši prijavi na novičke
+Contact us: Pošljite nam sporočilo
+S entity rating: Ocene
+S entity comment: Komentarji
+Published date: Datum objave
+Product categories: Kategorije izdelkov
+Search shop: Poišči v trgovini
+Newsletter subscription: Prijava na e-novice
+Type in your email: Vnesi e-poštni naslov
+Legal entity: Pravna oseba
+
+Availability: Razpoložljivost
+available: na voljo
+
+Your price: Vaša cena
+
+Order confirmation: Potrdilo naročila
+Return: Vrnitev
+Hide same attributes: Skrij iste lastnosti
+Remove all products: Odstranite vse izdelke
+Account number at a commercial bank (IBAN): Številka računa pri poslovni banki (IBAN)
+Pay with Bankart: Potrdi naročilo
+Delivery & payment: Dostava in plačilo
+suppliable: dobavljivo
+Best selling: Najbolj prodajani
+available card payment: omogočeno plačilo s kartico
+delivery on address: dostava na dom
+Welcome: Dobrodošli
+discounts do not add up: popusti se ne seštevajo
+If you want to register on this website, check this box. The system will remember the data you entered for the purpose of purchase and register you as a user. In the future, you will be able to buy as a registered user and you will not have to enter your details with each purchase. You can view and edit your information by clicking on „[My Profile]”: Če se želite registrirati na tej spletni strani, potrdite to polje. Sistem si bo zapomnil podatke, ki ste jih vnesli za namen nakupa, in vas registriral kot uporabnika. V prihodnje boste lahko kupovali kot registrirani uporabnik in vam ne bo treba ob vsakem nakupu vnašati svojih podatkov. Svoje podatke si lahko ogledate in uredite s klikom na „[Moj profil]”
+
+Return item: Vrni predmet
+Select bank account: Izberite bančni račun
+Return reason: Razlog za vrnitev
+Delivery message: Sporočilo za dostavo
+Select pickup address: Izberite naslov za prevzem
+
+I agree that my data is used for the purpose of sending a newsletter: Strinjam se, da se moji podatki uporabljajo za pošiljanje novic
+I agree to use the information provided for the purpose of receiving notification of special offers and promotions: Strinjam se, da bom posredovane podatke uporabil za namene prejemanja obvestil o posebnih ponudbah in promocijah
+
+Returns: Naročilo se vrne
+Return created date: Vrni ustvarjen datum
+
+Offer: Ponudba
+Search results: Rezultati iskanja

@@ -1,0 +1,69 @@
+<div class="form-group row">
+    <label class="col-sm-5 col-xs-5 control-label">{{ product_attribute.attribute.name }}</label>
+    <div class="col-sm-5 col-xs-5">
+        {% if product_attribute.attribute.sProductAttributeConfigurationTypeId == 1 %}
+            <select data-id="{{ product_attribute.attribute.id }}" {% apply spaceless %}
+                data-type="lookup"
+                data-search-url="{{ path('get_s_product_autocomplete') }}"
+                class="form-control"
+                name="s_product_attributes_link[{{ product_attribute.attribute.id }}]"
+                data-placeholder="{% trans %}Search...{% endtrans %}" {% endapply %}>
+                {% if product_attribute.values is defined and product_attribute.values is not empty %}
+                    {% for value in product_attribute.values %}
+                        <option value="{{ value.option_id }}"
+                                selected="selected"
+                                title="{{ value.value }}">{% apply spaceless %}
+                                {{ value.value }}
+                        {% endapply %}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        {% elseif product_attribute.attribute.sProductAttributeConfigurationTypeId == 2 %}
+            <select data-id="{{ product_attribute.attribute.id }}" {% apply spaceless %}
+                data-type="lookup"
+                data-search-url="{{ path('get_s_product_autocomplete') }}"
+                data-multiple="true"
+                class="form-control"
+                name="s_product_attributes_link[{{ product_attribute.attribute.id }}][]"
+                multiple="multiple"
+                data-placeholder="{% trans %}Search...{% endtrans %}" {% endapply %}>
+                {% if product_attribute.values is defined and product_attribute.values is not empty %}
+                    {% for value in product_attribute.values %}
+                        <option value="{{ value.option_id }}"
+                                selected="selected"
+                                title="{{ value.value }}">{% apply spaceless %}
+                                {{ value.value }}
+                        {% endapply %}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        {% elseif product_attribute.attribute.sProductAttributeConfigurationTypeId == 3 %}
+            <input type="text"
+                   class="form-control item-menu"
+                   name="s_product_attributes_link[{{ product_attribute.attribute.id }}]"
+                   value="{% if product_attribute.values is not empty %}{{ product_attribute.values[0].value }}{% endif %}"/>
+        {% elseif product_attribute.attribute.sProductAttributeConfigurationTypeId == 4 %}
+            <input type="hidden"
+                   class="form-control"
+                   data-action="checkbox-value"
+                   name="s_product_attributes_link[{{ product_attribute.attribute.id }}]"
+                   value="{% if product_attribute.values is not empty %}{{ product_attribute.values[0].value }}{% endif %}"/>
+            <input data-off-text="{% trans %}No{% endtrans %}"
+                   data-on-text="{% trans %}Yes{% endtrans %}"
+                   type="checkbox"
+                   class="form-control"
+                   name="s_product_attributes_link_checkbox[{{ product_attribute.attribute.id }}]"
+                   data-type="bchackbox"
+                   value="{% if product_attribute.values is not empty %}{{ product_attribute.values[0].value }}{% endif %}"
+                   {% if product_attribute.values is not empty and product_attribute.values[0].value == 1 %}checked="checked"{% endif %}/>
+        {% endif %}
+    </div>
+    <div class="col-sm-2 col-xs-2">
+        {# <button type="button" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-pencil"></i></button> #}
+        <button type="button"
+                class="sp-btn btn-danger btn pull-right"
+                data-delete="s_product_attribute"
+                title="{% trans %}Delete{% endtrans %}"><i
+                    class="glyphicon glyphicon-remove"></i></button>
+    </div>
+</div>

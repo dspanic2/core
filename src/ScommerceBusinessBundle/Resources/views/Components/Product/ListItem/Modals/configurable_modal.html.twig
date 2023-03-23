@@ -1,0 +1,18 @@
+<div class="configurable-overlay overlay active">
+    <div class="inner product-relative-container">
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:title.html.twig', 'data': {
+            'product': product,
+        }}, {})) }}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Type:configurable.html.twig', 'data': {
+            'product': product,
+            'editable': true
+        }}, {})) }}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:prices.html.twig', 'data': {
+            'product': product,
+            'data': {},
+        }}, {})) }}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/ProductPieces:add_to_cart_form.html.twig', 'data': {
+            'product': product,
+        }}, {})) }}
+    </div>
+</div>

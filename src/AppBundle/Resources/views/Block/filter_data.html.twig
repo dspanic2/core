@@ -1,0 +1,44 @@
+<div class="sp-block-outer" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class=" {{ data.block.class }}">
+        <div class="sp-block-inner">
+            <div class="panel panel-midnightblue">
+                <div class="panel-body collapse in">
+                    <form data-validate="true" method="post"
+                          action="{{ path('chart_filter_set',{'block_id': data.block.id}) }}" accept-charset="UTF-8"
+                          data-callback='["custom"]'
+                          data-custom-callback='["getChartData"]'
+                          data-chart-id="{{ data.block.id }}"
+                          class="form-horizontal row-border">
+                        <div class="sp-block-group-wrapper">
+                            {% for filter in data.filters %}
+                                <div class="row">
+                                    <label>{{ filter.label }}</label>
+                                    {% if filter.type=="multichoice" %}
+                                        {% for filterValue in filter.values %}
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input name="{{ filter.field }}[]" value="{{ filterValue.value }}"
+                                                           type="checkbox" {{ filterValue.value }} {% if filterValue.selected==1 %}checked="checked"{% endif %}>{{ filterValue.value }}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-7 col-sm-offset-2">
+                                    <div class="btn-toolbar">
+                                        {{ get_page_buttons(data)|raw }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

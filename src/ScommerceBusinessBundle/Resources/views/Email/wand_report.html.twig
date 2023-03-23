@@ -1,0 +1,55 @@
+{% extends 'ScommerceBusinessBundle:Email:base.html.twig' %}
+
+{% block body %}
+    <table class="mWidth100" style="table-layout:fixed;width:800px" border="0" cellspacing="0" cellpadding="0"
+           bgcolor="#fffffe" align="center">
+        <tbody>
+        <tr>
+            <td width="1"
+                style="line-height:30px">
+                <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                     width="1" alt=" "
+                     height="30"
+                     border="0"
+                     style="display:block"
+                     class="transparent_img">
+            </td>
+        </tr>
+        <tr>
+            <td align="left"
+                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                Function
+            </td>
+            <td align="left"
+                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                Id
+            </td>
+            <td align="left"
+                style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+                Message
+            </td>
+        </tr>
+        {% for error in data.errors %}
+            <tr>
+                <td align="left"
+                    style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">{{ error.function }}</td>
+                <td align="left"
+                    style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">{{ error.code }}</td>
+                <td align="left"
+                    style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">{{ error.message }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td width="1"
+                style="line-height:30px">
+                <img src="{{ base_url }}{{ mails_img }}/proziran_png.png"
+                     width="1" alt=" "
+                     height="30"
+                     border="0"
+                     style="display:block"
+                     class="transparent_img">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

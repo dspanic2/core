@@ -1,0 +1,12 @@
+<td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %}>
+    <div class="sp-document-list-wrapper" {% if width is not empty %}style="width: {{ width }}px;"{% endif %}>
+        {% if value is defined and value is not empty %}
+            {% set extension = value|split('.') %}
+            {% if extension|last|lower in ['png','jpg','jpeg','bmp'] %}
+                <img src="{{ attribute.folder }}{{ value }}"/>
+            {% else %}
+                <span class="sp-document sp-icon-{{ extension|last|lower }}"></span>
+            {% endif %}
+        {% endif %}
+    </div>
+</td>

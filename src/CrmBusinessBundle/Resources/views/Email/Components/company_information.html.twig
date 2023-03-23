@@ -1,0 +1,7 @@
+<strong>{% trans into data.current_language %}Informacije o tvrtki{% endtrans %}:</strong><br><br>
+{{ data.site_base_data.site_base_companyName }}<br>
+{% trans into data.current_language %}Adresa{% endtrans %}: {{ data.site_base_data.site_base_streetAddress }}, {{ data.site_base_data.site_base_postalCode }} {{ data.site_base_data.site_base_addressLocality }}<br>
+{% trans into data.current_language %}OIB{% endtrans %}: [OIB]<br>
+{% trans into data.current_language %}IBAN{% endtrans %} : [IBAN]<br>
+{% trans into data.current_language %}Web{% endtrans %}: <a href="{{ data.site_base_data.site_base_url_language }}">{{ data.site_base_data.site_base_name }}</a><br>
+{% trans into data.current_language %}E-mail{% endtrans %}: <a href="mailto:{{ data.site_base_data.site_base_contact }}">{{ data.site_base_data.site_base_contact }}</a><br>

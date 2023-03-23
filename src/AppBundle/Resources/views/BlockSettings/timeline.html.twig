@@ -1,0 +1,102 @@
+<div class="panel panel-midnightblue">
+    <div class="panel-heading master-panel-heading">
+        <h5>{% trans %}General information{% endtrans %}</h5>
+    </div>
+    <div class="panel-body collapse in">
+        <fieldset class="form-group-wrapper timeline-settings">
+            <div class="form-group row hidden">
+                <div class="col-sm-6">
+                    <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Title{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="title" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.title }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <select {% if entity is not empty %}disabled="disabled"{% endif %} name="type" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" class="form-control">
+                        <option value="">{% trans %}Please select{% endtrans %}</option>
+                        <option  selected="selected"  value="timeline">timeline</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Timeline data{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <ul class="ul-no-style ul-no-padding dependant-select">
+                        {#{% if entity_content is not defined %}#}
+                            <select name="listView"
+                                    class="form-control"
+                                    required>
+                                <option value="">{% trans %}Select list view{% endtrans %}</option>
+                                {% for list_view in list_views %}
+                                    <option value="{{ list_view.id }}" {% if content.list_view is defined and content.list_view == list_view.id %}selected="selected"{% endif %} >{{ list_view.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <p><small>{% trans %}List to pull data from{% endtrans %}</small></p>
+
+                            <select name="date"
+                                    class="form-control sp-available-attributes-wrapper"
+                                    {% if date %}readonly{% endif %}
+                                    data-url="{{ path('remote_get_attributes') }}"
+                                    required>
+                                {% if date %}
+                                    <option value="{{ date.id }}" selected="selected">{{ date.name }}</option>
+                                {% else %}
+                                    <option value="" selected="selected">{% trans %}Select date attribute{% endtrans %}</option>
+                                {% endif %}
+                            </select>
+                            <p><small>{% trans %}Use selected value as date and/or time to place on timeline{% endtrans %}</small></p>
+
+                            <input type="text" name="dateFormat" class="form-control" {% if date_format %}value="{{ date_format }}"{% endif %} placeholder="{% trans %}Date format{% endtrans %}"/>
+                            <p><small>{% trans %}PHP date format{% endtrans %}</small></p>
+
+                            <select name="description"
+                                    class="form-control"
+                                    {% if description %}readonly{% endif %}
+                                    required>
+                                {% if description %}
+                                    <option value="{{ description.id }}" selected="selected">{{ description.name }}</option>
+                                {% else %}
+                                    <option value="" selected="selected">{% trans %}Select description attribute{% endtrans %}</option>
+                                {% endif %}
+                                {#ajax inserted values#}
+                            </select>
+                            <p><small>{% trans %}Use selected value as description on timeline{% endtrans %}</small></p>
+                        {#{% endif %}#}
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Height{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="height" class="form-control" {% if height %}value="{{ height }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="class" class="form-control" {% if entity is not empty %}value="{{ entity.class }}"{% endif %}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">{% trans %}Data attributes{% endtrans %}</label>
+                <div class="col-sm-6">
+                    <input type="text" name="dataAttributes" class="form-control" {% if entity is not empty %}value="{{ entity.dataAttributes }}"{% endif %}/>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                {#<label class="col-sm-3 control-label">{% trans %}Show link to entity on timeline{% endtrans %}</label>#}
+                <div class="col-sm-6 col-sm-offset-3">
+                    <label for="showLink">{% trans %}Show link to entity on timeline{% endtrans %}</label>
+                    <input type="checkbox" name="showLink" id="showLink" {% if show_link %}checked="checked"{% endif %}/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

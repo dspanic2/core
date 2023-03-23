@@ -1,0 +1,14 @@
+{% apply spaceless %}
+    {% set cconsent = app.request.cookies.get('cconsent')|json_decode %}
+    <script type="text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        {# nuzni kolacici za funkcioniranje #}
+        window.dataLayer.push({
+            'event': 'consent_choice',
+            'functional': {% if cconsent is empty %}'false'{% else %}'true'{% endif %}{% if cconsent is not empty %},{% endif %}
+            {% if cconsent is not empty %}
+            'analytics': {% if cconsent.categories.statistical.wanted is defined and cconsent.categories.statistical.wanted %}'true'{% else %}'false'{% endif %}
+            {% endif %}
+        });
+    </script>
+{% endapply %}

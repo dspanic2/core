@@ -1,0 +1,59 @@
+<div class="category-list-sorting">
+    {% if is_search is defined and is_search %}
+        <div class="row search-results-info text-left">
+            {% if keyword is defined and keyword is not empty %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 search-keyword">
+                    <span><strong class="label">{% trans into current_language %}Search results for{% endtrans %}:</strong> {{ keyword }}</span>
+                </div>
+            {% endif %}
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <span><strong class="label">{% trans into current_language %}Results{% endtrans %}:</strong> {{ total }}</span>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-xs-12">
+            {% set pageSize = 0 %}
+            {% for size in page_size_options %}
+                {% if size.selected|default(false) %}
+                    {% set pageSize = size.value %}
+                {% endif %}
+            {% endfor %}
+            <div class="results-info">{% trans into current_language %}Currently showing{% endtrans %} <span class="from">{{ 1 + pageSize * (page_number - 1) }}</span> - <span class="to">{% if pageSize*page_number > total|default(0) %}{{ total|default(0) }}{% else %}{{ pageSize*page_number }}{% endif %}</span> {% trans into current_language %}of{% endtrans %} <span class="total">{{ total|default(0) }}</span> rezultata</div>
+
+            <span class="responsive-filters-toggle">{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:filter.html.twig', 'data': {}}, {})) }}</span>
+
+            {% if sort_options is defined and sort_options is not empty %}
+                <div class="item">
+                    <label for="product-sort-by">{% trans into current_language %}Order by{% endtrans %}</label>
+                    <select name="product-sort-by" class="local-overlay-toggle">
+                        {% for option in sort_options %}
+                            {% set sortOptionName = get_entity_store_attribute(current_store_id,option.sortOption,"name") %}
+                            <option value="{{ option.value }}" {% if option.selected %}selected{% endif %}>
+                                {{ sortOptionName }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+            {% if page_size_options is defined and page_size_options is not empty %}
+                <div class="item">
+                    <select name="product-num-items" class="local-overlay-toggle">
+                        {% for option in page_size_options %}
+                            {% if option.value is defined %}
+                                <option value="{{ option.value }}"
+                                        {% if option.selected %}selected{% endif %}>
+                                    {{ option.value }}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+            {#            <div class="item display">#}
+            {#                <span class="toggle-list-view"></span>#}
+            {#                <span class="toggle-grid-view active"></span>#}
+            {#            </div>#}
+        </div>
+    </div>
+</div>

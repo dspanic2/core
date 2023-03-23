@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ generate_admin_title(entity, managed_entity_type|trans) }}{% endblock %}
+
+{% block header %}
+    {% block main_actions %}
+        {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}"
+                      accept-charset="UTF-8"
+                      data-callback=''
+                      data-type="{{ managed_entity_type }}"
+                      class="form-horizontal row-border">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}General information{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group  row hidden">
+                                            <div class="col-sm-6">
+                                                <input type="hidden" name="id" class="form-control" {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Action type{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="actionType" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.actionType }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Context{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="context" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.context }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Name field{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="nameField" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.nameField }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

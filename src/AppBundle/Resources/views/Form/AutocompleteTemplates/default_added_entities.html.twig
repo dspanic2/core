@@ -1,0 +1,19 @@
+{% if attribute is defined %}
+	{% apply spaceless %}
+	{% set value = attribute(field_data, attribute) %}
+	{% if value is iterable %}
+		{% set value = value|first %}
+	{% endif %}
+	{% if showLink == 1 %}
+		{% if app.user.hasPrivilege(3,field_data.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+			<a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'form'}) }}">{{ value }}</a>
+		{% elseif app.user.hasPrivilege(2,field_data.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+			<a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'view'}) }}">{{ value }}</a>
+		{% else %}
+			{{ value }}
+		{% endif %}
+	{% else %}
+		{{ value }}
+	{% endif %}
+	{% endapply %}
+{% endif %}

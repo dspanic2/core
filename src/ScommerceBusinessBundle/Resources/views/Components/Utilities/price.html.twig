@@ -1,0 +1,4 @@
+<span class="price {% if class is defined and class is not empty %}{{ class }}{% endif %}">
+    <span class="price-value"><strong>{% if prefix is defined %}{{ prefix }}{% endif %}{{ price|number_format(2, ',', '.') }}</strong></span>
+    <span class="currency">{{ currency }}</span>
+</span>

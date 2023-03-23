@@ -1,0 +1,7 @@
+{% apply spaceless %}
+{% if link is defined and link is not empty %}
+    {{ link.url }}
+{% else %}
+    /
+{% endif %}
+{% endapply %}

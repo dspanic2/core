@@ -1,0 +1,59 @@
+{% extends '@' ~ data.base_template ~ '/base.html.twig' %}
+
+{% set metaTitle = get_entity_store_attribute(current_store_id,data.page,"meta_title") %}
+{% set metaDescription = get_entity_store_attribute(current_store_id,data.page,"meta_description") %}
+{% set url = get_entity_store_attribute(current_store_id,data.page,"url") %}
+{% if metaTitle is empty %}
+  {% set metaTitle = get_entity_store_attribute(current_store_id,data.page,"name") %}
+{% endif %}
+
+{% block title %}{{ metaTitle }} | {{ data.site_base_data.site_base_name }}{% endblock %}
+{% block meta_description %}{{ metaDescription }}{% endblock %}
+{% block meta_title %}{{ metaTitle }}{% endblock %}
+
+{% block body_class %}{{ data.page.class|default("") }}{% endblock %}
+
+{% set data = data|merge({"meta_title": metaTitle,"meta_description": metaDescription,"url": url}) %}
+{% block og_data %}
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Microdata:og_data.html.twig', 'data': data }, {})) }}
+{% endblock %}
+{% block tw_data %}
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Microdata:twitter_card.html.twig', 'data': data }, {})) }}
+{% endblock %}
+
+{% block canonical %}
+    {% if data.page.getCanonical is defined and data.page.getCanonical is not empty %}
+        {% if data.page.getCanonical.getUrlPath is defined %}
+            {% set canonicalUrl = data.page.getCanonical.getUrlPath(current_store_id) %}
+        {% else %}
+            {% set canonicalUrl = get_entity_store_attribute(current_store_id,data.page.getCanonical,"url") %}
+        {% endif %}
+        <link rel="canonical" href="{{ get_base_url() }}/{{ canonicalUrl }}"/>
+    {% elseif data.default_canonical is defined and data.default_canonical is not empty %}
+        <link rel="canonical" href="{{ data.default_canonical }}"/>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="main-content" id="page_{{ data.page.id }}" data-entity-type="{{ data.page.entityType.entityTypeCode }}" data-attribute-set="{{ data.page.attributeSet.attributeSetCode }}">
+        <div class="sp-block-group-wrapper" {% if is_granted('ROLE_ADMIN') %}data-url="{{ path('front_block_get') }}"{% endif %}>
+            {% for row in data.content %}
+                {% set renderRow = false %}
+
+                {% set blockRowHtml %}
+                    {% for block in row.blocks %}
+                        {% set blockHtml = render(controller('AppBundle:FrontTemplate:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) %}
+                        {% if blockHtml is not empty %}
+                            {% set renderRow = true %}
+                            <div class="col-xs-12 col-sm-{{ block.width|default(12) }} col-md-{{ block.width|default(12) }}" data-block-id="{{ block.id }}" data-block-type="{{ block.type }}">{{ blockHtml|raw }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endset %}
+
+                {% if renderRow %}
+                    <div class="row">{{ blockRowHtml|raw }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

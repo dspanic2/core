@@ -1,0 +1,32 @@
+<table width="100%"
+       border="0"
+       cellpadding="0"
+       cellspacing="0">
+    <tbody>
+    <tr>
+        <td align="left" style="padding:0px 30px">
+            <table width="100%" border="0" cellpadding="2" cellspacing="0">
+                <thead>
+                <tr style="background-color:#f3f3f3; font-weight:bold; border-bottom:#999 1px solid;">
+                    <th align="left" width="80" valign="center">Šifra proizvoda</th>
+                    <th align="left" width="150" valign="center">Artikl</th>
+                    <th align="center" width="400" valign="center">Napomena</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in entity.getOrderComplaintItems() %}
+                    {% set product = item.getOrderItem.getProduct %}
+                    <tr>
+                        <td style="border-bottom:#CCC 1px solid" align="left" width="80" valign="center">{{ product.code }}</td>
+                        <td style="border-bottom:#CCC 1px solid" align="left" width="150" valign="center">{{ get_entity_store_attribute(current_store_id,product,"name") }}</td>
+                        <td style="border-bottom:#CCC 1px solid" align="left" width="400" valign="center">{{ item.getNote }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<br>

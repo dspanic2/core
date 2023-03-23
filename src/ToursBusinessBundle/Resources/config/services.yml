@@ -1,0 +1,8 @@
+services:
+
+  tours_extension:
+    class: ToursBusinessBundle\Extensions\ToursExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }

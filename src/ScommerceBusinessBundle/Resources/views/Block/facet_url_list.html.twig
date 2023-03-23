@@ -1,0 +1,43 @@
+{% if data.model.facet_urls is defined and data.model.facet_urls is not empty %}
+    <div class="sp-block sp-facet-configuration-block {{ data.block.class }}" data-type="facet_attribute_configuration">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="panel-heading">
+                    <h5>{{ data.block.title|trans }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="options">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="row">
+                    {% for facet_url_list in data.model.facet_urls %}
+                        <div class="col-xs-12 col-sm-12 col-md-12 sp-block-wrapper" data-block-id="{{ data.block.uid }}">
+                            <div class="sp-block">
+                                <div class="panel panel-midnightblue">
+                                    <div class="panel-body collapse in">
+                                        <div class="panel-heading">
+                                            <h4>{{ facet_url_list.store.name }}</h4>
+                                            <ul class="sp-facet-url-list">
+                                                {% for configuration in facet_url_list.configurations %}
+                                                    <li class="sp-facet-{% if configuration.is_valid == 0 %}not-{% endif %}available">
+                                                        <span class="sp-live-product-count"><strong>{% trans %}Number of live products{% endtrans %}:</strong> {{ configuration.product_count }}</span>
+                                                        <span><strong>{% trans %}Facet full url{% endtrans %}:</strong> <p class="sp-copy-to-clipboard sp-facet-url sp-facet-full-url" data-action="copy_to_clipboard">{{ facet_url_list.base_url }}/{{ configuration.url|raw }}</p></span>
+                                                        <span><strong>{% trans %}Facet short url{% endtrans %}:</strong> <p class="sp-copy-to-clipboard sp-facet-url sp-facet-short-url" data-action="copy_to_clipboard">/{{ configuration.url|raw }}</p></span>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

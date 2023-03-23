@@ -1,0 +1,165 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section compare-products {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row compare-return-link">
+        <div class="col-xs-12">
+            <a href="{{ app.request.headers.get('referer') }}" class="return-link"><span
+                        class="arrow-left"></span>{% trans into current_language %}Return{% endtrans %}</a>
+        </div>
+    </div>
+
+    <div class="row compare-filters">
+        <div class="col-xs-12 col-sm-4 search-by-input">
+            <form>
+                <input type="text"
+                       name="product_search"
+                       placeholder="{% trans into current_language %}Product code or name{% endtrans %}"
+                       class="search-autocomplete"
+                       autocomplete="off">
+                <div class="results-autocomplete-wrapper autocomplete-comparison local-overlay">
+                    <div class="content items-grid grid-view list-view"></div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-xs-12 col-sm-8 text-right compare-filters-options">
+            <ul>
+                <li><span class="compare-hide-same-attributes">{% trans into current_language %}Hide same attributes{% endtrans %}</span></li>
+                <li><span class="compare-remove-all-products">{% trans into current_language %}Remove all products{% endtrans %}</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row compare-product-items">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="product-compare-table">
+                    {% set productPrices = {} %}
+                    {% if data.model.products is not empty %}
+                        <tr class="product-image">
+                            <td></td>
+                            {% for product in data.model.products %}
+                                {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+                                {% set productPrices = productPrices|merge([prices]) %}
+                                <td>
+                                    <span class="remove-from-compare local-overlay-toggle" data-pid="{{ product.id }}"></span>
+                                    <a href="{{ current_language_url }}/{{ get_entity_store_attribute(current_store_id,product,"url") }}"
+                                       title="{{ get_entity_store_attribute(current_store_id,product,"name") }}"
+                                       class="title">
+                                        <div class="product-image-wrapper">
+                                            {% if product.getImages() is defined and product.getImages() is not empty %}
+                                                {% set image_url = "/Documents/Products/"  ~ product.getSelectedImage().file %}
+                                                {% set image_style_url = image_url|image_style('product_list_item') %}
+                                                {% if image_style_url %}
+                                                    {% set image_url = image_style_url %}
+                                                {% endif %}
+                                            {% else %}
+                                                {% set image_url = "/frontend/images/image-placeholder.png" %}
+                                            {% endif %}
+                                            <img class="icon" src="{{ image_url }}">
+                                        </div>
+                                        {{ get_entity_store_attribute(current_store_id,product,"name")|raw }}
+                                    </a>
+                                </td>
+                            {% endfor %}
+                            {% if data.model.products|length < 4 %}
+                                <td class="middle-center">
+                                    <span class="compare-add-icon"></span>
+                                    {% trans into current_language %}Add to comparison{% endtrans %}
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% for attribute in data.model.attributes %}
+                            <tr class="product-attribute" data-attribute="{{ attribute["attribute"].id }}">
+                                <td>{{ attribute["attribute"].name|trans }}</td>
+                                {% for product in data.model.products %}
+                                    <td>
+                                        {% apply spaceless %}
+                                            {% if attribute["products"] is defined and attribute["products"][product.id] is defined %}
+                                                {% for val in attribute["products"][product.id] %}
+                                                    <span class="width-100">
+                                                {% if val.prefix is not empty %}{{ val.prefix }} {% endif %}{{ val.value|raw }}{% if val.sufix is not empty %} {{ val.sufix }}{% endif %}
+                                            </span>
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endapply %}
+                                    </td>
+                                {% endfor %}
+                                {% if data.model.products|length < 4 %}
+                                    <td></td>{% endif %}
+                            </tr>
+                        {% endfor %}
+                        {% if data.model.product_warehouses_exist == true %}
+                            <tr class="product-availability">
+                                <td>{% trans into current_language %}Availability{% endtrans %}</td>
+                                {% for product in data.model.products %}
+                                    <td>
+                                        {% set productWarehouses = product.getProductWarehouses() %}
+                                        {% for warehouse in data.model.warehouses %}
+                                            <div class="warehouse-availability">
+                                                <span class="warehouse-name">{{ warehouse.name }}</span>
+                                                {% set found = 0 %}
+                                                {% if productWarehouses is not empty %}
+                                                    {% for warehouse_link in productWarehouses %}
+                                                        {% if warehouse_link.warehouse.id == warehouse.id %}
+                                                            {% set found = 1 %}
+                                                            {% apply spaceless %}
+                                                                {% if product.active and warehouse_link.qty > 0 %}
+                                                                    <span class="warehouse-status available">{% trans into current_language %}available{% endtrans %}</span>
+                                                                {% elseif product.active %}
+                                                                    <span class="warehouse-status suppliable">{% trans into current_language %}suppliable{% endtrans %}</span>
+                                                                {% else %}
+                                                                    <span class="warehouse-status unavailable">{% trans into current_language %}not available{% endtrans %}</span>
+                                                                {% endif %}
+                                                            {% endapply %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {% if found == 0 %}
+                                                    <span class="warehouse-status unavailable">{% trans into current_language %}not available{% endtrans %}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </td>
+                                {% endfor %}
+                                {% if data.model.products|length < 4 %}
+                                    <td></td>{% endif %}
+                            </tr>
+                        {% endif %}
+                        <tr class="product-actions">
+                            <td></td>
+                            {% for key,product in data.model.products %}
+                                <td>
+                                    {% if get_product_is_saleable(product) %}
+                                        {% if productPrices[key] is defined and productPrices[key].price is not empty %}
+                                            <form class="item-cart" action="/cart/add_to_cart">
+                                                <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+                                                <input type="button" value="-" class="qty-minus">
+                                                <input type="number" value="1" name="qty" class="qty" min="1" max="{{ prepare_qty(product.getQty,product.getQtyStep) }}">
+                                                <input type="button" value="+" class="qty-plus">
+                                                <input type="hidden" value="{{ product.id }}" name="product_id">
+                                                <button type="submit" class="button">{% trans into current_language %}Add to cart{% endtrans %}</button>
+                                            </form>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="product-unavailable-inquiry">
+                                            <button class="send-inquiry button btn-type-2"
+                                                    data-pid="{{ product.id }}">{% trans into current_language %}Send inqury{% endtrans %}</button>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                            {% if data.model.products|length < 4 %}
+                                <td></td>{% endif %}
+                        </tr>
+                    {% else %}
+                        <tr class="product-image">
+                            <td>
+                                <span class="compare-add-icon"></span>
+                                {% trans into current_language %}Add to comparison{% endtrans %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

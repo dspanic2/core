@@ -1,0 +1,37 @@
+<div class="sp-block {{ data.block.class }} sp-kanban-wrapper kanban-attribute-columns" data-url="/kanban/update" data-entity-type="{{ data.entity_type.entityTypeCode }}" data-column-changed="{{ data.column_changed }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        <h5>{{ data.block.title|trans }}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="options">
+                                  {#  {{ include('AppBundle:Includes:above_list_actions.html.twig') }}#}
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                </div>
+                            {% endif %}
+                        </h5>
+                    </div>
+                </div>
+                {#
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <span class="sp-btn btn-primary btn-blue btn pull-right sp-margin-right-0" data-kanban="add-column">{% trans %}Add column{% endtrans %}</span>
+                        <span class="sp-btn btn-primary btn-blue btn pull-left sp-margin-right-0" data-checkbox-list="select_all">{% trans %}Select all{% endtrans %}</span>
+                    </div>
+                </div>#}
+                <div class="row sp-margin-bottom-15">
+                    <div class="col-sm-12">
+                        <div data-type="kanban">
+                            <div class="kanban-placeholder">
+                                <div class="kanban-init" data-type="generated" data-settings="{{ data.columns }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

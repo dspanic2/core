@@ -1,0 +1,12 @@
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ meta_title }} | {{ site_base_data.site_base_name }}" />
+<meta name="twitter:description" content="{{ meta_description }}"/>
+<meta name="twitter:url" content="{{ site_base_data.site_base_url_language }}{{ url }}" />
+{% if page.getSelectedImage() is defined and page.getSelectedImage() is not empty %}
+    <meta property="twitter:image" content="{{ site_base_data.site_base_url }}Documents/product_group_images/{{ page.getSelectedImage().file }}" />
+{% else %}
+    <meta property="twitter:image" content="{{ site_base_data.site_base_url }}{{ site_base_data.site_base_image }}" />
+{% endif %}
+{#<meta name="twitter:image:height" content="767" />
+<meta name="twitter:image:width" content="1024" />#}
+<meta name="twitter:image:alt" content="{{ meta_title }}" />

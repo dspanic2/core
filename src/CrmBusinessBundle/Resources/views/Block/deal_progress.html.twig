@@ -1,0 +1,32 @@
+<div class="sp-block sp-quote-descriptions-wrapper">
+    <div class="panel panel-midnightblue">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="panel-body collapse in">
+                <div class="panel-heading">
+                    <h5>
+                        <div class="options">
+                            {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        </div>
+                    </h5>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body">
+                <div class="sp-deal-progress">
+                    {% for d in data.model.deal_stages %}
+                        <button type="button"
+                                class="btn sp-deal-progress-btn btn-arrow-right {% if data.model.deal.dealStage.id == d.id %}active{% endif %}"
+                                data-action="deal_update_stage"
+                                data-deal-id="{{ data.model.deal.id }}"
+                                data-deal-stage-id="{{ d.id }}"
+                                data-url="{{ path('deal_update_stage') }}">{{ d.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

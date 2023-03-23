@@ -1,0 +1,96 @@
+<div class="order-information success-page-content">
+    {% if data.model.order is defined and data.model.order is not empty %}
+    {% if get_env("ORDER_REQUEST_OFFER") == 1 %}
+        <h2>{% trans into current_language %}Thank you for your request{% endtrans %}!</h2>
+
+    {% if data.model.order.account.email is defined and data.model.order.account.email is not empty %}
+        <p>{% trans into current_language %}Confirmation e-mail is sent to{% endtrans %} <strong>{{ data.model.order.account.email }}</strong> {% trans into current_language %}with request details{% endtrans %}!</p>
+    {% endif %}
+    {% else %}
+        <h2>{% trans into current_language %}Thank you for your order{% endtrans %}!</h2>
+
+        <p>{% trans into current_language %}Your order number is{% endtrans %} <span class="order-code">{{ data.model.order.incrementId }}</span></p><br>
+
+    {% if data.model.order.account.email is defined and data.model.order.account.email is not empty %}
+        <p>{% trans into current_language %}Confirmation e-mail is sent to{% endtrans %} <strong>{{ data.model.order.account.email }}</strong> {% trans into current_language %}with order details{% endtrans %}!</p>
+    {% endif %}
+    {% endif %}
+
+
+        <p>{% trans into current_language %}You will be automatically redirected in{% endtrans %} <span data-timer="10" data-url="/">10</span> {% trans into current_language %}seconds{% endtrans %}.</p>
+
+        <a href="/" class="button green bordered">{% trans into current_language %}Back to store{% endtrans %}</a>
+
+        <div class="cart-items hidden">
+            <div class="items-grid grid-view list-view">
+                {% apply spaceless %}
+                    {% for quoteItem in data.model.quote.quoteItems %}
+                        {{ include('ScommerceBusinessBundle:Components/Product:product_cart_overview_item.html.twig', {'quoteItem': quoteItem, 'editable': 0}) }}
+                    {% endfor %}
+                {% endapply %}
+            </div>
+        </div>
+
+        {% set site_base_data = get_env("SITE_BASE_DATA")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+        {% set trackingData %}
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'orderComplete',
+                'transactionId': '{{ data.model.order.getIncrementId }}',
+                'transactionAffiliation': '{{ site_base_data[data.model.order.getStore.getWebsiteId].site_base_name }}',
+                'transactionTotal': '{{ (data.model.order.getPriceTotal)|number_format(2,".","") }}',
+                'transactionTax': '{{ (data.model.order.getPriceTax|number_format(2,".","")) }}',
+                'transactionShipping': '{{ (data.model.order.getPriceDeliveryTotal)|number_format(2,".","") }}',
+                'transactionProducts': [
+                    {% for orderItem in data.model.order.getOrderItems %}
+                    {
+                        'sku': '{{ orderItem.getProduct.getRemoteId }}',
+                        'name': '{{ get_entity_store_attribute(current_store_id,orderItem.getProduct,"name")|striptags }}',
+                        'category': '{{ get_menu_tree_for_product(orderItem.getProduct)|default([])|last|default("")|striptags }}',
+                        'price': {{ (orderItem.priceItem)|number_format(2,".","") }},
+                        'quantity': {{ (orderItem.getQty|round(0, 'ceil')) }}
+                    },
+                    {% endfor %}
+                ],
+            });
+        </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+        <script>
+            {% if get_env('SEND_GTAG_EVENTS') == 1 %}
+            if (typeof gtag != 'undefined') {
+                gtag('event', 'purchase', {
+                    'transaction_id': '{{ data.model.order.getIncrementId }}',
+                    'affiliation': '{{ site_base_data[data.model.order.getStore.getWebsiteId].site_base_name }}',
+                    'value': '{{ (data.model.order.getPriceTotal)|number_format(2,".","") }}',
+                    'currency': '{{ data.model.order.getCurrency.getCode }}',
+                    'tax': '{{ (data.model.order.getPriceTax|number_format(2,".","")) }}',
+                    'shipping': '{{ (data.model.order.getPriceDeliveryTotal)|number_format(2,".","") }}',
+                    'items': [
+                        {% for orderItem in data.model.order.getOrderItems %}
+                        {
+                            'id': '{{ orderItem.getProduct.getId }}',
+                            'name': '{{ get_entity_store_attribute(current_store_id,orderItem.getProduct,"name")|striptags }}',
+                            'category': '{{ get_menu_tree_for_product(orderItem.getProduct)|default([])|last|default("")|striptags }}',
+                            'price': {{ (orderItem.priceItem)|number_format(2,".","") }},
+                            'quantity': {{ (orderItem.getQty|round(0, 'ceil')) }}
+                        },
+                        {% endfor %}
+                    ]
+                });
+            }
+            {% endif %}
+            {% if get_env('SEND_FBQ_EVENTS') == 1 %}
+            if (typeof fbq != 'undefined') {
+                fbq('track', 'Purchase', {
+                    currency: '{{ data.model.order.getCurrency.getCode }}',
+                    value: '{{ (data.model.order.getPriceTotal)|number_format(2,".","") }}'
+                });
+            }
+            {% endif %}
+        </script>
+    {% else %}
+        {{ include('ScommerceBusinessBundle:Components/Cart:cart_failure.html.twig', {'data': data}) }}
+    {% endif %}
+</div>

@@ -1,0 +1,21 @@
+{% if order is defined %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'fb_purchase',
+                    'facebook': {
+                        'purchase': {
+                            'content_ids': [{% for orderItem in order.orderItems %}'{{ orderItem.getProduct.getId }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+                            'content_type': 'product',
+                            'currency': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                            'value': {{ order.getPriceTotal|number_format(2,".","") }}
+                        }
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

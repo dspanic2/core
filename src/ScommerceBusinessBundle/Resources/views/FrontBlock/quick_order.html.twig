@@ -1,0 +1,45 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form action="#" id="quick-order">
+                    <div class="items">
+                        {% for i in 1..4 %}
+                            <div class="form-row full-width quick-order-row">
+                                <div class="form-group product-select">
+                                    <div class="quick-order-search-item">
+                                        <input type="hidden" name="product_id"/>
+                                        <input type="text"
+                                               data-pre-filter='{"pre_filter":[{"connector":"and","filters":[{"field":"p.is_saleable","operation":"eq","value":"1"}]}]}'
+                                               name="product_search"
+                                               placeholder="{% trans into current_language %}Product code or name{% endtrans %}"
+                                               class="search-autocomplete"
+                                               autocomplete="off">
+                                        <div class="results-autocomplete-wrapper autocomplete-comparison local-overlay">
+                                            <div class="content items-grid grid-view list-view"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number"
+                                           value="1"
+                                           disabled
+                                           data-step="0.1"
+                                           step="0.1"
+                                           min="1"
+                                           max="1"
+                                           name="qty">
+                                </div>
+
+                                <span class="unit"></span>
+
+                                <span class="remove">×</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                        <button type="submit" class="button btn-type-1">{% trans into current_language %}Add all to cart{% endtrans %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

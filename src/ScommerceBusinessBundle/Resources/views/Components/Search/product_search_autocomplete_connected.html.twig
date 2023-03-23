@@ -1,0 +1,16 @@
+{% if posts is not empty %}
+    <div class="title-small-styled text-center">{% trans into current_language %}Related posts{% endtrans %}</div>
+    <div class="items">
+        {% for post in posts %}
+            <div class="item">
+                {% if post.getSelectedImage() is not empty %}
+                    <div class="image"><img class="icon" src="/Documents/blog_post_image/{{ post.getSelectedImage().file }}"></div>
+                {% endif %}
+                <div class="info">
+                    <a href="/{{ get_entity_store_attribute(current_store_id,post,"url") }}"><h3>{{ get_entity_store_attribute(current_store_id,post,"name") }}</h3></a>
+                    <div class="date">{{ post.created|date("d.m.Y.") }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,13 @@
+{% if data.model.messages is defined and data.model.messages is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
+                {% for message_type in data.model.messages %}
+                    {% for message in message_type %}
+                        <div class="system-message error"><span class="system-message-close">×</span>{{ message }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

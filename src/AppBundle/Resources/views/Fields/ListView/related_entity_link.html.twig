@@ -1,0 +1,13 @@
+{% if missing_source_model is defined %}
+    <td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %} data-code="{{ attribute.attributeCode }}">
+        <div><em>{% trans %}Missing source model{% endtrans %}</em></div>
+    </td>
+{% else %}
+    <td {% if fieldClass is not empty %}class="{{ fieldClass }}"{% endif %} data-code="{{ attribute.attributeCode }}">
+        {% if missing_entity is defined %}
+            <div><em>{% trans %}Missing entity{% endtrans %}: {{ missing_entity }}</em></div>
+        {% else %}
+            <a href="{{ url }}" target="_blank">{{ type }} - {{ name }}</a>
+        {% endif %}
+    </td>
+{% endif %}

@@ -1,0 +1,53 @@
+<div class="sp-block {{ data.block.class }} google-authenticator-block" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="panel panel-midnightblue">
+        <div class="panel-body collapse in">
+            <div class="panel-heading">
+                <h5>{% trans %}Multi-Factor Authentication{% endtrans %}
+                    {% if data.subtype == "view" or is_granted('ROLE_ADMIN') %}
+                        <div class="options">
+                            {#{% if data.subtype == "view" %}
+                                TODO check prava
+                                <span class="sp-options-text sp-options-text-attribute-group" data-action="toggle-edit">
+                                    <i class="sp-icon sp-icon-edit sp-hover"></i>
+                                </span>
+                            {% endif %}#}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </h5>
+            </div>
+            <fieldset class="form-group-wrapper">
+                <div class="form-group row" data-form-group="mfa_google_authenticator_enabled" data-url="{{ path('save_google_authenticator') }}">
+                    <label class="col-sm-4 col-xs-4 control-label">{% trans %}Use Multi-Factor Authentication{% endtrans %}</label>
+                    <div class="col-sm-8 col-xs-8">
+                        <label>
+                            <input type="hidden" data-action="checkbox-value" name="mfa_google_authenticator_enabled" value="{% if data.entity.googleAuthenticatorSecret %}1{% else %}0{% endif %}"/>
+                            <input {#{% if formType == "view" %}readonly="readonly"{% endif %}#}
+                                   data-off-text="{% trans %}No{% endtrans %}"
+                                   data-on-text="{% trans %}Yes{% endtrans %}"
+                                   type="checkbox"
+                                   name="mfa_google_authenticator_enabled_checkbox"
+                                   data-type="bchackbox"
+                                   {% if data.entity.googleAuthenticatorSecret %}checked="checked"{% endif %}
+                                   value="1"
+                            /></label>
+                    </div>
+                </div>
+                <div class="form-group row google-authenticator-block-codes-section
+                    {% if not data.entity.googleAuthenticatorSecret %}hidden{% endif %}">
+                    <label class="col-sm-3 control-label"></label>
+                    <div class="col-sm-6">
+                        <img src="{{ data.mfaGoogleAuthenticatorQRCodeURL }}"/>
+                        <br>
+                        {% trans %}Open Google Authenticator app and scan the QR code.{% endtrans %}
+                        <br>
+                        {% trans %}Alternatively, you can use the following code to activate{% endtrans %}:
+                        <code>{{ data.entity.googleAuthenticatorSecret }}</code>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

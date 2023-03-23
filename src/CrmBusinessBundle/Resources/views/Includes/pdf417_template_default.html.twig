@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Roboto Mono', monospace;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        .hub-3a {
+            position: relative;
+            background-image: url('{{ web_path }}/backend/CrmBusinessBundle/img/opca_uplatnica.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 900px;
+            height: 450px;
+        }
+
+        .hub-3a span,
+        .hub-3a img {
+            position: absolute;
+        }
+        .fixed-length {
+            font-size: 19px;
+            letter-spacing: 3px;
+        }
+        .payer-info {
+            top: 42px;
+            left: 36px;
+            max-width: 164px;
+        }
+        .recipient-info {
+            top: 152px;
+            left: 36px;
+            max-width: 164px;
+        }
+        .recipient-iban {
+            top: 112px;
+            left: 329px;
+        }
+        .recipient-model {
+            top: 146px;
+            left: 229px;
+        }
+        .reference-number {
+            top: 146px;
+            left: 314px;
+        }
+        .payment-currency {
+            top: 28px;
+            left: 329px;
+        }
+        .payment-amount {
+            top: 28px;
+            right: 272px;
+        }
+        .payment-description {
+            top: 174px;
+            left: 361px;
+            max-width: 278px;
+        }
+        .barcode {
+            top: 244px;
+            left: 34px;
+            max-width: 239px;
+        }
+        .recipient-iban-side {
+            top: 120px;
+            right: 26px;
+        }
+        .payment-amount-side {
+            top: 35px;
+            right: 26px;
+        }
+        .payment-description-side {
+            top: 184px;
+            left: 658px;
+            max-width: 238px;
+        }
+    </style>
+</head>
+<body>
+<div class="hub-3a">
+    <span class="payer-info">
+        {{ payer_name }}<br>
+        {{ payer_address }}<br>
+        {{ payer_place }}
+    </span>
+    <span class="recipient-info">
+        {{ recipient_name }}<br>
+        {{ recipient_address }}<br>
+        {{ recipient_place }}
+    </span>
+    <span class="recipient-iban fixed-length" style="width: 400px">{{ recipient_iban }}</span>
+    <span class="recipient-model fixed-length">{{ recipient_model }}</span>
+    <span class="reference-number fixed-length">{{ reference_number }}</span>
+    <span class="payment-currency fixed-length">{{ payment_currency }}</span>
+    <span class="payment-amount fixed-length">{{ payment_amount|number_format(2, '', '') }}</span>
+    <span class="payment-description">{{ payment_description }}</span>
+    <span class="recipient-iban-side">{{ recipient_iban }}</span>
+    <span class="payment-amount-side">{{ payment_amount|number_format(2, ',', '') }}</span>
+    <span class="payment-description-side">{{ payment_description }}</span>
+    <img class="barcode"
+         src="data:image/png;base64,{{ barcode({code: barcode_data, type: 'pdf417', format: 'png', parameters: [ 3, 4 ]}) }}"/>
+</div>
+</body>
+</html>

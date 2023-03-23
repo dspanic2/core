@@ -1,0 +1,29 @@
+<div id="search-autocomplete-overlay" class="container-fluid overlay search-autocomplete-overlay">
+    <div class="search-inner">
+        <span class="overlay-close">×</span>
+        <div class="container">
+            <div class="search-grid">
+{#                <div class="search-suggestions"></div>#}
+                <div class="search-results">
+                    <div class="title-small-styled text-center">
+                        {% trans into current_language %}Search results{% endtrans %}
+                        <input type="text" name="keyword"
+                               placeholder="{% trans into current_language %}Type name of a product{% endtrans %}..."
+                               class="search-autocomplete"
+                               data-get-posts="true"
+                               data-get-categories="true"
+                               data-main-search="true"
+                               autocomplete="off">
+                    </div>
+                    <div class="search-results-content sp-block-outer slider">
+                        <div class="content items-grid grid-view"></div>
+                    </div>
+                    <div class="show-all-wrapper">
+                        <a href="#" class="button btn-type-1 text-center show-all">{% trans into current_language %}Show all{% endtrans %}</a>
+                    </div>
+                </div>
+                <div class="search-connected"></div>
+            </div>
+        </div>
+    </div>
+</div>

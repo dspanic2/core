@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ generate_admin_title(entity, managed_entity_type|trans) }}{% endblock %}
+
+{% block header %}
+    {% block main_actions %}
+        {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+<div id="page-content">
+    <div id='wrap'>
+        <div class="container">
+            <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}" accept-charset="UTF-8"
+                  data-callback=''
+                  data-type="{{ managed_entity_type }}" data-holder="attribute_set"
+                  class="form-horizontal row-border"
+                  data-holder="attribute_group" {% if attribute_set is not empty %}data-id="{{ attribute_set.id }}"{% endif %}>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="panel panel-midnightblue">
+                            <div class="panel-heading master-panel-heading">
+                                <h4>{% trans %}General information{% endtrans %}</h4>
+                            </div>
+                            <div class="panel-body collapse in">
+                                <fieldset class="form-group-wrapper">
+                                    <div class="form-group row hidden">
+                                        <div class="col-sm-6">
+                                            <input type="hidden" name="id" class="form-control" {% if attribute_set is not empty %}value="{{ attribute_set.id }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Code{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" {% if attribute_set.attributeSetCode is defined %}disabled="disabled"{% endif %} name="attributeSetCode" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if attribute_set is not empty %}value="{{ attribute_set.attributeSetCode }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Name{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="attributeSetName" class="form-control" data-fv-notempty="true" data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if attribute_set is not empty %}value="{{ attribute_set.attributeSetName }}"{% endif %}/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Entity type{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <select name="entityType" data-action="change_entity_type" data-url="{{ path('attribute_group_get_entity_attributes') }}" {% if attribute_set.entityType is defined %}disabled="disabled"{% endif %} class="form-control">
+                                                <option value="">{% trans %}Please select{% endtrans %}</option>
+                                                {% for entity_type in entity_types %}
+                                                    <option {% if attribute_set.entityType is defined and attribute_set.entityType.id == entity_type.id %}selected="selected"{% endif %} value="{{ entity_type.id }}">{{ entity_type.entityTypeCode }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {% if attribute_set is empty %}
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Generate pages{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="checkbox" name="generatePages" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        {% set entity_id = 0 %}
+                        {% if attribute_set is not empty %}
+                            {% set entity_id = attribute_set.uid %}
+                        {% endif %}
+                        {{ render(controller('AppBundle:AdministratorController/Role:getEntityRolePrivileges', {'type': managed_entity_type, 'entity': entity_id })) }}
+                    </div>
+                </div>
+               {# {% set layout_keys = ["edit_form", "view_form","preview_form","modal_form"] %}
+                {% for layout_type, layout in layouts if layout_type in layout_keys %}
+                    {{ include('AppBundle:Admin/EntityType:layout_type.html.twig') }}
+                {% endfor %}#}
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-7 col-sm-offset-2">
+                            <div class="btn-toolbar">
+                                {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
+{% endblock %}

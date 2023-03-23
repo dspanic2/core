@@ -1,0 +1,18 @@
+<div class="form-group row" data-attribute-id="{{ attribute_data.id }}" data-field-wrapper="true">
+    <div class="col-xs-12 inline-items">
+        <div class="flex-grow">
+            {% if attribute_data.type == "attribute" %}
+                {{ render(controller('AppBundle:Forms:advancedSearchField', {'attribute': attribute_data.attribute, 'value': value, 'search_type': search_type })) }}
+            {% elseif attribute_data.type == "s_attribute" %}
+                {{ render(controller('CrmBusinessBundle:Product:sAttributeSearchField', {'attribute': attribute_data.attribute, 'value': value, 'search_type': search_type })) }}
+            {% endif %}
+        </div>
+        <div>
+            <button type="button"
+                    class="button sp-btn btn-danger btn"
+                    data-attribute-code="{{ attribute_data.code }}"
+                    data-action="delete_product_attribute_filter"
+                    title="{% trans %}Delete{% endtrans %}">×</button>
+        </div>
+    </div>
+</div>

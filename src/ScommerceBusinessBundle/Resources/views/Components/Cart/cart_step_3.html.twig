@@ -1,0 +1,285 @@
+{% if data.model.account is not empty %}
+  <div class="section cart-check">
+    <div class="accordion">
+      <div class="item">
+        <div class="overlay-background"></div>
+        <div class="accordion-body row" style="display: block;">
+          <div class="col-xs-12 col-sm-6 user-info">
+            <h2 class="section-title">{% trans into current_language %}Customer information{% endtrans %}</h2>
+            <p><strong>{{ data.model.account.name }}</strong></p>
+            <p>
+              {% if data.model.account.isLegalEntity %}
+                {% trans into current_language %}Identification number{% endtrans %}: {{ data.model.account.oib }}<br/>
+              {% endif %}
+              {% if data.model.account.phone %}
+                {% trans into current_language %}Phone{% endtrans %}: {{ data.model.account.phone }}<br/>
+              {% endif %}
+              {% if data.model.account.phone2 %}
+                {% trans into current_language %}Mobile phone{% endtrans %}: {{ data.model.account.phone2 }}<br/>
+              {% endif %}
+              {% if data.model.account.email %}
+                {% trans into current_language %}Email{% endtrans %}: {{ data.model.account.email }}<br/>
+              {% endif %}
+            </p>
+            {% if data.model.account.isLegalEntity %}
+              <p>{% trans into current_language %}User{% endtrans %}: {{ data.model.contact.fullName }}</p>
+            {% endif %}
+
+            {# <div class="important-note">Narudžbe s opcijom plaćanja “avansna uplata” nemojte
+                            plaćati prije nego što primite službenu ponudu od strane Vašeg
+                            komercijalista!
+                        </div> #}
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <h2 class="section-title">{% trans into current_language %}Payment type and delivery{% endtrans %}</h2>
+            <div class="payment-type">
+              <form action="#">
+                <div class="form-section account">
+
+                  <div class="row form-row">
+                    <div class="form-group has-select2 delivery-type col-xs-12 col-sm-12">
+                      <label for="delivery-type">{% trans into current_language %}Delivery type{% endtrans %}
+                        *</label>
+                      <select data-template="default"
+                              data-type="lookup"
+                              data-search-url="/cart/get_delivery_type_autocomplete"
+                              class="form-control "
+                              data-min-len="0"
+                              data-single="true"
+                              name="delivery_type_id"
+                              data-allow-clear="true"
+                              data-placeholder="{% trans into current_language %}Select delivery type{% endtrans %}"
+                              tabindex="-1"
+                              aria-hidden="true"
+                              data-dependent-field="payment_type_id"
+                              required>
+                        {% if data.model.quote.deliveryType is not empty %}
+                          <option value="{{ data.model.quote.deliveryType.id }}" data-is_delivery="{{ data.model.quote.deliveryType.getIsDelivery }}" selected="selected">{{ get_entity_store_attribute(current_store_id,data.model.quote.deliveryType,"name") }}</option>
+                        {% endif %}
+                      </select>
+                      <span class="description"></span>
+                    </div>
+                  </div>
+
+                  <div class="row form-row">
+                    <div class="form-group has-select2 payment-type col-xs-12 col-sm-12">
+                      <label for="payment-type">{% trans into current_language %}Payment type{% endtrans %}*</label>
+                      <select data-template="default"
+                              data-type="lookup"
+                              data-search-url="/cart/get_payment_type_autocomplete"
+                              class="form-control "
+                              data-min-len="0"
+                              data-single="true"
+                              name="payment_type_id"
+                              data-allow-clear="true"
+                              data-placeholder="{% trans into current_language %}Select payment type{% endtrans %}"
+                              tabindex="-1"
+                              aria-hidden="true"
+                              required
+                              disabled>
+                        {% if data.model.quote.paymentType is not empty %}
+                          <option value="{{ data.model.quote.paymentType.id }}"
+                                  selected="selected">{{ get_entity_store_attribute(current_store_id,data.model.quote.paymentType,"name") }}</option>
+                        {% endif %}
+                      </select>
+                      <span class="description"></span>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="overlay-background"></div>
+        <div class="accordion-body row" style="display: block;">
+          <div class="col-xs-12 col-sm-6 company-info">
+            <h2 class="section-title">{% trans into current_language %}Addresses{% endtrans %}</h2>
+            <form action="#">
+              <div class="form-section payment-addresses">
+                <div class="row form-row">
+                  <div class="form-group payment-type col-xs-12 col-sm-12">
+                    <label for="payment-address">{% trans into current_language %}Payment address{% endtrans %}*</label>
+                    {% set addresses = data.model.account.getAddresses() %}
+                    <select name="account_billing_address_id" required {% if data.model.default_billing_address is defined and data.model.default_billing_address is not empty %}disabled="disabled"
+                            style="opacity: .5;"{% endif %}>
+                      {% if data.model.default_billing_address is defined and data.model.default_billing_address is not empty %}
+                        {% set address = data.model.default_billing_address %}
+                        <option value="{{ address.id }}" selected="selected">{{ address.street }}
+                          , {{ address.city.name }} {{ address.city.postalCode }}
+                          , {{ address.city.country.name }}</option>
+                      {% else %}
+                        {% if addresses is empty %}
+                          <option value="" selected>{% trans into current_language %}Select payment address{% endtrans %}</option>{% endif %}
+                        {% for address in addresses %}
+                          <option value="{{ address.id }}"
+                                  {% if data.model.quote.accountBillingAddress is not empty and data.model.quote.accountBillingAddress.id == address.id %}selected="selected"{% endif %}>{{ address.street }}
+                            , {{ address.city.name }} {{ address.city.postalCode }}
+                            , {{ address.city.country.name }}</option>
+                        {% endfor %}
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="form-section delivery-addresses">
+                <div class="row form-row">
+                  <div class="form-group payment-type col-xs-12 col-sm-12">
+                    <label for="delivery-address">{% trans into current_language %}Delivery address{% endtrans %}*</label>
+                    {% set addresses = data.model.account.getAddresses() %}
+                    <select name="account_shipping_address_id" required>
+                      {% if addresses is empty %}
+                        <option value="" selected>{% trans into current_language %}Select delivery address{% endtrans %}</option>{% endif %}
+                      {% for address in addresses %}
+                        <option value="{{ address.id }}" {% if address.defaultShippingAddress is defined and address.defaultShippingAddress == 1 %}selected="selected"{% endif %}
+                                {% if data.model.quote.accountShippingAddress is not empty and data.model.quote.accountShippingAddress.id == address.id %}selected="selected"{% endif %}>{{ address.street }}
+                          , {{ address.city.name }} {{ address.city.postalCode }}
+                          , {{ address.city.country.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="dashboard-add-new form-row optional">
+              <div class="dashboard-add-new-form">
+                {{ include('ScommerceBusinessBundle:Components/Form/UserProfile:address_form.html.twig', {
+                  'address': null,
+                  'triggerAction': 'global:page-reload',
+                  'classes': 'no-remove'
+                }) }}
+              </div>
+              <button class="button add-new-button btn-type-1">{% trans into current_language %}Add new address{% endtrans %}</button>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <h2 class="section-title"></h2>
+            {% if is_legal_account() == 0 %}
+              {% set r1_data = data.model.quote.additionalData|json_decode %}
+              <form action="#">
+                <div class="form-section private-r1">
+                  <div class="row form-row">
+                    <div class="form-group col-xs-12">
+                      {% apply spaceless %}
+                        <label><input data-toggle="toggle-private-r1"
+                                      type="checkbox" {% if r1_data is not empty %}checked="checked"{% endif %}
+                                      name="is_private_r1" value="1"> {% trans into current_language %}Require R1 invoice{% endtrans %}
+                        </label>
+                      {% endapply %}
+                    </div>
+                  </div>
+                </div>
+                <div class="private-r1-information optional"
+                     id="toggle-private-r1"
+                     {% if r1_data is not empty %}style="display:block;" {% else %}style="display:none;"{% endif %}>
+                  <div class="form-section">
+                    <div class="row">
+                      <div class="form-row full-width form-group company col-xs-12 col-sm-6">
+                        <label for="last-name">{% trans into current_language %}Company name{% endtrans %}*</label>
+                        <input type="text" name="company_name" {% if r1_data.company_name is defined %}value="{{ r1_data.company_name }}"{% endif %} required>
+                      </div>
+                      <div class="form-row full-width form-group oib col-xs-12 col-sm-6">
+                        <label for="oib">{% trans into current_language %}Identification number{% endtrans %}*</label>
+                        <input type="text" name="oib" {% if r1_data.oib is defined %}value="{{ r1_data.oib }}"{% endif %} required>
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      {% if get_env("SHOW_CITY_AS_DROPDOWN")|default(0) %}
+                        <div class="form-row full-width form-group city col-xs-12 col-sm-6 has-select2">
+                          <label for="city">{% trans into current_language %}City{% endtrans %}*</label>
+                          <select data-template="default"
+                                  data-type="lookup"
+                                  data-search-url="/register/get_city_autocomplete"
+                                  class="form-control "
+                                  data-min-len="3"
+                                  data-single="true"
+                                  name="city_id"
+                                  data-allow-clear="true"
+                                  data-placeholder="{% trans into current_language %}Select city{% endtrans %}"
+                                  tabindex="-1"
+                                  aria-hidden="true"
+                                  required>
+                            {% if r1_data.city_id is defined and r1_data.city_id is not empty %}
+                              <option value="{{ r1_data.city_id }}" selected="selected">{{ r1_data.city_name }} {{ r1_data.city_pbr }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      {% else %}
+                        <div class="form-row full-width form-group city col-xs-12 col-sm-3 has-select2">
+                          <label for="city">{% trans into current_language %}City{% endtrans %}*</label>
+                          <input type="text"
+                                 name="city_name"
+                                 placeholder="{% trans %}City{% endtrans %}*"
+                                 oninput="this.setCustomValidity('')"
+                                 oninvalid="this.setCustomValidity('{% trans %}Please fill out this field.{% endtrans %}')"
+                                 required
+                            {% if address is not null and address.city is defined and address.city is not empty %} value="{{ address.city.name }}" {% endif %}>
+                        </div>
+                        <div class="form-row full-width form-group city col-xs-12 col-sm-3">
+                          <label for="postal_code">{% trans %}Postal code{% endtrans %}*</label>
+                          <input type="tel"
+                                 name="postal_code"
+                                 placeholder="{% trans %}Postal code{% endtrans %}*"
+                                 {% if get_env("VALIDATE_POSTAL_CODE")|default(0) == 1 %}pattern="([1-9][0-9]{3,9})"{% endif %}
+                                 oninput="this.setCustomValidity('')"
+                                 oninvalid="this.setCustomValidity('{% trans %}Please fill out this field.{% endtrans %}')"
+                                 required
+                            {% if address is not null and address.city is defined and address.city is not empty %}
+                            value="{{ address.city.postalCode }}"
+                            {% endif %}>
+                        </div>
+                      {% endif %}
+
+
+                      <div class="form-row full-width form-group address col-xs-12 col-sm-6">
+                        <label for="street">{% trans into current_language %}Address{% endtrans %}*</label>
+                        <input type="text" name="street" {% if r1_data.street is defined %}value="{{ r1_data.street }}"{% endif %} required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            {% endif %}
+            <form action="#">
+              <div class="form-section account">
+                <div class="row form-row full-width">
+                  <div class="form-group note col-xs-12">
+                    <label for="message">{% trans into current_language %}Note{% endtrans %}</label>
+                    {% apply spaceless %}
+                      <textarea name="message"
+                                rows="5">{% if data.model.quote.message is not empty %}{{ data.model.quote.message|trim }}{% endif %}</textarea>
+                    {% endapply %}
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-action">
+    {{ include('ScommerceBusinessBundle:Components/Cart:cart_back.html.twig', {}) }}
+    {{ include('ScommerceBusinessBundle:Components/Cart:cart_proceed_ajax.html.twig', {}) }}
+    {{ include('ScommerceBusinessBundle:Components/Cart:cart_totals.html.twig', {'data': data, }) }}
+  </div>
+  <div class="cart-items hidden">
+    <div class="items-grid grid-view list-view">
+      {% apply spaceless %}
+        {% for quoteItem in data.model.quote.quoteItems %}
+          {{ include('ScommerceBusinessBundle:Components/Product:product_cart_overview_item.html.twig', {'data': data, 'quoteItem': quoteItem, 'editable': 0}) }}
+        {% endfor %}
+      {% endapply %}
+    </div>
+  </div>
+  {# <div class="cart-action">
+        {{ include('ScommerceBusinessBundle:Components/Cart:cart_totals.html.twig', {}) }}
+        {{ include('ScommerceBusinessBundle:Components/Cart:cart_back.html.twig', {}) }}
+        {{ include('ScommerceBusinessBundle:Components/Cart:cart_proceed_ajax.html.twig', {}) }}
+    </div> #}
+{% endif %}

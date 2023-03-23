@@ -1,0 +1,9 @@
+{% set coupon = "" %}
+{% if entity.discountCoupon is not empty and entity.discountCoupon.isActive == 1 %}
+    {% set coupon = entity.discountCoupon.couponCode %}
+{% endif %}
+{% set quoteId = "" %}
+{% if entity.getQuote is not empty %}
+    {% set quoteId = entity.getQuote.getPreviewHash %}
+{% endif %}
+<a href="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/narudzba?coupon={{ coupon }}&quote={{ quoteId }}">ovdje</a>

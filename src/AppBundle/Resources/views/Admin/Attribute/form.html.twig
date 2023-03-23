@@ -1,0 +1,425 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ generate_admin_title(entity, managed_entity_type|trans) }}{% endblock %}
+
+{% block header %}
+    {% block main_actions %}
+        {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}edit{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <form data-validate="true" method="post" action="{{ path(managed_entity_type ~ '_save') }}"
+                      accept-charset="UTF-8"
+                      data-callback=''
+                      data-type="{{ managed_entity_type }}"
+                      class="form-horizontal row-border">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}Basic information{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row hidden">
+                                            <div class="col-sm-6">
+                                                <input type="hidden" name="id" class="form-control"
+                                                       {% if entity is not empty %}value="{{ entity.id }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Label{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="frontendLabel" class="form-control"
+                                                       data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                                       {% if entity is not empty %}value="{{ entity.frontendLabel }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Code{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text"
+                                                       {% if entity.attributeCode is defined %}disabled="disabled"{% endif %}
+                                                       name="attributeCode" class="form-control" data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}" {% if entity is not empty %}value="{{ entity.attributeCode }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Type{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="frontendType"
+                                                        {% if entity.attributeCode is defined %}disabled="disabled"{% endif %}
+                                                        class="form-control"
+                                                        data-options="{{ field_types|json_encode }}"
+                                                        data-action="change_frontend_type" data-related="frontendInput"
+                                                        data-fv-notempty="true"
+                                                        data-custom-admin-url="{{ path("get_custom_admin")}}"
+                                                        data-attribute-id="{% if entity is not empty %}{{ entity.id }}"{% endif %}"
+                                                data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                {% for field in field_types %}
+                                                    <option value="{{ field.type }}"
+                                                            {% if entity.frontendType is defined %}{% if entity.frontendType == field.type %}selected="selected"{% endif %}{% elseif field.type == "text" %}selected="selected"{% endif %}>{{ field.type }}</option>
+                                                {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Model{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="frontendModel" class="form-control"
+                                                       data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please select{% endtrans %}"
+                                                       {% if entity.frontendModel is defined and entity.frontendModel is not empty %}value="{{ entity.frontendModel }}"
+                                                       {% else %}value="default"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Entity type{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="entityType"
+                                                        {% if entity.attributeCode is defined %}disabled="disabled"{% endif %}
+                                                        class="form-control" {% if entity is not empty %}disabled="disabled"{% else %}data-action="change_entity_type"{% endif %}
+                                                        data-url="{{ path('list_view_get_entity_attributes') }}"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value=""
+                                                            {% if entity is empty %}selected="selected"{% endif %}>{% trans %}Please select{% endtrans %}</option>
+                                                    {% for entity_type in entity_types %}
+                                                        <option value="{{ entity_type.id }}"
+                                                                {% if entity is not empty and entity.entityTypeId == entity_type.id %}selected="selected"{% endif %}>{{ entity_type.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {% if entity is empty %}
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Default attribute set{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <select data-url="{{ path('get_attribute_sets_for_entity_type') }}"
+                                                            name="attributeSet"
+                                                            data-action="change_default_attribute_set"
+                                                            class="form-control" data-fv-notempty="true"
+                                                            data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}">
+                                                        <option value="">{% trans %}Select attribute set{% endtrans %}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label">{% trans %}Default attribute group{% endtrans %}</label>
+                                                <div class="col-sm-6">
+                                                    <select data-url="{{ path('get_attribute_groups_for_attribute_set') }}"
+                                                            name="attributeGroup" class="form-control">
+                                                        <option value="">{% trans %}Select attribute group{% endtrans %}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Related{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="frontendRelated" class="form-control"
+                                                       {% if entity is not empty %}value="{{ entity.frontendRelated }}"{% endif %}/>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Default value{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="defaultValue" class="form-control"
+                                                       {% if entity is not empty %}value="{{ entity.defaultValue }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Note{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <textarea data-size="autosize" rows="4" name="note"
+                                                          class="form-control form-control-textarea">{% if entity is not empty %}{{ entity.note }}{% endif %}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Is custom{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="checkbox" checked="checked" name="isCustom" data-type="bchackbox" data-off-text="{% trans %}No{% endtrans %}" data-on-text="{% trans %}Yes{% endtrans %}" value="1"/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="panel panel-midnightblue sp-attribute-additional" style="display:none">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}Additional information{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in custom-admin">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}Frontend information{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Display format{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="frontendDisplayFormat" class="form-control"
+                                                       {% if entity is not empty %}value="{{ entity.frontendDisplayFormat }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Use in quick search{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="useInQuickSearch" class="form-control"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="0"
+                                                            {% if entity.useInQuickSearch is defined and entity.useInQuickSearch == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                    <option value="1"
+                                                            {% if entity.useInQuickSearch is defined and entity.useInQuickSearch == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Use in advanced search{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="useInAdvancedSearch" class="form-control"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="0"
+                                                            {% if entity.useInAdvancedSearch is defined and entity.useInAdvancedSearch == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                    <option value="1"
+                                                            {% if entity.useInAdvancedSearch is defined and entity.useInAdvancedSearch == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Readonly{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="readOnly" class="form-control" data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="0"
+                                                            {% if entity.readOnly is defined and entity.readOnly == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                    <option value="1"
+                                                            {% if entity.readOnly is defined and entity.readOnly == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Hidden{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="frontendHidden" class="form-control"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="0"
+                                                            {% if entity.frontendHidden is defined and entity.frontendHidden == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                    <option value="1"
+                                                            {% if entity.frontendHidden is defined and entity.frontendHidden == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Display on new{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="frontendDisplayOnNew" class="form-control"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="1"
+                                                            {% if entity.frontendDisplayOnNew is defined and entity.frontendDisplayOnNew == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                    <option value="0"
+                                                            {% if entity.frontendDisplayOnNew is defined and entity.frontendDisplayOnNew == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Display on update{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="frontendDisplayOnUpdate" class="form-control"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="1"
+                                                            {% if entity.frontendDisplayOnUpdate is defined and entity.frontendDisplayOnUpdate == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                    <option value="0"
+                                                            {% if entity.frontendDisplayOnUpdate is defined and entity.frontendDisplayOnUpdate == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Display on view{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="frontendDisplayOnView" class="form-control"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="1"
+                                                            {% if entity.frontendDisplayOnView is defined and entity.frontendDisplayOnView == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                    <option value="0"
+                                                            {% if entity.frontendDisplayOnView is defined and entity.frontendDisplayOnView == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Display on preview{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="frontendDisplayOnPreview" class="form-control"
+                                                        data-fv-notempty="true"
+                                                        data-fv-notempty-message="{% trans %}Please select{% endtrans %}">
+                                                    <option value="1"
+                                                            {% if entity.frontendDisplayOnPreview is defined and entity.frontendDisplayOnPreview == 1 %}selected="selected"{% endif %}>{% trans %}Yes{% endtrans %}</option>
+                                                    <option value="0"
+                                                            {% if entity.frontendDisplayOnPreview is defined and entity.frontendDisplayOnPreview == 0 %}selected="selected"{% endif %}>{% trans %}No{% endtrans %}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Class{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <select name="frontendClass" class="form-control">
+                                                    {% for option in attribute_definition.frontendClassOptions %}
+                                                        <option value="{{ option }}"
+                                                                {% if entity.frontendClass is defined and entity.frontendClass == option %}selected="selected"{% endif %}>{{ option }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Uid{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="uid" disabled="disabled"
+                                                       class="form-control"
+                                                       {% if entity is not empty %}value="{{ entity.uid }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                {#{{ dump(entity) }}#}
+                            </div>
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}Validation{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Validator{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <textarea data-size="autosize" rows="4" name="validator"
+                                                          class="form-control form-control-textarea">{% if entity is not empty %}{{ entity.validator }}{% endif %}</textarea>
+                                            </div>
+                                            <div class="col-sm-12 sp-validator-help-wrapper">
+                                                <p>{% trans %}Not empty{% endtrans %}: <span
+                                                            class="sp-validator-help sp-hover">[{"type":"notempty","message":"Please fill in this field"}]</span>
+                                                </p>
+                                                <p>{% trans %}Decimal{% endtrans %}: <span
+                                                            class="sp-validator-help sp-hover">[{"type":"regexp","message":"Please enter the value in format x.xxx,xx","pattern":"^(\\d{1,3}([.\\s.']\\d{3})*|\\d+)([.,]\\d+)?$"}]</span>
+                                                </p>
+                                                <p>{% trans %}Integer{% endtrans %}: <span
+                                                            class="sp-validator-help sp-hover">[{"type":"regexp","message":"Please enter only whole numbers","pattern":"^\\d*$"}]</span>
+                                                </p>
+                                                <p>{% trans %}Email{% endtrans %}: <span
+                                                            class="sp-validator-help sp-hover">[{"type":"emailaddress","message":"Please enter valid e-mail address"}]</span>
+                                                </p>
+                                                <p>{% trans %}Phone{% endtrans %}: <span
+                                                            class="sp-validator-help sp-hover">[{"type":"regexp","message":"Please enter the phone number in format 385914584804","pattern":"^(0|385|386|382|383|387|389|381|43|36)([\\d]{2,3})([\\d]{6,7})$"}]</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12" style="display: none;">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading master-panel-heading">
+                                    <h4>{% trans %}Unused fields{% endtrans %}</h4>
+                                </div>
+                                <div class="panel-body collapse in">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Model{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="attributeModel" disabled="disabled"
+                                                       class="form-control" data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                                       {% if entity is not empty %}value="{{ entity.attributeModel }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Source model{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="sourceModel" disabled="disabled"
+                                                       class="form-control" data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                                       {% if entity is not empty %}value="{{ entity.sourceModel }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Is required{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="isRequired" disabled="disabled"
+                                                       class="form-control" data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                                       {% if entity is not empty %}value="{{ entity.isRequired }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Is user defined{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="isUserDefined" disabled="disabled"
+                                                       class="form-control" data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                                       {% if entity is not empty %}value="{{ entity.isUserDefined }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Is unique{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="isUnique" disabled="disabled"
+                                                       class="form-control" data-fv-notempty="true"
+                                                       data-fv-notempty-message="{% trans %}Please fill in{% endtrans %}"
+                                                       {% if entity is not empty %}value="{{ entity.isUnique }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Prefix{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="prefix"
+                                                       class="form-control"
+                                                       {% if entity is not empty %}value="{{ entity.prefix }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label">{% trans %}Sufix{% endtrans %}</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="sufix"
+                                                       class="form-control"
+                                                       {% if entity is not empty %}value="{{ entity.sufix }}"{% endif %}/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-sm-offset-2">
+                                <div class="btn-toolbar">
+                                    {{ include('AppBundle:Includes:admin_buttons.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

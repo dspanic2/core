@@ -1,0 +1,160 @@
+{% if data.model.account is defined and data.model.account is not empty and data.model.quote is defined and data.model.quote is not empty %}
+    <div class="section cart-check">
+        <div class="accordion">
+            <div class="item">
+                <div class="overlay-background"></div>
+                <div class="accordion-body row" style="display: block;">
+                    <div class="col-xs-12 col-sm-6 user-info">
+                        <h2 class="section-title">{% trans into current_language %}Customer information{% endtrans %}</h2>
+                        <p><strong>{{ data.model.account.name }}</strong></p>
+                        <p>
+                            {% if data.model.account.isLegalEntity %}
+                                {% trans into current_language %}Identification number{% endtrans %}: {{ data.model.account.oib }}<br/>
+                            {% endif %}
+                            {% if data.model.account.phone %}
+                                {% trans into current_language %}Phone{% endtrans %}: {{ data.model.account.phone }}<br/>
+                            {% endif %}
+                            {% if data.model.account.phone2 %}
+                                {% trans into current_language %}Mobile phone{% endtrans %}: {{ data.model.account.phone2 }}<br/>
+                            {% endif %}
+                            {% if data.model.account.email %}
+                                {% trans into current_language %}Email{% endtrans %}: {{ data.model.account.email }}<br/>
+                            {% endif %}
+                        </p>
+                        {% if data.model.account.isLegalEntity == 0 %}
+                            {% set r1_data = data.model.quote.additionalData|json_decode %}
+                            {% if r1_data is not empty %}
+                                <p><strong>{% trans into current_language %}R1 invoice data{% endtrans %}</strong></p>
+                                <p>
+                                    {% trans into current_language %}Company name{% endtrans %}: {{ r1_data.company_name }}<br>
+                                    {% trans into current_language %}Identification number{% endtrans %}: {{ r1_data.oib }}<br>
+                                    {% trans into current_language %}City{% endtrans %}: {{ r1_data.city_name }} {{ r1_data.city_pbr }}<br>
+                                    {% trans into current_language %}Address{% endtrans %}: {{ r1_data.street }}<br>
+                                </p>
+                            {% endif %}
+                        {% endif %}
+                        {% if data.model.account.isLegalEntity %}
+                            <p>{% trans into current_language %}User{% endtrans %}: {{ data.model.contact.fullName }}</p>
+                        {% endif %}
+                        {#<div class="important-note">Narudžbe s opcijom plaćanja “avansna uplata” nemojte
+                            plaćati prije nego što primite službenu ponudu od strane Vašeg
+                            komercijalista!
+                        </div>#}
+                    </div>
+                    <div class="col-xs-12 col-sm-6 company-info">
+                        <h2 class="section-title">{% trans into current_language %}Addresses{% endtrans %}</h2>
+                        <div class="payment-addresses">
+                            <div class="row">
+                                <div class="payment-type col-xs-12 col-sm-12">
+                                    <div class="label"><strong>{% trans into current_language %}Payment address{% endtrans %}:</strong></div>
+                                    {% if data.model.quote.accountBillingAddress is not empty %}
+                                        <div class="value">{{ data.model.quote.accountBillingAddress.street }}
+                                            , {{ data.model.quote.accountBillingAddress.city.name }} {{ data.model.quote.accountBillingAddress.city.postalCode }}
+                                            , {{ get_entity_store_attribute(current_store_id,data.model.quote.accountBillingAddress.city.country,"name") }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if data.model.quote.deliveryType is empty or data.model.quote.deliveryType.id != 1 %}
+                            <br>
+                            <div class="delivery-addresses">
+                                <div class="row">
+                                    <div class="payment-type col-xs-12 col-sm-12">
+                                        <div class="label"><strong>{% trans into current_language %}Delivery address{% endtrans %}:</strong></div>
+                                        {% if data.model.quote.accountShippingAddress is not empty %}
+                                            <div class="value">{{ data.model.quote.accountShippingAddress.street }}
+                                                , {{ data.model.quote.accountShippingAddress.city.name }} {{ data.model.quote.accountShippingAddress.city.postalCode }}
+                                                , {{ get_entity_store_attribute(current_store_id,data.model.quote.accountShippingAddress.city.country,"name") }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="overlay-background"></div>
+                <div class="accordion-title disabled"><h2
+                            class="section-title">{% trans into current_language %}Payment type and delivery{% endtrans %}</h2>
+                </div>
+                <div class="accordion-body row" style="display: block;">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="payment-type">
+                            <div class="account">
+                                <div class="row">
+                                    <div class="delivery-type col-xs-12 col-sm-12">
+                                        <div class="label"><strong>{% trans into current_language %}Delivery type{% endtrans %}:</strong>
+                                        </div>
+                                        {% if data.model.quote.deliveryType is not empty %}
+                                            <div class="value">{{ get_entity_store_attribute(current_store_id,data.model.quote.deliveryType,"name") }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="payment-type col-xs-12 col-sm-12">
+                                        <div class="label"><strong>{% trans into current_language %}Payment type{% endtrans %}:</strong></div>
+                                        {% if data.model.quote.paymentType is not empty %}
+                                            <div class="value">{{ get_entity_store_attribute(current_store_id,data.model.quote.paymentType,"name") }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="account">
+                            <div class="row full-width">
+                                <div class="note col-xs-12">
+                                    <div class="label"><strong>{% trans into current_language %}Note{% endtrans %}:</strong></div>
+                                    <div class="value">{{ data.model.quote.message }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-action">
+        {% if editable %}
+            {{ include('ScommerceBusinessBundle:Components/Cart:cart_back.html.twig', {}) }}
+            {% if data.model.payment_data is defined and data.model.payment_data.buttons is defined and data.model.payment_data.buttons is not empty %}
+                {% for button in data.model.payment_data.buttons %}
+                    {{ button|raw }}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+        {#{{ include('ScommerceBusinessBundle:Components/Cart:cart_totals.html.twig', {}) }}#}
+    </div>
+    <div class="cart-items">
+        <div class="items-grid grid-view list-view">
+            {% apply spaceless %}
+                {% for quoteItem in data.model.quote.quoteItems %}
+                    {{ include('ScommerceBusinessBundle:Components/Product:product_cart_overview_item.html.twig', {'data': data, 'quoteItem': quoteItem, 'editable': 0}) }}
+                {% endfor %}
+            {% endapply %}
+        </div>
+    </div>
+    <div class="cart-action">
+        {{ include('ScommerceBusinessBundle:Components/Cart:cart_totals.html.twig', {'data': data, }) }}
+        {% if editable %}
+            {{ include('ScommerceBusinessBundle:Components/Cart:cart_back.html.twig', {}) }}
+            {% if data.model.payment_data is defined and data.model.payment_data.buttons is defined and data.model.payment_data.buttons is not empty %}
+                {% for button in data.model.payment_data.buttons %}
+                    {{ button|raw }}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+    {% if editable %}
+        {% if data.model.payment_data is defined and data.model.payment_data.forms is defined and data.model.payment_data.forms is not empty %}
+            {% for form in data.model.payment_data.forms %}
+                {#{{ dump(form) }}#}
+                {{ form|raw }}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endif %}

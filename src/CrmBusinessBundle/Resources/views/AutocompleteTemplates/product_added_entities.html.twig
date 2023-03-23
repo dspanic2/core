@@ -1,0 +1,29 @@
+{% if attribute is defined %}{% apply spaceless %}
+    {% if showLink == 1 %}
+        {% if app.user.hasPrivilege(3,field_data.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+            {% if field_data.name is iterable %}
+                <a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'form'}) }}">{{ field_data.code }} {{ get_entity_store_attribute(current_store_id,field_data,"name") }}
+            {% else %}
+                <a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'form'}) }}">{{ field_data.code }} {{ field_data.name }}</a>
+            {% endif %}
+        {% elseif app.user.hasPrivilege(2,field_data.attributeSet.uid) or is_granted('ROLE_ADMIN') %}
+            {% if field_data.name is iterable %}
+                <a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'view'}) }}">{{ field_data.code }} {{ get_entity_store_attribute(current_store_id,field_data,"name") }}
+            {% else %}
+                <a href="{{ path("page_view", {'id': field_data.id, 'url': field_data.attributeSet.attributeSetCode, 'type': 'view'}) }}">{{ field_data.code }} {{ field_data.name }}</a>
+            {% endif %}
+        {% else %}
+            {% if field_data.name is iterable %}
+                {{ field_data.code }} {{ get_entity_store_attribute(current_store_id,field_data,"name") }}
+            {% else %}
+                {{ field_data.code }} {{ field_data.name }}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if field_data.name is iterable %}
+            {{ field_data.code }} {{ get_entity_store_attribute(current_store_id,field_data,"name") }}
+        {% else %}
+            {{ field_data.code }} {{ field_data.name }}
+        {% endif %}
+    {% endif %}
+{% endapply %}{% endif %}

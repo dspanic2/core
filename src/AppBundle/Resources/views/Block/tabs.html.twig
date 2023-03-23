@@ -1,0 +1,41 @@
+<div class="sp-block-outer sp-block-tabs {{ data.block.class }}">
+    <div class="panel panel-colored">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="panel-heading sp-frontend-edit-block-wrapper">
+                <h5>{% trans %}Edit{% endtrans %} tabs {% trans %}block{% endtrans %}
+                    <div class="options">
+                        {# <span class="sp-options-text sp-options-text-attribute-group sp-options-text-attribute-group-top sp-admin-button" data-action="add-block-modal-front" data-url="{{ path('page_block_update_form', {'form_type':'modal','parent_id': data.block.id, 'parent_type':'page_block'}) }}"><i class="sp-icon sp-icon-add sp-hover"></i></span> #}
+                        {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                        {# <a class="sp-options-text sp-options-text-attribute-group sp-admin-button" href="{{ path('page_block_update_form', {'id': data.block.id}) }}"><i class="sp-icon sp-icon-edit sp-hover"></i></a> #}
+                    </div>
+                </h5>
+            </div>
+        {% endif %}
+        <ul class="nav nav-tabs" role="tablist">
+            {% for key,row in data.block.preparedContent %}
+                {% set hasAccess = 0 %}
+                {% for block in row.blocks %}
+                    {% if app.user.hasPrivilege(7,block.id) or is_granted('ROLE_ADMIN') %}
+                        {% set hasAccess = 1 %}
+                    {% endif %}
+                {% endfor %}
+                {% if hasAccess %}
+                    <li {% if key == 0 %}class="active"{% endif %} data-type="{{ row.blocks[0].type }}"><a href="#tab_{{ row.blocks[0].id|replace({'.': ""}) }}" role="tab" data-toggle="tab">{{ row.blocks[0].title|trans }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <div class="tab-content">
+            {% for key,row in data.block.preparedContent %}
+                <div class="tab-pane fade row {% if key == 0 %}active in{% endif %}" id="tab_{{ row.blocks[0].id|replace({'.': ""}) }}" data-type="{{ row.blocks[0].type }}">
+                    {% for block in row.blocks %}
+                        {% if app.user.hasPrivilege(7,block.id) or is_granted('ROLE_ADMIN') %}
+                            <div class="col-xs-12 col-sm-{{ block.width }} col-md-{{ block.width }} sp-block-wrapper" data-block-id="{{ block.id }}">
+                                {{ render(controller('AppBundle:Block:block', {'block_id': block.id, 'data': data }, { 'alt': 'AppBundle:Forms:error'})) }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

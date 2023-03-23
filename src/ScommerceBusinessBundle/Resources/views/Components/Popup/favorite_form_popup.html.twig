@@ -1,0 +1,44 @@
+<div id="favorite-form-overlay" class="overlay">
+    <div class="inner">
+        <span class="overlay-close">×</span>
+        <form id="favorite"
+              class="ajax-submit label-hidden"
+              action="/api/favorite"
+              novalidate
+              method="post"
+              data-trigger-action="added-to-favorite">
+            <input type="text" name="im_not_a_human" style="display: none!important;">
+            <input type="hidden" name="product_id">
+            <input type="hidden" name="is_favorite" value="1">
+            <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+
+            <div class="row form-row full-width">
+                <div class="form-group email col-xs-12">
+                    <label for="email">{% trans into current_language %}Email address{% endtrans %}*</label>
+                    <input type="email"
+                           placeholder="{% trans into current_language %}Email address{% endtrans %}*"
+                           name="email"
+{#                           oninput="this.setCustomValidity('')"#}
+{#                           oninvalid="this.setCustomValidity('{% trans into current_language %}Enter valid email address{% endtrans %}')"#}
+                           required>
+                </div>
+            </div>
+
+            <div class="row form-row">
+                <div class="form-group first_name col-xs-12 text-left">
+                    <label class="plain force-visible label-checkbox">
+                        <input required
+                               type="checkbox"
+{#                               oninput="this.setCustomValidity('')"#}
+{#                               oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"#}
+                               name="gdpr">{% trans into current_language %}I agree to use the information provided for the purpose of receiving notification of special offers and promotions{% endtrans %}
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group submit">
+                <input type="submit" value="{% trans into current_language %}Confirm{% endtrans %}" class="button btn-type-1">
+            </div>
+        </form>
+    </div>
+</div>

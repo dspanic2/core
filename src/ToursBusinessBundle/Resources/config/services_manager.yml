@@ -1,0 +1,7 @@
+services:
+
+ tours_manager:
+    class: ToursBusinessBundle\Managers\ToursManager
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

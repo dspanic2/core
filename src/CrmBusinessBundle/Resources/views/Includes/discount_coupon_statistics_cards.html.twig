@@ -1,0 +1,39 @@
+<div class="col-sm-12">
+    {% set colors = {
+        0: "#FF3939",
+        1: "#E32B73",
+        2: "#AC4394",
+        3: "#6B5297",
+        4: "#38527E",
+        5: "#2F4858",
+        6: "#BA1CFF",
+        7: "#a89e2a",
+        8: "#00DE83",
+        9: "#00BAA2",
+        10:"#0093A3",
+        11:"#197026"
+    } %}
+    {% for id, i in data.items %}
+        {% set bg_color = "#2D2D2A" %}
+        {% if colors[id] is defined %}
+            {% set bg_color = colors[id] %}
+        {% endif %}
+        {% set dec_places = 2 %}
+        {% if i.unit is empty %}
+            {% set dec_places = 0 %}
+        {% endif %}
+        {% set icon = "" %}
+        {#{% if i.diff > 0 %}
+            {% set icon = "fa fa-arrow-up" %}
+        {% elseif i.diff < 0 %}
+            {% set icon = "fa fa-arrow-down" %}
+        {% endif %}#}
+        <div class="statistics-card-wrapper col-sm-2 col-xs-12">
+            <div class="statistics-card text-center" style="background-color:{{ bg_color }};">
+                <p class="statistics-title">{{ i.title|trans }}<span class="fa fa-question-circle sp-question-circle" data-content="{{ ('discount_coupon_statistics_cards_'~id)|trans }}" rel="popover" data-placement="top" data-original-title="" title=""></span></p>
+                <div class="statistics-data">{{ i.val|number_format(dec_places, ',', '.') }} <span class="statistics-unit">{{ i.unit }}</span></div>
+                <p class="statistics-data-bottom"></p>
+            </div>
+        </div>
+    {% endfor %}
+</div>

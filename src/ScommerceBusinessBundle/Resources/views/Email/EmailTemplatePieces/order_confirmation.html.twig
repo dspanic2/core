@@ -1,0 +1,251 @@
+{% set money_transfer_payment_slip = get_env("MONEY_TRANSFER_PAYMENT_SLIP")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set site_base_data = get_env("SITE_BASE_DATA")|json_decode(constant('JSON_OBJECT_AS_ARRAY')) %}
+{% set storeId = get_env("DEFAULT_STORE_ID") %}
+{% set websiteId = get_env("DEFAULT_WEBSITE_ID") %}
+{% if entity is defined %}
+    {% set storeId = entity.storeId %}
+    {% set websiteId = entity.getStore.getWebsiteId %}
+{% endif %}
+<table width="100%" border="0" cellpadding="0"
+       cellspacing="0">
+    <tbody>
+    <tr>
+        <td valign="top" align="left" style="font-family:'Open Sans',sans-serif;font-size:14px;color:#4e515a;line-height:normal;font-weight:400;padding:0px 30px">
+            <table width="100%" border="0"
+                   cellpadding="0"
+                   cellspacing="0">
+                <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td colspan="2">
+                        <strong>Informacije o plaćanju</strong>
+                        <hr/>
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td>
+                        <strong>Vrsta plaćanja:</strong>
+                        <p>{{ get_entity_store_attribute(current_store_id,entity.paymentType,"name") }}</p>
+                    </td>
+                    <td>
+                        <strong>Način dostave:</strong>
+                        <p>{{ get_entity_store_attribute(current_store_id,entity.deliveryType,"name") }}</p>
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td>
+                        <hr/>
+                    </td>
+                    <td>
+                        <hr/>
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td>
+                        <strong>Adresa dostave:</strong>
+                        {% if entity.deliveryType.isDelivery == 1 %}
+                            <p>{{ entity.accountShippingStreet }}, {{ entity.accountShippingCity.postalCode }} {{ entity.accountShippingCity.name }}, {{ get_entity_store_attribute(current_store_id,entity.accountShippingCity.country,"name") }}</p>
+                            {% if entity.accountShippingAddress.firstName is not empty %}
+                                <p>Kontakt osoba: {{ entity.accountShippingAddress.firstName }} {{ entity.accountShippingAddress.lastName }}</p>
+                            {% endif %}
+                            {% if entity.accountShippingAddress.phone is not empty %}
+                                <p>Kontakt telefon: {{ entity.accountShippingAddress.phone }}</p>
+                            {% endif %}
+                        {% else %}
+                            <p>Obavijestiti ćemo Vas kada artikli budu spremni za preuzimanje.</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <strong>Adresa računa:</strong>
+                        <p>{{ entity.account.name }}, {{ entity.accountBillingAddress.street }}, {{ entity.accountBillingCity.postalCode }} {{ entity.accountBillingCity.name }}, {{ get_entity_store_attribute(current_store_id,entity.accountBillingCity.country,"name") }}</p>
+                        {% if entity.account.phone is not empty %}<p>{{ entity.account.phone }}</p>{% endif %}
+                        {% if entity.account.isLegalEntity %}<p>OIB: {{ entity.account.oib }}</p>{% endif %}
+                        {% if entity.account.email is not empty %}<p>{{ entity.account.email }}</p>{% endif %}
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td>
+                        <hr/>
+                    </td>
+                    <td>
+                        <hr/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table width="100%" border="0"
+                   cellpadding="0"
+                   cellspacing="0">
+                <tbody>
+                <tr>
+                    <td align="left">
+                        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+                            <thead>
+                            <tr style="background-color:#f3f3f3; font-weight:bold; border-bottom:#999 1px solid;">
+                                <th align="left" width="80" valign="center"></th>
+                                <th align="left" width="80" valign="center">Šifra proizvoda</th>
+                                <th align="left" width="340" valign="center">Artikl</th>
+                                <th align="center" width="80" valign="center">Jed. cijena</th>
+                                <th align="center" width="50" valign="center">Iznos</th>
+                                <th align="right" width="100" valign="center">Ukupno za platiti (PDV uklj.)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in entity.getOrderItems() %}
+                                {% if not is_configurable(item.product) %}
+                                    <tr>
+                                        <td style="border-bottom:#CCC 1px solid" align="left" width="80" valign="center">
+                                            {% if item.product.getSelectedImage() is not empty %}
+                                                {% set image_url = "/Documents/Products/"  ~ item.product.getSelectedImage().file %}
+                                                {% set image_style_url = image_url|image_style('product_image_thumbnail') %}
+                                                {% if image_style_url %}
+                                                    {% set image_url = image_style_url %}
+                                                {% endif %}
+                                                <img width="60" style="width: 60px" src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}{{ image_url }}" alt="{{ item.product.code }}"/>
+                                            {% endif %}
+                                        </td>
+                                        <td style="border-bottom:#CCC 1px solid" align="left" width="80" valign="center">{{ item.product.code }}</td>
+                                        <td style="border-bottom:#CCC 1px solid" align="left" width="340" valign="center">{{ get_entity_store_attribute(current_store_id,item.product,"name") }}</td>
+                                        <td style="border-bottom:#CCC 1px solid" align="right" width="80" valign="center">{{ item.priceItem|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                                        <td style="border-bottom:#CCC 1px solid" align="center" width="50" valign="center">{{ prepare_qty(item.getQty,item.product.getQtyStep) }}</td>
+                                        <td style="border-bottom:#CCC 1px solid" align="right" width="80" valign="center">{{ item.priceTotal|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            <tr>
+                                <td colspan="6">&nbsp;</td>
+                            </tr>
+                            <tr style="padding: 20px 0 5px">
+                                <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">Iznos stavki (bez PDV-a):</td>
+                                <td colspan="3" align="right" style="font-weight:700;">{{ entity.getPriceItemsWithoutTax|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                            </tr>
+                            {% if entity.deliveryType.isDelivery == 1 %}
+                                <tr style="padding: 5px 0">
+                                    <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">Dostava (bez PDV-a):</td>
+                                    <td colspan="3" align="right" style="font-weight:700;">{{ entity.getPriceDeliveryWithoutTax|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr style="padding: 5px 0">
+                                <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">Ukupno PDV:</td>
+                                <td colspan="3" align="right" style="font-weight:700;">{{ entity.getPriceTax|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                            </tr>
+                            <tr style="padding: 5px 0">
+                                <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">Ukupan iznos (sa PDV-om):</td>
+                                <td colspan="3" align="right" style="font-weight:700;">{{ (entity.getPriceItemsTotal + entity.getPriceDeliveryTotal)|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                            </tr>
+                            {% if get_env("SHOW_DISCOUNTS_AS_SUM") == 1 %}
+                                {% set discountAmount = 0 %}
+                                {% if entity.discountCoupon is not empty %}
+                                    {% set discountAmount = discountAmount + entity.getDiscountCouponPriceTotal %}
+                                {% endif %}
+                                {% if entity.getLoyaltyCard is not empty %}
+                                    {% set discountAmount = discountAmount + entity.getDiscountLoyaltyPriceTotal %}
+                                {% endif %}
+                                {% if discountAmount > 0 %}
+                                    <tr style="padding: 5px 0">
+                                        <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">Popust:</td>
+                                        <td colspan="3" align="right"
+                                            style="font-weight:700;">-{{ discountAmount|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% else %}
+                                {% if entity.discountCoupon is not empty and entity.getDiscountCouponPriceTotal > 0 %}
+                                    <tr style="padding: 5px 0">
+                                        <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">Kupon:</td>
+                                        <td colspan="3" align="right" style="font-weight:700;">{{ entity.getDiscountCouponPriceTotal|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if entity.getLoyaltyCard is not empty and entity.getDiscountLoyaltyPriceTotal > 0 %}
+                                    <tr style="padding: 5px 0">
+                                        <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">Loyalty:</td>
+                                        <td colspan="3" align="right" style="font-weight:700;">{{ entity.getDiscountLoyaltyPriceTotal|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                            {% if entity.priceFee is defined and entity.priceFee > 0 %}
+                                <tr style="padding: 5px 0">
+                                    <td colspan="3" align="right" style="color: #a4a4a4;font-size: 12px;font-weight: 600;">{% trans into current_language %}Handeling costs{% endtrans %}:</td>
+                                    <td colspan="3" align="right" style="font-weight:700;">{{ entity.priceFee|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td colspan="3" align="right"
+                                    style="color: #000000;text-transform:uppercase;font-size: 12px;font-weight: 600;">Ukupno za platiti (PDV uklj.):
+                                </td>
+                                <td colspan="3" align="right"
+                                    style="font-weight:600; color: #C91208;font-size: 16px;">{{ entity.getPriceTotal|number_format(2, ',', '.') }} {{ entity.currency.sign }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table width="100%" border="0"
+                   cellpadding="0"
+                   cellspacing="0">
+                <tbody>
+                <tr>
+                    <td align="left">
+                        <table>
+                            <tbody>
+                            {% if entity.paymentType.id == 4 %}
+                                {% if entity.accountBillingCity.country.id == 1 %}
+                                    <tr>
+                                        <td align="left" valign="top" colspan="2">
+                                            <br><strong style="text-align: left; font-size:23px;">{% trans into current_language %}Vaša narudžba je zaprimljena{% endtrans %}</strong><br>
+                                            {% trans into current_language %}Skenirajte kod za uplatu putem e-banking mobilne aplikacije ili upišite sljedeće podatke na uplatnicu{% endtrans %}:<br><br>
+                                            <img align="center" src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}{{ generate_money_transfer_payment_slip(entity) }}"
+                                                 border="0"
+                                                 style="display:block;max-width: 100%;height:auto;margin-left: auto;margin-right: auto;">
+                                            <div align="left">
+                                                <strong style="text-transform: uppercase">{% trans into current_language %}Primatelj{% endtrans %}:</strong> {{ site_base_data[websiteId].site_base_companyName }}<br>
+                                                <strong style="text-transform: uppercase">{% trans into current_language %}Adresa{% endtrans %}:</strong> {{ site_base_data[websiteId].site_base_streetAddress }}, {{ site_base_data[websiteId].site_base_postalCode }} {{ site_base_data[websiteId].site_base_addressLocality }}<br>
+                                                <strong style="text-transform: uppercase">{% trans into current_language %}IBAN{% endtrans %}:</strong> {{ money_transfer_payment_slip[storeId].recipient_iban_or_account }}<br>
+                                                <strong style="text-transform: uppercase">{% trans into current_language %}OIB{% endtrans %}:</strong> {{ money_transfer_payment_slip[storeId].recipient_oib }}<br>
+                                                <strong style="text-transform: uppercase">{% trans into current_language %}Model{% endtrans %}:</strong> {{ money_transfer_payment_slip[storeId].recipient_account_model }}<br>
+                                                <strong style="text-transform: uppercase">{% trans into current_language %}Poziv na broj{% endtrans %}:</strong> {{ entity.incrementId }}<br>
+                                                <strong style="text-transform: uppercase">{% trans into current_language %}Iznos za uplatu{% endtrans %}:</strong> {{ entity.getPriceTotal|number_format(2, ',', '.') }} {{ entity.currency.sign }}<br><br>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td align="center" valign="top" colspan="2">
+                                            {% trans into current_language %}You can pay the specified amount at{% endtrans %}:<br><br>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                            {% if entity.message is not empty %}
+                                <tr>
+                                    <td colspan="2" align="left" valign="top">
+                                        <strong>{% trans into current_language %}Note{% endtrans %}:</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="left" valign="top" style="color: #7f0000;">
+                                        {{ entity.message }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td
+                style="line-height:30px">
+            <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/images/mail/proziran_png.png"
+                 width="800" alt=" "
+                 height="30"
+                 border="0"
+                 style="display:block"
+                 class="transparent_img">
+        </td>
+    </tr>
+    </tbody>
+</table>

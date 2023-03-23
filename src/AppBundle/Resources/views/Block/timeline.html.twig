@@ -1,0 +1,50 @@
+<div class="sp-block sp-timeline-wrapper {{ data.block.class }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block-inner">
+        <div class="panel panel-midnightblue">
+            <div class="panel-body collapse in">
+                <div class="col-sm-12">
+                    <div class="panel-heading main-panel-heading">
+                        <h5>{{ data.block.title|trans }}
+                            <div class="options">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                {% endif %}
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="main-panel-heading" style="height: {{ data.height }};overflow: auto;">
+
+                        {% if data.items is not empty %}
+                            <div class="timeline">
+                                <div class="timeline__wrap">
+                                    <div class="timeline__items">
+                                        {% for item in data.items %}
+                                            <div class="timeline__item">
+                                                <div class="timeline__content">
+                                                    <h2>
+                                                        {{ item.date|date(item.date_format) }}
+                                                        {% if item.show_link %}
+                                                            <a class="pull-right" href="{{ item.path }}"><i class="fa fa-link"></i></a>
+                                                        {% endif %}
+                                                    </h2>
+                                                    <p>{{ item.description }}</p>
+
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% trans %}No items found{% endtrans %}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

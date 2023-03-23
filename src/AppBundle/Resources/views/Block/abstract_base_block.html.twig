@@ -1,0 +1,22 @@
+<div class="col-sm-12 col-xs-12" data-block-id="{{ data.block.id }}" {% if data.block.dataAttributes is defined and data.block.dataAttributes is not empty %}{{ data.block.dataAttributes|raw }}{% endif %}>
+    <div class="sp-block {{ data.block.class }}" data-block-id="{{ data.block.id }}">
+        <div class="sp-block-inner">
+            <div class="panel panel-midnightblue">
+                <div class="panel-body collapse in">
+                    <div class="col-sm-12">
+                        <div class="panel-heading main-panel-heading">
+                            <h5>{{ data.block.title|trans }}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="options">
+                                        {{ include('AppBundle:Includes:manage_block_buttons.html.twig') }}
+                                    </div>
+                                {% endif %}
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

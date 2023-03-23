@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ generate_admin_title(null, managed_entity_type|trans) }}{% endblock %}
+
+{% block header %}
+    {% block main_actions %}
+        <a class="sp-options-text" href="{{ path(managed_entity_type ~ '_update_form') }}"><i
+                    class="fa fa-plus"></i></a>
+    {% endblock %}
+    {% block main_title %}
+        {{ managed_entity_type|trans }} {% trans %}list{% endtrans %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container">
+                <div class="sp-block">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 main-content">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-body collapse in table-panel-body sp-fixed-header">
+                                    <table cellpadding="0" cellspacing="0" border="0"
+                                           class="table table-striped table-bordered datatables fixed-columns" id="table_s1_2"
+                                           data-url="{{ path('get_' ~ managed_entity_type ~ '_list') }}" data-server="true" data-limit="50"
+                                           data-search="false" data-filter="true" data-export="false" data-order-col="0"
+                                           data-order-dir="asc" data-empty="false" data-callback-after='["fixedTableAfter"]'
+                                           data-filter-buttons="false" data-before='false' data-loader="false"
+                                           data-f-columns="false" data-fl-column="0" data-fr-column="0" data-table="user">
+                                        <thead>
+                                            <tr class="sp-table-width">
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th class="sp-actions-td"></th>
+                                            </tr>
+                                            <tr class="sp-table-header">
+                                                <th data-col-name="id" data-col-search="true" data-col-sort="true" data-col-filter="true" data-filter-type="text" data-search-type="eq">{% trans %}Id{% endtrans %}</th>
+                                                <th data-col-name="title" data-col-search="true" data-col-sort="true" data-col-filter="true" data-filter-type="text" data-search-type="bw">{% trans %}Title{% endtrans %}</th>
+                                                <th data-col-name="url" data-col-search="true" data-col-sort="true" data-col-filter="true" data-filter-type="text" data-search-type="bw">{% trans %}Url{% endtrans %}</th>
+                                                <th data-col-name="type" data-col-search="true" data-col-sort="true" data-col-filter="true" data-filter-type="text" data-search-type="bw">{% trans %}Type{% endtrans %}</th>
+                                                <th data-col-name="isCustom" data-col-search="true" data-col-sort="true" data-search-type="tt" data-col-filter="true" data-filter-type="select" data-list='[{"value":"true","label":"{% trans %}Yes{% endtrans %}"},{"value":"false","label":"{% trans %}No{% endtrans %}"}]'>Is custom</th>
+                                                <th class="sp-actions-td" data-col-name="actions" data-col-search="false" data-col-sort="false" data-col-filter="false"><span class="sp-actions-td-inner">{% trans %}Actions{% endtrans %}</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}

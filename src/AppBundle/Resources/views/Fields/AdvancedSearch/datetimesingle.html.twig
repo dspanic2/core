@@ -1,0 +1,11 @@
+<div class="col-sm-4">
+    <div class="form-group sp-search-group">
+        <div class="row">
+            <label class="col-sm-12 control-label">{{ attribute.frontendLabel|trans }}</label>
+            <div class="col-sm-12 sp-search-item" data-search_type="eq">
+                <input data-type="datesingle" type="text" data-action="date"
+                       class="form-control" name="{{ attribute.attributeCode|camelize }}" {% if value is defined and value is not empty %}value="{{ value }}"{% else %}data-clear="true"{% endif %}>
+            </div>
+        </div>
+    </div>
+</div>

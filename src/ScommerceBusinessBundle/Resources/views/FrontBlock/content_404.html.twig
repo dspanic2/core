@@ -1,0 +1,15 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="container">
+        <div id="no-results">
+            <div class="no-result-message">
+                <h1>{% trans into current_language %}Page not found{% endtrans %}</h1>
+            </div>
+
+            <div class="suggestion">
+                <ul>
+                    <li>{% trans into current_language %}We are sorry, this page no longer exists{% endtrans %}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

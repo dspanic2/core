@@ -1,0 +1,46 @@
+<form data-validate="true" method="post" action="{{ path('bulk_redirect_not_found_save') }}" accept-charset="UTF-8"
+      data-callback='["custom"]'
+      data-custom-callback='["reloadPage"]'
+      data-type="bulk_redirect_not_found"
+      data-attribute-set-code="bulk_redirect_not_found"
+      class="form-horizontal row-border">
+    <div class="sp-block-group-wrapper">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 sp-block-wrapper">
+                <div class="sp-block">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-body collapse in">
+                            <div class="panel-heading">
+                                <h5>{% trans %}Enter a new redirect to{% endtrans %}</h5>
+                            </div>
+                            <fieldset class="form-group-wrapper">
+                                <div class="form-group hidden" data-form-group="contact_id">
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input data-type="integer" class="form-control" type="text" name="ids" value="{{ data.ids }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-form-group="card_number">
+                                    <label class="col-sm-4 col-xs-4 control-label">{% trans %}Redirect to{% endtrans %}</label>
+                                    <div class="col-sm-8 col-xs-8 input-group prefix">
+                                        <span class="input-group-addon">{{ get_env('SSL') }}://{{ get_env('FRONTEND_URL') }}</span>
+                                        <input type="text" class="form-control" name="redirect_to" value="" placeholder="/{% trans %}some-new-url-starting-with-slash{% endtrans %}">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7 col-sm-offset-2">
+                <div class="btn-toolbar">
+                    <button type="submit" class="sp-btn btn-primary btn-blue btn" data-action="close-modal" data-url="">{% trans %}Spremi{% endtrans %}</button>
+                    <button type="button" class="btn-default btn pull-right btn-red" data-dismiss="modal"><span aria-hidden="true">{% trans %}Zatvori{% endtrans %}</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

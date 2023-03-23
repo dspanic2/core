@@ -1,0 +1,11 @@
+{% apply spaceless %}
+    {% if is_user_logged_in() and app.session.get('contact') is defined and app.session.get('contact') is not empty %}
+        <script type="text/javascript">
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'login',
+                'user_id': '{{ app.session.get('contact').getId }}'
+            });
+        </script>
+    {% endif %}
+{% endapply %}

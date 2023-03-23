@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div id="page-content">
+    <div id='wrap'>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-heading">
+                            <h4>{% trans %}View{% endtrans %} {{ managed_entity_type|trans }}</h4>
+                            {% if entity.id is defined and entity is not empty %}
+                                <div class="options">
+                                    <a class="sp-options-text" href="{{ path(managed_entity_type ~ '_update_form', {'id': entity.id}) }}"><i class="fa fa-wrench"></i></a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="panel-body collapse in">
+                            <form data-validate="true" method="post" action="#" accept-charset="UTF-8"
+                                  data-callback=''
+                                  data-type="user"
+                                  class="form-horizontal row-border">
+                                <fieldset class="form-group-wrapper">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Username{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="username" readonly="readonly" class="form-control" value="{{ entity.username }}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}e-mail{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="email" readonly="readonly" class="form-control" value="{{ entity.email }}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}Roles{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            {% for role in entity.UserRoles %}
+                                                <input class="form-control" type="text" readonly="readonly" name="roles[]" value="{{ role.Role.RoleCode }}"/>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 control-label">{% trans %}System role{% endtrans %}</label>
+                                        <div class="col-sm-6">
+                                            {% for role in entity.roles %}
+                                                <input class="form-control" type="text" readonly="readonly" name="system_role" value="{{ role }}"/>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-7 col-sm-offset-2">
+                                    <div class="btn-toolbar">
+                                        <a href="/" class="sp-btn btn-default btn-red btn" data-action="back">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
+{% endblock %}
