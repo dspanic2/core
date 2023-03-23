@@ -1,0 +1,10 @@
+<div class="content product-list-content"
+     {% if data.model.productFilterData is defined and data.model.productFilterData is not empty %}data-filter="{{ data.model.productFilterData }}"{% endif %}
+        {% if data.block.productSortData is defined and data.block.productSortData is not empty %}data-sort="{{ data.block.productSortData }}"{% endif %}
+        {% if data.block.productLimit is defined and data.block.productLimit is not empty %}data-page-size="{{ data.block.productLimit }}"{% endif %}>
+{#    {% if sort is defined and sort %}<div class="section items-options"></div>{% endif %}#}
+    <div class="section items-options">{% if data.model.sort_html is defined and data.model.sort_html is not empty %}{{ data.model.sort_html|raw }}{% endif %}</div>
+    <div class="section items-grid no-padding grid-view">{% if data.model.grid_html is defined and data.model.grid_html is not empty %}{{ data.model.grid_html|raw }}{% endif %}</div>
+    <div class="section items-pager no-padding text-center">{% if data.model.pager_html is defined and data.model.pager_html is not empty %}{{ data.model.pager_html|raw }}{% endif %}</div>
+{#    {% if pager is defined and pager %}<div class="section items-pager no-padding text-center"></div>{% endif %}#}
+</div>

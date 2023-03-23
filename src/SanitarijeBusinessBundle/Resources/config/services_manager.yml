@@ -1,0 +1,17 @@
+services:
+  #    core_business.example:
+  #        class: AppBundle\Example
+  #        arguments: ["@service_id", "plain_value", %parameter%]
+
+  sanitarije_helper_manager:
+    class: SanitarijeBusinessBundle\Managers\SanitarijeHelperManager
+    calls:
+      - [ setContainer, [ "@service_container" ] ]
+      - [ initialize ]
+
+  sanitarije_helper_extension:
+    class: SanitarijeBusinessBundle\Extensions\SanitarijeHelperExtension
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: twig.extension }

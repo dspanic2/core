@@ -1,0 +1,34 @@
+{% apply spaceless %}
+    {% if quote is defined %}
+        {% set trackingCode %}
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'checkout',
+                    'ecommerce': {
+                        'checkout': {
+                            'actionField': {'step': 2, 'option': 'checkout'}
+                        }
+                    }
+                });
+                window.dataLayer.push({
+                    'event': 'checkoutOption',
+                    'ecommerce': {
+                        'checkout_option': {
+                            'actionField': {'step': 2, 'option': '{{ string_to_code(get_entity_store_attribute(current_store_id,quote.deliveryType,"name")) }}'}
+                        }
+                    }
+                });
+                window.dataLayer.push({
+                    'event': 'checkoutOption',
+                    'ecommerce': {
+                        'checkout_option': {
+                            'actionField': {'step': 2, 'option': '{{ string_to_code(get_entity_store_attribute(current_store_id,quote.paymentType,"name")) }}'}
+                        }
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ trackingCode|striptags|raw }}
+    {% endif %}
+{% endapply %}

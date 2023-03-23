@@ -1,0 +1,208 @@
+{
+    "name": "borislav/shape_crm",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "repositories": [
+    {
+        "type": "vcs",
+        "url": "git@bitbucket.org:shipshapesolutions/shapeunittestingbundle.git"
+    },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/appbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/crmbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/scommercebusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/imageoptimizationbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/glsbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/paymentprovidersbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/financebusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/wikibusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/dpdbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/shapebehat.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/datatransferbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/sharedinboxbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/notificationsandalertsbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/hrbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/taskbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/projectmanagementbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/integrationbusinessbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:shipshapesolutions/toursbusinessbundle.git"
+        }
+    ],
+    "require": {
+        "php": "^7.3.24",
+        "symfony/symfony": "^3.4",
+        "doctrine/orm": "^2.6",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-cache-bundle": "^1.2",
+        "symfony/swiftmailer-bundle": "^2.3",
+        "symfony/monolog-bundle": "^2.12",
+        "symfony/polyfill-apcu": "^1.0",
+        "sensio/distribution-bundle": "^5.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "symfony/assetic-bundle": "^2.8",
+        "beberlei/doctrineextensions": "^1.0",
+        "knplabs/knp-snappy-bundle": "^1.4",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.3",
+        "liuggio/excelbundle": "^2.1",
+        "friendsofsymfony/rest-bundle": "^2.2",
+        "jms/serializer-bundle": "^2.2",
+        "nelmio/api-doc-bundle": "^2.13",
+        "friendsofsymfony/oauth-server-bundle": "^1.5",
+        "nelmio/cors-bundle": "^1.5",
+        "sendinblue/sendinblue-api-bundle": "^2.0",
+        "knpuniversity/oauth2-client-bundle": "^1.18",
+        "league/oauth2-facebook": "^2.0",
+        "league/oauth2-google": "^2.2",
+        "scheb/two-factor-bundle": "2.14.0",
+        "welp/ical-bundle": "^1.0",
+        "symfony/dotenv": "^3.4",
+        "cweagans/composer-patches": "^1.6",
+        "shipshapesolutions/appbundle": "1.x-dev",
+        "shipshapesolutions/crmbusinessbundle": "1.x-dev",
+        "shipshapesolutions/scommercebusinessbundle": "1.x-dev",
+        "shipshapesolutions/imageoptimizationbusinessbundle": "1.x-dev",
+        "shipshapesolutions/glsbusinessbundle": "1.x-dev",
+        "shipshapesolutions/paymentprovidersbusinessbundle": "1.x-dev",
+        "shipshapesolutions/financebusinessbundle": "1.x-dev",
+        "shipshapesolutions/wikibusinessbundle": "1.x-dev",
+        "shipshapesolutions/composer-bundle-installer": "1.x-dev",
+        "scienta/doctrine-json-functions": "^4.1@dev",
+        "phpmailer/phpmailer": "^6.1",
+        "shipshapesolutions/dpdbusinessbundle": "1.x-dev",
+        "algolia/algoliasearch-client-php": "dev-master",
+        "shipshapesolutions/sharedinboxbusinessbundle": "1.x-dev",
+        "shipshapesolutions/notificationandalertsbusinessbundle": "1.x-dev",
+        "shipshapesolutions/hrbusinessbundle": "1.x-dev",
+        "shipshapesolutions/taskbusinessbundle": "1.x-dev",
+        "shipshapesolutions/projectmanagementbusinessbundle": "1.x-dev",
+        "shipshapesolutions/integrationbusinessbundle": "2.x-dev",
+        "googleads/google-ads-php": "6.1.0",
+        "react/http": "dev-master",
+        "google/apiclient": "^2.7",
+        "googleads/googleads-php-lib": "^44.0.0",
+        "shipshapesolutions/toursbusinessbundle": "1.x-dev",
+        "snc/redis-bundle": "^3.6",
+        "predis/predis": "^1.0",
+        "shipshapesolutions/shapeunittestingbundle": "1.x-dev"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^3.0",
+        "phpunit/phpunit": "5.7.27",
+        "escapestudios/symfony2-coding-standard": "3.x-dev",
+        "brianium/paratest": "^0.15"
+    },
+    "minimum-stability": "dev",
+    "scripts": {
+    "run-tests": "./vendor/bin/paratest --configuration src/ShapeUnitTestingBundle/phpunit.xml",
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts"
+        ],
+        "phpcs": "./vendor/bin/phpcs src --colors -ps",
+        "phpcbf": "./vendor/bin/phpcbf src && @phpcs",
+        "rebuild-entities": "@php ./bin/console admin:entity rebuild",
+        "deploy": "chmod +x src/AppBundle/Resources/scripts/deploy.sh && src/AppBundle/Resources/scripts/deploy.sh"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "patches": {
+            "sentry/sentry": {
+                "Sentry exclude 404 and 403 exceptions": "./patch/sentry_custom_exceptions.patch"
+            },
+            "yellowskies/qr-code-bundle": {
+                "Support parameters": "./patch/qr_parameters.patch"
+            }
+        },
+        "enable-patching": true
+    },
+    "config": {
+        "platform": {
+            "php": "7.3.24"
+        }
+    }
+}

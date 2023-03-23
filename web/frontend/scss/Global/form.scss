@@ -1,0 +1,325 @@
+@import "variables";
+
+.form-note {
+  display: block;
+  font-size: calculateRem(12px);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: normal;
+  letter-spacing: normal;
+  color: $primary_color;
+}
+
+label {
+  display: block;
+  font-family: $font_primary;
+  font-style: normal;
+  font-weight: normal;
+  font-size: calculateRem(15px);
+  line-height: 22px;
+  color: #8E8E8E;
+
+  .label-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &.label-checkbox {
+    padding-left: 28px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    .custom-checkbox {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      display: block;
+      background: #F9F9F9;
+      border: 2px solid #8E8E8E;
+      box-sizing: border-box;
+      border-radius: 3px;
+
+      .custom-checkbox-icon {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        transform: translate(-50%, -50%);
+        background: transparent;
+        display: inline-block;
+        top: 50%;
+        left: 50%;
+        //background: #F9F9F9;
+        box-sizing: border-box;
+      }
+
+      &.is-radio {
+        border-radius: 50%;
+
+        .custom-checkbox-icon {
+          border-radius: 50%;
+          outline: none !important;
+        }
+      }
+
+      input {
+        visibility: hidden;
+
+        &:checked {
+          & ~ .custom-checkbox-icon {
+            background: $secondary_color;
+            outline: 1px solid $secondary_color;
+          }
+        }
+      }
+    }
+  }
+}
+
+form,
+.form {
+
+  [disabled] {
+    opacity: 0.5 !important;
+  }
+
+  .note {
+    font-style: normal;
+    font-weight: normal;
+    font-size: calculateRem(15px);
+    line-height: 22px;
+  }
+
+  .title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: calculateRem(34px);
+    line-height: 45px;
+    color: $black;
+    margin-bottom: 25px;
+  }
+
+  .form-row {
+    margin-bottom: 20px;
+    @media only screen and (max-width: 767px) {
+      margin-bottom: 10px;
+    }
+
+    input,
+    select,
+    textarea,
+    .select2-container {
+      font-family: $font_primary;
+      max-width: 100%;
+      font-stretch: normal;
+      letter-spacing: normal;
+      background-color: #F9F9F9;
+      border: 1px solid #E1DDC9;
+      box-sizing: border-box;
+      padding: 16px 22px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: calculateRem(15px);
+      color: #8E8E8E;
+      text-overflow: ellipsis;
+      @media(max-width: 767px) {
+        padding: 16px 10px;
+      }
+
+      &.full-width {
+        width: 100%;
+      }
+
+      &::placeholder {
+        color: #8E8E8E;
+      }
+
+      &:focus {
+        outline: 1px solid $secondary_color;
+      }
+    }
+
+    .select2-container {
+      padding: 14px 20px 6px;
+      z-index: 2;
+
+      & ~ .select2-container:not(.select2-container--open) {
+        display: none;
+      }
+    }
+
+    //input[type="email"] {
+    //  background-image: url(/frontend/images/icons/envelope.svg);
+    //  background-repeat: no-repeat;
+    //  background-size: 18px;
+    //  background-position-x: 22px;
+    //  background-position-y: center;
+    //  padding-left: 50px;
+    //}
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      visibility: hidden;
+      position: absolute;
+      width: 27px;
+      height: 27px;
+    }
+
+    &.full-width {
+      input,
+      select,
+      textarea {
+        width: 100%;
+      }
+
+      [type="checkbox"],
+      [type="radio"] {
+        width: 20px;
+      }
+    }
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .form-error,
+  select[data-type="lookup"].form-error + .select2-container {
+    outline: 1px solid $color_failure;
+  }
+}
+
+.has-select2 {
+  position: relative;
+
+  select {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+
+    &:focus,
+    *:focus {
+      outline: 0 none;
+    }
+
+    & + .select2-container {
+      display: block;
+      text-align: left;
+      outline: 0 none;
+      font-family: $font_primary;
+      max-width: 100%;
+      font-stretch: normal;
+      letter-spacing: normal;
+      background-color: #F9F9F9;
+      border: 1px solid #E1DDC9;
+      box-sizing: border-box;
+      padding: 16px 22px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: calculateRem(15px);
+      color: #8E8E8E;
+
+      & > .selection {
+        .select2-selection__rendered {
+          display: block;
+          cursor: pointer;
+          height: auto;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          line-height: 24px;
+
+          .select2-selection__clear {
+            font-size: .9rem;
+            margin-right: 5px;
+            vertical-align: bottom;
+            @media only screen and (max-width: 767px) {
+              font-size: 1.2rem;
+              vertical-align: center;
+            }
+          }
+        }
+      }
+    }
+
+    &[disabled] + span {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  .select2-container--open {
+    left: 15px;
+    right: 15px;
+    z-index: 1;
+    background: #F5F6F9;
+    border-left: 1px solid #3D3C43;
+    border-right: 1px solid #3D3C43;
+    border-bottom: 1px solid #3D3C43;
+    overflow: hidden;
+
+    .select2-dropdown {
+      .select2-search {
+        input::placeholder,
+        input {
+          background: #fff;
+          border: 1px solid #3D3C43;
+          padding: 5px;
+          width: 100%;
+          font-size: 1rem;
+          font-weight: 400;
+          font-family: $font_primary;
+        }
+      }
+
+      .select2-results {
+        max-height: 150px;
+        overflow: auto;
+        display: block;
+        scrollbar-width: 4px;
+
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+
+
+        ul {
+          padding: 10px;
+          margin: 0;
+          list-style: none;
+          text-align: left;
+          font-size: 0.8rem;
+          @media only screen and (max-width: 767px) {
+            font-size: 1.2rem;
+          }
+
+          & > li {
+            cursor: pointer;
+            color: $primary_color;
+            font-family: $font_primary;
+            font-size: 0.875rem;
+            background-color: transparent;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-transform: none;
+
+            &:hover {
+              background: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

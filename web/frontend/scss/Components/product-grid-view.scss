@@ -1,0 +1,25 @@
+// Imports.
+@import "product-grid-view-item";
+
+.items-grid {
+  &:not(.empty) {
+    padding-bottom: 80px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-gap: 21px;
+    @media only screen and (max-width: 1199px) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+      padding-bottom: 50px;
+    }
+    @media only screen and (max-width: 991px) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    @media only screen and (max-width: 550px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &.no-results {
+    display: block;
+  }
+}

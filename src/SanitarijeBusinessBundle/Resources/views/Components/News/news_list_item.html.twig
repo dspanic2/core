@@ -1,0 +1,21 @@
+<a href="{{ blog.getUrlPath(current_store_id) }}" class="blog-item">
+    {% set title = get_entity_store_attribute(current_store_id,blog,"name") %}
+    <div class="image">
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+            'image': blog.getSelectedImage,
+            'directory':'blog_post_image',
+            'image_style': 'blog_item',
+            'alt_default': title
+        }}, {})) }}
+        <div class="date"><span class="day">{{ blog.created|date('d') }}</span><span class="month">{{ blog.created|date('F')|trans|slice(0, 3) }}</span></div>
+    </div>
+    <div class="info">
+        <h2>{{ title }}</h2>
+        {% set description = get_entity_store_attribute(current_store_id,blog,"content")|default("")|striptags %}
+        {% if description is not empty %}
+            <div class="description">
+                {{ description|length > 100 ? description|slice(0, 100) ~ '...' : description  }}
+            </div>
+        {% endif %}
+    </div>
+</a>

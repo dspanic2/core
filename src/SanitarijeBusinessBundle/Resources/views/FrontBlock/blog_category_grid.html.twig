@@ -1,0 +1,27 @@
+<div class="sp-block-outer {% if current_entity.getSelectedImage is not empty%}has-image{% endif%} sp-block-outer-{{ data.block.type }} blog-grid {{ data.block.class }}" {% if data.page.templateType.code == "blog_category" %}data-category-id="{{ data.page.id }}"{% endif %}>
+    {% if current_entity.getEntityType.getEntityTypeCode =="blog_category" and current_entity.getSelectedImage is not empty %}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+            'image': current_entity.getSelectedImage,
+            'directory':'blog_category_image',
+            'image_style': 'slider_desktop',
+            'alt_default': get_entity_store_attribute(current_store_id,current_entity,"name")
+        }}, {})) }}
+    {% endif %}
+    <div class="container">
+        <h1>{{ get_entity_store_attribute(current_store_id,current_entity,"name")|raw }}</h1>
+        {% set description = get_entity_store_attribute(current_store_id,current_entity,"description") %}
+        {% if description is not empty %}
+            <div class="description">{{ description|raw }}</div>
+        {% endif %}
+        <div class="items-grid grid-view">
+            {% for category in data.model.categories %}
+                <div class="item {% if category.getId == current_entity.getId %}active{% endif %}">
+                    {% set name = get_entity_store_attribute(current_store_id,category,"name") %}
+                    <a href="{{ category.getUrlPath(current_store_id) }}" title="{{ name }}">
+                        <h3>{{ name }}</h3>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

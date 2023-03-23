@@ -1,0 +1,31 @@
+<div class="order-information success-page-content">
+    {% if data.model.order is defined and data.model.order is not empty %}
+        {% if get_env("ORDER_REQUEST_OFFER") == 1 %}
+            <h2>{% trans into current_language %}Thank you for your request{% endtrans %}!</h2>
+
+            {% if data.model.order.account.email is defined and data.model.order.account.email is not empty %}
+                <p>{% trans into current_language %}Confirmation e-mail is sent to{% endtrans %} <strong>{{ data.model.order.account.email }}</strong> {% trans into current_language %}with request details{% endtrans %}!</p>
+            {% endif %}
+        {% else %}
+            <h2>{% trans into current_language %}Thank you for your order{% endtrans %}!</h2>
+
+            <p>{% trans into current_language %}Your order number is{% endtrans %} <span class="order-code">{{ data.model.order.incrementId }}</span></p><br>
+
+            {% if data.model.order.account.email is defined and data.model.order.account.email is not empty %}
+                <p>{% trans into current_language %}Confirmation e-mail is sent to{% endtrans %} <strong>{{ data.model.order.account.email }}</strong> {% trans into current_language %}with order details{% endtrans %}!</p>
+            {% endif %}
+        {% endif %}
+
+
+        <p>{% trans into current_language %}You will be automatically redirected in{% endtrans %} <span data-timer="10" data-url="/">10</span> {% trans into current_language %}seconds{% endtrans %}.</p>
+
+        <p>
+            <a href="/" class="button btn-type-1">{% trans into current_language %}Back to store{% endtrans %}</a>
+        </p>
+
+        {# TRACKING #}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Tracking:purchase.html.twig', 'data': {'order': data.model.order}}, {})) }}
+    {% else %}
+        {{ include('ScommerceBusinessBundle:Components/Cart:cart_failure.html.twig', {'data': data}) }}
+    {% endif %}
+</div>

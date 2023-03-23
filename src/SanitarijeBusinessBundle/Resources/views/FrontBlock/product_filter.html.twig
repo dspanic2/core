@@ -1,0 +1,4 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} category-products product-filters {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+    <span class="responsive-close-filters overlay-close">×</span>
+    <div class="content">{% if data.model.filter_html is defined and data.model.filter_html is not empty %}{{ data.model.filter_html|raw }}{% endif %}</div>
+</div>

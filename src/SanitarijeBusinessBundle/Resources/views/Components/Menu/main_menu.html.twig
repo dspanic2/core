@@ -1,0 +1,38 @@
+{% macro renderMenu(menuItems, level = 1, class = "", offset = 0, limit = 0, parent) %}
+    {% set maxLevel = 3 %}
+    {% if level <= maxLevel %}
+        <ul class="{{ class }} level-{{ level }}">
+            {% if limit == 0 %}
+                {% set limit = menuItems|length %}
+            {% endif %}
+            {% for i in offset..limit %}
+                {% if menuItems[i] is defined %}
+                    {% set menu_item = menuItems[i] %}
+                    {% if menu_item.show == 1 and (menu_item.product_group is empty or menu_item.product_count > 0) %}
+                        <li {% if menu_item.css_class is not empty %}class="{{ menu_item.css_class }}"{% endif %}>
+                            {% if menu_item.menu_item_type == 1 %}
+                                <span title="{{ menu_item.text }}" class="{% if menu_item.children is defined and menu_item.children is not empty %}has-children{% endif %}">
+                                    {{ menu_item.text }}
+                                    {% if menu_item.children is defined and menu_item.children is not empty and level < maxLevel %}<span class="submenu-toggle-icon"></span>{% endif %}
+                                </span>
+                            {% else %}
+                                {% set url = current_language_url~"/"~menu_item.url %}
+                                <a href="{{ url|replace({ '//': '/' }) }}" title="{{ menu_item.text }}" class="{% if menu_item.children is defined and menu_item.children is not empty %}has-children{% endif %}">
+                                    {{ menu_item.text }}
+                                    {% if menu_item.children is defined and menu_item.children is not empty and level < maxLevel %}<span class="submenu-toggle-icon"></span>{% endif %}
+                                </a>
+                            {% endif %}
+
+                            {% if menu_item.children is defined and menu_item.children is not empty and level <= maxLevel %}
+                                {{ _self.renderMenu(menu_item.children,level+1,"submenu",0,0,menu_item) }}
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+<nav class="overlay">
+    {{ _self.renderMenu(menu,1,"main-menu",0,0) }}
+</nav>

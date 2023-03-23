@@ -1,0 +1,106 @@
+// Imports.
+@import "../../Global/variables";
+
+.sp-block-outer-dashboard_menu.dashboard-menu {
+  padding-top: 1rem;
+  @media only screen and (max-width: 991px) {
+    padding: 0 1rem !important;
+  }
+
+  #dashboard-menu-toggle {
+    display: none;
+    padding: 0;
+    font-size: 2rem;
+    text-align: center;
+
+    svg {
+      height: 30px !important;
+      width: auto;
+    }
+
+    @media only screen and (max-width: 991px) {
+      display: block;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .dashboard-account-menu-row {
+      display: block !important;
+    }
+  }
+  @media only screen and (max-width: 991px) {
+    .dashboard-account-menu-row {
+      display: none;
+    }
+  }
+
+  // Remove column padding
+  & > div > div {
+    padding: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul.level-1 {
+    & > li {
+      & > a {
+        color: $black;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-family: $font_primary;
+        font-size: calculateRem(17px);
+        padding: 15px 0 15px 48px;
+        @media(max-width: 1199px) {
+          padding: 15px 0 15px 15px;
+        }
+
+        &.user-logout-link {
+          color: $secondary_color;
+          border-top: 1px solid #D8D8D8;
+        }
+
+        &:hover {
+          color: $secondary_color;
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+          vertical-align: top;
+
+          * {
+            fill: $black;
+          }
+        }
+      }
+
+      ul {
+        padding-left: 60px;
+        @media(max-width: 1199px) {
+          padding-left: 20px;
+        }
+
+        a {
+          margin: 0;
+          padding: 0.3rem 1rem;
+          display: block;
+          color: #3d3c43;
+          font-family: $font_primary;
+          font-size: calculateRem(17px);
+          @media(max-width: 1199px) {
+            padding: 0.3rem;
+          }
+
+          &:hover {
+            color: $secondary_color;
+          }
+        }
+      }
+    }
+  }
+}

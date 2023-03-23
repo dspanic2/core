@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div id="wrap">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 min-100vh">
+            <div class="focusedform">
+                <div class="verticalcenter">
+                    {% set logo ="/backend/AppBundle/logo.png" %}
+                    {% if file_exists("logo.png") %}
+                        {% set logo ="/logo.png" %}
+                    {% endif %}
+                    <img src="{{ logo }}" alt="Logo" class="brand">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <h4 class="text-center" style="margin-bottom: 25px;">{% trans %}Reset Password{% endtrans %}</h4>
+                            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="form-horizontal" style="margin-bottom: 0px !important;">
+                                {% if invalid_username is defined %}
+                                    <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+                                {% endif %}
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" id="username" name="username" required="required" placeholder="{% trans %}Username{% endtrans %}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-green btn-block" type="submit" id="_submit" name="_submit">{% trans %}Send request{% endtrans %}</button>
+                            </form>
+
+                        </div>
+                        <div class="panel-footer">
+                            <div class="pull-left">
+                                <a href="{{ path('fos_user_security_login') }}" class="btn btn-default"><i class="fa fa-arrow-left"></i> {% trans %}Back{% endtrans %}</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="{{ path('fos_user_security_login') }}" class="btn btn-success">{% trans %}Next{% endtrans %} <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

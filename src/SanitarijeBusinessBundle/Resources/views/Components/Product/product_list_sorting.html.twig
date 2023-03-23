@@ -1,0 +1,63 @@
+{% if is_search is defined and is_search and keyword is defined and keyword is not empty %}
+    <div class="search-results-info">
+        <strong class="label">{% trans into current_language %}Search results for{% endtrans %}:</strong> {{ keyword }}
+    </div>
+{% endif %}
+
+<div class="category-list-sorting">
+    <div class="filters-toggler">
+        <span class="responsive-filters-toggle">Filtriranje{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:chevron_bottom.html.twig', 'data': {}}, {})) }}</span>
+
+        {% set pageSize = 0 %}
+        {% for size in page_size_options %}
+            {% if size.selected|default(false) %}
+                {% set pageSize = size.value %}
+            {% endif %}
+        {% endfor %}
+        <div class="results-info">{% trans into current_language %}Currently showing{% endtrans %} <span class="from">{{ 1 + pageSize * (page_number - 1) }}</span> - <span class="to">{% if pageSize*page_number > total|default(0) %}{{ total|default(0) }}{% else %}{{ pageSize*page_number }}{% endif %}</span> {% trans into current_language %}of{% endtrans %} <span class="total">{{ total|default(0) }}</span> rezultata</div>
+    </div>
+
+    {% if sort_options is defined and sort_options is not empty %}
+        <div class="item">
+            <div class="custom-dropdown sort-dropdown">
+                {% set defaultLabel = "" %}
+                {% set defaultSort = null %}
+                {% set options %}
+                    {% for option in sort_options %}
+                        {% set sortOptionName = get_entity_store_attribute(current_store_id,option.sortOption,"name") %}
+                        {% if option.selected %}
+                            {% set defaultLabel = sortOptionName %}
+                            {% set defaultSort = option.value %}
+                        {% endif %}
+                        <div data-value="{{ option.value }}" class="option local-overlay-toggle {% if option.selected %}activated{% endif %}">{{ sortOptionName }}</div>
+                    {% endfor %}
+                {% endset %}
+                <input type="hidden" name="product-sort-by" {% if defaultSort is not empty %}value="{{ defaultSort }}{% endif %}"/>
+                <div class="dropdown-open">{{ defaultLabel }}{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:chevron_bottom.html.twig', 'data': {}}, {})) }}</div>
+                <div class="dropdown-options">{{ options }}</div>
+            </div>
+        </div>
+    {% endif %}
+    {% if page_size_options is defined and page_size_options is not empty %}
+        <div class="item">
+            <div class="custom-dropdown num-items-dropdown">
+                {% set defaultLabel = "" %}
+                {% set defaultSize = "" %}
+                {% set options %}
+                    {% for option in page_size_options %}
+                        {% if option.value is defined %}
+                            {% if option.selected %}
+                                {% set defaultLabel = option.value %}
+                                {% set defaultSize = option.value %}
+                            {% endif %}
+                            <div data-value="{{ option.value }}" class="option local-overlay-toggle {% if option.selected %}activated{% endif %}">{{ option.value }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endset %}
+                <input type="hidden" name="product-num-items" {% if defaultSize is not empty %}value="{{ defaultSize }}{% endif %}"/>
+                <div class="dropdown-open">{{ defaultLabel }}{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:chevron_bottom.html.twig', 'data': {}}, {})) }}</div>
+                <div class="dropdown-options">{{ options }}</div>
+            </div>
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,77 @@
+imports:
+  - { resource: config.yml }
+
+framework:
+  router:
+    resource: "%kernel.root_dir%/config/routing_dev.yml"
+    strict_requirements: true
+  profiler: { only_exceptions: true }
+  session:
+    # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+    handler_id: session.handler.native_file
+    save_path: "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+  #cache:
+  #    # defaults to memcached://localhost
+  #    default_memcached_provider: "memcached://my.server.com:11211"
+  #        pools:
+  #            app.cache.products:
+  #                adapter: cache.adapter.memcached
+  #                public: true
+
+web_profiler:
+  toolbar: false
+  intercept_redirects: false
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver:
+#            type: memcached
+#            host: 127.0.0.1
+#            port: 11211
+#            instance_class: Memcached
+#        query_cache_driver:
+#            type: memcached
+#            host: 127.0.0.1
+#            port: 11211
+#            instance_class: Memcached
+#        result_cache_driver:
+#            type: memcached
+#            host: 127.0.0.1
+#            port: 11211
+#            instance_class: Memcached
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver:
+#            type: service
+#            id: redis_cache_service
+#        result_cache_driver:
+#            type: service
+#            id: redis_cache_service
+#        query_cache_driver:
+#            type: service
+#            id: redis_cache_service
+
+monolog:
+  handlers:
+    main:
+      type: stream
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: error
+      channels: [ !event ]
+    console:
+      type: console
+      channels: [ !event, !doctrine ]
+    # uncomment to get logging in your browser
+    # you may have to allow bigger header sizes in your Web server configuration
+    #firephp:
+    #    type:   firephp
+    #    level:  info
+    #chromephp:
+    #    type:   chromephp
+    #    level:  info
+
+#swiftmailer:
+#    delivery_address: me@example.com
+twig:
+  cache: false

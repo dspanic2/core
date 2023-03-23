@@ -1,0 +1,54 @@
+imports:
+    - { resource: config.yml }
+
+snc_redis:
+  doctrine:
+    metadata_cache:
+      client: doctrine
+      entity_manager: default
+      namespace: 'dmc:'
+    result_cache:
+      client: doctrine
+      entity_manager: default
+      namespace: 'drc:'
+    query_cache:
+      client: doctrine
+      entity_manager: default
+      namespace: 'dqc:'
+    second_level_cache:
+      client: doctrine
+      entity_manager: default
+      namespace: 'dslc:'
+  session:
+    client: session
+
+framework:
+    session:
+        handler_id: snc_redis.session.handler
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: error
+        console:
+            type:  console
+
+twig:
+    exception_controller: ScommerceBusinessBundle:Default:error
+
+doctrine:
+  orm:
+    entity_managers:
+      default:
+        second_level_cache:
+          region_cache_driver:
+            type: service
+            id: snc_second_level_cache
+          enabled: true
+          region_lifetime: 86400

@@ -1,0 +1,34 @@
+{% if data.page.description is defined and data.page.description is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} section category-description {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="panel-heading sp-frontend-edit-block-wrapper">
+                <div class="col-sm-12">
+                    <div class="options">
+                        <a href="http://core.madev.eu/page/s_front_block/form/{{ data.block.id }}"
+                           target="_blank" {# data-action="add-edit-front-block" #}
+                           class="sp-options-text sp-options-text-attribute-group sp-admin-button"
+                           data-id="{{ data.block.id }}" data-parent-id="" data-parent-type="" data-form-type="modal"
+                           data-url="{{ path('front_block_update_form') }}"><i
+                                    class="sp-icon sp-icon-edit sp-hover"></i>{% trans into current_language %}Edit{% endtrans %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-xs-12">
+                {% set title = get_entity_store_attribute(current_store_id,data.page,"name") %}
+                {% if facet_title is defined and facet_title is not empty %}
+                    <h1 data-original="{{ title }}">{{ facet_title }}</h1>
+                {% else %}
+                    <h1>{{ title }}</h1>
+                {% endif %}
+
+                {% set description = get_entity_store_attribute(current_store_id,data.page,"description") %}
+                {% if description is defined and description is not empty %}
+                    {{ description|raw }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

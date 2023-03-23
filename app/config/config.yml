@@ -1,0 +1,311 @@
+imports:
+  - { resource: parameters.yml }
+  - { resource: security.yml }
+  - { resource: services.yml }
+  - { resource: "@AppBundle/Resources/config/services.yml" }
+  - { resource: "@AppBundle/Resources/config/services_block.yml" }
+  - { resource: "@AppBundle/Resources/config/services_manager.yml" }
+  - { resource: "@AppBundle/Resources/config/services_data.yml" }
+  - { resource: "@AppBundle/Resources/config/services_entities.yml" }
+  - { resource: "@AppBundle/Resources/config/services_factory.yml" }
+  - { resource: "@AppBundle/Resources/config/services_listener.yml" }
+  - { resource: "@AppBundle/Resources/config/services_fields.yml" }
+  - { resource: "@CrmBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@CrmBusinessBundle/Resources/config/services_block.yml" }
+  - { resource: "@CrmBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@PaymentProvidersBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@NotificationsAndAlertsBusinessBundle/Resources/config/services_manager.yml" }
+  - { resource: "@NotificationsAndAlertsBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@HrBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@HrBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@TaskBusinessBundle/Resources/config/services_block.yml" }
+  - { resource: "@TaskBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@TaskBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@TaskBusinessBundle/Resources/config/services_manager.yml" }
+  - { resource: "@HrBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@ProjectManagementBusinessBundle/Resources/config/services_block.yml" }
+  - { resource: "@ProjectManagementBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@ProjectManagementBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@ScommerceBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@ScommerceBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@ScommerceBusinessBundle/Resources/config/services_block.yml" }
+  - { resource: "@ScommerceBusinessBundle/Resources/config/services_front_block.yml" }
+  - { resource: "@WikiBusinessBundle/Resources/config/services_block.yml" }
+  - { resource: "@WikiBusinessBundle/Resources/config/services_manager.yml" }
+  - { resource: "@WikiBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@ImageOptimizationBusinessBundle/Resources/config/services.yml" }
+  #- { resource: "@GLSBusinessBundle/Resources/config/services.yml" }
+  #- { resource: "@GLSBusinessBundle/Resources/config/services_listener.yml" }
+  - { resource: "@IntegrationBusinessBundle/Resources/config/services_manager.yml" }
+  - { resource: "@IntegrationBusinessBundle/Resources/config/services_block.yml" }
+  - { resource: "@ToursBusinessBundle/Resources/config/services_manager.yml" }
+  - { resource: "@ToursBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@SanitarijeAdminBusinessBundle/Resources/config/services_manager.yml" }
+  - { resource: "@SanitarijeBusinessBundle/Resources/config/services.yml" }
+  - { resource: "@SanitarijeBusinessBundle/Resources/config/services_manager.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+  locale: hr
+  session_max_idle_time: "%env(SESSION_TIME)%"
+
+framework:
+  #esi:             ~
+  translator: { fallbacks: [en] }
+  secret: "%secret%"
+  router:
+    resource: "%kernel.root_dir%/config/routing.yml"
+    strict_requirements: ~
+  form: ~
+  csrf_protection: ~
+  validation: { enable_annotations: true }
+  serializer: { enable_annotations: true }
+  templating:
+    engines: ["twig"]
+  default_locale: hr
+  trusted_hosts: ~
+  trusted_proxies: ~
+  session:
+    # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+    use_cookies: true
+    cookie_lifetime: "%env(SESSION_TIME)%"
+    #%kernel.environment%"
+  fragments: ~
+  http_method_override: true
+  assets: ~
+
+# Twig Configuration
+twig:
+  debug: "%kernel.debug%"
+  strict_variables: "%kernel.debug%"
+  paths:
+    "%kernel.root_dir%/../src/SanitarijeBusinessBundle/Resources/views": sanitarije
+    "%kernel.root_dir%/../src/ScommerceBusinessBundle/Resources/views": scommerce
+  #paths:
+  #    '%kernel.root_dir%/../src/NewsletterBusinessBundle/Resources/views': newsletter
+  globals:
+    assets_version: "%assets_version%"
+    languages: ""
+    current_language: ""
+    current_language_url: ""
+    current_store_id: ""
+    current_website_id: ""
+    current_website_name: ""
+    is_pagespeed: false
+    current_entity: null
+  #    web_dir: "%kernel.base_url%/../web"
+  #exception_controller: ScommerceBusinessBundle:Default:error
+
+# Doctrine Configuration
+doctrine:
+  dbal:
+    default_connection: default
+    connections:
+      default:
+        driver: pdo_mysql
+        host: "%database_host%"
+        port: "%database_port%"
+        dbname: "%database_name%"
+        user: "%database_user%"
+        password: "%database_password%"
+        #charset: utf8mb4
+        #collate: utf8mb4_unicode_ci
+        default_table_options:
+          charset: utf8mb4
+          collate: utf8mb4_unicode_ci
+      dynamic_conn:
+        dbname: ~
+        user: ~
+        password: ~
+        host: localhost
+    #charset: utf8mb4
+
+  orm:
+    auto_generate_proxy_classes: true
+    default_entity_manager: default
+    entity_managers:
+      default:
+        connection: default
+        auto_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        dql:
+          string_functions:
+            MONTH: DoctrineExtensions\Query\Mysql\Month
+            YEAR: DoctrineExtensions\Query\Mysql\Year
+            COLLATE: AppBundle\DoctrineExtensions\Query\Mysql\CollateFunction
+            JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
+            JSON_SEARCH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch
+            JSON_EXTRACT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonExtract
+            JSON_UNQUOTE: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonUnquote
+        #metadata_cache_driver:
+        #    type: memcached
+        #    host: 127.0.0.1
+        #    port: 11211
+        #    instance_class: Memcached
+        #query_cache_driver:
+        #    type: memcached
+        #    host: 127.0.0.1
+        #    port: 11211
+        #    instance_class: Memcached
+        #result_cache_driver:
+        #    type: memcached
+        #    host: 127.0.0.1
+        #    port: 11211
+        #    instance_class: Memcached
+      #dynamic_em:
+      #    connection:       dynamic_conn
+      #    auto_mapping:     false
+      #    naming_strategy: doctrine.orm.naming_strategy.underscore
+      #    dql:
+      #            string_functions:
+      #                MONTH: DoctrineExtensions\Query\Mysql\Month
+      #                YEAR: DoctrineExtensions\Query\Mysql\Year
+
+# Swiftmailer Configuration
+swiftmailer:
+  transport: "%mailer_transport%"
+  host: "%mailer_host%"
+  username: "%mailer_user%"
+  password: "%mailer_password%"
+  spool: { type: memory }
+
+services:
+  app.twig.extension:
+    class: AppBundle\Twig\Extension\AppExtension
+    public: false
+    tags:
+      - { name: twig.extension }
+    arguments:
+      - "@Twig.loader"
+  vars.twig.extension:
+    class: AppBundle\Twig\Extension\VarsExtension
+    public: false
+    tags:
+      - { name: twig.extension }
+    arguments:
+      - "@service_container"
+  acme.twig.extension.loader:
+    class: Twig_Extension_StringLoader
+    tags:
+      - { name: "twig.extension" }
+
+#FOS USER BUNDLE - DAVOR
+fos_user:
+  db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+  firewall_name: main
+  user_class: AppBundle\Entity\UserEntity
+  from_email:
+    address: "%env(FROM_MAIL)%"
+    sender_name: "%env(FROM_MAIL)%"
+  registration:
+    confirmation:
+      enabled: true
+      template: FOSUserBundle:Registration:email.txt.twig
+
+#PDF
+knp_snappy:
+  pdf:
+    enabled: true
+    binary: /usr/local/bin/wkhtmltopdf
+    options:
+      - { name: "viewport-size", value: ‘1024x768’ }
+      - { name: "page-size", value: "A4" }
+
+
+
+monolog:
+  handlers:
+    main:
+      type: fingers_crossed
+      action_level: error
+      handler: grouped_main
+
+
+
+    # Groups
+    grouped_main:
+      type: group
+      members: [ streamed_main ]
+
+    # Streams
+    streamed_main:
+      type: stream
+      path: %kernel.logs_dir%/%kernel.environment%.log
+      level: error
+
+
+# 2FA (@see https://github.com/scheb/two-factor-bundle)
+scheb_two_factor:
+  # Trusted computer feature
+  trusted_computer:
+    enabled: false # If the trusted computer feature should be enabled
+    cookie_name: trusted_computer # Name of the trusted computer cookie
+    cookie_lifetime: 5184000 # Lifetime of the trusted computer cookie
+    cookie_secure: false # Set the 'Secure' (HTTPS Only) flag on the trusted_computer cookie
+    cookie_same_site: "lax" # The same-site option of the cookie, can be "lax" or "strict"
+
+  # Regex pattern of paths you want to exclude from two-factor authentication.
+  # Useful to exclude Assetic paths or other files from being blocked.
+  # Example: ^/(css|js|images)/
+  exclude_pattern: ^/(css|js|images)/
+
+  # POST/GET parameter names
+  parameter_names:
+    auth_code: _auth_code # Name of the parameter containing the authentication code
+    trusted: _trusted # Name of the parameter containing the trusted flag
+
+  # Google Authenticator config
+  # GA app will show the following label once the QR is scanned: "issuer (USERNAME@server_name)"
+  # A simple example: issuer "Shape CRM", server_name "admin.mysite.com", username "partner" will give:
+  # "Shape CRM (partner@admin.mysite.com)"
+  google:
+    enabled: true # If Google Authenticator should be enabled, default false
+    server_name: "%env(GAUTH_NAME)%" # Server name used in QR code
+    issuer: "%env(GAUTH_NAME)%" # Issuer name used in QR code
+    template: SchebTwoFactorBundle:Authentication:form.html.twig # Template used to render the authentication form
+    # template: FOSUserBundle:Security:dela.html.twig   # Template used to render the authentication form
+
+  # The service which is used to persist data in the user object. By default Doctrine is used. If your entity is
+  # managed by something else (e.g. an API), you have to implement a custom persister
+  persister: scheb_two_factor.persister.doctrine
+
+  # If your Doctrine user object is managed by a model manager, which is not the default one, you have to
+  # set this option. Name of entity manager or null, which uses the default one.
+  model_manager_name: ~
+
+  # The security token classes, which trigger two-factor authentication.
+  # By default the bundle only reacts to Symfony's username+password authentication. If you want to enable
+  # two-factor authentication for other authentication methods, add their security token classes.
+  security_tokens:
+    - Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+
+  # A list of IP addresses, which will not trigger two-factor authentication
+  ip_whitelist:
+    - 127.1.1.1
+
+snc_redis:
+
+  clients:
+    cache:
+      type: predis
+      alias: cache
+      dsn: redis://10.100.2.201:9002/%redis_cache_db%
+      options:
+        profile: 2.2
+        connection_timeout: 10
+        read_write_timeout: 30
+    default:
+      type: predis
+      alias: default
+      dsn: redis://10.100.2.201:9002/%redis_cache_db%
+      logging: '%kernel.debug%'
+    session:
+      type: predis
+      alias: session
+      dsn: redis://10.100.2.201:9002/%redis_cache_db%
+    doctrine:
+      type: predis
+      alias: doctrine
+      dsn: redis://10.100.2.201:9002/%redis_cache_db%
+      logging: '%kernel.debug%'

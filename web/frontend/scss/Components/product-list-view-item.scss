@@ -1,0 +1,14 @@
+// Imports.
+@import "../Global/variables";
+
+.items-grid.grid-view.list-view .product-display-grid.item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  width: 100%;
+  border-right: 0 none;
+
+  &:hover {
+    transform: none !important;
+  }
+
+}

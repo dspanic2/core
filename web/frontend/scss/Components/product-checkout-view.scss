@@ -1,0 +1,85 @@
+// Imports.
+@import "product-checkout-view-item";
+
+.items-grid.checkout-view {
+  display: block !important;
+  margin-top: 15px;
+  margin-bottom: 50px;
+  padding: 0 !important;
+
+  &.disabled {
+    input {
+      pointer-events: none !important;
+    }
+  }
+
+  .checkout-list-headers {
+    width: 100%;
+    font-family: $font_primary;
+    font-stretch: normal;
+    letter-spacing: normal;
+    font-style: normal;
+    font-weight: normal;
+    font-size: calculateRem(12px);
+    line-height: 17px;
+    color: #ccc;
+    margin-bottom: 15px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 120px) minmax(0, 100%) minmax(0, 300px) minmax(0, 200px) minmax(0, 80px);
+    flex-direction: row;
+
+    @media only screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  .items-remove-row {
+    margin-top: 15px;
+    text-align: right;
+
+    .items-remove-all {
+      font-size: calculateRem(13px);
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $black;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      padding-right: 20px;
+      @media(max-width: 767px) {
+        padding-right: 0;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        background: #ccc;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        vertical-align: middle;
+
+        &:hover {
+          background: #fff;
+        }
+
+        svg {
+          width: 15px;
+
+          * {
+            fill: #ccc;
+          }
+        }
+      }
+    }
+  }
+}

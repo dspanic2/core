@@ -1,0 +1,7 @@
+<div class="lowest-price">
+    <span class="lowest-label">{% trans into current_language %}Lowest price in last 30 days{% endtrans %}:</span>
+    <div class="price">
+        <span class="price-value">{{ prices.lowest_price|number_format(2, ',', '.') }} {{ prices.currency_code }}</span>
+        <span class="price-value">{{ convert_price(prices.lowest_price, current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2, ',', '.') }} {{ get_env("TRANSFER_TO_CURRENCY_SIGN") }}</span>
+    </div>
+</div>

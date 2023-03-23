@@ -1,0 +1,50 @@
+{% if data.model.slider is defined and data.model.slider.getImages() is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if is_granted('ROLE_ADMIN') %}is_admin{% endif %}" {{ data.block.dataAttributes }}>
+        <div class="slider">
+            {% for slide in data.model.slider.getImages() %}
+                <div class="slide">
+                    {% if slide.getMobileImage is defined and slide.getMobileImage is not empty %}
+                        <picture>
+                            <source media="(max-width: 767px)" srcset="{{ ("/Documents/slider_image/" ~ slide.getMobileImage)|image_style("width_767") }}">
+                            <source media="(min-width: 768px)" srcset="{{ ("/Documents/slider_image/" ~ slide.getFile)|image_style("width_3000") }}">
+                            <img src="{{ ("/Documents/slider_image/" ~ slide.getFile)|image_style("width_3000") }}" alt="{{ slide.name }}">
+                        </picture>
+                    {% else %}
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                            'image': slide.getFile,
+                            'directory':'slider_image',
+                            'image_style': 'width_3000',
+                            'lazyload': 0,
+                            'alt_default': slide.name
+                        }}, {})) }}
+                    {% endif %}
+                    <div class="slide-content container">
+                        <div class="slide-content-inner">
+                            {% set subtitle = slide.subtitle %}
+                            {% if subtitle is not empty %}
+                                <div class="slide-subtitle">{{ slide.subtitle|raw }}</div>
+                            {% endif %}
+                            <div class="slide-title">{{ slide.title|raw }}</div>
+                            {% set url = slide.url %}
+                            {% if url is not empty %}
+                                <a href="{{ url }}"
+                                   title="{{ slide.name }}"
+                                   data-id="{{ slide.getId }}"
+                                   data-name="{{ slide.name }}"
+                                   data-index="{{ loop.index-1 }}"
+                                   class="button btn-type-3">
+                                    <span>Saznaj više</span>{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:arrow_right_long.html.twig', 'data': {}}, {})) }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {# TRACKING #}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Tracking:promotionView.html.twig', 'data': {
+            "slider": data.model.slider,
+        }}, {})) }}
+    </div>
+{% endif %}

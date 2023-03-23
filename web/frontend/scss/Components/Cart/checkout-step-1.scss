@@ -1,0 +1,104 @@
+// Imports.
+@import "../../Global/variables";
+
+.cart-content {
+  padding-bottom: 0 !important;
+}
+
+#cart-step-1 {
+  display: block;
+
+  .form-note {
+    color: $primary_font_color;
+  }
+
+  .cart-discount-title {
+    pointer-events: none;
+    font-family: $font_primary;
+    font-size: calculateRem(20px);
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    position: relative;
+    margin-bottom: 25px;
+    cursor: pointer;
+    @media(max-width: 767px) {
+      text-align: right;
+    }
+
+    svg {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      @media(max-width: 767px) {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        vertical-align: sub;
+      }
+
+      * {
+        fill: #d47691;
+      }
+    }
+  }
+
+  .cart-discount {
+    @media(max-width: 767px) {
+      text-align: right;
+      margin: 10px 0;
+
+      .cart-discount-inner {
+        display: inline-block;
+
+        .coupon-note {
+          float: left;
+        }
+      }
+    }
+
+    form {
+      @media(max-width: 767px) {
+        white-space: nowrap;
+        display: grid;
+        grid-template-columns: minmax(0, 100%) minmax(0, 100px);
+      }
+
+      input {
+        height: 45px;
+      }
+
+      input[name="discount_coupon_name"] {
+        padding: 10px 108px 10px 15px;
+        border: solid 1px #c5c3ba;
+        background-color: #fff;
+        vertical-align: top;
+        height: 45px;
+        @media(max-width: 767px) {
+          padding: 10px;
+        }
+      }
+
+      @media(max-width: 767px) {
+        .button {
+          font-size: 12px;
+          padding: 10px;
+        }
+      }
+    }
+
+    .coupon-note {
+      font-size: calculateRem(12px);
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #8e8e8e;
+    }
+  }
+}

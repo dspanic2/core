@@ -1,0 +1,251 @@
+{% set body %}{% block body %}{% endblock %}{% endset %}
+<!DOCTYPE html>
+<html lang="{{ current_language }}">
+<head>
+
+    {% if is_pagespeed is not defined or not is_pagespeed %}
+        {% set cconsent = app.request.cookies.get('cconsent')|json_decode %}
+        {% if cconsent and cconsent is not empty %}
+        {% else %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components:cookie_consent_configuration.html.twig', 'data': {}}, {})) }}
+        {% endif %}
+
+        {% if get_env("IS_PRODUCTION") == 1 %}
+            {% if get_env("SEND_GTAG_EVENTS") == 1 %}
+                <!-- Google Tag Manager -->
+                <script>(function (w, d, s, l, i) {
+                        w[l] = w[l] || [];
+                        w[l].push({
+                            'gtm.start':
+                                new Date().getTime(), event: 'gtm.js'
+                        });
+                        var f = d.getElementsByTagName(s)[0],
+                            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                        j.async = true;
+                        j.src =
+                            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                        f.parentNode.insertBefore(j, f);
+                    })(window, document, 'script', 'dataLayer', 'GTM-MSQL53S');</script>
+                <!-- End Google Tag Manager -->
+            {% endif %}
+            {% if get_env("SEND_FBQ_EVENTS") == 1 %}
+            {% endif %}
+        {% endif %}
+
+        {# TRACKING #}
+        {% set globalTrackingData = get_global_tracking_data() %}
+        {% if globalTrackingData is not empty %}
+            {% for trackingdataItem in globalTrackingData %}
+                {{ trackingdataItem|raw }}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>
+        {% block title %}
+            {{ data.site_base_data.site_base_name }}
+        {% endblock %}
+    </title>
+    <meta http-equiv="content-language" content="{{ current_language }}">
+    {% if languages is not empty %}
+        {% for key,language_id in languages %}
+            {% set alt_url = get_entity_store_attribute(language_id,data.page,"url") %}
+            {% if alt_url == "/" %}
+                <link rel="alternate" href="{{ data.site_base_data.site_base_url }}{{ key }}/" hreflang="{{ key }}"/>
+            {% elseif alt_url is not empty %}
+                <link rel="alternate" href="{{ data.site_base_data.site_base_url }}{{ key }}/{{ alt_url }}"
+                      hreflang="{{ key }}"/>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <meta name="description" content="{% block meta_description %}{{ data.site_base_data.site_base_name }}{% endblock %}">
+    <meta name="title" content="{% block meta_title %}{{ data.site_base_data.site_base_name }}{% endblock %}">
+    {% if (data.page.doNotIndex is defined and data.page.doNotIndex == 1) or get_env("IS_PRODUCTION")|default(0) != 1 %}
+        <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+    {% block og_data %}{% endblock %}
+    {% block tw_data %}{% endblock %}
+    {% block canonical %}{% endblock %}
+
+    {% set csses = [
+        '/frontend/js/leaflet/leaflet.min.css',
+        '/frontend/js/leaflet-fullscreen/leaflet.fullscreen.min.css',
+        '/frontend/js/slick/slick.min.css',
+        '/frontend/js/slick/slick-theme.min.css',
+        '/frontend/js/slick-lightbox/dist/slick-lightbox.min.css'
+    ] %}
+    {% for css in csses %}
+        <link rel="preload" type="text/css" href="{{ css }}?{{ assets_version }}" as="style">
+        <link rel="stylesheet" type="text/css" href="{{ css }}?{{ assets_version }}">
+    {% endfor %}
+
+    {% set cssesmerge = [
+        '/frontend/js/growler/jquery.growl.min.css',
+        '/frontend/js/form-daterangepicker/daterangepicker.min.css',
+        '/frontend/js/jquery_confirm/css/jquery-confirm.min.css',
+        '/frontend/js/air-datepicker/css/datepicker.min.css',
+        '/frontend/js/jquery-responsive-tabs/css/responsive-tabs.min.css',
+        '/frontend/js/price-range/price_range_style.min.css',
+        '/frontend/js/jquery/jquery-ui.min.css',
+        '/frontend/js/jquery/countdown/assets/countdown/jquery.countdown.css',
+        '/frontend/css/style.css'
+    ] %}
+    {% if get_env("IS_PRODUCTION") == 1 %}
+        <link rel="preload" type="text/css" href="{{ merge_files(cssesmerge,'/frontend/builds/css/',current_entity.getTemplateType.getCode ~ '_css.css') }}" as="style">
+        <link rel="stylesheet" type="text/css" href="{{ merge_files(cssesmerge,'/frontend/builds/css/',current_entity.getTemplateType.getCode ~ '_css.css') }}">
+    {% else %}
+        {% for css in cssesmerge %}
+            <link rel="preload" type="text/css" href="{{ css }}?{{ assets_version }}" as="style">
+            <link rel="stylesheet" type="text/css" href="{{ css }}?{{ assets_version }}">
+        {% endfor %}
+    {% endif %}
+
+    <link rel="preload" href="/frontend/js/slick/fonts/slick.woff" as="font" type="font/woff" crossorigin>
+
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:base_mobile_icons.html.twig', 'data': {}}, {})) }}
+</head>
+<body class="ecshape page-{{ data.page.templateType.code|default("unknown") }} {% block body_class %}{% endblock %} {% if get_is_admin(app.user) %}is-admin{% endif %}" {% if get_env('VALIDATE_RECAPTCHA') == 1 %}data-recaptcha-site-key="{{ get_env("GOOGLE_RECAPTCHA_V3_KEY_FRONT") }}"{% endif %} data-search-length="{{ get_env('MIN_SEARCH_LENGTH')|default(2) }}">
+{% if is_pagespeed is not defined or not is_pagespeed %}
+    {% if get_env("IS_PRODUCTION") == 1 %}
+        {% if get_env("SEND_GTAG_EVENTS") == 1 %}
+            <!-- Google Tag Manager (noscript) -->
+            <noscript>
+                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSQL53S" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+            </noscript>
+            <!-- End Google Tag Manager (noscript) -->
+        {% endif %}
+        {% if get_env("SEND_FBQ_EVENTS") == 1 %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "url": "{{ data.site_base_data.site_base_url }}",
+    "image":"{{ data.site_base_data.site_base_url }}{{ data.site_base_data.site_base_image }}",
+    "logo": "{{ data.site_base_data.site_base_url }}{{ data.site_base_data.site_base_logo }}",
+    "email": "{{ data.site_base_data.site_base_contact }}",
+    "address": {
+        "@type": "PostalAddress",
+        "addressCountry" : "{{ data.site_base_data.site_base_addressCountry }}",
+        "addressLocality": "{{ data.site_base_data.site_base_addressLocality }}",
+        "postalCode":"{{ data.site_base_data.site_base_postalCode }}",
+        "streetAddress": "{{ data.site_base_data.site_base_streetAddress }}"
+    },
+    "description": "{{ data.site_base_data.site_base_description }}",
+    "name": "{{ data.site_base_data.site_base_companyName }}",
+    "telephone": "{{ data.site_base_data.site_base_telephone }}",
+    "openingHours":["{{ data.site_base_data.site_base_openingHours }}"],
+    "priceRange": "{{ data.site_base_data.site_base_priceRange }}"
+}
+
+
+
+
+
+
+
+
+</script>
+
+{{ body|raw }}
+
+{% if is_pagespeed is not defined or not is_pagespeed %}
+    <div>
+        <div id="ajax-loading" class="overlay ajax-overlay">
+            <span></span>
+        </div>
+
+        {{ render(controller('ScommerceBusinessBundle:Cart:getMiniCart', {}, {})) }}
+        {#        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:search_autocomplete_overlay.html.twig', 'data': {'data': data}}, {})) }} #}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Popup:general_contact_popup.html.twig', 'data': {'data':data}}, {})) }}
+
+        <div id="inquiry-form-overlay" class="overlay fixed-form custom-overlay">
+            <div class="inner">
+                <span class="overlay-close">×</span>
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form:inquiry_form.html.twig', 'data': {}}, {})) }}
+            </div>
+        </div>
+
+        {% if not is_granted('ROLE_USER') %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Popup:favorite_form_popup.html.twig', 'data': {}}, {})) }}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Popup:login_form_popup.html.twig', 'data': {'data':data}}, {})) }}
+        {% endif %}
+
+        {% if app.session.get('account') is defined and app.session.get('account') is not empty %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Popup:account_menu_popup.html.twig', 'data': {'data':data}}, {})) }}
+        {% endif %}
+
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:translation.html.twig', 'data': {'data': data}}, {})) }}
+
+        {% if get_env("SHOW_AVAILABILITY_REMINDER")|default(0) %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Form:remind_me_available_form.html.twig', 'data': {}}, {})) }}
+        {% endif %}
+    </div>
+{% endif %}
+
+{% set javascripts = [
+    '/frontend/js/jquery/jquery-3.6.0.min.js',
+    '/frontend/js/jquery/jquery-ui.min.js',
+    '/frontend/js/jquery/jquery.ui.touch-punch.min.js',
+    '/frontend/js/price-range/price_range_script.min.js',
+    '/frontend/js/jquery/select2.full.min.js',
+    '/frontend/js/jquery/jquery.growl.min.js',
+    '/frontend/js/jquery/countdown/assets/countdown/jquery.countdown.js',
+    '/frontend/js/air-datepicker/js/datepicker.min.js',
+    '/frontend/js/blazy/blazy.min.js',
+    '/frontend/js/slick/slick.min.js',
+    '/frontend/js/slick-lightbox/dist/slick-lightbox.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/customFunctions.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/formHandler.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/dashboard.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/general.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/cart.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/productList.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/product.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/checkout.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/newsList.min.js',
+    '/backend/ScommerceBusinessBundle/frontend/js/tracking.min.js',
+] %}
+{% for js in data.page.templateType.javascripts|json_decode|default([]) %}
+    {% set javascripts = javascripts|merge(['/frontend/js/' ~ js ~'.min.js']) %}
+{% endfor %}
+
+{% set javascripts = javascripts|merge(['/frontend/js/custom.min.js']) %}
+
+{% if get_env("IS_PRODUCTION") == 1 %}
+    <script src="{{ merge_files(javascripts,'/frontend/builds/js/',current_entity.getTemplateType.getCode ~ '_javascript.js') }}"></script>
+{% else %}
+    {% for js in javascripts %}
+    <script src="{{ js }}?{{ assets_version }}"></script>
+    {% endfor %}
+{% endif %}
+
+<script>
+    var globals = {};
+    globals.favorites = [];
+    {% if app.session.get('favorites_product_ids') is defined and app.session.get('favorites_product_ids') is not empty %}
+    globals.favorites = [{{ app.session.get('favorites_product_ids')|join(",") }}];
+    (globals.favorites).forEach(function (productId, index) {
+        var activeFavorites = document.querySelectorAll('.add-to-favorite[data-pid="' + productId + '"]');
+        for (var i = 0; i < activeFavorites.length; i++) {
+            activeFavorites[i].classList.add('active');
+            activeFavorites[i].dataset.activeTitle = "{{ "Add to favorites"|trans }}";
+            activeFavorites[i].setAttribute('title', "{{ "Remove from favorites"|trans }}");
+        }
+    });
+    {% endif %}
+</script>
+
+{% if is_pagespeed is not defined or not is_pagespeed %}
+    <script async src="https://www.google.com/recaptcha/api.js?render={{ get_env("GOOGLE_RECAPTCHA_V3_KEY_FRONT") }}"></script>
+{% endif %}
+
+{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:page_administration.html.twig', 'data': {'data': data}}, {})) }}
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% if data.model.brands is defined and data.model.brands is not empty and data.model.brands["entities"]|default([]) is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}">
+        <div class="container">
+            <div class="items">
+                {% for brand in data.model.brands["entities"] %}
+                    <a href="{{ get_page_url(current_store_id,51,"s_page") }}?s=1&brand={{ get_entity_store_attribute(current_store_id,brand,"name") }}"
+                       class="item"
+                       title="{{ get_entity_store_attribute(current_store_id,brand,"name") }}">
+                        {% if brand.getSelectedImage() is not empty %}
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                'image': brand.getSelectedImage,
+                                'directory':'brand_image',
+                                'image_style': '',
+                                'lazyload': 0,
+                                'alt_default': get_entity_store_attribute(current_store_id,brand,"name")
+                            }}, {})) }}
+                        {% else %}
+                            {{ get_entity_store_attribute(current_store_id,brand,"name") }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

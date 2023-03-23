@@ -1,0 +1,34 @@
+<div class="items-grid checkout-view {% if not editable %}disabled{% endif %}">
+    <div class="checkout-list-headers">
+        <div class="product-header">{% trans into current_language %}Product{% endtrans %}</div>
+        <div class="price-header">{% trans into current_language %}Product price{% endtrans %}</div>
+        <div class="amount-header">{% trans into current_language %}Quantity{% endtrans %}</div>
+        <div class="price-header">{% trans into current_language %}Amount{% endtrans %}</div>
+        <div class="remove-header"></div>
+    </div>
+    {% if editable %}
+        <div class="items-remove-row">
+            <div class="items-remove-all text-right">{% trans into current_language %}Remove all products{% endtrans %} {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:remove.html.twig', 'data': {}}, {})) }}</div>
+        </div>
+    {% endif %}
+    <div class="items">
+        {% set gifts = [] %}
+        {% for quoteItem in quoteItems %}
+            {% if quoteItem.parentItem is empty %}
+                {% set product = quoteItem.product %}
+                {% if product is defined and product is not empty %}
+                    {% if product.getIsGift %}
+                        {% set gifts = gifts|merge([quoteItem]) %}
+                    {% else %}
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_cart_overview_item.html.twig', 'data': {'quoteItem': quoteItem, 'editable': editable, 'data': data}}, {})) }}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if gifts is not empty %}
+            {% for giftQuoteItem in gifts %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_cart_overview_gift_item.html.twig', 'data': {'quoteItem': giftQuoteItem}}, {})) }}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

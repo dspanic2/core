@@ -1,0 +1,63 @@
+// Imports.
+@import "../Global/variables";
+
+.blog-item {
+  .image {
+    margin-bottom: 25px;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 324px;
+      object-fit: cover;
+      object-position: center;
+      @media(max-width: 550px) {
+        height: auto;
+      }
+    }
+
+    .date {
+      background: $primary_color;
+      padding: 10px;
+      border-radius: 2px;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      left: 15px;
+      bottom: -15px;
+
+      .day {
+        font-size: 26px;
+        line-height: 32px;
+      }
+
+      .day {
+        font-size: 14px;
+        line-height: 17px;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .info {
+    h2 {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 40px;
+      color: #3B3B3D;
+      margin: 0 0 11px 0;
+    }
+
+    .description {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 25px;
+      color: #141313;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{% if data.page.name is defined and data.page.name is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}">
+        <div class="row">
+            <h1>{{ get_entity_store_attribute(current_store_id,data.page,"name")|raw }}</h1>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,121 @@
+// Imports.
+@import "../Global/variables";
+
+.sp-block-outer-quick_order {
+  #quick-order {
+    margin: 0 -15px;
+
+    .actions {
+      display: grid;
+      grid-template-columns: minmax(0, 100%) minmax(0, 100px) minmax(0, 32px) minmax(0, 20px);
+      gap: 5px;
+      align-items: center;
+
+      .total {
+        text-align: right;
+      }
+    }
+  }
+
+  .quick-order-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 100%) minmax(0, 100px) minmax(0, 32px) minmax(0, 20px);
+    gap: 5px;
+    align-items: center;
+    @media(max-width: 450px) {
+      grid-template-columns: minmax(0, 100%) minmax(0, 70px) minmax(0, 30px) minmax(0, 20px);
+      * {
+        font-size: calculateRem(14px) !important;
+      }
+    }
+
+    .product-select {
+      padding: 0;
+      position: unset;
+    }
+
+    [name="qty"] {
+      text-align: center;
+
+      &[disabled] {
+        color: transparent;
+      }
+    }
+
+    .remove {
+      width: 30px;
+      height: 30px;
+      line-height: 25px;
+      text-align: center;
+      font-size: 25px;
+      color: $secondary_color;
+      display: none;
+      cursor: pointer;
+    }
+  }
+
+  .quick-order-search-item {
+    position: unset;
+
+    img {
+      max-height: 100px;
+    }
+  }
+
+  .results-autocomplete-wrapper {
+    .items-grid.grid-view.list-view {
+      padding: 2px;
+
+      #no-results {
+        padding: 10px;
+      }
+
+      .product-display-grid {
+        cursor: pointer;
+        margin: 0 !important;
+
+        .labels-left,
+        .labels-right,
+        .cart,
+        .product-display-grid-image,
+        .product-display-grid-image::after {
+          display: none !important;
+        }
+
+        &:hover {
+          box-shadow: none !important;
+          outline: 1px solid $secondary_color;
+        }
+
+        display: block;
+
+        .product-info {
+          padding: 10px;
+
+          h3 {
+            margin: 0;
+
+            a {
+              padding: 0;
+              height: auto;
+            }
+          }
+
+          .price {
+            margin: 0;
+
+            .price-regular {
+              font-size: unset;
+              line-height: normal;
+            }
+
+            .price-value {
+              font-size: calculateRem(14px);
+            }
+          }
+        }
+      }
+    }
+  }
+}

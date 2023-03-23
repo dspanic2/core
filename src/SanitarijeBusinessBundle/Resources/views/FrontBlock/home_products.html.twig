@@ -1,0 +1,47 @@
+{% if data.model.products is defined and data.model.products is not empty and data.model.products.entities is defined and data.model.products.entities is not empty %}
+    <div class="{% if get_is_admin(app.user) %}is-admin{% endif %} sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }} {% if not data.block.getActiveIncludingDates %}inactive{% endif %}" {{ data.block.dataAttributes }}>
+        {% if get_is_admin(app.user) %}
+            <div class="panel-heading sp-frontend-edit-block-wrapper">
+                <div class="options">
+                    <a href="{{ get_env("SSL") }}://{{ get_env("BACKEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/page/s_front_block/form/{{ data.block.id }}" target="_blank">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:edit.html.twig', 'data': {}}, {})) }}
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="section-title">{{ data.model.subtitle }}</div>
+            </div>
+        </div>
+        <div class="row">
+            {% apply spaceless %}
+                <div class="col-xs-12 items-grid">
+                    {% for product in data.model.products.entities %}
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_list_item.html.twig', 'data': {'product': product}}, {})) }}
+                    {% endfor %}
+                </div>
+            {% endapply %}
+        </div>
+        {% if data.model.show_more is defined and data.model.show_more is not empty %}
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    {% if data.model.show_more.url == '/' %}
+                        {% set url = '' %}
+                    {% else %}
+                        {% set url = data.model.show_more.url %}
+                    {% endif %}
+                    <a href="{{ url }}" class="button gray" title="{{ data.model.show_more.title }}">{{ data.model.show_more.title }}</a>
+                </div>
+            </div>
+        {% endif %}
+
+        {# TRACKING #}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Tracking:productImpressions.html.twig', 'data': {
+            "products": data.model.products.entities,
+            "item_list_name": data.model.subtitle|default("")|striptags,
+            "item_list_id": data.block.getId
+        }}, {})) }}
+    </div>
+{% endif %}

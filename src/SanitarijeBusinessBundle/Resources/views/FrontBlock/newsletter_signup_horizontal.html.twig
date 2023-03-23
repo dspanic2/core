@@ -1,0 +1,60 @@
+<div class="{% if get_is_admin(app.user) %}is-admin{% endif %} sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    {% if get_is_admin(app.user) %}
+        <div class="panel-heading sp-frontend-edit-block-wrapper">
+            <div class="options">
+                <a href="{{ get_env("SSL") }}://{{ get_env("BACKEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/page/s_front_block/form/{{ data.block.id }}"
+                   target="_blank" {# data-action="add-edit-front-block" #}
+                   class="sp-options-text sp-options-text-attribute-group sp-admin-button" data-id="{{ data.block.id }}"
+                   data-parent-id="" data-parent-type="" data-form-type="modal"
+                   data-url="{{ path('front_block_update_form') }}">
+                    <svg role="img"
+                         xmlns="http://www.w3.org/2000/svg"
+                         width="1000mm"
+                         height="1000mm"
+                         viewBox="0 0 1000 1000"
+                         style="max-width:1.6em; height: auto;">
+                        <path
+                                id="path"
+                                style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;"
+                                d=" M 792 267C 801 276 801 292 792 302C 792 302 756 337 756 337C 756 337 650 231 650 231C 650 231 686 196 686 196C 695 186 711 186 721 196C 721 196 792 267 792 267M 721 373C 721 373 420 673 420 673C 420 673 314 567 314 567C 314 567 615 267 615 267C 615 267 721 373 721 373M 385 708C 385 708 367 726 367 726C 364 730 359 732 355 733C 355 733 266 751 266 751C 249 754 233 739 237 721C 237 721 255 633 255 633C 255 628 258 624 261 620C 261 620 279 602 279 602C 279 602 385 708 385 708"
+                                transform="">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+        'image': data.block.getSelectedImage,
+        'directory':'s_front_block_images',
+        'image_style': 'width_3000',
+        'lazyload': 0,
+        'alt_default': "Newsletter"
+    }}, {})) }}
+
+    <div class="bg-overlay"></div>
+
+    <div class="newsletter-content container">
+        <div class="newsletter-content-inner">
+            <div class="title">{{ get_entity_store_attribute(current_store_id,data.block,"main_title")|raw }}</div>
+            <div class="subtitle">{{ get_entity_store_attribute(current_store_id,data.block,"subtitle")|raw }}</div>
+
+            <form action="/api/newsletter_subscribe" id="newsletter-subscribe" class="ajax-submit form-group">
+                <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+                <input type="email"
+                       class="email-field"
+                       placeholder="mail@mail.com"
+                       name="email"/>
+                <label class="label-checkbox">
+                    <input required
+                           type="radio"
+                           oninput="this.setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('{% trans into current_language %}Please fill out this field.{% endtrans %}')"
+                           name="gdpr">{% trans into current_language %}I agree to use the information provided for the purpose of receiving notification of special offers and promotions{% endtrans %}
+                </label>
+                <button type="submit" class="button btn-type-3"><span>Prijavi se</span>{{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:arrow_right_long.html.twig', 'data': {}}, {})) }}</button>
+            </form>
+        </div>
+    </div>
+</div>

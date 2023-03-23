@@ -1,0 +1,4 @@
+services:
+#    core_app.example:
+#        class: CoreAppBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

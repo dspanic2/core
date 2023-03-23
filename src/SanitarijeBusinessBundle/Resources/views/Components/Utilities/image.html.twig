@@ -1,0 +1,32 @@
+{% if image is defined and image is not empty %}
+    {% set filename = image.file ?? image %}
+    {% set image_url = "/Documents/" ~ directory ~ "/" ~ filename %}
+    {% if image_style is defined and image_style is not empty %}
+        {% set image_style_url = image_url|image_style(image_style) %}
+        {% if image_style_url %}
+            {% set image_url = image_style_url %}
+        {% endif %}
+    {% endif %}
+{% else %}
+    {% set image_url = "/frontend/images/image-placeholder.png" %}
+{% endif %}
+{% if lazyload is defined and lazyload == 0 %}
+    <img alt="{% if image.alt is defined and image.alt is not empty %}{{ image.alt }}{% else %}{{ alt_default }}{% endif %}"
+         title="{% if image.title is defined and image.title is not empty %}{{ image.title }}{% else %}{{ alt_default }}{% endif %}"
+         src="{{ image_url }}"
+         width="{{ image_url|image_width }}"
+         height="{{ image_url|image_height }}"
+         {% if itemprop is defined and itemprop == 1 %}itemprop="image"{% endif %}
+    />
+{% else %}
+    <img class="b-lazy"
+         alt="{% if image.alt is defined and image.alt is not empty %}{{ image.alt }}{% else %}{{ alt_default }}{% endif %}"
+         title="{% if image.title is defined and image.title is not empty %}{{ image.title }}{% else %}{{ alt_default }}{% endif %}"
+{#         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="#}
+         src="/frontend/image_loading.svg"
+         data-src="{{ image_url }}"
+         width="{{ image_url|image_width }}"
+         height="{{ image_url|image_height }}"
+         {% if itemprop is defined and itemprop == 1 %}itemprop="image"{% endif %}
+    />
+{% endif %}

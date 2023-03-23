@@ -1,0 +1,48 @@
+{% macro renderCategoryFilter(values, level, filter_type) %}
+    <ul>
+        {% for key,filter in values %}
+            {% set display = true %}
+            {% if filter.selected %}{% set is_selected = true %}{% endif %}
+            <li class="level-{{ level }}">
+                <label for='checkbox-{{ filter_type }}-{{ key }}' class="{% if filter.disabled %}disabled{% endif %} label-checkbox" title="{{ filter.name|trans }}">
+                    <input type='checkbox'
+                           value='{{ key }}'
+                           name='filter-{{ filter_type }}'
+                           id='checkbox-{{ filter_type }}-{{ key }}'
+                           {% if filter.disabled %}disabled{% endif %}
+                            {% if filter.selected %}checked{% endif %}/>
+                    <span class="checkmark"></span>
+                    {% if filter.prefix is defined and filter.prefix is not empty %}
+                        {{ filter.prefix|trans }}
+                    {% endif %}
+                    {{ filter.name|trans }}
+                    {% if filter.sufix is defined and filter.sufix is not empty %}
+                        {{ filter.sufix|trans }}
+                    {% endif %}
+
+                    <span class="product-count">{{ filter.product_count }}</span>
+                </label>
+
+                {% if filter.items|default([]) is not empty %}
+                    {{ _self.renderCategoryFilter(filter.items,level+1, filter_type) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% set title = "Categories"|trans %}
+{% set expanded = true %}
+{% set display = false %}
+{% set filter_display %}
+    <div class="category-filter {% if expanded %}expanded{% else %}shortened{% endif %}" data-attr-type="additional" data-filter-key="categories">
+        <div class="filter-title">{{ title }}<span class="toggle"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="filter-values categories">
+            {% for filter_type,values in data %}
+                {{ _self.renderCategoryFilter(prepare_category_list_filters(values),1, filter_type) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endset %}
+
+{{ filter_display }}

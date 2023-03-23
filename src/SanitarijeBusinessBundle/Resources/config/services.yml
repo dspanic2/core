@@ -1,0 +1,19 @@
+services:
+
+  related_products_front_block:
+    class: SanitarijeBusinessBundle\FrontBlocks\RelatedProductsBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_grid_front_block:
+    class: SanitarijeBusinessBundle\FrontBlocks\ProductGridBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]
+
+  product_filter_front_block:
+    class: SanitarijeBusinessBundle\FrontBlocks\ProductFilterBlock
+    calls:
+      - [ setContainer,[ "@service_container" ] ]
+      - [ initialize ]

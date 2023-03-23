@@ -1,0 +1,205 @@
+{% if product is defined and product is not empty %}
+    {% set product_name = get_entity_store_attribute(current_store_id,product,"name") %}
+    {% set product_url = get_entity_store_attribute(current_store_id,product,"url") %}
+    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+    {% set categories = "" %}
+    {% if product.getProductGroups() is defined and product.getProductGroups() is not empty and product.getProductGroups()|length > 0 %}
+        {% for category in product.getProductGroups() %}
+            {% if loop.index > 1 %}
+                {% set categories = categories ~ "/" %}
+            {% endif %}
+            {% set categoryName = get_entity_store_attribute(current_store_id,category.getProductGroup(),"name") %}
+            {% set categories = categories ~ categoryName %}
+        {% endfor %}
+    {% endif %}
+    <div class="product-display-grid item"
+         data-product-brand="{% if product.getBrand() is defined and product.getBrand() is not empty %}{{ get_entity_store_attribute(current_store_id,product.getBrand(),"name") }}{% endif %}"
+         data-product-categories="{{ categories }}"
+         data-product-code="{{ product.getCatalogCode() }}">
+
+        <div class="image-wrapper">
+            <div class="labels">
+                {% if prices.discount_percentage is defined and prices.discount_percentage is not empty %}
+                    <span class="discount-mark">-{{ prices.discount_percentage|number_format(0,"","") }}% popusta</span>
+                {% endif %}
+                {% if (product.getDateNewFrom is not empty and date(product.getDateNewFrom) < date()) and (product.getDateNewTo is empty or date(product.getDateNewTo) > date()) %}
+                    <span class="is-new">Novo</span>
+                {% endif %}
+            </div>
+            <div class="actions">
+                <span class="add-to-favorite {% if app.session.get('favorites_product_ids') is defined and app.session.get('favorites_product_ids') is not empty and product.id in app.session.get('favorites_product_ids') %}active{% endif %}"
+                      data-pid="{{ product.id }}"></span>
+                {#                <span class="add-to-compare {% if app.session.get('compare') is defined and app.session.get('compare') is not empty and product.id in app.session.get('compare') %}active{% endif %}" #}
+                {#                      data-pid="{{ product.id }}"></span> #}
+            </div>
+
+            {% if (product.getDateDiscountTo is not empty and date(product.getDateDiscountTo) > date()) %}
+                {% set offerDate = product.getDateDiscountTo %}
+                {% set currentDate = date("now") %}
+                {% set difference = date(offerDate).diff(date(currentDate)) %}
+                {% if difference.days <= 14 %}
+                    <div class="discount-counter">
+                        <div class="timer-label">Akcijska<br>cijena još</div>
+                        <div class="timer-counter">
+                        <span class="item days">
+                            <span class="number">{% if difference.d < 10 %}0{% endif %}{{ difference.d }}</span>
+                            <span class="number-label">Dana</span>
+                        </span>
+                            <span class="item separator">
+                            <span class="number">:</span>
+                            <span class="number-label">&nbsp;</span>
+                        </span>
+                            <span class="item hours">
+                            <span class="number">{% if difference.h < 10 %}0{% endif %}{{ difference.h }}</span>
+                            <span class="number-label">Sati</span>
+                        </span>
+                            <span class="item separator">
+                            <span class="number">:</span>
+                            <span class="number-label">&nbsp;</span>
+                        </span>
+                            <span class="item minutes">
+                            <span class="number">{% if difference.i < 10 %}0{% endif %}{{ difference.i }}</span>
+                            <span class="number-label">Min</span>
+                        </span>
+                            <span class="item separator">
+                            <span class="number">:</span>
+                            <span class="number-label">&nbsp;</span>
+                        </span>
+                            <span class="item seconds">
+                            <span class="number">{% if difference.s < 10 %}0{% endif %}{{ difference.s }}</span>
+                            <span class="number-label">Sek</span>
+                        </span>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+
+            <a class="product-display-grid-image" href="{{ current_language_url }}/{{ product_url }}" title="{{ product_name }}">
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                    'image': product.getSelectedImage(),
+                    'directory':'Products',
+                    'image_style': 'product_list_item',
+                    'alt_default': product_name
+                }}, {})) }}
+            </a>
+        </div>
+
+        <div class="product-info">
+
+            <div class="product-data">
+                {% set brand = product.getBrand() %}
+                {% if brand is not empty %}
+                    {% set brandName = get_entity_store_attribute(current_store_id,brand,"name") %}
+                    <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,51,"s_page") }}?s=1&brand={{ brandName|url_encode }}"
+                       class="product-brand-link"
+                       title="{{ brandName }}">
+                        {% if brand.getSelectedImage is not empty %}
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                'image': brand.getSelectedImage,
+                                'directory':'brand_image',
+                                'image_style': 'width_50',
+                                'lazyload': 0,
+                                'alt_default': brandName
+                            }}, {})) }}
+                        {% else %}
+                            {{ brandName }}
+                        {% endif %}
+                    </a>
+                {% endif %}
+
+                <div class="code">{% trans into current_language %}Catalog code{% endtrans %}: {{ product.getCatalogCode }}</div>
+            </div>
+
+            {% set qty = product.getPreparedQty() %}
+            {% set status = get_product_attribute_value_by_key(product,"status") %}
+            {% if qty > 0 %}
+                <div class="availability">
+                    <span class="available-label">{% trans into current_language %}Availability{% endtrans %}:&nbsp;</span>
+                    {% if status.values[0].value == 'Rasprodaja lagera' or status.values[0].value == 'Izložbeni uzorak' or status.values[0].value == 'Proizvod se prestaje/prestao proizvoditi' %}
+                        <span class="available available">Odmah - {{ status.values[0].value }}</span>
+                    {% else %}
+                        <span class="available available">Odmah</span>
+                    {% endif %}
+                </div>
+            {% else %}
+                {% if status is not empty %}
+                    <div class="availability">
+                        <span class="available-label">{% trans into current_language %}Availability{% endtrans %}:&nbsp;</span>
+                        <span class="available available-{{ status.values[0].option_id }}">{{ status.values[0].value }}</span>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <h3>
+                <a class="product-click"
+                   href="{{ current_language_url }}/{{ product_url }}"
+                   title="{{ product_name }}">{{ product_name }}</a>
+            </h3>
+        </div>
+        <div class="prices">
+            {% if prices.discount_price_other is not empty %}
+                <div class="price">
+                    <span class="price-value">{{ prices.discount_price_other|number_format(2, ',', '.') }} <span class="currency">{{ prices.currency_code }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+                    <span class="price-value">{{ convert_price(prices.discount_price_other, current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2, ',', '.') }} <span class="currency">{{ get_env("TRANSFER_TO_CURRENCY_SIGN") }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+                </div>
+            {% endif %}
+            <div class="price {% if prices.discount_price_other is not empty %}has-discount{% endif %}">
+                <span class="price-value">{{ prices.price_other|number_format(2, ',', '.') }} <span class="currency">{{ prices.currency_code }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+                <span class="price-value">{{ convert_price(prices.price_other, current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2, ',', '.') }} <span class="currency">{{ get_env("TRANSFER_TO_CURRENCY_SIGN") }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+            </div>
+
+            {% if prices.discount_price_other is not empty %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:lowest_price.html.twig', 'data': {'product': product, 'prices': prices }}, {})) }}
+            {% endif %}
+        </div>
+
+        <div class="actions">
+            {% if get_product_is_saleable(product) %}
+                {% if app.session.get('hide_prices') == 0 %}
+                    <form class="item-cart" action="/cart/add_to_cart">
+                        <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+                        <input type="hidden" value="{{ product.id }}" name="product_id">
+                        <div class="cart-amount">
+                            <span class="qty-minus"></span>
+                            <input type="number"
+                                   value="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                   data-step="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                   step="any"
+                                   name="qty"
+                                   class="qty"
+                                   min="{{ prepare_qty(product.getQtyStep,product.getQtyStep) }}"
+                                   max="{{ get_product_qty(product)|number_format(0,"","") }}">
+                            {% if product.measure is defined and product.measure is not empty %}<span class="measure">{{ product.measure }}</span>{% endif %}
+                            <span class="qty-plus"></span>
+                        </div>
+                        <button type="submit" class="button btn-type-1" title="{% trans into current_language %}Add to cart{% endtrans %}">
+                            <span>{% trans into current_language %}To cart{% endtrans %}</span>
+                            {#                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities/Icons:cart.html.twig', 'data': {}}, {})) }} #}
+                        </button>
+                    </form>
+                {% else %}
+                    {% set page_url = "" %}
+                    {% if data.page.url is defined %}
+                        {% set page_url = get_entity_store_attribute(current_store_id,data.page,"url") %}
+                    {% endif %}
+                    <div class="price-login">
+                        <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,58,"s_page") }}{% if page_url is not empty %}?destination=/{{ page_url }}{% endif %}" class="button btn-type-2">{% trans into current_language %}Log In{% endtrans %}</a>
+                    </div>
+                {% endif %}
+            {% else %}
+                {% if app.session.get('hide_prices') == 0 %}
+                    <button class="send-inquiry button btn-type-2" data-pid="{{ product.id }}">{% trans into current_language %}Send inqury{% endtrans %}</button>
+                {% else %}
+                    {% set page_url = "" %}
+                    {% if data.page.url is defined %}
+                        {% set page_url = get_entity_store_attribute(current_store_id,data.page,"url") %}
+                    {% endif %}
+                    <div class="price-login">
+                        <a href="{{ current_language_url }}/{{ get_page_url(current_store_id,58,"s_page") }}{% if page_url is not empty %}?destination=/{{ page_url }}{% endif %}" class="button btn-type-2">{% trans into current_language %}Log In{% endtrans %}</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

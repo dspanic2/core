@@ -1,0 +1,26 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} section container {{ data.block.class }}" {{ data.block.dataAttributes }}>
+    <div class="row">
+        <div class="absolute-background"></div>
+        <div class="col-xs-12">
+            {% if data.model.products is defined and data.model.products is not empty and data.model.products.entities is defined and data.model.products.entities is not empty %}
+                <h2>{% trans into current_language %}Your selected products{% endtrans %}</h2>
+                <div class="items-grid grid-view">
+                    {% apply spaceless %}
+                        {% for product in data.model.products.entities %}
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:product_list_item.html.twig', 'data': {'product': product}}, {})) }}
+                        {% endfor %}
+                    {% endapply %}
+                </div>
+
+                {# TRACKING #}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Tracking:productImpressions.html.twig', 'data': {
+                    "products": data.model.products.entities,
+                    "item_list_name": data.model.subtitle|default("")|striptags,
+                    "item_list_id": data.block.getId
+                }}, {})) }}
+            {% else %}
+                {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product:no_results_favorites.html.twig', 'data': {}}, {})) }}
+            {% endif %}
+        </div>
+    </div>
+</div>

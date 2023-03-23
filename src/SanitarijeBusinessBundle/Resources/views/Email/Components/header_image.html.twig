@@ -1,0 +1,23 @@
+{% set baseColor = get_env("EMAIL_COLOR")|default("#CC3300") %}
+<table class="mWidth100" style="width:100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#fffffe">
+    <tbody>
+    <tr>
+        <td class="heightAuto" width="800" height="250" style="width:800px;height:80px;background-position:center" bgcolor="#fff" valign="bottom">
+            <div>
+                <table style="width:100%;border-bottom: 5px solid #333333;" border="0" cellspacing="0" cellpadding="10" width="100%" align="center">
+                    <tbody>
+                    <tr>
+                        <td align="center">
+                            <a href="{{ base_url }}" target="_blank" style="width: 800px;height: 80px;display: table-cell;color: #fff;text-decoration: none;vertical-align: middle;font-size: 50px;font-style: italic;font-weight: bold;">
+                                <img src="{{ get_env("SSL") }}://{{ get_env("FRONTEND_URL") }}{{ get_env("FRONTEND_URL_PORT") }}/frontend/logo.png" style="vertical-align: bottom!important;"/>
+                                {#                                {{ data.site_base_data.site_base_name }}#}
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

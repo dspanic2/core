@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}sp-no-padding{% endblock %}
+
+{% block body %}
+
+<div id="wrap">
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12 hidden-xs min-100vh login-bg"></div>
+        <div class="col-md-9 col-sm-9 col-xs-12 min-100vh">
+            <div class="focusedform">
+                <div class="verticalcenter sp-verticalcenter">
+                    {% set logo ="/backend/AppBundle/logo.png" %}
+                    {% if file_exists("logo.png") %}
+                        {% set logo ="/logo.png" %}
+                    {% endif %}
+                    <img src="{{ logo }}" alt="Logo" class="brand">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <form data-action="request-form" action="{{ path('fos_user_resetting_send_email') }}" method="post" class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="username" name="username" required="required" placeholder="{% trans %}Your username{% endtrans %}"/>
+                                    </div>
+                                </div>
+                                <button class="sp-btn btn btn-primary btn-green btn-block" type="submit" id="_submit" name="_submit"
+                                        data-action="login-submit">{% trans %}Send request{% endtrans %}</button>
+                                {% if invalid_username is defined %}
+                                    <div class="sp-error-message">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>
+                                {% endif %}
+                            </form>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-link" style="padding-left:0">{% trans %}Back to login{% endtrans %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

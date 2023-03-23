@@ -1,0 +1,42 @@
+{% set title = ""|trans %}
+{% set expanded = true %}
+{% set display = false %}
+{% set filter_display %}
+    {% for filter_type,values in data %}
+        {% for key,filter in values %}
+            <div class="category-filter" data-attr-type="additional" data-filter-key="{{ attr_id }}">
+                {% if title is not empty %}
+                    <div class="filter-title">{{ title }}<span class="toggle"><i class="fas fa-chevron-down"></i></span></div>
+                {% endif %}
+                <div class="filter-values {{ attr_id }}">
+                    <ul>
+                        {% set display = true %}
+                        {% if filter.selected %}{% set is_selected = true %}{% endif %}
+                        <li>
+                            <label for='{{ string_to_code("filter-" ~ attr_id ~ "-" ~ key) }}'
+                                   class="{% if filter.disabled %}disabled{% endif %} label-checkbox"
+                                   title="{{ filter.name|trans }}">
+                                <input type='checkbox'
+                                       value='1'
+                                       name='filter-{{ attr_id }}'
+                                       id='{{ string_to_code("filter-" ~ attr_id ~ "-" ~ key) }}'
+                                       {% if filter.disabled %}disabled{% endif %}
+                                        {% if filter.selected %}checked{% endif %}/>
+                                <span class="checkmark"></span>
+                                {% if filter.prefix is defined and filter.prefix is not empty %}
+                                    {{ filter.prefix|trans }}
+                                {% endif %}
+                                {{ filter.name|trans }}
+                                {% if filter.sufix is defined and filter.sufix is not empty %}
+                                    {{ filter.sufix|trans }}
+                                {% endif %}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endset %}
+
+{% if display %}{{ filter_display }}{% endif %}

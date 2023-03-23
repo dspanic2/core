@@ -1,0 +1,35 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: '%env(DATABASE_HOST)%'
+    database_port: '%env(DATABASE_PORT)%'
+    database_name: '%env(DATABASE_NAME)%'
+    database_user: '%env(DATABASE_USER)%'
+    database_password: '%env(DATABASE_PASSWORD)%'
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 2ae2bef9b3945c4c32656aa139cb8882b6b10c18
+    session_max_idle_time: '%env(SESSION_TIME)%'
+    from_mail: '%env(FROM_MAIL)%'
+    autocomplete_template_path: /Form/AutocompleteTemplates/
+    actions_template_path: /ListView/Actions/
+    row_template_path: /ListView/Row/
+    web_path: '%env(WEB_PATH)%'
+    frontend_url: '%env(FRONTEND_URL)%'
+    backend_url: '%env(BACKEND_URL)%'
+    default_currency: '%env(DEFAULT_CURRENCY)%'
+    default_currency_exchange: '%env(DEFAULT_CURRENCY_EXCHANGE)%'
+    maintenance: '%env(MAINTENANCE)%'
+    assets_version: '%env(ASSETS_VERSION)%'
+    imap_username: '%env(IMAP_USERNAME)%'
+    imap_password: '%env(IMAP_PASSWORD)%'
+    imap_port: '%env(IMAP_PORT)%'
+    imap_host: '%env(IMAP_HOST)%'
+    imap_debug: '%env(IMAP_DEBUG)%'
+    imap_auth: '%env(IMAP_AUTH)%'
+    is_production: '%env(IS_PRODUCTION)%'
+    default_lang: '%env(DEFAULT_LANG)%'
+    default_website_id: '%env(DEFAULT_WEBSITE_ID)%'
+    default_store_id: '%env(DEFAULT_STORE_ID)%'
+    redis_cache_db: '%env(REDIS_CACHE_DB)%'

@@ -1,0 +1,7 @@
+<span class="price {% if class is defined and class is not empty %}{{ class }}{% endif %}">
+    <span class="price-value"><strong>{% if prefix is defined %}{{ prefix }}{% endif %}{{ price|number_format(2, ',', '.') }}</strong> <span class="currency">{{ currency }}</span></span>
+        {% if disable_conversion is not defined or disable_conversion != 1 %}
+            <span class="separator"> | </span>
+            <span class="price-value"><strong>{{ convert_price(price, current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2, ',', '.') }}</strong> <span class="currency">{{ get_env("TRANSFER_TO_CURRENCY_SIGN") }}</span></span>
+        {% endif %}
+</span>

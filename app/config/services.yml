@@ -1,0 +1,53 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+  #    service_name:
+  #        class: AppBundle\Directory\ClassName
+  #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+
+
+  #entity_controller:
+  #    class: AppBundle\Controller\EntityController
+  #    arguments: ['@entity_context','@templating','@translator','@security.token_storage']
+
+  #entity_types_controller:
+  #    class:  AppBundle\Controller\TypesController
+  #    arguments: ['@entity_type_context','@templating','@translator','@security.token_storage']
+
+  default_controller:
+    class:  AppBundle\Controller\DefaultController
+    arguments: ['@templating','@translator','@security.token_storage']
+
+  app.handler.session_idle:
+    class: AppBundle\Handler\SessionIdleHandler
+    arguments: ["@session", "@security.token_storage", "@router", %session_max_idle_time%]
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+  app.environment_listener:
+    class: AppBundle\EventListener\LocaleListener
+    arguments: ['@security.token_storage','%kernel.default_locale%']
+    tags:
+      - { name: kernel.event_subscriber  }
+
+  crm_process_manager:
+    class: SanitarijeBusinessBundle\Managers\SanitarijeCrmProcessManager
+    calls:
+      - [setContainer, ["@service_container"]]
+      - [initialize]
+
+  scommerce_manager:
+    class: SanitarijeBusinessBundle\Managers\SanitarijeScommerceManager
+    calls:
+      - [setContainer, ["@service_container"]]
+      - [initialize]
+
+  mail_provider:
+    class: AppBundle\Providers\IMAPProvider
+    calls:
+      - [setContainer, ["@service_container"]]
+

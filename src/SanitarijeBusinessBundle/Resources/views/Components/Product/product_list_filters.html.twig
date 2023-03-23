@@ -1,0 +1,123 @@
+<div class="filters">
+    {% if additional is defined and additional is not empty %}
+        {% set rendered = [] %}
+        {% if additional["price"] is defined and additional["price"] is not empty %}
+            {% set rendered = rendered|merge(['price']) %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Filters:price_filter.html.twig', 'data': {'data': additional["price"]}}, {})) }}
+        {% endif %}
+        {% if additional["categories"] is defined and additional["categories"] is not empty %}
+            {% set rendered = rendered|merge(['categories']) %}
+            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Filters:categories_filter.html.twig', 'data': {'data': additional["categories"]}}, {})) }}
+        {% endif %}
+        {% set hasMore = false %}
+        {% for attr_id,filter in additional %}
+            {% if attr_id not in rendered %}
+                {% set hasMore = true %}
+            {% endif %}
+        {% endfor %}
+        {% if hasMore %}
+            <div class="category-filter-wrapper">
+                {% for attr_id,filter in additional %}
+                    {% if attr_id not in rendered %}
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Product/Filters:simple_bool.html.twig', 'data': {'attr_id':attr_id, 'data': filter}}, {})) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% set boolFilters = [] %}
+    {% if secondary_filters is defined and secondary_filters is not empty %}
+        {% for attr_id,filter in secondary_filters %}
+            {% if filter.values is defined and filter.values is not empty %}
+                {% set is_selected = false %}
+                {% set secondary_filters_html %}
+                    {% for key,filter_value in filter.values %}
+                        {% if filter_value.selected %}{% set is_selected = true %}{% endif %}
+                        <li>
+                            {% set filterlabelValue = filter_value.name|trans %}
+                            <label for='{{ string_to_code("filter-" ~ attr_id ~ "-" ~ key) }}'
+                                   class="{% if filter_value.disabled %}disabled{% endif %} label-checkbox"
+                                   title="{{ filterlabelValue }}">
+                                <input type='checkbox'
+                                       value='{{ filter_value.name }}'
+                                       name='filter-{{ attr_id }}-{{ filter.attribute_configuration.id }}'
+                                       id='{{ string_to_code("filter-" ~ attr_id ~ "-" ~ key) }}'
+                                       {% if filter_value.disabled %}disabled{% endif %}
+                                        {% if filter_value.selected %}checked{% endif %}/>
+                                <span class="checkmark"></span>
+                                {{ filterlabelValue }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                {% endset %}
+
+                <div class="category-filter shortened {% if is_selected %}expanded{% endif %}"
+                     data-attr-id="{{ filter.attribute_configuration.id }}"
+                     data-attr-type="secondary"
+                        {% if filter.attribute_configuration.attribute_code is defined %}
+                            data-attr-code="{{ filter.attribute_configuration.attribute_code }}"
+                        {% endif %}
+                     data-filter-key="{{ filter.attribute_configuration.filter_key }}">
+                    <div class="filter-title"
+                         title="{{ filter.attribute_configuration.name|trans }}">{{ filter.attribute_configuration.name|trans }}</div>
+                    <div class="filter-values {% if filter.attribute_configuration.filter_template is defined and filter.attribute_configuration.filter_template is not empty %}{{ filter.attribute_configuration.filter_template }}{% endif %}">
+                        <ul>
+                            {{ secondary_filters_html }}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% if boolFilters is not empty %}
+            {% for attr_id,filter in boolFilters %}
+                {% set isFirstAttribute = loop.first %}
+                {% set isLastAttribute = loop.last %}
+                {% if filter.values is defined and filter.values is not empty %}
+                    {% set is_selected = false %}
+                    {% set bool_filters_html %}
+                        {% for key,filter_value in filter.values %}
+                            {% if key == "da" %}
+                                {% if filter_value.selected %}{% set is_selected = true %}{% endif %}
+                                <li>
+                                    {% set filterlabelValue = filter.attribute_configuration.name|trans %}
+                                    <label for='{{ string_to_code("filter-" ~ attr_id ~ "-" ~ key) }}'
+                                           class="{% if filter_value.disabled %}disabled{% endif %} label-checkbox"
+                                           title="{{ filterlabelValue }}">
+                                        <input type='checkbox'
+                                               value='{{ filter_value.name }}'
+                                               name='filter-{{ attr_id }}-{{ filter.attribute_configuration.id }}'
+                                               id='{{ string_to_code("filter-" ~ attr_id ~ "-" ~ key) }}'
+                                               {% if filter_value.disabled %}disabled{% endif %}
+                                                {% if filter_value.selected %}checked{% endif %}/>
+                                        <span class="checkmark"></span>
+                                        {{ filterlabelValue }}
+                                    </label>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endset %}
+
+                    <div class="category-filter shortened {% if is_selected %}expanded{% endif %} is-bool {% if isLastAttribute %}is-last{% endif %} {% if isFirstAttribute %}is-first{% endif %}"
+                         data-attr-id="{{ filter.attribute_configuration.id }}"
+                         data-attr-type="secondary"
+                            {% if filter.attribute_configuration.attribute_code is defined %}
+                                data-attr-code="{{ filter.attribute_configuration.attribute_code }}"
+                            {% endif %}
+                         data-filter-key="{{ filter.attribute_configuration.filter_key }}">
+                        <div class="filter-title">{{ "Characteristics"|trans }}</div>
+                        <div class="filter-values {% if filter.attribute_configuration.filter_template is defined and filter.attribute_configuration.filter_template is not empty %}{{ filter.attribute_configuration.filter_template }}{% endif %}">
+                            <ul>
+                                {{ bool_filters_html }}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+</div>
+<div class="text-center">
+    <button class="clear-all-filters button btn-type-2">{% trans into current_language %}Clear all filters{% endtrans %}</button>
+</div>

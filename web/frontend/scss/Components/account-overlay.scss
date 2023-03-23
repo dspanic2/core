@@ -1,0 +1,111 @@
+// Imports.
+@import "../Global/variables";
+
+#account-display {
+  z-index: 998 !important;
+  top: $top_offset;
+  @media(max-width: 767px) {
+    top: $mobile_top_offset;
+  }
+  @media(max-width: 500px){
+    top: $mobile_mini_top_offset;
+  }
+
+  &.active {
+    .account-inner {
+      margin-right: 0;
+    }
+  }
+
+  .account-inner {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: #fff;
+    width: 410px;
+    max-width: 100%;
+    overflow: auto;
+    margin-right: -100%;
+    transition: margin-right 0.2s;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        .price-toggler,
+        .account-email {
+          border-bottom: 1px solid #D8D8D8;
+          padding: 28px 45px;
+          @media(max-width: 767px) {
+            padding: 28px 15px;
+          }
+        }
+
+        .price-toggler {
+          padding: 5px 45px;
+
+          label {
+            display: block;
+            margin: 10px 0;
+          }
+        }
+
+        .user-link.user-logout-link {
+          border-top: 1px solid #D8D8D8;
+          padding: 28px 45px;
+          color: $secondary_color;
+        }
+
+        & > * {
+          padding: 15px 0 15px 48px;
+          display: block;
+          font-family: $font_primary;
+          font-style: normal;
+          font-weight: normal;
+          font-size: calculateRem(17px);
+          color: $black;
+        }
+
+        a {
+          transition: all 0.2s;
+          position: relative;
+          padding-left: 80px;
+          @media(max-width: 767px) {
+            padding-left: 50px;
+          }
+
+          svg {
+            margin-right: 15px;
+            vertical-align: middle;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 48px;
+            width: 19px;
+            @media(max-width: 767px) {
+              left: 15px;
+            }
+
+            * {
+              transition: all 0.2s;
+              fill: $black;
+            }
+          }
+
+          &:hover {
+            color: $secondary_color;
+
+            svg {
+              * {
+                fill: $secondary_color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

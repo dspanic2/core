@@ -1,0 +1,44 @@
+{#{% set base_url = data.settings.base_url %}#}
+{% set base_url = get_env("SSL") ~ "://" ~ get_env("FRONTEND_URL") %}
+{% set mails_img = '/frontend/images/mail' %}
+{% set baseColor = get_env("EMAIL_COLOR")|default("#CC3300") %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Versie 2.4 --><!--responsive_template-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+    <title>{{ data.subject }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-apple-disable-message-reformatting">
+    <!--[if !mso]> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<![endif]-->
+</head>
+<body bgcolor="#ecebf0" style="background-color: #ecebf0; background: url('{{ base_url }}{{ mails_img }}/back.png') no-repeat center center;">
+<table class="mWidth100" style="table-layout:fixed;width:800px" border="0" cellspacing="0" cellpadding="0"
+       bgcolor="#fffffe" align="center">
+    <tbody>
+    <tr>
+        <td align="center" valign="top">
+            {% block header %}{% include 'SanitarijeBusinessBundle:Email/Components:header.html.twig' %}{% endblock %}
+
+            {% block body %}{% endblock %}
+
+            {% block body_secondary %}{% endblock %}
+
+            {% include 'SanitarijeBusinessBundle:Email/Components:footer.html.twig' %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

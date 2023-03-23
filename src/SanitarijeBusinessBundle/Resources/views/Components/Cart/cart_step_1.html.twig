@@ -1,0 +1,81 @@
+<div class="row text-center uppercase">
+    {# <div class="subtitle">{% trans into current_language %}Excellent choice!{% endtrans %}</div> #}
+    {# <h1>{% trans into current_language %}It's time to close the order{% endtrans %}</h1> #}
+</div>
+<div class="cart-items">
+    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_product_list.html.twig', 'data': {'quoteItems': data.model.quote.quoteItems, 'editable': 1, 'data': data}}, {})) }}
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-sm-push-5 text-right">
+            <span class="form-note text-right">{% trans into current_language %}IN CASE OF QUANTITY CHANGE CLICK ON UPDATE CART IN ORDER TO UPDATE QUANTITIES{% endtrans %}</span>
+            <span id="update-cart" class="button btn-type-2">{% trans into current_language %}Update cart{% endtrans %}</span>
+
+            <div class="cart-totals-section">
+                {% if data.model.additional_data is defined and data.model.additional_data.min_order is defined and data.model.additional_data.min_order.disable_cart %}
+                    <div class="cart-action">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_totals.html.twig', 'data': {
+                            'data': data,
+                            'show_delivery': true
+                        }}, {})) }}
+                    </div>
+                    <div class="min-cart-diff">
+                        {{ data.model.additional_data.min_order.warning }}
+                    </div>
+                {% else %}
+                    <div class="cart-action">
+                        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_totals.html.twig', 'data': {
+                            'data': data,
+                            'show_delivery': true
+                        }}, {})) }}
+                        {# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_proceed_plain.html.twig', 'data': {}}, {})) }} #}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-sm-pull-7">
+            <div class="cart-discount-title"><span class="color-pink">Imate kupon?</span> </div>
+            <div class="cart-discount coupon-wrapper">
+                <div class="cart-discount-inner">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart/Registration:cart_discount.html.twig', 'data': {'data': data}}, {})) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {% if data.model.additional_data is defined and data.model.additional_data.min_order is defined and data.model.additional_data.min_order.disable_cart %}
+            {% else %}
+                <div class="cart-action">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_proceed_plain.html.twig', 'data': {}}, {})) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <span class="clearfix"></span>
+</div>
+{# {% if data.model.additional_data is defined and data.model.additional_data.min_order is defined and data.model.additional_data.min_order.disable_cart %} #}
+{# <div class="cart-action"> #}
+{# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_totals.html.twig', 'data': {'data': data}}, {})) }} #}
+{# </div> #}
+{# <div class="min-cart-diff"> #}
+{# {{ data.model.additional_data.min_order.warning }} #}
+{# </div> #}
+{# {% else %} #}
+{# <div class="cart-action"> #}
+{# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_totals.html.twig', 'data': {'data': data}}, {})) }} #}
+
+{# {% if data.model.donation_funds is defined and data.model.donation_funds is not empty %} #}
+{# <div class="cart-donation"> #}
+{# <form> #}
+{# <div class="form-row"> #}
+{# <label class="label-checkbox"> #}
+{# <input type="checkbox" data-action="cart-donate" {% if data.model.quote.getDonationFund is not empty %}checked{% endif %}> Želim #}
+{# donirati {{ get_application_setting("donation_percentage") }}% iznosa kupovine u humanitarne svrhe <span class="choose-fund local-overlay-toggle">Odaberi udrugu</span> #}
+{# </label> #}
+{# </div> #}
+{# </form> #}
+{# </div> #}
+{# {% endif %} #}
+
+{# {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Cart:cart_proceed_plain.html.twig', 'data': {}}, {})) }} #}
+{# </div> #}
+{# {% endif %} #}

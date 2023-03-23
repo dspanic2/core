@@ -1,0 +1,41 @@
+{% apply spaceless %}
+    {% if quote is defined %}
+        {% set trackingCode %}
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'checkout',
+                    'ecommerce': {
+                        'checkout': {
+                            'actionField': {'step': 1, 'option': 'checkout'},
+                            'products': [
+                                {% for quoteItem in quote.getQuoteItems %}
+                                    {% set product = quoteItem.product %}
+
+                                    {% set productName = get_entity_store_attribute(current_store_id,product,"name")|striptags %}
+
+                                    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+
+                                    {% set brand = product.getBrand %}
+                                    {% set brandName = "" %}
+                                    {% if brand is not empty %}
+                                        {% set brandName = get_entity_store_attribute(current_store_id,brand,"name")|striptags %}
+                                    {% endif %}
+                                    {
+                                        'id': '{{ product.getId }}',
+                                        'name': '{{ productName }}',
+                                        'price': {{ convert_price(prices.final_tracking_price,current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2,".","") }},
+                                        'brand': '{{ brandName }}',
+                                        'category': '{{ get_menu_tree_for_product(product)|default([])|last|default("")|striptags }}',
+                                        'quantity': {{ prepare_qty(quoteItem.getQty,quoteItem.product.getQtyStep) }}
+                                    }{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            ]
+                        }
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ trackingCode|striptags|raw }}
+    {% endif %}
+{% endapply %}

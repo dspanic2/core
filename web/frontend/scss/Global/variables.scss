@@ -1,0 +1,101 @@
+$theme-root: '..';
+
+//@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;600;700&display=swap&subset=latin-ext');
+@font-face {
+  font-family: Monteserrat;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/frontend/fonts/Montserrat/Montserrat-Regular.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: Monteserrat;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/frontend/fonts/Montserrat/Montserrat-Medium.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: Monteserrat;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/frontend/fonts/Montserrat/Montserrat-SemiBold.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: Monteserrat;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/frontend/fonts/Montserrat/Montserrat-Bold.ttf") format("opentype");
+}
+
+// Fonts
+//$font_primary: Montserrat, sans-serif !default;
+$font_primary: Monteserrat, sans-serif !default;
+
+$frontend_font_size_main: 18px !default;
+$frontend_font_size_mobile: 13.5px !default;
+$frontend_font_size_main_zoom: $frontend_font_size_main !default;
+
+// Functions
+@function calculateRem($pixels) {
+  @return $pixels / $frontend_font_size_main + rem;
+}
+
+// Colors
+$primary_color: #1DB4EF !default;
+$secondary_color: #A2CF63 !default;
+
+$grey: #D8D8D8 !default;
+$grey_2: #F3F3F3 !default;
+$grey_3: #949697 !default;
+$grey_4: #EDEDED !default;
+$grey_5: #E0E0E0 !default;
+
+//$color_success: #70C215 !default;
+$brown: #D19000 !default;
+$black: #212528 !default;
+
+$header_first: #212528 !default;
+$header_second: #383D42 !default;
+
+$header_links: #9199A0 !default;
+
+$primary_font_color: #1D1D1D;
+
+$white: #fff !default;
+$color_success: #11ac68 !default;
+$color_failure: #ac1111 !default;
+
+// SCSS
+// --------------------------------------------------------
+
+// gray
+$TEXT: #5A5A5A;
+$-gray-50: #E9EFF6;
+$-gray-100: #D1DFEC;
+$-gray-200: #A4BFDA;
+$-gray-300: #769EC7;
+$-gray-400: #497EB5;
+$-gray-500: #1B5EA2;
+$-gray-600: #14477A;
+$-gray-700: #0E2F51;
+$-gray-800: #071829;
+$-gray-900: #030910;
+
+// primary
+$-primary-50: #FBF0E9;
+$-primary-100: #F7DFD1;
+$-primary-200: #EFC0A3;
+$-primary-300: #E6A075;
+$-primary-400: #DE8147;
+$-primary-500: #D66119;
+$-primary-600: #A14913;
+$-primary-700: #6B310D;
+$-primary-800: #361806;
+$-primary-900: #150A03;
+
+$link_hover: $-primary-500;
+$top_offset: 120px;
+$mobile_top_offset: 80px;
+$mobile_mini_top_offset: 50px;

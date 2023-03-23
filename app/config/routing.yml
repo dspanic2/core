@@ -1,0 +1,58 @@
+payment_providers:
+  resource: "@PaymentProvidersBusinessBundle/Controller/"
+  type: annotation
+  host: "{domain}"
+  requirements:
+    domain: "%frontend_url%"
+scommerce:
+  resource: "@ScommerceBusinessBundle/Controller/"
+  type: annotation
+  host: "{domain}"
+  requirements:
+    domain: "%frontend_url%"
+sanitarijeadmin:
+  resource: "@SanitarijeAdminBusinessBundle/Controller/"
+  type: annotation
+  host: "%backend_url%"
+tours:
+  resource: "@ToursBusinessBundle/Controller/"
+  type: annotation
+crm:
+  resource: "@CrmBusinessBundle/Controller/"
+  type: annotation
+  host: "%backend_url%"
+app:
+  resource: "@AppBundle/Controller/"
+  type: annotation
+  host: "%backend_url%"
+administrator:
+  resource: "@AppBundle/Controller/AdministratorController/"
+  type: annotation
+  host: "%backend_url%"
+core_api:
+  resource: "@AppBundle/Controller/CoreApiController/"
+  type: annotation
+  host: "%backend_url%"
+task:
+  resource: "@TaskBusinessBundle/Controller/"
+  type: annotation
+  host: "%backend_url%"
+#gls:
+#  resource: "@GLSBusinessBundle/Controller/"
+#  type: annotation
+fos_user:
+  resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+NelmioApiDocBundle:
+  resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+  prefix: /administrator/api/doc
+notification:
+  resource: "@NotificationsAndAlertsBusinessBundle/Controller/"
+  type: annotation
+  host: "%backend_url%"
+wiki:
+  resource: "@WikiBusinessBundle/Controller/"
+  type: annotation
+  host: "%backend_url%"
+google_ads:
+    resource: "@IntegrationBusinessBundle/Controller/"
+    type: annotation

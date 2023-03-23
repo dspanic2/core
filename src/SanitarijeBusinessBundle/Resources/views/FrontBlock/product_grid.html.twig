@@ -1,0 +1,17 @@
+<div class="sp-block-outer sp-block-outer-{{ data.block.type }} category-products product-list {{ data.block.class }}" {{ data.block.dataAttributes }} id="block-{{ data.block.id }}">
+    <div class="content">
+        <div class="section items-options">{% if data.model.sort_html is defined and data.model.sort_html is not empty %}{{ data.model.sort_html|raw }}{% endif %}</div>
+        {% if get_env("SHOW_ACTIVE_FILTERS") == 1 %}
+            <div class="active-filters-wrapper">{% if data.model.active_filters is defined and data.model.active_filters is not empty %}{{ data.model.active_filters|raw }}{% endif %}</div>
+        {% endif %}
+        <div class="section items-grid no-padding grid-view">{% if data.model.grid_html is defined and data.model.grid_html is not empty %}{{ data.model.grid_html|raw }}{% endif %}</div>
+        <div class="section items-pager no-padding text-center">{% if data.model.pager_html is defined and data.model.pager_html is not empty %}{{ data.model.pager_html|raw }}{% endif %}</div>
+
+        {# TRACKING #}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Tracking:productImpressions.html.twig', 'data': {
+            "products": data.model.entities,
+            "item_list_name": get_entity_store_attribute(current_store_id,current_entity,"name")|default(""),
+            "item_list_id": current_entity.getId
+        }}, {})) }}
+    </div>
+</div>

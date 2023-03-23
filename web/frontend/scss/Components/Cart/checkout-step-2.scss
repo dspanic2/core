@@ -1,0 +1,110 @@
+// Imports.
+@import "../../Global/variables";
+
+a.terms_of_use {
+  color: $secondary_color;
+
+  &:hover {
+    color: $secondary_color;
+  }
+}
+
+#cart-step-2 {
+  .delivery-address {
+    margin-bottom: 20px;
+  }
+
+  .overview-section {
+    margin-top: 30px;
+  }
+
+  .delivery-address-data,
+  .private-r1-information {
+    margin-top: 15px;
+  }
+
+  .cart-donation {
+    label {
+      &::after {
+        display: none !important;
+      }
+    }
+  }
+
+  .invalid {
+    border-color: $color_failure !important;
+  }
+
+  .cart-login {
+    margin: 0;
+    background: $-gray-50;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+
+    .login-label {
+      font-weight: 500;
+      font-size: calculateRem(20px);
+      line-height: 24px;
+      color: $-gray-700;
+    }
+
+    .button {
+      margin-left: 32px;
+    }
+  }
+
+  form {
+    label {
+      margin-bottom: 8px;
+
+      .label-text {
+        font-weight: bold;
+        font-size: calculateRem(14px);
+        line-height: 20px;
+        color: #5A5A5A;
+      }
+    }
+
+    @media only screen and (max-width: 767px) {
+      .basic-information {
+        margin-top: 2rem;
+      }
+    }
+    @media only screen and (max-width: 767px) {
+      .form-group.date-of-birth .row > div {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    label.smaller-responsive {
+      font-size: 1rem;
+      width: 100%;
+    }
+  }
+
+  .checkout-section {
+    margin: 0;
+
+    span.label {
+      font-weight: bold;
+      font-size: calculateRem(18px);
+      line-height: 22px;
+      color: $-gray-600;
+      margin: 0 0 15px 0;
+    }
+
+    .checkout-section-content {
+      padding: 22px;
+      border: 1px solid #EDEDED;
+      box-sizing: border-box;
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.1);
+      border-radius: 2px;
+    }
+  }
+}

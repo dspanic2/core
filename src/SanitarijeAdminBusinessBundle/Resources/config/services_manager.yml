@@ -1,0 +1,8 @@
+services:
+
+    product_buttons:
+        class: SanitarijeAdminBusinessBundle\Buttons\ProductButtons
+        calls:
+            - [ setContainer,[ "@service_container" ] ]
+            - [ initialize ]
+

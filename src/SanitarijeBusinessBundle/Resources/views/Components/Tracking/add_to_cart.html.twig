@@ -1,0 +1,47 @@
+{% if get_env('SEND_GTAG_EVENTS') == 1 %}
+    {% apply spaceless %}
+        {% if quote_item is defined %}
+            {% set product = quote_item.getProduct %}
+
+            {% set brand = get_product_attribute_value_by_key(product, 'brand') %}
+            {% set brandName = '' %}
+            {% if brand is not empty %}
+                {% set brandName = brand.values[0].value %}
+            {% endif %}
+
+            {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':data.configurable_bundle|default({})}, {}))|json_decode %}
+
+            {% set productGroupName = "" %}
+            {% set groups = product.getProductGroups %}
+            {% if groups is not empty %}
+                {% set productGroupName = get_entity_store_attribute(current_store_id,(groups|last),"name") %}
+            {% endif %}
+
+            {% set trackingCode %}
+                <script>
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({
+                        'event': 'addToCart',
+                        'ecommerce': {
+                            'currencyCode': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                            'add': {
+                                'products': [
+                                    {
+                                        'name': '{{ get_entity_store_attribute(current_store_id, product,'name') }}',
+                                        'id': '{{ product.getId }}',
+                                        'price': '{{ convert_price(prices.final_tracking_price,current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2,".","") }}',
+                                        'brand': '{{ brandName }}',
+                                        'category': '{{ productGroupName }}',
+                                        'quantity': {{ prepare_qty(quote_item.getQty,quote_item.product.getQtyStep) }}
+                                    }
+                                ]
+                            }
+                        }
+                    });
+                </script>
+            {% endset %}
+            {# Cisto da se kod formatira u phpstormu, ali za execute ne trebaju script tagovi #}
+            {{ trackingCode|striptags|raw }}
+        {% endif %}
+    {% endapply %}
+{% endif %}

@@ -1,0 +1,19 @@
+{% if has_next_page|default(false) %}
+    <button class="button btn-type-1 products-load-more local-overlay-toggle" data-current-page="1">učitaj <strong>više</strong></button>
+{% endif %}
+{# {% set page_size = 0 %} #}
+{# {% for option in page_size_options %} #}
+{#    {% if option.value is defined and option.selected %} #}
+{#        {% set page_size = option.value %} #}
+{#    {% endif %} #}
+{# {% endfor %} #}
+{# {% if page_size is not empty and total > page_size and page_size > 0 %} #}
+{#    {% apply spaceless %} #}
+{#        <ul class="category-list-pager"> #}
+{#            {% for i in 1..(total/page_size)|round(0, 'ceil') %} #}
+{#                <li class="local-overlay-toggle page page-{{ i }} {% if i == page_number %}activated{% endif %}" #}
+{#                    data-page-number="{{ i }}">{{ i }}</li> #}
+{#            {% endfor %} #}
+{#        </ul> #}
+{#    {% endapply %} #}
+{# {% endif %} #}

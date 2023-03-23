@@ -1,0 +1,39 @@
+{% if product is defined %}
+    {% set productName = get_entity_store_attribute(current_store_id,product,"name")|striptags %}
+    {% set listTrackingData = app.request.cookies.get("list_tracking")|json_decode(constant('JSON_OBJECT_AS_ARRAY'))["product-" ~ product.getId]|default("") %}
+
+    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':data.configurable_bundle|default({})}, {}))|json_decode %}
+
+    {% set brand = product.getBrand %}
+    {% set brandName = "" %}
+    {% if brand is not empty %}
+        {% set brandName = get_entity_store_attribute(current_store_id,brand,"name")|striptags %}
+    {% endif %}
+    {% apply spaceless %}
+        {% set trackingData %}
+            <script type="text/javascript">
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'productClick',
+                    'ecommerce': {
+                        'click': {
+                            'actionField': {'list': '{{ listTrackingData["list_name"]|default("")|striptags }}'},
+                            'products': [
+                                {
+                                    'id': '{{ product.getId }}',
+                                    'name': '{{ productName }}',
+                                    'price': {{ convert_price(prices.final_tracking_price,current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2,".","") }},
+                                    'brand': '{{ brandName }}',
+                                    'category': '{{ get_menu_tree_for_product(product)|default([])|last|default("")|striptags }}',
+                                    'list': '{{ listTrackingData["list_name"]|default("")|striptags }}',
+                                    'position': {{ listTrackingData["list_index"]|default(0)+1 }}
+                                }
+                            ]
+                        }
+                    }
+                });
+            </script>
+        {% endset %}
+        {{ set_global_tracking_data(trackingData) }}
+    {% endapply %}
+{% endif %}

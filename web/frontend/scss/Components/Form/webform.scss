@@ -1,0 +1,13 @@
+// Imports.
+@import "../../Global/variables";
+
+form.webform {
+  .webform-group {
+    margin-bottom: 15px;
+
+    .webform-group-title {
+      font-size: calculateRem(30px);
+      margin-bottom: 15px;
+    }
+  }
+}

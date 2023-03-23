@@ -1,0 +1,207 @@
+{% set assets = list_assets() %}
+
+{#
+{% if app.user.template is defined and app.user.template is not empty %}
+    {% set template = app.user.template %}
+{% endif %}
+#}
+{% set template = "newcore" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {% if data.dropbox_key is defined %}
+        <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
+                data-app-key="{{ data.dropbox_key }}"></script>
+    {% endif %}
+
+    {% for css in assets.css %}
+        {% if css ends with "*" %}
+            {% set files = list_files("backend/" ~ css|replace({"/*" : ""}), true)|default({}) %}
+            {% for file in files %}
+                <link rel="preload" type="text/css" href="/{{ file }}?{{ assets_version }}" as="style">
+                <link rel="stylesheet" type="text/css" href="/{{ file }}?{{ assets_version }}">
+            {% endfor %}
+        {% else %}
+            <link rel="preload" type="text/css" href="/backend/{{ css }}?{{ assets_version }}" as="style">
+            <link rel="stylesheet" type="text/css" href="/backend/{{ css }}?{{ assets_version }}">
+        {% endif %}
+    {% endfor %}
+    {% block stylesheets %}{% endblock %}
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+</head>
+<body
+        class="sp horizontal-nav {% block body_class %}{% endblock %} {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}login{% endif %}">
+<div data-base-url="true" data-url="{{ app.request.getBaseURL() }}/" class="hidden"></div>
+
+{% apply spaceless %}
+    <div class="main-layout">
+
+        <div
+                class="columns {% if app.request.cookies.get("minified-menu") == "true" %}minified{% endif %} {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}has-menu{% endif %}">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <div class="layout-left">
+                    <div class="logo">
+                        {% set logo ="/backend/AppBundle/logo.png" %}
+                        {% if file_exists("logo.png") %}
+                            {% set logo ="/logo.png" %}
+                        {% endif %}
+                        {% set logo_mini ="/backend/AppBundle/logo-mini.png" %}
+                        {% if file_exists("logo-mini.png") %}
+                            {% set logo_mini ="/logo-mini.png" %}
+                        {% endif %}
+                        {% if app.request.cookies.get("minified-menu") == "true" %}
+                            <a href="/">
+                                <img src="{{ logo_mini }}" data-mini="{{ logo }}">
+                            </a>
+                        {% else %}
+                            <a href="/">
+                                <img src="{{ logo }}" data-mini="{{ logo_mini }}">
+                            </a>
+                        {% endif %}
+                        <a href="/" class="responsive-logo">
+                            <img src="{{ logo_mini }}">
+                        </a>
+                    </div>
+                    {% block nav %}
+                        <nav class="navbar navbar-default yamm navbar-fixed-top" role="navigation">
+                            <button type="button" class="navbar-toggle">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <div class="menu-quick-search col-xs-12">
+                                <input type="text" data-action="menu-quick-search"
+                                       placeholder="{% trans %}Menu quick search{% endtrans %}"/>
+                                <ul id="menu-quick-search-results"></ul>
+                            </div>
+                            {{ render(controller('AppBundle:Navigation:mainNavigation', { 'type': 'top'})) }}
+                            <span id="minify-menu"
+                                  {% if app.request.cookies.get("minified-menu") == "true" %}class="minified"{% endif %} >
+                                <i class="fa fa-arrow-circle-left hit"></i>
+                            </span>
+                        </nav>
+                    {% endblock %}
+                </div>
+            {% endif %}
+
+            <div class="layout-right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <header>
+                        <div class="header-bar">
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                                <span
+                                        class="toggle-as-admin"
+                                        title="{% trans %}Display as admin{% endtrans %}">
+                                    <i class="fas fa-people-arrows"></i>
+                                </span>
+                                <span
+                                        class="tour-selector-generator"
+                                        title="{% trans %}Tour builder{% endtrans %}">
+                                    <i class="fas fa-map-signs"></i>
+                                </span>
+                            {% endif %}
+
+                            {% if page_has_tour_tips(app.request) %}
+                                {% set tourRunning = app.session.get('tour_running') %}
+                                <span class="tour-starter {% if tourRunning is not empty %}active{% endif %}"
+                                      data-running="{{ tourRunning }}"
+                                      title="{% if tourRunning is not empty %}{% trans %}Tour stop{% endtrans %}{% else %}{% trans %}Tour start{% endtrans %}{% endif %}">
+                                    <i class="fas fa-question"></i>
+                                </span>
+                            {% endif %}
+                            <ul class="nav navbar-nav pull-right toolbar">
+                                {% if data is defined %}
+                                    {{ render(controller('NotificationsAndAlertsBusinessBundle:Notification:getHeaderNotificationsForUser', {}, {})) }}
+                                    {{ render(controller('TaskBusinessBundle:Task:getHeaderTaskButton', {'data':data}, {})) }}
+                                {% endif %}
+                                <li class="dropdown">
+                                    <form id="quicksearch" method="get" action="/page/quick_search/dashboard">
+                                        <button class="sp-search-button" type="submit"><i class="fa fa-search"></i>
+                                        </button>
+                                        <input type="text"
+                                               class="form-control sp-top-search"
+                                               name="query"
+                                               placeholder="{% trans %}Search{% endtrans %}..."
+                                               {% if data.quickSearchQuery is defined and data.quickSearchQuery is not empty %}value="{{ data.quickSearchQuery }}{% endif %}"/>
+                                        <span class="sp-close-search sp-hover" data-action="toggle_search"><i
+                                                    class="fa fa-times"></i></span>
+                                    </form>
+                                </li>
+                                <li class="dropdown">
+                                    <span class="dropdown-toggle username" data-toggle="dropdown"
+                                          title="{{ app.user.username }}"><span>{{ app.user.username }} </span><i
+                                                class="fa fa-caret-down"></i></span>
+                                    <ul class="userinfo arrow">
+                                        <li class="username">
+                                            <h5>{% trans %}Logged in as{% endtrans %}
+                                                <strong>{{ app.user.username }}</strong></h5>
+                                        </li>
+                                        <li class="userlinks">
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{ path('fos_user_security_logout') }}"
+                                                       class="text-right">{% trans %}Sign Out{% endtrans %}</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </header>
+                {% endif %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <div class="sp-main-actions-wrapper">
+                        <div class="container">
+                            <h4>
+                                {% block main_title %}{% endblock %}
+                                {% set frontendUrl = get_entity_frontend_url(data.model.entity|default(null)) %}
+                                {% if frontendUrl is not empty %}
+                                    {% for key,url in frontendUrl %}
+                                        {% if key == "default" %}
+                                            <a href="{{ url }}" target="_blank" title="{% trans %}Show on frontend{% endtrans %}"><i class="fas fa-solar-panel"></i></a>
+                                        {% else %}
+                                            <a href="{{ url }}" target="_blank" title="{{ key }}">{{ key }}</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </h4>
+                            <div class="options">
+                                {% use 'AppBundle:Includes:main_actions.html.twig' %}
+                                {% block main_actions %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% block body %}{% endblock %}
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% include 'footer.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endapply %}
+
+{% include 'translation.html.twig' %}
+
+{% for js in assets.js %}
+    {% if js ends with "*" %}
+        {% set files = list_files("backend/" ~ js|replace({"/*" : ""}), true)|default({}) %}
+        {% for file in files %}
+        <script src="/{{ file }}?{{ assets_version }}"></script>
+        {% endfor %}
+    {% else %}
+        <script src="/backend/{{ js }}?{{ assets_version }}"></script>
+    {% endif %}
+{% endfor %}
+{% block javascripts %}{% endblock %}
+
+<div id="ajax-loading" class="overlay"><span></span></div>
+</body>
+</html>

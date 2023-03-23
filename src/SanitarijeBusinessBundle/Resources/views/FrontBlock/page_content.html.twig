@@ -1,0 +1,12 @@
+{% if data.page.content is defined and data.page.content is not empty %}
+    <div class="sp-block-outer sp-block-outer-{{ data.block.type }} {{ data.block.class }}" {{ data.block.dataAttributes }}>
+        <div class="row">
+            {% set pageContent = get_entity_store_attribute(current_store_id,data.page,"content") %}
+            {% if pageContent|striptags|raw|trim != '###' %}
+                <div class="content">
+                    {{ pageContent|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

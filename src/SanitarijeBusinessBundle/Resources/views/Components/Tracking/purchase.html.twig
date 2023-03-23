@@ -1,0 +1,48 @@
+{% if order is defined %}
+    {% apply spaceless %}
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'purchaseSuccess',
+                'ecommerce': {
+                    'currencyCode': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                    'purchase': {
+                        'actionField': {
+                            'id': '{{ order.getIncrementId }}',
+                            'affiliation': '{{ get_env("SITE_NAME") }}',
+                            'revenue': '{{ convert_price(order.getPriceTotal,current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2,".","") }}',
+                            'tax': '{{ convert_price(order.getPriceTax,current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2,".","") }}',
+                            'shipping': '{{ convert_price(order.getPriceDeliveryTotal,current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2,".","") }}',
+                            'coupon': '{% if order.getDiscountCoupon is not empty %}{{ order.getDiscountCoupon.getCouponCode }}{% endif %}'
+                        },
+                        'products': [
+                            {% for orderItem in order.getOrderItems %}
+                                {% if not is_configurable(orderItem.getProduct) %}
+                                    {% set productGroupName = "" %}
+                                    {% set groups = orderItem.getProduct.getProductGroups %}
+                                    {% if groups is not empty %}
+                                        {% set productGroupName = get_entity_store_attribute(current_store_id,(groups|last),"name") %}
+                                    {% endif %}
+
+                                    {% set brandName = '' %}
+                                    {% set brand = orderItem.getProduct.getBrand %}
+                                    {% if brand is not empty %}
+                                        {% set brandName = get_entity_store_attribute(current_store_id,brand,"name")|striptags %}
+                                    {% endif %}
+                                    {
+                                        'id': '{{ orderItem.getProduct.getId }}',
+                                        'name': '{{ get_entity_store_attribute(current_store_id,orderItem.getProduct,"name") }}',
+                                        'category': '{{ productGroupName }}',
+                                        'price': {{ convert_price(orderItem.priceItem,current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2,".","") }},
+                                        'quantity': {{ (orderItem.getQty|round(0, 'ceil')) }},
+                                        'brand': '{{ brandName }}',
+                                    }{% if not loop.last %},{% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        ]
+                    }
+                }
+            });
+        </script>
+    {% endapply %}
+{% endif %}

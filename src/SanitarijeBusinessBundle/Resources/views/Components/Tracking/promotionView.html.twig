@@ -1,0 +1,25 @@
+{% if slider is defined %}
+    {% apply spaceless %}
+        <script type="text/javascript">
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'currencyCode': '{{ get_env("CURRENT_CURRENCY_CODE") }}',
+                    'promoView': {
+                        'promotions': [
+                            {% for slide in slider.getImages() %}
+                            {
+                                'id': '{{ slide.getId }}',
+                                'name': '{{ slide.getName|striptags }}',
+                                'creative': 'banner1',
+                                'position': '{{ loop.index }}'
+                            }{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        ]
+                    }
+                }
+            });
+        </script>
+    {% endapply %}
+{% endif %}

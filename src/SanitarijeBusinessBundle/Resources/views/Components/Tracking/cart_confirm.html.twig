@@ -1,0 +1,21 @@
+{% if get_env('SEND_GTAG_EVENTS') == 1 %}
+    {% apply spaceless %}
+        {% if quote is defined %}
+            {% set trackingCode %}
+                <script>
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({
+                        'event': 'checkout',
+                        'ecommerce': {
+                            'checkout': {
+                                'actionField': {'step': 3, 'option': 'checkout'}
+                            }
+                        }
+                    });
+                </script>
+            {% endset %}
+            {# Cisto da se kod formatira u phpstormu, ali za execute ne trebaju script tagovi #}
+            {{ trackingCode|striptags|raw }}
+        {% endif %}
+    {% endapply %}
+{% endif %}

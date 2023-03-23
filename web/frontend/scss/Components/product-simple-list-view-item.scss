@@ -1,0 +1,72 @@
+//// Imports.
+//@import "../Global/variables";
+//
+//.items-grid.simple-list-view .item {
+//  position: relative;
+//
+//  &:not(:last-of-type) {
+//    margin-bottom: 20px;
+//  }
+//
+//  .info {
+//    display: inline-block;
+//  }
+//
+//  .cart-remove-item {
+//    position: absolute;
+//    top: 0;
+//    right: 7px;
+//    color: $secondary_color;
+//    font-size: calculateRem(32px);
+//    cursor: pointer;
+//    transform: translateY(-50%);
+//  }
+//
+//  .image {
+//    width: 30%;
+//    display: inline-block;
+//    vertical-align: top;
+//    text-align: center;
+//
+//    img {
+//      height: 70px;
+//      width: auto;
+//      max-width: 60px;
+//      object-fit: contain;
+//    }
+//  }
+//
+//  .info {
+//    width: 55%;
+//    display: inline-block;
+//
+//    .title,
+//    .title a {
+//      margin-bottom: 5px;
+//      font-family: $font_primary;
+//      font-size: calculateRem(14px);
+//      font-weight: normal;
+//      font-stretch: normal;
+//      font-style: normal;
+//      line-height: normal;
+//      letter-spacing: normal;
+//      text-transform: none;
+//      color: $primary_color;
+//      white-space: normal;
+//    }
+//
+//    .amount {
+//      background: $secondary_color;
+//      color: $white;
+//      font-size: calculateRem(10px);
+//      display: inline-block;
+//      border-radius: 50%;
+//      min-width: 20px;
+//      height: 20px;
+//      line-height: 20px;
+//      text-align: center;
+//      padding: 0;
+//      margin-right: 10px;
+//    }
+//  }
+//}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrap">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12 min-100vh">
+                <div class="focusedform">
+                    <div class="verticalcenter sp-verticalcenter">
+                        {% set logo ="/backend/AppBundle/logo.png" %}
+                        {% if file_exists("logo.png") %}
+                            {% set logo ="/logo.png" %}
+                        {% endif %}
+                        <img src="{{ logo }}" alt="Logo" class="brand">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <h4 class="text-center" style="margin-bottom: 25px;">{% trans %}Log in to get started{% endtrans %}</h4>
+                                <form data-action="login-form" action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal">
+                                    <fieldset class="form-group-wrapper">
+                                        <div class="form-group row hidden">
+                                            <div class="col-sm-8">
+                                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="username" class="control-label col-sm-4 sp-text-left">{% trans %}Username{% endtrans %}</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required"
+                                                       placeholder="{% trans %}Username{% endtrans %}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="password" class="control-label col-sm-4 sp-text-left">{% trans %}Password{% endtrans %}</label>
+                                            <div class="col-sm-8">
+                                                <input type="password" class="form-control" id="password" name="_password" required="required" placeholder="{% trans %}Password{% endtrans %}"/>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="pull-right"><label><input type="checkbox" id="remember_me" name="_remember_me" checked="checked"/> {% trans %}Remember Me{% endtrans %}</label>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary btn-green btn-block" type="submit" id="_submit" name="_submit"
+                                                data-action="login-submit">{% trans %}Log In{% endtrans %}</button>
+                                        {% if error %}
+                                            <div class="sp-error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                        {% endif %}
+                                    </fieldset>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <a href="{{ path('fos_user_resetting_request') }}" class="pull-left btn btn-link" style="padding-left:0">{% trans %}Forgot password?{% endtrans %}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 hidden-xs min-100vh login-bg"></div>
+        </div>
+    </div>
+{% endblock body %}

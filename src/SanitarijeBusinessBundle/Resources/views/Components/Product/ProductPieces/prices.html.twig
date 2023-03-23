@@ -1,0 +1,30 @@
+{% if product is defined and product is not empty %}
+    {% set url = get_entity_store_attribute(current_store_id,product,"url") %}
+    {% set site_base_data = get_env("SITE_BASE_DATA")|json_decode %}
+
+    {# GET REAL PRODUCT IF NOT SIMPLE #}
+    {% set product = get_real_product(product, get_query_parameters()) %}
+
+    {% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product,'options':{}}, {}))|json_decode %}
+    <div class="prices" itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
+        {% if prices.discount_price_other is not empty %}
+            <div class="price">
+                <span class="price-value">{{ prices.discount_price_other|number_format(2, ',', '.') }} <span class="currency">{{ prices.currency_code }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+                <meta itemprop="price" content="{{ prices.discount_price_other|number_format(2, '.', '') }}"/>
+                <meta itemprop="priceCurrency" content="{{ prices.currency_short_code }}"/>
+                <span class="price-value">{{ convert_price(prices.discount_price_other, current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2, ',', '.') }} <span class="currency">{{ get_env("TRANSFER_TO_CURRENCY_SIGN") }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+            </div>
+        {% endif %}
+        <div class="price {% if prices.discount_price_other is not empty %}has-discount{% endif %}">
+            <span class="price-value">{{ prices.price_other|number_format(2, ',', '.') }} <span class="currency">{{ prices.currency_code }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+            {% if prices.discount_price_other is empty %}
+                <meta itemprop="price" content="{{ prices.price_other|number_format(2, '.', '') }}"/>
+                <meta itemprop="priceCurrency" content="{{ prices.currency_short_code }}"/>
+            {% endif %}
+            <span class="price-value">{{ convert_price(prices.price_other, current_store_id, get_env("TRANSFER_TO_CURRENCY_CODE"))|number_format(2, ',', '.') }} <span class="currency">{{ get_env("TRANSFER_TO_CURRENCY_SIGN") }}{% if product.measure is defined and product.measure is not empty %}/<br/>{{ product.measure }}{% endif %}</span></span>
+        </div>
+    </div>
+    {% if prices.discount_price_other is not empty %}
+        {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:lowest_price.html.twig', 'data': {'product': product, 'prices': prices }}, {})) }}
+    {% endif %}
+{% endif %}

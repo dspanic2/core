@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}sp-no-padding{% endblock %}
+
+{% block body %}
+
+    <div id="wrap">
+        <div class="row-fluid">
+            <div class="col-md-3 col-sm-3 col-xs-12 hidden-xs min-100vh login-bg"></div>
+            <div class="col-md-9 col-sm-9 col-xs-12 min-100vh">
+                <div class="focusedform">
+                    <div class="verticalcenter sp-verticalcenter">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                                                <form action="" method="post" class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="text"  autocomplete="off" class="form-control" id="_auth_code" name="_auth_code" required="required" placeholder="{% trans %}Authenticator Code{% endtrans %}"/>
+                                    {#{% if useTrustedOption %}<p class="widget"><label for="_trusted"><input id="_trusted" type="checkbox" name="_trusted" /> {{ "scheb_two_factor.trusted"|trans }}</label></p>{% endif %}#}
+                                        </div>
+                                    </div>
+
+                                    <button class="sp-btn btn btn-primary btn-green btn-block" type="submit" id="_submit" name="_submit" data-action="login-submit">{% trans %}Submit{% endtrans %}</button>
+                                    {% for flashMessage in app.session.flashbag.get("two_factor") %}
+                                        <div class="sp-error-message">{{ flashMessage|trans }}</div>
+                                    {% endfor %}
+
+                                </form>
+
+                            </div>
+                            <div class="panel-footer">
+                                <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link" style="padding-left:0">{% trans %}Forgot your username or password?{% endtrans %}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+

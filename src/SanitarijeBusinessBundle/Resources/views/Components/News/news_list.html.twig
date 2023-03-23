@@ -1,0 +1,7 @@
+{% apply spaceless %}
+    {% if blogs is defined and blogs is not empty %}
+        {% for blog in blogs %}
+          {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/News:news_list_item.html.twig', 'data': {'blog': blog} }, {})) }}
+        {% endfor %}
+    {% endif %}
+{% endapply %}

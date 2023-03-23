@@ -1,0 +1,60 @@
+{% set product = get_real_product(product, get_query_parameters()) %}
+{% set product_title = get_entity_store_attribute(current_store_id,product,"name") %}
+{% set prices = render(controller('ScommerceBusinessBundle:Price:getProductPrices', {'product':product}, {}))|json_decode %}
+{% set images = product.getImages()|default(null) %}
+<div class="product-gallery {% if images is empty or images|length < 2 %}no-navigation{% endif %}" itemprop="image">
+    {% if images is not empty and images|length > 1 %}
+        <div class="product-slider-navigation" data-image-count="{{ product.getImages()|length }}">
+            {% for key,image in images %}
+                <div class="image">
+                    {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                        'image': image,
+                        'directory':'Products',
+                        'image_style': 'product_list_item',
+                        'lazyload': 0,
+                        'alt_default': product_title ~ "-" ~ key
+                    }}, {})) }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="product-slider-wrapper {% if images|length == 1 %}single-image{% endif %}">
+        <div class="labels">
+            {% if prices.discount_percentage is defined and prices.discount_percentage is not empty %}
+                <span class="discount-mark">-{{ prices.discount_percentage|number_format(0,"","") }}% popusta</span>
+            {% endif %}
+            {% if (product.getDateNewFrom is not empty and date(product.getDateNewFrom) < date()) and (product.getDateNewTo is empty or date(product.getDateNewTo) > date()) %}
+                <span class="is-new">Novo</span>
+            {% endif %}
+        </div>
+        <div class="actions">
+            <span class="add-to-favorite {% if app.session.get('favorites_product_ids') is defined and app.session.get('favorites_product_ids') is not empty and product.id in app.session.get('favorites_product_ids') %}active{% endif %}"
+                  data-pid="{{ product.id }}"></span>
+            {#            <span class="add-to-compare {% if app.session.get('compare') is defined and app.session.get('compare') is not empty and product.id in app.session.get('compare') %}active{% endif %}" #}
+            {#                  data-pid="{{ product.id }}"></span> #}
+        </div>
+        <div class="product-slider">
+            {% if images is not empty %}
+                {% for key,image in images %}
+                    <div class="image">
+                        <a href="/Documents/Products/{{ image.file }}" itemprop="image">
+                            {{ render(controller('ScommerceBusinessBundle:Template:twigIncludeTwig', {'template':'Components/Utilities:image.html.twig', 'data': {
+                                'image': image,
+                                'directory':'Products',
+                                'image_style': 'product_image',
+                                'lazyload': 0,
+                                'alt_default': product_title ~ "-" ~ key,
+                            }}, {})) }}
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="image">
+                    <img src="/frontend/images/image-placeholder.png"
+                         itemprop="image"
+                         alt="no image"/>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
